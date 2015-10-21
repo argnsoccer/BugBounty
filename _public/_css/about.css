@@ -1,0 +1,111 @@
+﻿@font-face
+{
+    font-family: Helvetica;
+    src:url(../_fonts/Helvetica.otf);
+}
+
+@font-face
+{
+    font-family: PT-Sans;
+    src: url(../_fonts/PT_Sans-Web-Regular.ttf);
+}
+
+body 
+{
+    background-color: #303030;
+}
+
+#navBar
+{
+  background-color: #0f0f0f;
+  box-shadow: 0 2px 8px 0;
+  height: 18px;
+  margin: 0;
+  padding: 10px;
+}
+
+#navBar *
+{
+    display: inline;
+    text-decoration: none;
+}
+
+#navbar_logo
+{
+    height: 100%;
+}
+
+li.leftNav
+{
+    color: #FAFAFA;
+    font-family: PT-Sans, Arial, sans-serif;
+    padding: 9px;
+    position: relative;
+    bottom: 3px;
+}
+
+li.leftNav:hover
+{
+  background-color: #5b5b5b;
+}
+
+li.leftNav > a
+{
+    color: #FAFAFA;
+}
+
+.loginForm
+{
+  float: right;
+  padding-right: 2px;
+}
+
+#what_is
+{
+    color: #FAFAFA;
+    margin-left: auto;
+    margin-right: auto;
+    width: 730px;
+}
+
+#what_is > h1
+{
+    font-family: PT-Sans;
+}
+
+#who_is
+{
+    color: #FAFAFA;
+    margin-left: auto;
+    margin-right: auto;
+    width: 730px;
+}
+
+#who_is > h1
+{
+    font-family: PT-Sans;
+}
+
+.profile-picture
+{
+    height: 150px;
+    width: 125px;
+}
+
+.profile-picture + p
+{
+    color: #FAFAFA;
+    font-family: Helvetica;
+    text-align: center;
+    margin-top: 0;
+}
+
+.bio
+{
+    color: #FAFAFA;
+    font-family: sans-serif;
+    height: 150px;
+    text-align: left;
+    padding-bottom: 30px;
+    width: 600px;
+}

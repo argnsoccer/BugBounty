@@ -1,0 +1,98 @@
+@font-face
+{
+    font-family: PT-Sans;
+    src: url(../_fonts/PT_Sans-Web-Regular.ttf);
+}
+
+@font-face
+{
+    font-family: PT-Sans;
+    font-weight: bold;
+    src: url(../_fonts/PT_Sans-Web-bold.ttf);
+}
+
+body
+{
+    background-color: #303030;
+}
+
+hr
+{
+    border-color: #131313;
+    border-radius: 50px;
+}
+
+#navBar
+{
+  background-color: #0f0f0f;
+  box-shadow: 0 2px 8px 0;
+  height: 18px;
+  margin: 0;
+  padding: 10px;
+}
+
+#navBar *
+{
+    display: inline;
+    text-decoration: none;
+}
+
+#navbar_logo
+{
+    height: 100%;
+}
+
+li.leftNav
+{
+    color: #FAFAFA;
+    font-family: PT-Sans, Arial, sans-serif;
+    padding: 9px;
+    position: relative;
+    bottom: 3px;
+}
+
+li.leftNav:hover
+{
+  background-color: #5b5b5b;
+}
+
+li.leftNav > a
+{
+    color: #FAFAFA;
+}
+
+.loginForm
+{
+  float: right;
+  padding-right: 2px;
+}
+
+#main_header
+{
+    color: #FAFAFA;
+    font-family: PT-Sans, Arial, sans-serif;
+    font-weight: bold;
+}
+
+.contact-block
+{
+    margin-top: 10px;
+    margin-right: 4px;
+    margin-bottom: 5px;
+    margin-left: 4px;
+}
+
+.contact-block > h3
+{
+    color: #FAFAFA;
+    font-family: PT-Sans, Arial, sans-serif;
+    font-weight: bold;
+    margin: 0;
+}
+
+.contact-block > p
+{
+    color: #FAFAFA;
+    font-family: PT-Sans, Arial, sans-serif;
+    margin: 0;
+}

@@ -1,0 +1,129 @@
+@font-face
+{
+    font-family: PT-Sans;
+    src: url(../_fonts/PT_Sans-Web-Regular.ttf);
+}
+
+#navBar
+{
+  background-color: #0f0f0f;
+  box-shadow: 0 2px 8px 0;
+  height: 18px;
+  margin: 0;
+  padding: 10px;
+}
+
+#navBar *
+{
+    display: inline;
+    text-decoration: none;
+}
+
+#navbar_logo
+{
+    height: 100%;
+}
+
+li.leftNav
+{
+    color: #FAFAFA;
+    font-family: PT-Sans, Arial, sans-serif;
+    padding: 9px;
+    position: relative;
+    bottom: 3px;
+}
+
+li.leftNav:hover
+{
+  background-color: #5b5b5b;
+}
+
+li.leftNav > a
+{
+    color: #FAFAFA;
+}
+
+.loginForm
+{
+  float: right;
+  padding-right: 2px;
+}
+
+#banner
+{
+    background-image: url("../_images/_random/landing-banner.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: 0 2px 8px 0;
+    height: 300px;
+    position: relative;
+    text-align: center;
+    z-index: -1;
+}
+
+.vert-align-helper
+{
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+#logo
+{
+    vertical-align: middle;
+}
+
+#content_area
+{
+    background-color: #303030;
+    height: 600px;
+    text-align:center;
+    z-index: -2;
+}
+
+#features
+{
+    margin-top: 50px;
+    display: inline-block;
+}
+
+.feature-icon
+{
+    height: 75px;
+}
+
+.feature-text
+{
+    color: #FAFAFA;
+    font-family: sans-serif;
+    text-align: left;
+    text-indent: 3px;
+    vertical-align: middle;
+}
+
+#signUp
+{
+    display: inline-block;
+    padding-left: 2em;
+}
+
+.signUpForm
+{   
+    height: 40px;
+    width: 300px;
+    /*border-radius: 10px;*/
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#footer
+{
+  background-color: #b0c4de;
+}
+
+#footer > p
+{
+  float: right;
+}

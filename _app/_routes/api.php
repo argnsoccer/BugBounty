@@ -1,0 +1,343 @@
+<?php
+
+session_start();
+session_set_cookie_params(0);
+
+$dbname = 'BugBounty';
+$user = 'root';
+$pass = 'Windows9';
+$host = '127.0.0.1';
+
+try {
+  $dbh = new PDO("mysql:host=$host;dbname=$dbname", "$user", "$pass");
+}
+catch (PDOException $e) {
+    $response = "Failed to connect: ";
+    $response .= $e->getMessage();
+    die ($response);
+}
+
+$app->get('/api/test', function () {
+    echo "API";
+});
+
+/*
+Danny Rizzuto
+Update the session information from javascript
+Error Codes:
+  0 = session info updated
+  1 = session infor not updated
+*/
+
+$app->get('/api/updateSession', function ($property, $value) {
+  $result['status'] = 'complete';
+
+  try 
+  {
+    $_SESSION[$property] = $value;
+    $result['error'] = '0';
+  }
+  catch (Exception $e)
+  {
+    $result['error'] = '1';
+    $result['message'] = $e->getMessage();
+  }
+
+  echo json_encode($result);
+});
+
+/*
+Danny Rizzuto
+Check to see if user can login
+Error Codes:
+  0 = login user
+  1 = user username/password incorrect
+  2 = statement did not execute
+*/
+
+$app->post('/api/userLogin', function () {
+  global $dbh;
+
+  $args[':username'] = $_POST['username'];
+  $args[':password'] = $_POST['password'];
+
+  $statement = $dbh->prepare("SELECT username FROM Account WHERE username = :username AND password = :password");
+
+  $result['status'] = "complete";
+
+  if($statement->execute($args))
+  {
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    if (isset($row['username']))
+    {
+      $result["username"] = $row['username'];
+      $result['error'] = '0';
+      $result['message']= "";
+      $_SESSION['userLogin'] = $row['username'];
+    }
+    else
+    {
+      $result['error'] = '1';
+      $result['message'] = "The username and password combination did not work";
+    }
+  }
+  else
+  {
+    $result['error'] = '2';
+    $result['message'] = $statement->errorInfo();
+  }
+
+  echo json_encode($result);
+});
+
+
+$app->post('/api/validateUser', function() {
+  global $dbh;
+  $args [':username'] = $_POST['username'];
+  $args [':password'] = $_POST['password'];
+  $sth = $dbh->prepare(
+    "SELECT userID FROM Account
+    WHERE username = :username AND password = :password");
+  if ($sth->execute($args)) {
+    $result['success'] = false;
+    while($row = $sth->fetch(PDO::FETCH_ASSOC))
+    {
+      $args = array();
+      $args[':username'] = $_POST["username"];
+      $args[':token'] = bin2hex(openssl_random_pseudo_bytes(32));
+      $result['valid'] = true;
+      $result['userId'] = $row['userID'];
+      $sth = $dbh->prepare(
+      "UPDATE Account
+      SET sessionCookie=:token
+      WHERE username = :username");
+      if($sth->execute($args))
+      {
+        $result['success'] = true;
+        $result['token'] = $args[':token'];
+      }
+      $result['errorInfo'] = $result['valid'] ? '' : 'The combination is incorrect.';
+    }
+  }
+  else {
+    //$result['success'] = false;
+    $result['test'] = "test";
+    $result['errorInfo'] = $sth->errorInfo();
+  }
+  echo json_encode($result);
+});
+
+$app->post('/api/createBounty', function()
+{
+  global $dbh;
+  $args[':ownerId'] = $_POST['userId'];
+  $args[':bountyName'] = $_POST['name'];
+  $args[':payout'] = $_POST['payout'];
+  $args[':link'] = $_POST['link'];
+  $args[':endDate'] = $_POST['endDate'];
+  $args[':fullDesc'] = $_POST['desc'];
+  $sth = $dbh->prepare(
+  "INSERT INTO BountyPool (dateCreated,PayoutPool,dateEnding,bountyMarshallId,bountyLink,fullDesc)
+  VALUES (now(),:payout,:endDate,:ownerId,:link,:fullDesc)");
+  if($sth->execute($args))
+  {
+    $result['success'] = true;
+    $result['bountyId'] = $dbh->lastInsertId();
+  }
+  else
+  {
+    $result['success'] = false;
+    $result['errorInfo'] = $sth->errorInfo();
+  }
+  echo json_encode($result);
+});
+
+$app->post('/logout', function() use ($dbh){
+  session_destroy();
+  $result = array("success" => true);
+  echo json_encode($result);
+});
+
+$app->get('/api/getUser/:username', function($username) {
+  global $dbh;
+  $sth = $dbh->prepare(
+    "SELECT userID, email, dateCreated FROM Account
+    WHERE username = :username");
+  $sth->bindParam(':username', $username);
+  if ($sth->execute()) {
+    $row = $sth->fetch(PDO::FETCH_ASSOC);
+    $result['success'] = true;
+    $result['userID'] = $row['userID'];
+    $result['email'] = $row['email'];
+    $result['dateCreated'] = $row['dateCreated'];
+  }
+  else {
+    $result['success'] = false;
+    $result['error'] = $sth->errorInfo();
+  }
+  echo json_encode($result);
+});
+
+$app->post('/api/addUser', function() {
+  global $dbh;
+
+  if (!isset($_POST['email']) ||
+    !isset($_POST['username']) ||
+    !isset($_POST['password'])) {
+    $result['success'] = false;
+    $result['errorInfo'] = "please fill out all of the fields.";
+    echo json_encode($result);
+    return;
+  }
+
+  $infoCheck = validateSignUpInfo($_POST['username'], $_POST['email']);
+
+  if ($infoCheck['validUsername'] == false) {
+    $result['success'] = false;
+    $result['errorInfo'] = $infoCheck['errorInfo']['usernameError'];
+  }
+  else if ($infoCheck['validEmail'] == false) {
+    $result['success'] = false;
+    $result['errorInfo'] = $infoCheck['errorInfo']['emailError'];
+  }
+  else {
+    $args[':email'] = $_POST['email'];
+    $args[':username'] = $_POST['username'];
+    $args[':password'] = $_POST['password'];
+    $sth = $dbh->prepare(
+      "INSERT INTO Account (email, username, password, dateCreated, activated)
+      VALUE (:email, :username, :password, NOW(), 1)");
+    if ($sth->execute($args)) {
+      $result['success'] = true;
+      $result['userId'] = $dbh->lastInsertId();
+    }
+    else {
+      $result['success'] = false;
+      $result['errorInfo'] = $sth->errorInfo();
+    }
+  }
+  echo json_encode($result);
+});
+
+// function validateSignUpInfo($username, $email) {
+//   global $dbh;
+
+//   $sth = $dbh->prepare(
+//     "SELECT count(username) AS uCount FROM Account
+//     WHERE username = :username");
+//   $sth->bindParam(':username', $username);
+
+//   if ($sth->execute()) {
+//     $row = $sth->fetch(PDO::FETCH_ASSOC);
+//     $result['success'] = true;
+//     $result['validUsername'] = $row['uCount'] == 0;
+//     $badUsername = $result['validUsername'] ? '' : "the username $username is already taken.";
+//   }
+//   else {
+//     $result['success'] = false;
+//     $result['errorInfo'] = array("dbError" => $sth->errorInfo());
+//   }
+
+//   $sth = $dbh->prepare(
+//     "SELECT count(email) AS eCount FROM Account
+//     WHERE email = :email");
+//   $sth->bindParam(':email', $email);
+
+//   if ($sth->execute()) {
+//     $row = $sth->fetch(PDO::FETCH_ASSOC);
+//     $result['success'] = true;
+//     $result['validEmail'] = $row['eCount'] == 0;
+//     $badEmail = $result['validEmail'] ? '' : "the email $email is already taken.";
+//   }
+//   else {
+//     $result['success'] = false;
+//     $result['errorInfo'] = array("dbError" => $sth->errorInfo());
+//   }
+
+//   $result['errorInfo'] = array(
+//     'usernameError' => $badUsername,
+//     'emailError' => $badEmail
+//   );
+
+//   return $result;
+// }
+
+// $app->get('/api/getProfile/:username', function($username) {
+//   global $dbh;
+//   $sth = $dbh->prepare(
+//     "SELECT marshallID, description, imageLoc, company FROM Marshall
+//     WHERE username = :username");
+//   $sth->bindParam(':username', $username);
+//   if ($sth->execute()) {
+//     $row = $sth->fetch(PDO::FETCH_ASSOC);
+//     $result['description'] = $row['description'];
+//     $result['imageLoc'] = $row['imageLoc'];
+//     $result['company'] = $row['company'];
+//     $result['marshallID'] = $row['marshallID'];
+//   }
+//   else {
+//     $result['success'] = false;
+//     $result['error'] = $sth->errorInfo();
+//   }
+//   $sth = $dbh->prepare(
+//   "SELECT * FROM BountyPool WHERE bountyMarshallID = $result['marshallID']"
+//   );
+//   if($sth->execut()){
+//     $row = $sth->fetch(PDO::FETCH_ASSOC);
+//     $result['dateCreated'] = $row['dateCreated'];
+//     $result['PayoutPool'] = $row['PayoutPool'];
+//     $result['dateEnding'] = $row['dateEnding'];
+//     $result['bountyLink'] = $row['bountyLink'];
+//     $result['success'] = true;
+//   }
+//   else{
+//     $result['success'] = false;
+//     $result['error'] = $sth->errorInfo();
+//   }
+//   echo json_encode($result);
+// });
+
+// $app->post('/api/sendReport', function()){
+//   global $dbh;
+//   $args[':reportText'] = $_POST['reportText'];
+//   $args[':username'] = $_POST['username'];
+//   $args[':bountyID'] = $_POST['bountyID'];
+//   $sth = $dbh->prepare(
+//   "INSERT into Report (reportText, username, bountyID) values (:reportText, :username, :bountyID)"
+//   )
+//   if($sth->execute($args)){
+//     $result['success'] = true;
+//   }
+//   else{
+//     $result['success'] = false;
+//     $result['error'] = $sth->errorInfo();
+//   }
+//   echo json_encode($result);
+// }
+
+// $app->get('/api/getReport', function(){
+//   global $dbh;
+//   $args[':username'] = $_POST['username'];
+//   $args[':marshallID'] = $_POST['marshallID'];
+//   $args[':bountyID'] = $_POST['bountyID'];
+//   $sth = $dbh->prepare(
+//   "SELECT ReportText, Paid, Assessed, payountAmt, dateSubmitted, ScreenshotFolderLoc FROM Report
+//     WHERE marshallID = :marshallID AND bountyID = :bountyID");
+//   )
+//   if($sth->execute($args)){
+//     $row = $sth->fetch(PDO::FETCH_ASSOC);
+//     $result['success'] = true;
+//     $result['ReportText'] = $row['ReportText'];
+//     $result['Paid'] = $row['Paid'];
+//     $result['Assessed'] = $row['Assessed'];
+//     $result['payountAmt'] = $row['payountAmt'];
+//     $result['dateSubmitted'] = $row['dateSubmitted'];
+//     $result['ScreenshotFolderLoc'] = $row['ScreenshotFolderLoc'];
+//   }
+//   else{
+//     $result['success'] = false;
+//     $result['error'] = $sth->errorInfo();
+//   }
+//   echo json_encode($result);
+// });
+
