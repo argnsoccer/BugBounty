@@ -1,23 +1,37 @@
+function isSet(key, value) 
+{
+  if (value == null || value == '')
+  {
+    alert("Please check that properties are all filled in!");
+    return false;
+  }
+  return true;
+}
+
+
 $(document).ready(function () 
 {
   $("#submitSignUp").click(function() 
   {
-      var emailSignUp = $("#signUpEmail").val()
-      var usernameSignUp = $("#signUpUsername").val();
-      var passwordSignUp = $("#signUpPassword").val();
+    var userInfo = {}
 
-      if(emailSignUp == '' || passwordSignUp == '' || usernameSignUp == '') 
+    userInfo["username"] = $("#signUpUsername").val();
+    userInfo["password"] = $("#signUpPassword").val();
+    userInfo["email"] = $("#signUpEmail").val()
+
+      for (var property in userInfo)
       {
-        $('input[type="text"].signUpForm, input[type="password"].signUpForm')
+        if (!isSet(property, userInfo[property]))
+        {
+          $('input[type="text"].loginForm, input[type="password"].loginForm')
       .css("border","2px solid red");
-        $('input[type="text"].signUpForm,input[type="password"].signUpForm')
+          $('input[type="text"].loginForm,input[type="password"].loginForm')
       .css("box-shadow","0 0 3px red");
-        alert("Please fill in all fields.");
-        return false;
+          return false;
+        }
       }
-      else
-      {
-        alert("filled");
-      }
+      alert("heyoo");
+
+
   });
 });

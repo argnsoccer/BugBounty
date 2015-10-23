@@ -53,17 +53,19 @@ Error Codes:
   0 = login user
   1 = user username/password incorrect
   2 = statement did not execute
+Returns
+  username
+  userType
 */
 
 $app->post('/api/userLogin', function () {
+  $result['status'] = "complete";
   global $dbh;
 
   $args[':username'] = $_POST['username'];
   $args[':password'] = $_POST['password'];
 
-  $statement = $dbh->prepare("SELECT username FROM Account WHERE username = :username AND password = :password");
-
-  $result['status'] = "complete";
+  $statement = $dbh->prepare("SELECT username,  FROM Account WHERE username = :username AND password = :password");
 
   if($statement->execute($args))
   {
@@ -71,9 +73,12 @@ $app->post('/api/userLogin', function () {
     if (isset($row['username']))
     {
       $result["username"] = $row['username'];
+      $result["userType"] = $row['accType'];
       $result['error'] = '0';
       $result['message']= "";
+      
       $_SESSION['userLogin'] = $row['username'];
+      $_SESSION['userType'] = $row['accType'];
     }
     else
     {

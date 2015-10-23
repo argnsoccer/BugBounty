@@ -3,7 +3,7 @@ session_destroy();
 session_start();
 ?>
 
-<!DOCTYPE html>
+
 <html>
 <head>
     <title>I ain't afraid of no bugs!</title>
@@ -15,30 +15,9 @@ session_start();
   <script type="text/javascript" src="_javascript/sign_up.js"></script>
 </head>
 <body>
-    <div id="navBar">
-        <img id="navbar_logo" src="../_images/_logos/BugBountyTextLogo.png" />
-        <ul>
-            <li class="leftNav"><a href="/">Home</a></li>
-            <li class="leftNav"><a href="/index.php/contact">Contact</a></li>
-            <li class="leftNav"><a href="/index.php/about">About</a></li>
-        </ul>
-<?php
-        if (isset($_SESSION['userLogin']))
-        {
-          echo '<form id="login" name="loginForm" method="post">
-          <input class="loginForm" type="submit" value="Log In" id="submitLogin">
-          <input class="loginForm" type="password" name="password" placeholder="Password" id="passLogin">
-          <input class="loginForm" type="text" name="username" placeholder="Username" id="usernameLogin">
-        </form>';
-        }
-        else
-        {
-          //echo 'button';
-        }
-?>
-        
 
-    </div>
+
+<?php require 'header_login.php' ?>
 
     <div id="banner">
         <span class="vert-align-helper"></span>
@@ -62,12 +41,10 @@ session_start();
           <input class="signUpForm" type="text" placeholder="Choose a username" id="signUpUsername">
           <input class="signUpForm" type="password" placeholder="Choose a password" id="signUpPassword">
           <input class="signUpForm" type="submit" value="Sign Up!" id="submitSignUp">
-        </form>';
+        </form>
     </div>
 
-    <div id="footer">
-        <p>Developed by 404 Team Name Not Found</p>
-    </div>
+{{include('footer.php')}}
 
 </body>
 

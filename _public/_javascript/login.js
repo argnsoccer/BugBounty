@@ -32,17 +32,17 @@ $(document).ready(function ()
       $.ajax({
         url: '/index.php/api/userLogin',
         data: userInfo,
-        datatype: 'json',
+        dataType: 'json',
         async: 'false',
         type: 'POST',
         success: function(response)
         {
-          response = JSON.parseJSON(response);
-          alert(response["error"]);
+          //alert(response.error);
+
           if (response['error'] == '0')
           {
-            alert("SUCCESS");
-
+            alert(response);
+            wind
           }
           else if (response['error'] == '1')
           {
