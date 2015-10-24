@@ -48,6 +48,30 @@ $app->get('/api/updateSession', function ($property, $value) {
 
 /*
 Danny Rizzuto
+Delete the current Session
+Error Codes:
+  0 = session deleted
+  1 = session not deleted
+*/
+
+$app->get('/api/deleteSession', function() {
+  $result['status'] = "complete";
+
+  try {
+    session_destroy();
+    $result['error'] = '0';
+  }
+  catch (Exception $e)
+  {
+    $result['error'] = '1';
+    $result['message'] = $e->getMessage();
+  }
+
+  echo json_encode($result);
+});
+
+/*
+Danny Rizzuto
 Check to see if user can login
 Error Codes:
   0 = login user
@@ -65,20 +89,20 @@ $app->post('/api/userLogin', function () {
   $args[':username'] = $_POST['username'];
   $args[':password'] = $_POST['password'];
 
-  $statement = $dbh->prepare("SELECT username,  FROM Account WHERE username = :username AND password = :password");
+  $statement = $dbh->prepare("SELECT username, accType FROM Account WHERE username = :username AND password = :password");
 
   if($statement->execute($args))
   {
     $row = $statement->fetch(PDO::FETCH_ASSOC);
     if (isset($row['username']))
     {
-      $result["username"] = $row['username'];
-      $result["userType"] = $row['accType'];
+      $result["username"] = strtolower($row['username']);
+      $result["userType"] = strtolower($row['accType']);
       $result['error'] = '0';
       $result['message']= "";
       
-      $_SESSION['userLogin'] = $row['username'];
-      $_SESSION['userType'] = $row['accType'];
+      $_SESSION['userLogin'] = strtolower($row['username']);
+      $_SESSION['userType'] = strtolower($row['accType']);
     }
     else
     {
@@ -95,42 +119,56 @@ $app->post('/api/userLogin', function () {
   echo json_encode($result);
 });
 
+/*
+Danny Rizzuto
+Sign Up a user
+Error Codes:
+  0 = user signed up and logged in
+  1 = username exists
+  2 = email exists
+  3 = statement did not execute
+Returns
+  username
+  userType
+*/
 
-$app->post('/api/validateUser', function() {
-  global $dbh;
-  $args [':username'] = $_POST['username'];
-  $args [':password'] = $_POST['password'];
-  $sth = $dbh->prepare(
-    "SELECT userID FROM Account
-    WHERE username = :username AND password = :password");
-  if ($sth->execute($args)) {
-    $result['success'] = false;
-    while($row = $sth->fetch(PDO::FETCH_ASSOC))
+  $app->post('/api/userSignUp', function() {
+    $result['status'] = "incomplete";
+    global $dbh;
+
+    $args[':username'] = strtolower($_POST['username']);
+    $args[':password'] = $_POST['password'];
+    $args[':email'] = strtolower($_POST['email']);
+    $args[':accountType'] = strtolower($_POST['accountType']);
+
+
+    $statement = $dbh->prepare(
+      "INSERT INTO Account 
+      (username, email, password, dateCreated, accType, dateOfLastActivity)
+      VALUES 
+      (:username, :email, :password, NOW(), :accountType, NOW())");
+
+    if($statement->execute($args))
     {
-      $args = array();
-      $args[':username'] = $_POST["username"];
-      $args[':token'] = bin2hex(openssl_random_pseudo_bytes(32));
-      $result['valid'] = true;
-      $result['userId'] = $row['userID'];
-      $sth = $dbh->prepare(
-      "UPDATE Account
-      SET sessionCookie=:token
-      WHERE username = :username");
-      if($sth->execute($args))
-      {
-        $result['success'] = true;
-        $result['token'] = $args[':token'];
-      }
-      $result['errorInfo'] = $result['valid'] ? '' : 'The combination is incorrect.';
+      $result['username'] = strtolower($_POST['username']);
+      $result['userType'] = strtolower($_POST['accountType']);
+      $result['error'] = '0';
+
+      $_SESSION['userLogin'] = strtolower($_POST['username']);
+      $_SESSION['userType'] = strtolower($_POST['accountType']);
     }
-  }
-  else {
-    //$result['success'] = false;
-    $result['test'] = "test";
-    $result['errorInfo'] = $sth->errorInfo();
-  }
-  echo json_encode($result);
-});
+    else
+    {
+      $result['error'] = '1';
+      $result['message'] = $statement->errorInfo()[2];
+      
+      //THIS NEEDS TO BE FIXED TO DIFFERENTIATE BETWEEN EMAIL AND USERNAME
+    }
+
+    echo json_encode($result);
+
+
+  });
 
 $app->post('/api/createBounty', function()
 {

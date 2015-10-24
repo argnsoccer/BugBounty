@@ -15,8 +15,7 @@
 
 <body>
 
-<!-- {{include('header_login.php')}} -->
-<?php include 'header_login.php' ?>
+{{include('header_login.php')}}
 
     <div id="what_is">
         <h1>What is BugBounty?</h1>

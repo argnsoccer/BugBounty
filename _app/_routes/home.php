@@ -1,6 +1,6 @@
 <?php
 
-session_destroy();
+//session_destroy();
 session_start();
 session_set_cookie_params(0);
 //$_SESSION['userLogin'] = "mgilbert";
@@ -14,9 +14,13 @@ $app->get('/', function() use ($app) {
 		{
 			$app->render('/_hunter/home.php');
 		}
-		else if ($_SESSION['userType'] == 'marshall')
+		else if ($_SESSION['userType'] == 'marshall' || $_SESSION['userType'] == 'sheriff')
 		{
 			$app->render('/_marshall/home.php');
+		}
+		else
+		{
+			echo "account type not specified";
 		}
 	}
 	else

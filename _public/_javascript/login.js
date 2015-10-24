@@ -10,8 +10,10 @@ function isSet(key, value)
 
 $(document).ready(function () 
 {
-	$("#submitLogin").click(function() 
+	$("#submitLogin").click(function(event) 
 	{
+      event.preventDefault();
+
       var userInfo = {}
 
       userInfo["username"] = $("#usernameLogin").val();
@@ -41,16 +43,30 @@ $(document).ready(function ()
 
           if (response['error'] == '0')
           {
-            alert(response);
-            wind
+            alert(response['userType']);
+            if (response['userType'] == "hunter")
+            {
+              window.location.reload(true);
+            }
+            else if (response['userType'] == "marshall")
+            {
+              alert("marshall");
+            }
+            else
+            {
+              alert("failure");
+            }
           }
           else if (response['error'] == '1')
           {
             alert("Please try again, username and password combination not recognized!");
+            return false;
           }
           else if (response['error'] == '2')
           {
-            alert("Please try again, an unknown error occurred!");
+            //alert("Please try again, an unknown error occurred!");
+            alert(response['message']);
+            return false;
           }
         },
         error: function(xhr, status, error) 
