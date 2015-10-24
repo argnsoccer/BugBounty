@@ -9,6 +9,21 @@ $app->get('/_hunter/profile', function() use ($app) {
 });
 
 $app->get('/_hunter/profile/:username', function($username) use ($app) {
+	
 	//echo $username;
-	$app->render('_hunter/profile.php', array('username' => $_SESSION['userLogin']));
+	if (isset($_SESSION['userLogin']))
+	{
+		if($_SESSION['userLogin'] == $username)
+		{
+			$app->render('_hunter/profile.php', array('username' => $_SESSION['userLogin']));
+		}
+		else 
+		{
+			echo "You do not have access to view another person's profile";
+		}
+	}
+	else
+	{
+		echo "please login";
+	}
 });

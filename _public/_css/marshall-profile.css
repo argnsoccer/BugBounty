@@ -1,0 +1,270 @@
+﻿@font-face 
+{
+  font-family: PT-Sans;
+  src: url(../_fonts/PT_Sans-Web-Regular.ttf);
+}
+
+@font-face
+{
+    font-family: Helvetica;
+    src: url(../_fonts/Helvetica.otf);
+}
+
+@font-face
+{
+    font-family: Helvetica-Rounded;
+    src: url(../_fonts/HelveticaRounded-Black.otf);
+}
+
+body 
+{
+    background-color: #303030;
+}
+
+h1
+{
+    color: #FAFAFA;
+    font-family: Helvetica;
+    text-align: center;
+}
+
+h2
+{
+    color: #FAFAFA;
+    font-family: Helvetica;
+}
+
+h4
+{
+    color: #FAFAFA;
+    font-family: Helvetica;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+form
+{
+    width: 100%;
+}
+
+#navBar 
+{
+  background-color: #0f0f0f;
+  box-shadow: 0 2px 8px 0;
+  height: 30px;
+  margin: 0;
+  padding: 10px;
+}
+
+#navBar * 
+{
+  display: inline;
+  text-decoration: none;
+}
+
+#navbarLogo
+{
+  height: 100%;
+}
+
+li.leftNav
+{
+  color: #FAFAFA;
+  font-family: PT-Sans, Arial, sans-serif;
+  font-size: large;
+  padding: 9px;
+  position: relative;
+  bottom: 3px;
+}
+
+li.leftNav:hover
+{
+  background-color: #5b5b5b;
+}
+
+li.leftNav > a
+{
+  color: #FAFAFA;
+}
+
+.loginField
+{
+    height: 20px;
+}
+
+#loginContainer
+{
+  float: right;
+  padding-right: 2px;
+}
+
+#loginForm
+{
+  float: left;
+}
+
+#submitButton
+{
+    background-color: #ffa500;
+    border-radius: 5px;
+    border-style: none;
+    box-shadow: 0 2px 8px 0 black;
+    color: #FAFAFA;
+    font-family: Helvetica;
+    font-size: medium;
+    height: 30px;
+    width: 75px;
+}
+
+#logOut 
+{
+    display: none;
+    float: left;
+}
+
+#profile_link
+{
+    border-radius: 5px;
+    background-color: #0000FF;
+    border-style: none;
+    box-shadow: 0 2px 8px 0 black;
+    color: #FAFAFA;
+    display: inline-block;
+    font-family: Helvetica;
+    font-size: medium;
+    height: 24px;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 8px;
+    width: 75px;
+}
+
+#content_area
+{
+    height: 1800px;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-right: auto;
+    position: relative;
+    width: 800px;
+}
+
+#current_bounties
+{
+    border: none;
+    box-shadow: 0 2px 8px 0 inset;
+    display: block;
+    height: 400px;
+    margin-bottom: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 800px;
+}
+
+.bounty
+{
+    background-color: #A7A7A7;
+    border-color: white;
+    border-style: solid;
+    color: #FAFAFA;
+    margin-top: 2px;
+    margin-left: 2px;
+    padding-left: 3px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    height: 40px;
+    width: 98.5%;
+}
+
+.bounty > p
+{
+    margin-top: 8px;
+    vertical-align: middle;
+}
+
+#picture_upload
+{
+    position: absolute;
+    left: 0;
+    height: 300px;
+    margin-left: 75px;
+    top: 500px;
+    width: 300px;
+}
+
+#profile_picture
+{
+    border-color: #5b5b5b;
+    border-width: 2px;
+    border-style: solid;
+    height: 200px;
+    width: auto;
+}
+
+#picture_upload > input
+{
+    color: #FAFAFA;
+}
+
+#profile_info
+{
+    margin-right: 75px;
+    position: absolute;
+    top: 500px;
+    right: 0;
+}
+
+#profile_info > input
+{
+    border-radius: 10px;
+    display: block;
+    height: 35px;
+    margin-top: 5px;
+    width: 275px;
+}
+
+#bio_area
+{
+    display: block;
+    height: 200px;
+    position: absolute;
+    top: 720px;
+    width: 800px;
+}
+
+#bio_area > textarea,input
+{
+    display: block;
+    margin-left: auto;
+    margin-top: 3px;
+    margin-right: auto;
+}
+
+#save_button
+{
+    background-color: #ffa500;
+    border-style: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px 0 black;
+    color: #FAFAFA;
+    font-family: Helvetica;
+    font-size: medium;
+    height: 25px;
+    margin-top: 5px;
+    width: 100px;
+}
+
+#payments_header
+{
+    position: absolute;
+    top: 900px
+}
+
+#past_payments
+{
+    box-shadow: 0 2px 8px 0 inset;
+    position: absolute;
+    top: 950px;
+    height: 400px;
+    width: 800px;
+}

@@ -9,6 +9,6 @@ $app->get('/_marshall/profile', function() use ($app) {
 });
 
 $app->get('/_marshall/profile/:username', function($username) use ($app) {
-	echo $username;
+	//echo $username;
 	$app->render('_marshall/profile.php');
 });

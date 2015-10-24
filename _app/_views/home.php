@@ -11,8 +11,10 @@ session_start();
     <link rel="stylesheet" type="text/css" href="../_css/home.css">
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script type="text/javascript" src="_javascript/login.js"></script>
+  <!--<script type="text/javascript" src="_javascript/login.js"></script>
+  <script type="text/javascript" src="_javascript/logout.js"></script> -->
   <script type="text/javascript" src="_javascript/sign_up.js"></script>
+
 </head>
 <body>
 
