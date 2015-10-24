@@ -15,6 +15,4 @@ require '_routes/_marshall/upload.php';
 require '_routes/_marshall/pay_bounty.php';
 require '_routes/_marshall/track_bounty.php';
 
-
-
 require '_routes/api.php';

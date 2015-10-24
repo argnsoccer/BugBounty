@@ -1,0 +1,125 @@
+﻿@font-face 
+{
+  font-family: PT-Sans;
+  src: url(../_fonts/PT_Sans-Web-Regular.ttf);
+}
+
+@font-face
+{
+    font-family: Helvetica;
+    src: url(../_fonts/Helvetica.otf);
+}
+
+body 
+{
+    background-color: #303030;
+}
+
+h1
+{
+    color: #FAFAFA;
+    font-family: Helvetica;
+    text-align: center;
+}
+
+#navBar 
+{
+  background-color: #0f0f0f;
+  box-shadow: 0 2px 8px 0;
+  height: 18px;
+  margin: 0;
+  padding: 10px;
+}
+
+#navBar * 
+{
+  display: inline;
+  text-decoration: none;
+}
+
+#navbarLogo
+{
+  height: 100%;
+}
+
+li.leftNav
+{
+  color: #FAFAFA;
+  font-family: PT-Sans, Arial, sans-serif;
+  padding: 9px;
+  position: relative;
+  bottom: 3px;
+}
+
+li.leftNav:hover
+{
+  background-color: #5b5b5b;
+}
+
+li.leftNav > a
+{
+  color: #FAFAFA;
+}
+
+#loginContainer
+{
+  float: right;
+  padding-right: 2px;
+}
+
+#loginForm
+{
+  float: left;
+}
+
+#logOut 
+{
+  display: none;
+  float: left;
+}
+
+#content_area
+{
+    height: 800px;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-right: auto;
+    width: 800px;
+}
+
+#profile_picture
+{
+    border-color: #5b5b5b;
+    border-width: 2px;
+    border-style: solid;
+    height: 200px;
+    width: auto;
+}
+
+#picture_upload
+{
+    float: left;
+    height: 300px;
+    margin-left: 75px;
+    width: 300px;
+}
+
+#picture_upload > input
+{
+    color: #FAFAFA;
+}
+
+#profile_info
+{
+    float: right;
+    margin-right: 75px;
+}
+
+#profile_info > input
+{
+    border-radius: 10px;
+    display: block;
+    height: 35px;
+    margin-top: 5px;
+    width: 275px;
+}

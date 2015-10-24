@@ -9,6 +9,6 @@ $app->get('/_hunter/profile', function() use ($app) {
 });
 
 $app->get('/_hunter/profile/:username', function($username) use ($app) {
-	echo $username;
+	//echo $username;
 	$app->render('_hunter/profile.php');
 });

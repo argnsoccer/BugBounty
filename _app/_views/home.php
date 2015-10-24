@@ -17,7 +17,8 @@ session_start();
 <body>
 
 
-<?php require 'header_login.php' ?>
+<!--<?php require 'header_login.php' ?> -->
+{{include ('header_login.php')}}
 
     <div id="banner">
         <span class="vert-align-helper"></span>
