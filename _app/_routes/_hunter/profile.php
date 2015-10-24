@@ -10,5 +10,5 @@ $app->get('/_hunter/profile', function() use ($app) {
 
 $app->get('/_hunter/profile/:username', function($username) use ($app) {
 	//echo $username;
-	$app->render('_hunter/profile.php');
+	$app->render('_hunter/profile.php', array('username' => $_SESSION['userLogin']));
 });

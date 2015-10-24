@@ -1,1 +1,1 @@
-<a href="_hunter/profile/test">Link to Profile Page</a>
+<a href="_hunter/profile/{{username}}">Link to Profile Page</a>

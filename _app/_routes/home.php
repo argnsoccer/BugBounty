@@ -12,7 +12,9 @@ $app->get('/', function() use ($app) {
 	{
 		if ($_SESSION['userType'] == 'hunter')
 		{
-			$app->render('/_hunter/home.php');
+
+			$app->render('/_hunter/home.php', 
+				array('username' => $_SESSION['userLogin']));
 		}
 		else if ($_SESSION['userType'] == 'marshall' || $_SESSION['userType'] == 'sheriff')
 		{

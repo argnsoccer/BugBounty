@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Edit profile</title>
+    <title>{{username}} profile</title>
     <link rel="shortcut icon" type="image/x-icon" href="../../_images/_logos/bug-hunter-icon.ico" />
     <link rel="stylesheet" type="text/css" href="../../_css/hunter-profile.css" />
 </head>
@@ -25,7 +25,7 @@
                 <input type="file" name="profilePicture" />
             </div>
             <div id="profile_info">
-                <input type="text" placeholder="Username" />
+                <input type="text" placeholder="{{username}}" />
                 <input type="password" placeholder="Old Password" />
                 <input type="text" placeholder="New Password" />
                 <input type="text" placeholder="Confirm New Password" />
