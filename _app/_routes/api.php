@@ -167,7 +167,6 @@ Returns
 
     echo json_encode($result);
 
-
   });
 
 $app->post('/api/createBounty', function()

@@ -1,1 +1,1 @@
-hunter home page
+<a href="_hunter/profile/test">Link to Profile Page</a>

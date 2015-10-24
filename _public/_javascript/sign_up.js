@@ -11,13 +11,16 @@ function isSet(key, value)
 
 $(document).ready(function () 
 {
-  $("#submitSignUp").click(function() 
+  $("#submitSignUp").click(function(event) 
   {
+    event.preventDefault();
+
     var userInfo = {}
 
     userInfo["username"] = $("#signUpUsername").val();
     userInfo["password"] = $("#signUpPassword").val();
     userInfo["email"] = $("#signUpEmail").val()
+    userInfo["accountType"] = "hunter";//$("signUpAccountType").val();
 
       for (var property in userInfo)
       {
@@ -30,8 +33,38 @@ $(document).ready(function ()
           return false;
         }
       }
-      alert("heyoo");
 
+      $.ajax({
+        url: '/api/userSignUp',
+        data: userInfo,
+        dataType: 'json',
+        async: 'false',
+        type: 'POST',
+        success: function(response) {
+          alert(response['error']);
+          if (response['error'] == '0')
+          {
+            window.location.href = "/";
+          }
+          else if (response['error'] == '1')
+          {
+            alert("Please choose a differnet username!");
+          }
+          else if (response['error'] == '2')
+          {
+            alert("An account already exists for this email!");
+          }
+          else
+          {
+            alert(response["message"]);
+          }
+        },
+        error: function (xhr, status, error) {
+          var err = eval("(" + xhr.responseText + ")");
+          //alert("Please Try Again, we had an internal error!");
+          alert(err.message);
+        }
+      });
 
   });
 });

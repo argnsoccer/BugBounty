@@ -32,7 +32,7 @@ $(document).ready(function ()
       }
 
       $.ajax({
-        url: '/index.php/api/userLogin',
+        url: '/api/userLogin',
         data: userInfo,
         dataType: 'json',
         async: 'false',
@@ -43,14 +43,14 @@ $(document).ready(function ()
 
           if (response['error'] == '0')
           {
-            alert(response['userType']);
+            //alert(response['userType']);
             if (response['userType'] == "hunter")
             {
               window.location.reload(true);
             }
             else if (response['userType'] == "marshall")
             {
-              alert("marshall");
+              window.location.reload(true);
             }
             else
             {
