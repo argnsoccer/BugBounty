@@ -1,1 +1,1 @@
-marshall home page
+<a href="_marshall/profile/{{username}}">Link to Profile Page</a>

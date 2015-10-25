@@ -8,16 +8,16 @@ $user = 'root';
 $pass = 'Windows9';
 $host = '127.0.0.1';
 
-try {
-  $dbh = new PDO("mysql:host=$host;dbname=$dbname", "$user", "$pass");
-}
-catch (PDOException $e) {
-    $response = "Failed to connect: ";
-    $response .= $e->getMessage();
-    die ($response);
-}
+// try {
+//   $dbh = new PDO("mysql:host=$host;dbname=$dbname", "$user", "$pass");
+// }
+// catch (PDOException $e) {
+//     $response = "Failed to connect: ";
+//     $response .= $e->getMessage();
+//     die ($response);
+// }
 
-$app->get('/api/test', function () {
+$app->get('/api/test', function () use ($dbh) {
     echo "API";
 });
 
@@ -29,7 +29,7 @@ Error Codes:
   1 = session infor not updated
 */
 
-$app->get('/api/updateSession', function ($property, $value) {
+$app->get('/api/updateSession', function ($property, $value) use ($dbh) {
   $result['status'] = 'complete';
 
   try 

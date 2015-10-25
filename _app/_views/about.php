@@ -15,7 +15,11 @@
 
 <body>
 
-{{include('header_login.php')}}
+{% if username %}
+  {{ include ('header_logout.php') }}
+{% else %}
+  {{ include ('header_login.php') }}
+{% endif %}
 
     <div id="what_is">
         <h1>What is BugBounty?</h1>

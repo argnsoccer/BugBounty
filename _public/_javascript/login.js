@@ -39,7 +39,6 @@ $(document).ready(function ()
         type: 'POST',
         success: function(response)
         {
-          //alert(response.error);
 
           if (response['error'] == '0')
           {
@@ -48,7 +47,8 @@ $(document).ready(function ()
             {
               window.location.reload(true);
             }
-            else if (response['userType'] == "marshall")
+            else if (response['userType'] == "marshall" 
+              || response['userType'] == "sheriff")
             {
               window.location.reload(true);
             }

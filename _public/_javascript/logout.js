@@ -5,7 +5,7 @@ $(document).ready(function ()
 
     userInfo = {}
 
-    alert("LOGOUT");
+    //alert("LOGOUT");
 
       event.preventDefault();
 

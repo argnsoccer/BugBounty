@@ -8,11 +8,19 @@ $app = new \Slim\Slim([
 	'view' => new \Slim\Views\Twig()
 ]);
 
-//Database
-// $app->container->singleton('db', function() {
-// 	return new PDO('mysql:host=52.88.178.244;db=BugBounty', 
-// 		'testuser', 'cse3345bugbountypass');
-//});
+$dbname = 'BugBounty';
+$user = 'root';
+$pass = 'Windows9';
+$host = '127.0.0.1';
+
+try {
+  $dbh = new PDO("mysql:host=$host;dbname=$dbname", "$user", "$pass");
+}
+catch (PDOException $e) {
+    $response = "Failed to connect: ";
+    $response .= $e->getMessage();
+    die ($response);
+}
 
 $view = $app->view();
 $view->setTemplatesDirectory('../_app/_views');

@@ -18,7 +18,8 @@ $app->get('/', function() use ($app) {
 		}
 		else if ($_SESSION['userType'] == 'marshall' || $_SESSION['userType'] == 'sheriff')
 		{
-			$app->render('/_marshall/home.php');
+			$app->render('/_marshall/home.php', 
+				array('username' => $_SESSION['userLogin']));
 		}
 		else
 		{

@@ -18,8 +18,6 @@ session_start();
 </head>
 <body>
 
-
-<!--<?php require 'header_login.php' ?> -->
 {{include ('header_login.php')}}
 
     <div id="banner">

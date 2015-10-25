@@ -1,0 +1,29 @@
+<VirtualHost *:80>
+
+	ServerName www.bugbounty.local
+	ServerAlias bugbounty.local
+	
+        ServerAdmin webmaster@localhost
+
+        DocumentRoot /media/drizzutojr/Storage/Storage-Code/Projects/BugBounty2/_public
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+	<Directory /media/drizzutojr/Storage/Storage-Code/Projects/BugBounty2/_public>
+	  AllowOverride All
+	  Order deny,allow
+	  Allow from all
+	  Require all granted
+
+	<IfModule sapi_apache2.c>
+	  php_admin_flag engine on
+	</IfModule>
+
+	<IfModule mod_php5.c>
+	  php_admin_flag engine on
+	</IfModule>
+	</Directory>
+
+
+</VirtualHost>

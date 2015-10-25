@@ -1,5 +1,11 @@
 <?php
 
 $app->get('/about', function() use ($app) {
-	$app->render('about.php');
+		if (isset($_SESSION['userLogin'])) {
+		$app->render('about.php', array (
+			"username" => "true"));
+	}
+	else {
+		$app->render('about.php');
+	}
 });
