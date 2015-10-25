@@ -1,4 +1,5 @@
 <script type="text/javascript" src="/../_javascript/logout.js"></script>
+<link rel="stylesheet" type="text/css" href="/../_css/header_logout.css">
 
 <div id="navBar">
   <img id="navbar_logo" src="../_images/_logos/BugBountyTextLogo.png" />

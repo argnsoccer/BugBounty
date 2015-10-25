@@ -11,8 +11,6 @@ session_start();
     <link rel="stylesheet" type="text/css" href="../_css/home.css">
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <!--<script type="text/javascript" src="_javascript/login.js"></script>
-  <script type="text/javascript" src="_javascript/logout.js"></script> -->
   <script type="text/javascript" src="_javascript/sign_up.js"></script>
 
 </head>
@@ -41,6 +39,10 @@ session_start();
           <input class="signUpForm" type="text" placeholder="Your email" id="signUpEmail">
           <input class="signUpForm" type="text" placeholder="Choose a username" id="signUpUsername">
           <input class="signUpForm" type="password" placeholder="Choose a password" id="signUpPassword">
+          <span id="radio_buttons" class="signUp">
+            Hunter<input type="radio" name="accountType" value="hunter" id="signUpHunter" />
+            Marshall<input type="radio" name="accountType" value="marshall" id="signUpMarshall"/>
+          </span>
           <input class="signUpForm" type="submit" value="Sign Up!" id="submitSignUp">
         </form>
     </div>

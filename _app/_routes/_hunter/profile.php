@@ -46,7 +46,7 @@ function getUserNameDetailsHunter($dbh, $username)
 
 
 
-$app->get('/_hunter/profile', function() use ($app, $dbh) {
+$app->get('/_hunter/profile', function() use ($app) {
 	echo "include a username";
 	//$app->render('_profiles/');
 });
@@ -59,7 +59,7 @@ $app->get('/_hunter/profile/:username', function($username) use ($app, $dbh) {
 		if($_SESSION['userLogin'] == $username)
 		{
 
-			$template_array = getUserNameDetails($dbh, $username);
+			$template_array = getUserNameDetailsHunter($dbh, $username);
 
 			if($template_array['error'] == 0)
 			{

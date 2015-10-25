@@ -1,0 +1,67 @@
+@font-face {
+  font-family: PT-Sans;
+  src: url(../_fonts/PT_Sans-Web-Regular.ttf);
+}
+
+body
+{
+    margin: auto;
+}
+
+#navBar 
+{
+  background-color: #0f0f0f;
+  box-shadow: 0 2px 8px 0;
+  height: 30px;
+  margin: 0;
+  padding: 5px;
+}
+
+#navBar * 
+{
+  display: inline;
+  text-decoration: none;
+}
+
+#navbarLogo
+{
+  height: 100%;
+}
+
+li.leftNav
+{
+  color: #FAFAFA;
+  font-family: PT-Sans, Arial, sans-serif;
+  font-size: large;
+  padding: 9px;
+  position: relative;
+  bottom: 3px;
+}
+
+li.leftNav:hover
+{
+  background-color: #5b5b5b;
+}
+
+li.leftNav > a
+{
+  color: #FAFAFA;
+}
+
+#logout 
+{
+    float: right;
+}
+
+#submitLogout
+{
+    background-color: #ffa500;
+    border-radius: 5px;
+    border-style: none;
+    box-shadow: 0 2px 8px 0 black;
+    color: #FAFAFA;
+    font-family: Helvetica;
+    font-size: medium;
+    height: 30px;
+    width: 75px;
+}

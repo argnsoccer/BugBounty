@@ -19,8 +19,8 @@ $(document).ready(function ()
 
     userInfo["username"] = $("#signUpUsername").val();
     userInfo["password"] = $("#signUpPassword").val();
-    userInfo["email"] = $("#signUpEmail").val()
-    userInfo["accountType"] = "hunter";//$("signUpAccountType").val();
+    userInfo["email"] = $("#signUpEmail").val();
+    userInfo["accountType"] = $("input[name='accountType']:checked").val();
 
       for (var property in userInfo)
       {
@@ -41,7 +41,7 @@ $(document).ready(function ()
         async: 'false',
         type: 'POST',
         success: function(response) {
-          alert(response['error']);
+          
           if (response['error'] == '0')
           {
             window.location.href = "/";
