@@ -79,4 +79,8 @@ $app->get('/_hunter/profile/:username', function($username) use ($app, $dbh) {
 			echo "please login";
 		}
 	}
+	else
+	{
+		echo "No session setup";
+	}
 });
