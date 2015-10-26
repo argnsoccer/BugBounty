@@ -48,3 +48,29 @@ body
     text-indent: 3px;
     vertical-align: middle;
 }
+
+#banner {
+  background-image: url("../_images/_random/landing-banner.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0 2px 8px 0;
+  height: 300px;
+  position: relative;
+  text-align: center;
+  z-index: -1;
+}
+
+#signUp {
+  display: inline-block;
+  padding-left: 2em;
+}
+
+.signUpForm {
+  height: 40px;
+  width: 300px;
+  border-radius: 10px;
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

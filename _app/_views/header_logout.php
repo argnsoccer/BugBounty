@@ -1,8 +1,8 @@
 <script type="text/javascript" src="/../_javascript/logout.js"></script>
-<link rel="stylesheet" type="text/css" href="/../_css/header_logout.css">
+<link rel="stylesheet" type="text/css" href="/../_css/header.css">
 
 <div id="navBar">
-  <img id="navbar_logo" src="../_images/_logos/BugBountyTextLogo.png" />
+    <img id="navbarLogo" src="../../_images/_logos/BugBountyTextLogo.png" alt="BugBounty"/>
   <ul>
     <li class="leftNav"><a href="/">Home</a></li>
     <li class="leftNav"><a href="/search">Search</a></li>

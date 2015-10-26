@@ -12,7 +12,7 @@ body
 {
   background-color: #0f0f0f;
   box-shadow: 0 2px 8px 0;
-  height: 30px;
+  height: 25px;
   margin: 0;
   padding: 5px;
 }
@@ -33,14 +33,16 @@ li.leftNav
   color: #FAFAFA;
   font-family: PT-Sans, Arial, sans-serif;
   font-size: large;
-  padding: 9px;
+  padding: 2px;
   position: relative;
   bottom: 3px;
+  margin: 5px;
 }
 
 li.leftNav:hover
 {
   background-color: #5b5b5b;
+  height: 22px;
 }
 
 li.leftNav > a
@@ -48,9 +50,37 @@ li.leftNav > a
   color: #FAFAFA;
 }
 
-#logout 
+.loginForm
 {
-    float: right;
+    height: 22px;
+    padding: 2px;
+    float: left;
+}
+
+#loginContainer
+{
+  float: right;
+  padding-right: 2px;
+}
+
+#login
+{
+  float: left;
+}
+
+
+#submitLogin
+{
+    background-color: #ffa500;
+    border-radius: 5px;
+    border-style: none;
+    box-shadow: 0 2px 8px 0 black;
+    color: #FAFAFA;
+    font-family: Helvetica;
+    font-size: medium;
+    height: 30px;
+    width: 75px;
+    margin-left: 3px;
 }
 
 #submitLogout
@@ -64,4 +94,9 @@ li.leftNav > a
     font-size: medium;
     height: 30px;
     width: 75px;
+}
+
+#logout 
+{
+    float: right;
 }
