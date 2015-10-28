@@ -68,17 +68,21 @@ li.leftNav > a
   float: left;
 }
 
+#logout 
+{
+    float: right;
+}
 
 #submitLogin
 {
     background-color: #ffa500;
-    border-radius: 5px;
+    border-radius: 3px;
     border-style: none;
     box-shadow: 0 2px 8px 0 black;
     color: #FAFAFA;
     font-family: Helvetica;
     font-size: medium;
-    height: 30px;
+    height: 24px;
     width: 75px;
     margin-left: 3px;
 }
@@ -92,11 +96,6 @@ li.leftNav > a
     color: #FAFAFA;
     font-family: Helvetica;
     font-size: medium;
-    height: 30px;
+    height: 24px;
     width: 75px;
-}
-
-#logout 
-{
-    float: right;
 }
