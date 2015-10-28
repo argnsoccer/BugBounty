@@ -6,6 +6,7 @@
   <ul>
     <li class="leftNav"><a href="/">Home</a></li>
     <li class="leftNav"><a href="/search">Search</a></li>
+    <li class="leftNav"><a href="/discover">Discover</a></li>
     <li class="leftNav"><a href="/contact">Contact</a></li>
     <li class="leftNav"><a href="/about">About</a></li>
   </ul>
