@@ -8,6 +8,7 @@ require '_routes/search.php';
 
 require '_routes/_hunter/profile.php';
 require '_routes/_hunter/sign_up.php';
+require '_routes/_hunter/bounty_hunt.php';
 
 
 require '_routes/_marshall/profile.php';
