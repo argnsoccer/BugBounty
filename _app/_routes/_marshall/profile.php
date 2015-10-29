@@ -6,9 +6,9 @@ session_set_cookie_params(0);
 function getUserNameDetailsMarshall($dbh, $username)
 {
 	$statement = $dbh->prepare("
-				SELECT * 
-				FROM Account 
-				WHERE username = :username");
+				SELECT *
+				FROM Account, Marshall
+				WHERE username.Account = :username AND accountType.Account = 'marshall' ");
 
 	$args[':username'] = $username;
 
@@ -20,8 +20,33 @@ function getUserNameDetailsMarshall($dbh, $username)
     		"username" => $row['username'],
     		"email" => $row['email'],
     		"error" => 0,
-    		//"picture" => $row['picture'],
+    		"imageLoc" => $row['imageLoc'],
+				"description" => $row['description'],
+				"company" => $row['company']
+				//paid bounties
+				//current bounties
     	);
+			$statement = $dbh->prepare("
+			SELECT *
+			FROM Marshall, BountyPool
+			WHERE marshallID.Marshall = bountyMarshallID.BountyPool");
+
+			if($statement->execute()){
+				$row = $statement->fetch(PDO::FETCH_ASSOC);
+				if($row['dateEnded'] < now())
+				{
+					$template_array['currentBountiesLink'] = $row['bountyLink'];
+					$template_array['currentBountyDescription'] = $row['fullDescription'];
+				}
+				else if ($row['Paid'] == true){
+					$template_array['paidBounties'] = $row['bountyLink'];
+					$template_array['paidBountyLineDescription'] = $row['lineDescription'];
+				}
+			}
+			else{
+				$template_array['error'] = 3;
+				$template_array['message'] = 'Second statement not run';
+			}
     }
     else {
     	$template_array = array(
