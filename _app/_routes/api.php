@@ -32,7 +32,7 @@ Error Codes:
 $app->get('/api/updateSession', function ($property, $value) use ($dbh) {
   $result['status'] = 'complete';
 
-  try 
+  try
   {
     $_SESSION[$property] = $value;
     $result['error'] = '0';
@@ -100,7 +100,7 @@ $app->post('/api/userLogin', function () {
       $result["userType"] = strtolower($row['accType']);
       $result['error'] = '0';
       $result['message']= "";
-      
+
       $_SESSION['userLogin'] = strtolower($row['username']);
       $_SESSION['userType'] = strtolower($row['accType']);
     }
@@ -143,9 +143,9 @@ Returns
 
 
     $statement = $dbh->prepare(
-      "INSERT INTO Account 
+      "INSERT INTO Account
       (username, email, password, dateCreated, accType, dateOfLastActivity)
-      VALUES 
+      VALUES
       (:username, :email, :password, NOW(), :accountType, NOW())");
 
     if($statement->execute($args))
@@ -161,7 +161,7 @@ Returns
     {
       $result['error'] = '1';
       $result['message'] = $statement->errorInfo()[2];
-      
+
       //THIS NEEDS TO BE FIXED TO DIFFERENTIATE BETWEEN EMAIL AND USERNAME
     }
 
@@ -260,6 +260,9 @@ $app->post('/api/addUser', function() {
   }
   echo json_encode($result);
 });
+
+
+
 
 // function validateSignUpInfo($username, $email) {
 //   global $dbh;
@@ -382,4 +385,3 @@ $app->post('/api/addUser', function() {
 //   }
 //   echo json_encode($result);
 // });
-
