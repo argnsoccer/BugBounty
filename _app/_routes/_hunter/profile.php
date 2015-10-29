@@ -42,8 +42,8 @@ function getUserNameDetailsHunter($dbh, $username)
 				}
 			}
 			else{
-				$template_array['error'] => 3;
-				$template_array['message'] => 'Second statement not run';
+				$template_array['error'] = 3;
+				$template_array['message'] = 'Second statement not run';
 			}
     }
     else {
