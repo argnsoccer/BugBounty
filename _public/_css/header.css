@@ -50,13 +50,6 @@ li.leftNav > a
   color: #FAFAFA;
 }
 
-.loginForm
-{
-    height: 22px;
-    padding: 2px;
-    float: left;
-}
-
 #loginContainer
 {
   float: right;
@@ -68,28 +61,24 @@ li.leftNav > a
   float: left;
 }
 
+.headerButton {
+  margin-left: 3px;
+  margin-right: 3px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+#profileButton 
+{
+    float: right;
+}
+
 #logout 
 {
     float: right;
 }
 
-#submitLogin
-{
-    background-color: #ffa500;
-    border-radius: 3px;
-    border-style: none;
-    box-shadow: 0 2px 8px 0 black;
-    color: #FAFAFA;
-    font-family: Helvetica;
-    font-size: medium;
-    height: 24px;
-    width: 75px;
-    margin-left: 3px;
-}
-
-#submitLogout
-{
-    background-color: #ffa500;
+.headerInput {
     border-radius: 5px;
     border-style: none;
     box-shadow: 0 2px 8px 0 black;
@@ -98,4 +87,17 @@ li.leftNav > a
     font-size: medium;
     height: 24px;
     width: 75px;
+}
+
+#submitLogin {
+  background-color: #ffa500;
+}
+
+#submitProfile {
+  background-color: #1E50E1;
+}
+
+#submitLogout
+{
+  background-color: #ffa500;
 }

@@ -25,6 +25,31 @@ $app->get('/api/test', function () use ($dbh) {
 Danny Rizzuto
 Update the session information from javascript
 Error Codes:
+  0 = returns username
+  1 = no user is logged in
+*/
+
+$app->get('/api/getLoggedInUser', function() {
+  $result['status'] = "complete";
+
+  if (isset($_SESSION['userLogin'])) {
+    $result['error'] = '0';
+    $result['username'] = $_SESSION['userLogin'];
+    $result['userType'] = $_SESSION['userType'];
+  }
+  else {
+    $result['error'] = '1';
+    $result['message'] = 'No user is logged in';
+  }
+
+  echo json_encode($result);
+
+});
+
+/*
+Danny Rizzuto
+Update the session information from javascript
+Error Codes:
   0 = session info updated
   1 = session infor not updated
 */

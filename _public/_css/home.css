@@ -4,12 +4,10 @@
     src: url(../_fonts/PT_Sans-Web-Regular.ttf);
 }
 
-/*body
-{
-  margin: auto;
-  background-color: greenyellow;
-}*/
-
+/*body {
+  background-color: blue;
+}
+*/
 .section1A {
   float: left;
   width: 66%;
@@ -21,7 +19,8 @@
   float: left;
   width: 33%;
   height: 300px;
-  background-color: #303040;
+  margin: 0 auto;
+  background-color: #303030;
 }
 
 .section1B {
@@ -45,37 +44,12 @@
   background-color: #303070;
 }
 
-.vert-align-helper
-{
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-}
-
-#logo
-{
-    vertical-align: middle;
-}
-
-#content_area {
-    background-color: #303030;
-    height: 600px;
-    text-align:center;
-    z-index: -2;
-}
-
-#features
-{
-    margin-top: 50px;
-    display: inline-block;
-}
-
-.feature-icon
+.featureIcon
 {
     height: 75px;
 }
 
-.feature-text
+.featureText
 {
     color: #FAFAFA;
     font-family: sans-serif;
@@ -84,21 +58,14 @@
     vertical-align: middle;
 }
 
-#banner {
-  background-image: url("../_images/_random/landing-banner.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  box-shadow: 0 2px 8px 0;
-  height: 300px;
-  position: relative;
-  text-align: center;
-  z-index: -1;
+#signUpHeader {
+  color: white;
+  font-family: sans-serif;
 }
 
 #signUp {
-  display: inline-block;
-/*  padding-left: 2em;*/
+  margin: 0 auto;
+  color: white;
 }
 
 .signUpForm {
@@ -106,10 +73,7 @@
   width: 250px;
   border-radius: 10px;
   display: block;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 7px;
 }
 
 #submitSignUp {

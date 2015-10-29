@@ -11,7 +11,11 @@
     <li class="leftNav"><a href="/about">About</a></li>
   </ul>
 
-  <form id="logout" name="logoutForm" method="post">
-    <input class="logoutForm" type="submit" value="Log Out" id="submitLogout">
+  <form id="logout" name="logoutForm" method="post" class="headerButton">
+    <input class="headerInput" type="submit" value="Log Out" id="submitLogout">
+  </form>
+
+  <form id="profileButton" name="profileForm" class="headerButton">
+    <input class="headerInput" type="submit" value="Profile" id="submitProfile">
   </form>
 </div>
