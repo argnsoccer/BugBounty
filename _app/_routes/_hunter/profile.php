@@ -23,6 +23,8 @@ function getUserNameDetailsHunter($dbh, $username)
     	$template_array = array(
     		"username" => $row['username'],
     		"email" => $row['email'],
+				"dateCreated" => $row['dateCreated'];
+				"dateOfLastActivity" => $row['dateOfLastActivity'];
     		"error" => 0,
 				//reports they've been paid for
 				//unpaid reports
