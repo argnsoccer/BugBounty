@@ -53,6 +53,10 @@
                 <td><img class="profile-picture" src="../_images/_random/prof-danny-temp.jpg" /><p>Danny Rizzuto</p></td>
                 <td class="bio">Before BugBounty, Danny Rizzuto saw great success as an entrepreneur.  His patented "Beiruti Peddler" method for sanding curling stones revolutionized the Canadian sporting goods industry, and his Rizutt-O-Matic Latke Press&trade; made it so that anyone could enjoy delicious potato pancakes without all the hassle.  After a brief stint in politics, Danny retired at the age of 20 and proceeded to fulfill his lifelong dream of taking a Graphical User Interface class at Southern Methodist University.  There he met Eric Hawkins, Zack Fout, and Preston Deason, with whom he developed BugBounty.</td>
             </tr>
+            <tr>
+                <td><p>Andre Gras</p></td>
+                <td class ="bio">He has a dark and mysterious past...</td>
+            </tr>
         </table>
     </div>
 
