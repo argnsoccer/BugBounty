@@ -175,7 +175,7 @@ Returns
 $app->post('/api/createBounty', function()
 {
   global $dbh;
-  $args[':ownerId'] = $_POST['userID'];
+  $args[':username'] = $_POST['username'];
   $args[':payout'] = $_POST['payout'];
   $args[':link'] = $_POST['link'];
   $args[':endDate'] = $_POST['endDate'];
@@ -185,8 +185,7 @@ $app->post('/api/createBounty', function()
   VALUES (now(),:payout,:endDate,:ownerId,:link,:fullDescription)");
   if($sth->execute($args))
   {
-    $row = $sth->fetch(PDO::FETCH_ASSOC);
-    $args2[':ID'] = $row['bountyMarshallID'];
+    $args2[]
     $sth = $dbh->prepare(
     "SELECT * FROM Account WHERE userID = :ID");
     if($sth->execute($args2))
