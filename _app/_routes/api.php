@@ -175,24 +175,40 @@ Returns
 $app->post('/api/createBounty', function()
 {
   global $dbh;
-  $args[':ownerId'] = $_POST['userId'];
-  $args[':bountyName'] = $_POST['name'];
+  $args[':ownerId'] = $_POST['userID'];
   $args[':payout'] = $_POST['payout'];
   $args[':link'] = $_POST['link'];
   $args[':endDate'] = $_POST['endDate'];
-  $args[':fullDesc'] = $_POST['desc'];
+  $args[':fullDescription'] = $_POST['desc'];
   $sth = $dbh->prepare(
-  "INSERT INTO BountyPool (dateCreated,PayoutPool,dateEnding,bountyMarshallId,bountyLink,fullDesc)
-  VALUES (now(),:payout,:endDate,:ownerId,:link,:fullDesc)");
+  "INSERT INTO BountyPool (dateCreated,payoutPool,dateEnding, bountyMarshallID, bountyLink, fullDescription)
+  VALUES (now(),:payout,:endDate,:ownerId,:link,:fullDescription)");
   if($sth->execute($args))
   {
-    $result['success'] = true;
-    $result['bountyId'] = $dbh->lastInsertId();
+    $row = $sth->fetch(PDO::FETCH_ASSOC);
+    $args2[':ID'] = $row['bountyMarshallID'];
+    $sth = $dbh->prepare(
+    "SELECT * FROM Account WHERE userID = :ID");
+    if($sth->execute($args2))
+    {
+      $row = $sth->fetch(PDO::FETCH_ASSOC);
+      $result['success'] = true;
+      $result['id'] = $row['userID'];
+      $result['username'] = $row['username'];
+      $result['errorCode'] = 0;
+    }
+    else{
+      $result['success'] = false;
+      $result['errorCode'] = 2;
+      $result['errorInfo'] = $sth->errorInfo();
+    }
+
   }
   else
   {
     $result['success'] = false;
     $result['errorInfo'] = $sth->errorInfo();
+    $result['errorCode'] = 1;
   }
   echo json_encode($result);
 });
