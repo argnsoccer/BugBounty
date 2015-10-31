@@ -80,7 +80,7 @@ h1
   overflow-y: scroll;
   height: 180px;
   float: left;
-  background-color: white;
+  background-color: #FAFAFA;
 }
 
 #section3A {
@@ -92,7 +92,7 @@ h1
   overflow-y: scroll;
   height: 180px;
   float: left;
-  background-color: white;
+  background-color: #FAFAFA;
 }
 
 table {
@@ -104,7 +104,7 @@ table {
 }
 
 .tableRow:nth-child(odd) {
-  background-color: #FFFFFF;
+  background-color: ##FAFAFA;
 }
 
 table, th, td {

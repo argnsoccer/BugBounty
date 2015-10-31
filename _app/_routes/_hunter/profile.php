@@ -29,6 +29,8 @@ function getUserNameDetailsHunter($dbh, $username)
     		"error" => 1,
     		"message" => 'No username',
     	);
+
+    	return $template_array;
     }
 
 	}
@@ -37,7 +39,27 @@ function getUserNameDetailsHunter($dbh, $username)
     		"error" => 2,
     		"message" => 'Statement not ran',
     	);
+
+    	return $template_array;
 	}
+
+	// $statement = $dbh->("
+	// 	SELECT *
+	// 	FROM Report
+	// 	WHERE hunterID = :hunterID
+	// 	");
+
+	// if($statement->execute($args)) {
+
+	// 	$template_array['reports'] = array();
+
+	// 	while($row = $statement->fetch(PDO::FETCH_ASSOC))
+	// 	{
+	// 		$report['reportText'] = $row['reportText'];
+	// 		$report
+	// 		array_push($template_array['reports'], $report);
+	// 	}
+	// }
 
 	return $template_array;
 }
