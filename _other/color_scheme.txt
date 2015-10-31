@@ -1,0 +1,5 @@
+Primary BG Color: #303030 (Dark Grey)
+Secondary BG Color: #BCBCBC (Grey)
+Font Color: #FAFAFA (White)
+Button Color 1: #0000FF (Blue)
+Button Color 2: #FFA500 (Orange-Yellow)
