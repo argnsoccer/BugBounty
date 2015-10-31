@@ -100,13 +100,15 @@ Error Codes:
   0 = login user
   1 = user username/password incorrect
   2 = statement did not execute
+  3 = second statement did not execute
 Returns
   username
   userType
+  userID
 */
 
 $app->post('/api/userLogin', function () {
-  $result['status'] = "complete";
+  $result['status'] = "incomplete";
   global $dbh;
 
   $args[':username'] = $_POST['username'];
@@ -121,12 +123,23 @@ $app->post('/api/userLogin', function () {
     {
       $result["username"] = strtolower($row['username']);
       $result["userType"] = strtolower($row['accountType']);
-      $result['error'] = '0';
-      $result['message']= "";
+      $result['userID'] = $row['userID'];
 
       $_SESSION['userLogin'] = strtolower($row['username']);
+      $usn[':username'] = $row['username'];
       $_SESSION['userType'] = strtolower($row['accountType']);
       $_SESSION['userID'] = $row['userID'];
+      $statement = $dbh->prepare("UPDATE Account SET loggedIn = 1 WHERE username = :username");
+      if($statement->execute($usn))
+      {
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        $result['loggedIn'] = $row['loggedIn'];
+        $result['error'] = '0';
+      }
+      else{
+        $result['error'] = 3;
+        $result['message'] = "Second statement did not execute";
+      }
     }
     else
     {
@@ -174,12 +187,14 @@ Returns
 
     if($statement->execute($args))
     {
+      $row = $statement->fetch(PDO::FETCH_ASSOC);
       $result['username'] = strtolower($_POST['username']);
       $result['userType'] = strtolower($_POST['accountType']);
       $result['error'] = '0';
 
       $_SESSION['userLogin'] = strtolower($_POST['username']);
       $_SESSION['userType'] = strtolower($_POST['accountType']);
+      $_SESSION['userID'] = $row['userID'];
     }
     else
     {

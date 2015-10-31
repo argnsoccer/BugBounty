@@ -18,26 +18,28 @@
 --
 -- Table structure for table `account`
 --
+CREATE SCHEMA IF NOT EXISTS `bug_bounty_test` DEFAULT CHARACTER SET utf8 ;
+USE `bug_bounty_test` ;
 
-DROP TABLE IF EXISTS `account`;
+
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `account` (
-  `userID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(20) NOT NULL,
-  `email` varchar(45) NOT NULL,
-  `password` varchar(16) NOT NULL,
-  `dateCreated` datetime NOT NULL,
-  `activated` tinyint(1) DEFAULT NULL,
-  `dateDeactivated` datetime DEFAULT NULL,
-  `accountType` varchar(10) NOT NULL,
-  `loggedIn` tinyint(1) DEFAULT NULL,
-  `dateOfLastActivity` datetime NOT NULL,
-  PRIMARY KEY (`userID`),
-  UNIQUE KEY `username_UNIQUE` (`username`),
-  UNIQUE KEY `email_UNIQUE` (`email`),
-  UNIQUE KEY `userID_UNIQUE` (`userID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `account` (
+  `userID` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '',
+  `username` VARCHAR(20) NOT NULL COMMENT '',
+  `email` VARCHAR(45) NOT NULL COMMENT '',
+  `password` VARCHAR(16) NOT NULL COMMENT '',
+  `dateCreated` DATETIME NOT NULL COMMENT '',
+  `activated` TINYINT(1) NULL DEFAULT NULL COMMENT '',
+  `dateDeactivated` DATETIME NULL DEFAULT NULL COMMENT '',
+  `accountType` VARCHAR(10) NOT NULL COMMENT '',
+  `loggedIn` TINYINT(1) NOT NULL COMMENT '',
+  `dateOfLastActivity` DATETIME NOT NULL COMMENT '',
+  PRIMARY KEY (`userID`)  COMMENT '',
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC)  COMMENT '',
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC)  COMMENT '',
+  UNIQUE INDEX `userID_UNIQUE` (`userID` ASC)  COMMENT '')
+ENGINE = InnoDB;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +48,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (1,'testHunter1','testHunter1@me.com','testHunter1','2015-10-29 21:44:18',1,NULL,'hunter',NULL,'0000-00-00 00:00:00'),(2,'testHunter2','testHunter2@me.com','testHunter2','2015-10-29 21:44:18',1,NULL,'hunter',NULL,'0000-00-00 00:00:00'),(3,'testMarshall1','testMarshall1@me.com','testMarshall1','2015-10-29 21:44:18',1,NULL,'marshall',NULL,'0000-00-00 00:00:00'),(4,'testMarshall2','testMarshall2@me.com','testMarshall2','2015-10-29 21:44:18',1,NULL,'marshall',NULL,'0000-00-00 00:00:00'),(5,'testMarshall3','testMarshall3@me.com','testMarshall3','2015-10-29 21:44:18',1,NULL,'marshall',NULL,'0000-00-00 00:00:00');
+INSERT INTO `account` VALUES (1,'testHunter1','testHunter1@me.com','testHunter1','2015-10-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00'),(2,'testHunter2','testHunter2@me.com','testHunter2','2015-10-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00'),(3,'testMarshall1','testMarshall1@me.com','testMarshall1','2015-10-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00'),(4,'testMarshall2','testMarshall2@me.com','testMarshall2','2015-10-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00'),(5,'testMarshall3','testMarshall3@me.com','testMarshall3','2015-10-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,10 +56,8 @@ UNLOCK TABLES;
 -- Table structure for table `bountypool`
 --
 
-DROP TABLE IF EXISTS `bountypool`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bountypool` (
+
+CREATE TABLE IF NOT EXISTS `bountypool` (
   `poolID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `dateCreated` datetime NOT NULL,
   `payoutPool` varchar(10) NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE `bountypool` (
 
 LOCK TABLES `bountypool` WRITE;
 /*!40000 ALTER TABLE `bountypool` DISABLE KEYS */;
-INSERT INTO `bountypool` VALUES (1,'2015-10-29 21:44:19','1','0000-00-00 00:00:00',3,'www.google.com','_images/_bounties/_testMarshall1/bounty1.jpg','lineDesc1','fullDescription1'),(2,'2015-10-29 21:44:19','2','0000-00-00 00:00:00',4,'www.google.com','_images/_bounties/_testMarshall2/bounty2.jpg','lineDesc2','fullDescription2'),(3,'2015-10-29 21:44:19','3','0000-00-00 00:00:00',5,'www.google.com','_images/_bounties/_testMarshall3/bounty3.jpg','lineDesc3','fullDescription3'),(4,'2015-10-29 21:44:19','4','0000-00-00 00:00:00',3,'www.google.com','_images/_bounties/_testMarshall1/bounty4.jpg','lineDesc4','fullDescription4'),(5,'2015-10-29 21:44:19','5','0000-00-00 00:00:00',4,'www.google.com','_images/_bounties/_testMarshall2/bounty5.jpg','lineDesc5','fullDescription5'),(6,'2015-10-29 21:44:19','6','0000-00-00 00:00:00',5,'www.google.com','_images/_bounties/_testMarshall3/bounty6.jpg','lineDesc6','fullDescription6'),(7,'2015-10-29 21:44:19','7','0000-00-00 00:00:00',3,'www.google.com','_images/_bounties/_testMarshall1/bounty7.jpg','lineDesc7','fullDescription7'),(8,'2015-10-29 21:44:19','8','0000-00-00 00:00:00',4,'www.google.com','_images/_bounties/_testMarshall2/bounty8.jpg','lineDesc8','fullDescription8'),(9,'2015-10-29 21:44:19','9','0000-00-00 00:00:00',5,'www.google.com','_images/_bounties/_testMarshall3/bounty9.jpg','lineDesc9','fullDescription9'),(11,'2015-10-29 21:47:39','123','0000-00-00 00:00:00',3,'www.google.com',NULL,NULL,'Hello, description'),(12,'2015-10-29 21:54:38','123','0000-00-00 00:00:00',3,'www.google.com',NULL,NULL,'Hello, description'),(13,'2015-10-29 21:55:03','123','0000-00-00 00:00:00',3,'www.google.com',NULL,NULL,'Hello, description'),(14,'2015-10-29 21:55:36','123','0000-00-00 00:00:00',3,'www.google.com',NULL,NULL,'Hello, description'),(15,'2015-10-29 21:56:25','123','0000-00-00 00:00:00',3,'www.google.com',NULL,NULL,'Hello, description'),(16,'2015-10-29 21:57:03','123','0000-00-00 00:00:00',3,'www.google.com',NULL,NULL,'Hello, description'),(17,'2015-10-29 21:58:02','123','0000-00-00 00:00:00',3,'www.google.com',NULL,NULL,'Hello, description'),(18,'2015-10-29 21:59:57','123','0000-00-00 00:00:00',3,'www.google.com',NULL,NULL,'Hello, description'),(19,'2015-10-29 22:00:12','123','0000-00-00 00:00:00',3,'www.google.com',NULL,NULL,'Hello, description'),(20,'2015-10-29 22:00:50','123','0000-00-00 00:00:00',3,'www.google.com',NULL,NULL,'Hello, description');
+INSERT INTO `bountypool` VALUES (1,'2015-10-29 21:44:19','1','0000-00-00 00:00:00',3,'www.google.com','_images/_bounties/_testMarshall1/bounty1.jpg','lineDesc1','fullDescription1'),(2,'2015-10-29 21:44:19','2','0000-00-00 00:00:00',4,'www.google.com','_images/_bounties/_testMarshall2/bounty2.jpg','lineDesc2','fullDescription2'),(3,'2015-10-29 21:44:19','3','0000-00-00 00:00:00',5,'www.google.com','_images/_bounties/_testMarshall3/bounty3.jpg','lineDesc3','fullDescription3'),(4,'2015-10-29 21:44:19','4','0000-00-00 00:00:00',3,'www.google.com','_images/_bounties/_testMarshall1/bounty4.jpg','lineDesc4','fullDescription4'),(5,'2015-10-29 21:44:19','5','0000-00-00 00:00:00',4,'www.google.com','_images/_bounties/_testMarshall2/bounty5.jpg','lineDesc5','fullDescription5'),(6,'2015-10-29 21:44:19','6','0000-00-00 00:00:00',5,'www.google.com','_images/_bounties/_testMarshall3/bounty6.jpg','lineDesc6','fullDescription6'),(7,'2015-10-29 21:44:19','7','0000-00-00 00:00:00',3,'www.google.com','_images/_bounties/_testMarshall1/bounty7.jpg','lineDesc7','fullDescription7'),(8,'2015-10-29 21:44:19','8','0000-00-00 00:00:00',4,'www.google.com','_images/_bounties/_testMarshall2/bounty8.jpg','lineDesc8','fullDescription8'),(9,'2015-10-29 21:44:19','9','0000-00-00 00:00:00',5,'www.google.com','_images/_bounties/_testMarshall3/bounty9.jpg','lineDesc9','fullDescription9');
 /*!40000 ALTER TABLE `bountypool` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,10 +88,8 @@ UNLOCK TABLES;
 -- Table structure for table `marshall`
 --
 
-DROP TABLE IF EXISTS `marshall`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `marshall` (
+
+CREATE TABLE IF NOT EXISTS `marshall` (
   `marshallID` int(10) unsigned NOT NULL,
   `rankingTotal` int(11) NOT NULL,
   `numRankings` int(11) NOT NULL,
@@ -119,10 +117,8 @@ UNLOCK TABLES;
 -- Table structure for table `message`
 --
 
-DROP TABLE IF EXISTS `message`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `message` (
+
+CREATE TABLE IF NOT EXISTS `message` (
   `messageID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `sender` int(10) unsigned NOT NULL,
   `recipient` int(10) unsigned NOT NULL,
@@ -152,10 +148,7 @@ UNLOCK TABLES;
 -- Table structure for table `paidreport`
 --
 
-DROP TABLE IF EXISTS `paidreport`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `paidreport` (
+CREATE TABLE IF NOT EXISTS `paidreport` (
   `reportID` int(10) unsigned NOT NULL,
   `paidAmount` varchar(10) NOT NULL,
   `datePaid` datetime NOT NULL,
@@ -180,10 +173,8 @@ UNLOCK TABLES;
 -- Table structure for table `preferredbounties`
 --
 
-DROP TABLE IF EXISTS `preferredbounties`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `preferredbounties` (
+
+CREATE TABLE IF NOT EXISTS`preferredbounties` (
   `bountyID` int(10) unsigned NOT NULL,
   PRIMARY KEY (`bountyID`),
   UNIQUE KEY `bountyID_UNIQUE` (`bountyID`),
@@ -205,10 +196,8 @@ UNLOCK TABLES;
 -- Table structure for table `report`
 --
 
-DROP TABLE IF EXISTS `report`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `report` (
+
+CREATE TABLE IF NOT EXISTS `report` (
   `bountyID` int(10) unsigned NOT NULL,
   `username` varchar(20) NOT NULL,
   `ReportText` mediumtext,
@@ -238,10 +227,7 @@ UNLOCK TABLES;
 -- Table structure for table `unpaidreport`
 --
 
-DROP TABLE IF EXISTS `unpaidreport`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `unpaidreport` (
+CREATE TABLE IF NOT EXISTS `unpaidreport` (
   `reportID` int(10) unsigned NOT NULL,
   `dateAssessed` datetime NOT NULL,
   `message` mediumtext NOT NULL,
