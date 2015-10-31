@@ -1,0 +1,61 @@
+@font-face {
+    font-family: Helvetica;
+    src:url(../_fonts/Helvetica.otf);
+}
+
+@font-face {
+    font-family: PT-Sans;
+    src: url(../_fonts/PT_Sans-Web-Regular.ttf);
+}
+
+body {
+    background-color: #303030;
+}
+
+#frame_body {
+  margin: auto;
+  position: relative;
+  left: 50px;
+  top: 50px;
+}
+
+iframe {
+  width: 92%;
+  height: 700px;
+  border: none;
+}
+
+#input_area {
+  position: relative;
+  left: 10%;
+  top: 50px;
+}
+
+#report_area {
+  display: inline-block;
+}
+
+#report_area > textarea {
+  resize: none;
+}
+
+#submit_area {
+  display: inline-block;
+  position: relative;
+  bottom: 20px;
+}
+
+.report {
+    border-radius: 5px;
+    border-style: none;
+    box-shadow: 0 2px 8px 0 black;
+    color: #FAFAFA;
+    font-family: Helvetica;
+    font-size: medium;
+    height: 24px;
+    width: 75px;
+}
+
+#upload, #submitted {
+  background-color: #ffa500;
+}
