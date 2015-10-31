@@ -7,8 +7,8 @@ session_set_cookie_params(0);
 function getUserNameDetailsHunter($dbh, $username)
 {
 	$statement = $dbh->prepare("
-				SELECT * 
-				FROM Account 
+				SELECT *
+				FROM Account
 				WHERE username = :username");
 
 	$args[':username'] = $username;
@@ -52,7 +52,7 @@ $app->get('/_hunter/profile', function() use ($app) {
 });
 
 $app->get('/_hunter/profile/:username', function($username) use ($app, $dbh) {
-	
+
 	//echo $username;
 	if (isset($_SESSION['userLogin']))
 	{
@@ -71,7 +71,7 @@ $app->get('/_hunter/profile/:username', function($username) use ($app, $dbh) {
 			}
 			else if ($template_array['error'] == 1)
 			{
-				echo "error - statement was not ran";
+				echo "error - statement could not be run";
 			}
 		}
 		else
