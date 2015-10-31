@@ -1,9 +1,6 @@
 <?php
 
-if(!isset($_SESSION))
-{
-  session_start();
-}
+session_start();
 session_set_cookie_params(0);
 
 $dbname = 'BugBounty';
@@ -22,6 +19,31 @@ $host = '127.0.0.1';
 
 $app->get('/api/test', function () use ($dbh) {
     echo "API";
+});
+
+/*
+Danny Rizzuto
+Update the session information from javascript
+Error Codes:
+  0 = returns username
+  1 = no user is logged in
+*/
+
+$app->get('/api/getLoggedInUser', function() {
+  $result['status'] = "complete";
+
+  if (isset($_SESSION['userLogin'])) {
+    $result['error'] = '0';
+    $result['username'] = $_SESSION['userLogin'];
+    $result['userType'] = $_SESSION['userType'];
+  }
+  else {
+    $result['error'] = '1';
+    $result['message'] = 'No user is logged in';
+  }
+
+  echo json_encode($result);
+
 });
 
 /*
@@ -175,40 +197,24 @@ Returns
 $app->post('/api/createBounty', function()
 {
   global $dbh;
-  $args[':ownerId'] = $_POST['userID'];
-  $args[':username'] = $_POST['username'];
+  $args[':ownerId'] = $_POST['userId'];
+  $args[':bountyName'] = $_POST['name'];
   $args[':payout'] = $_POST['payout'];
   $args[':link'] = $_POST['link'];
   $args[':endDate'] = $_POST['endDate'];
-  $args[':fullDescription'] = $_POST['desc'];
+  $args[':fullDesc'] = $_POST['desc'];
   $sth = $dbh->prepare(
-  "INSERT INTO BountyPool (dateCreated,payoutPool,dateEnding, bountyMarshallID, bountyLink, fullDescription)
-  VALUES (now(),:payout,:endDate,:ownerId,:link,:fullDescription)");
+  "INSERT INTO BountyPool (dateCreated,PayoutPool,dateEnding,bountyMarshallId,bountyLink,fullDesc)
+  VALUES (now(),:payout,:endDate,:ownerId,:link,:fullDesc)");
   if($sth->execute($args))
   {
-    $args2[':ID'] = $_POST['userID'];
-    $sth = $dbh->prepare(
-    "SELECT * FROM Account WHERE userID = :ID");
-    if($sth->execute($args2))
-    {
-      $row = $sth->fetch(PDO::FETCH_ASSOC);
-      $result['success'] = true;
-      $result['id'] = $row['userID'];
-      $result['username'] = $row['username'];
-      $result['errorCode'] = 0;
-    }
-    else{
-      $result['success'] = false;
-      $result['errorCode'] = 2;
-      $result['errorInfo'] = $sth->errorInfo();
-    }
-
+    $result['success'] = true;
+    $result['bountyId'] = $dbh->lastInsertId();
   }
   else
   {
     $result['success'] = false;
     $result['errorInfo'] = $sth->errorInfo();
-    $result['errorCode'] = 1;
   }
   echo json_encode($result);
 });
@@ -279,9 +285,6 @@ $app->post('/api/addUser', function() {
   }
   echo json_encode($result);
 });
-
-
-
 
 // function validateSignUpInfo($username, $email) {
 //   global $dbh;
