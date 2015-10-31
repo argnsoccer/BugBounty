@@ -100,7 +100,7 @@ Error Codes:
   0 = login user
   1 = user username/password incorrect
   2 = statement did not execute
-  3 = second statement did not execute
+  3 = user already logged in
 Returns
   username
   userType
@@ -110,50 +110,48 @@ Returns
 $app->post('/api/userLogin', function () {
   $result['status'] = "incomplete";
   global $dbh;
+  if(!isset($_SESSION['userLogin'])){
 
-  $args[':username'] = $_POST['username'];
-  $args[':password'] = $_POST['password'];
+    $args[':username'] = $_POST['username'];
+    $args[':password'] = $_POST['password'];
 
-  $statement = $dbh->prepare("SELECT username, userID, accountType FROM Account WHERE username = :username AND password = :password");
+    $statement = $dbh->prepare("SELECT username, userID, accountType FROM Account WHERE username = :username AND password = :password");
 
-  if($statement->execute($args))
-  {
-    $row = $statement->fetch(PDO::FETCH_ASSOC);
-    if (isset($row['username']))
+    if($statement->execute($args))
     {
-      $result["username"] = strtolower($row['username']);
-      $result["userType"] = strtolower($row['accountType']);
-      $result['userID'] = $row['userID'];
-
-      $_SESSION['userLogin'] = strtolower($row['username']);
-      $usn[':username'] = $row['username'];
-      $_SESSION['userType'] = strtolower($row['accountType']);
-      $_SESSION['userID'] = $row['userID'];
-      $statement = $dbh->prepare("UPDATE Account SET loggedIn = 1 WHERE username = :username");
-      if($statement->execute($usn))
+      $row = $statement->fetch(PDO::FETCH_ASSOC);
+      if (isset($row['username']))
       {
-        $row = $statement->fetch(PDO::FETCH_ASSOC);
-        $result['loggedIn'] = $row['loggedIn'];
+        $result["username"] = strtolower($row['username']);
+        $result["userType"] = strtolower($row['accountType']);
+        $result['userID'] = $row['userID'];
+
+        $_SESSION['userLogin'] = strtolower($row['username']);
+        $usn[':username'] = $row['username'];
+        $_SESSION['userType'] = strtolower($row['accountType']);
+        $_SESSION['userID'] = $row['userID'];
+
         $result['error'] = '0';
       }
-      else{
-        $result['error'] = 3;
-        $result['message'] = "Second statement did not execute";
+      else
+      {
+        $result['error'] = '1';
+        $result['message'] = "The username and password combination did not work";
       }
     }
     else
     {
-      $result['error'] = '1';
-      $result['message'] = "The username and password combination did not work";
+      $result['error'] = '2';
+      $result['message'] = $statement->errorInfo();
     }
-  }
-  else
-  {
-    $result['error'] = '2';
-    $result['message'] = $statement->errorInfo();
-  }
 
-  echo json_encode($result);
+    echo json_encode($result);
+  }
+  else{
+    $result['error'] = 3;
+    $result['message'] = 'user is already logged in';
+    echo json_encode($result);
+  }
 });
 
 /*

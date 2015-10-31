@@ -67,8 +67,10 @@ CREATE TABLE IF NOT EXISTS `bountypool` (
   `imageLoc` varchar(45) DEFAULT NULL,
   `lineDescription` tinytext,
   `fullDescription` mediumtext,
+  `bountyName` VARCHAR(45) NOT NULL COMMENT '',
   PRIMARY KEY (`poolID`),
   UNIQUE KEY `poolID_UNIQUE` (`poolID`),
+  UNIQUE INDEX `bountyName_UNIQUE` (`bountyName` ASC)  COMMENT '',
   KEY `fk_BountyPool_Marshall1` (`bountyMarshallID`),
   CONSTRAINT `fk_BountyPool_Marshall1` FOREIGN KEY (`bountyMarshallID`) REFERENCES `marshall` (`marshallID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
@@ -80,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `bountypool` (
 
 LOCK TABLES `bountypool` WRITE;
 /*!40000 ALTER TABLE `bountypool` DISABLE KEYS */;
-INSERT INTO `bountypool` VALUES (1,'2015-10-29 21:44:19','1','0000-00-00 00:00:00',3,'www.google.com','_images/_bounties/_testMarshall1/bounty1.jpg','lineDesc1','fullDescription1'),(2,'2015-10-29 21:44:19','2','0000-00-00 00:00:00',4,'www.google.com','_images/_bounties/_testMarshall2/bounty2.jpg','lineDesc2','fullDescription2'),(3,'2015-10-29 21:44:19','3','0000-00-00 00:00:00',5,'www.google.com','_images/_bounties/_testMarshall3/bounty3.jpg','lineDesc3','fullDescription3'),(4,'2015-10-29 21:44:19','4','0000-00-00 00:00:00',3,'www.google.com','_images/_bounties/_testMarshall1/bounty4.jpg','lineDesc4','fullDescription4'),(5,'2015-10-29 21:44:19','5','0000-00-00 00:00:00',4,'www.google.com','_images/_bounties/_testMarshall2/bounty5.jpg','lineDesc5','fullDescription5'),(6,'2015-10-29 21:44:19','6','0000-00-00 00:00:00',5,'www.google.com','_images/_bounties/_testMarshall3/bounty6.jpg','lineDesc6','fullDescription6'),(7,'2015-10-29 21:44:19','7','0000-00-00 00:00:00',3,'www.google.com','_images/_bounties/_testMarshall1/bounty7.jpg','lineDesc7','fullDescription7'),(8,'2015-10-29 21:44:19','8','0000-00-00 00:00:00',4,'www.google.com','_images/_bounties/_testMarshall2/bounty8.jpg','lineDesc8','fullDescription8'),(9,'2015-10-29 21:44:19','9','0000-00-00 00:00:00',5,'www.google.com','_images/_bounties/_testMarshall3/bounty9.jpg','lineDesc9','fullDescription9');
+INSERT INTO `bountypool` VALUES (1,'2015-10-29 21:44:19','1','0000-00-00 00:00:00',3,'www.google.com','_images/_bounties/_testMarshall1/bounty1.jpg','lineDesc1','fullDescription1', 'bounty1'),(2,'2015-10-29 21:44:19','2','0000-00-00 00:00:00',4,'www.google.com','_images/_bounties/_testMarshall2/bounty2.jpg','lineDesc2','fullDescription2', 'bounty2'),(3,'2015-10-29 21:44:19','3','0000-00-00 00:00:00',5,'www.google.com','_images/_bounties/_testMarshall3/bounty3.jpg','lineDesc3','fullDescription3', 'bounty3'),(4,'2015-10-29 21:44:19','4','0000-00-00 00:00:00',3,'www.google.com','_images/_bounties/_testMarshall1/bounty4.jpg','lineDesc4','fullDescription4', 'bounty4'),(5,'2015-10-29 21:44:19','5','0000-00-00 00:00:00',4,'www.google.com','_images/_bounties/_testMarshall2/bounty5.jpg','lineDesc5','fullDescription5', 'bounty5'),(6,'2015-10-29 21:44:19','6','0000-00-00 00:00:00',5,'www.google.com','_images/_bounties/_testMarshall3/bounty6.jpg','lineDesc6','fullDescription6', 'bounty6'),(7,'2015-10-29 21:44:19','7','0000-00-00 00:00:00',3,'www.google.com','_images/_bounties/_testMarshall1/bounty7.jpg','lineDesc7','fullDescription7', 'bounty7'),(8,'2015-10-29 21:44:19','8','0000-00-00 00:00:00',4,'www.google.com','_images/_bounties/_testMarshall2/bounty8.jpg','lineDesc8','fullDescription8', 'bounty8'),(9,'2015-10-29 21:44:19','9','0000-00-00 00:00:00',5,'www.google.com','_images/_bounties/_testMarshall3/bounty9.jpg','lineDesc9','fullDescription9', 'bounty9');
 /*!40000 ALTER TABLE `bountypool` ENABLE KEYS */;
 UNLOCK TABLES;
 
