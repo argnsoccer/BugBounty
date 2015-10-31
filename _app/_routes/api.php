@@ -108,7 +108,7 @@ Returns
 */
 
 $app->post('/api/userLogin', function () {
-  $result['status'] = "incomplete";
+  $result['status'] = "complete";
   global $dbh;
   if(!isset($_SESSION['userLogin'])){
 
@@ -223,7 +223,7 @@ $app->post('/api/createBounty', function()
 {
   global $dbh;
 
-    $usn = $_POST['username'];
+    $usn = strtolower($_POST['username']);
     if($usn != $_SESSION['userLogin'])
     {
       $result['errorCode'] = 3;
@@ -239,9 +239,10 @@ $app->post('/api/createBounty', function()
         $args[':link'] = $_POST['link'];
         $args[':endDate'] = $_POST['endDate'];
         $args[':fullDesc'] = $_POST['desc'];
+        $args['userID'] = $_SESSION['userID'];
         $sth = $dbh->prepare(
-        "INSERT INTO BountyPool (dateCreated,PayoutPool,dateEnding,bountyMarshallID,bountyLink,fullDesc)
-        VALUES (now(),:payout,:endDate,:userID,:link,:fullDesc)");
+        "INSERT INTO BountyPool (dateCreated,PayoutPool,dateEnding,bountyMarshallID,bountyLink,fullDescription, bountyName)
+        VALUES (now(),:payout,:endDate,:userID,:link,:fullDesc, :bountyName)");
         if($sth->execute($args))
         {
           $result['success'] = true;
