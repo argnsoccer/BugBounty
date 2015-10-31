@@ -6,11 +6,6 @@ if(!isset($_SESSION))
 }
 session_set_cookie_params(0);
 
-$dbname = 'BugBounty';
-$user = 'root';
-$pass = 'Windows9';
-$host = '127.0.0.1';
-
 // try {
 //   $dbh = new PDO("mysql:host=$host;dbname=$dbname", "$user", "$pass");
 // }
@@ -117,7 +112,7 @@ $app->post('/api/userLogin', function () {
   $args[':username'] = $_POST['username'];
   $args[':password'] = $_POST['password'];
 
-  $statement = $dbh->prepare("SELECT username, accType FROM Account WHERE username = :username AND password = :password");
+  $statement = $dbh->prepare("SELECT username, userID, accountType FROM Account WHERE username = :username AND password = :password");
 
   if($statement->execute($args))
   {
@@ -125,12 +120,13 @@ $app->post('/api/userLogin', function () {
     if (isset($row['username']))
     {
       $result["username"] = strtolower($row['username']);
-      $result["userType"] = strtolower($row['accType']);
+      $result["userType"] = strtolower($row['accountType']);
       $result['error'] = '0';
       $result['message']= "";
 
       $_SESSION['userLogin'] = strtolower($row['username']);
-      $_SESSION['userType'] = strtolower($row['accType']);
+      $_SESSION['userType'] = strtolower($row['accountType']);
+      $_SESSION['userID'] = $row['userID'];
     }
     else
     {
@@ -161,7 +157,7 @@ Returns
 */
 
   $app->post('/api/userSignUp', function() {
-    $result['status'] = "incomplete";
+    $result['status'] = "complete";
     global $dbh;
 
     $args[':username'] = strtolower($_POST['username']);
@@ -172,7 +168,7 @@ Returns
 
     $statement = $dbh->prepare(
       "INSERT INTO Account
-      (username, email, password, dateCreated, accType, dateOfLastActivity)
+      (username, email, password, dateCreated, accountType, dateOfLastActivity)
       VALUES
       (:username, :email, :password, NOW(), :accountType, NOW())");
 
@@ -197,29 +193,63 @@ Returns
 
   });
 
+  /*
+  Andre Gras
+  Creates a Bounty
+  Error Codes:
+    0 = bounty created
+    1 = statement did not execute
+    2 = user was hunter
+    3 = username sent does not match user logged in
+  Returns
+    username
+    userType
+  */
+
 $app->post('/api/createBounty', function()
 {
   global $dbh;
-  $args[':ownerId'] = $_POST['userId'];
-  $args[':bountyName'] = $_POST['name'];
-  $args[':payout'] = $_POST['payout'];
-  $args[':link'] = $_POST['link'];
-  $args[':endDate'] = $_POST['endDate'];
-  $args[':fullDesc'] = $_POST['desc'];
-  $sth = $dbh->prepare(
-  "INSERT INTO BountyPool (dateCreated,PayoutPool,dateEnding,bountyMarshallId,bountyLink,fullDesc)
-  VALUES (now(),:payout,:endDate,:ownerId,:link,:fullDesc)");
-  if($sth->execute($args))
-  {
-    $result['success'] = true;
-    $result['bountyId'] = $dbh->lastInsertId();
+
+    $usn = $_POST['username'];
+    if($usn != $_SESSION['userLogin'])
+    {
+      $result['errorCode'] = 3;
+      $result['success'] = false;
+      $result['errorInfo'] = 'username sent does not match user logged in';
+      echo json_encode($result);
+    }
+    else{
+      if($_SESSION['userType'] == 'marshall'){
+
+        $args[':bountyName'] = $_POST['name'];
+        $args[':payout'] = $_POST['payout'];
+        $args[':link'] = $_POST['link'];
+        $args[':endDate'] = $_POST['endDate'];
+        $args[':fullDesc'] = $_POST['desc'];
+        $sth = $dbh->prepare(
+        "INSERT INTO BountyPool (dateCreated,PayoutPool,dateEnding,bountyMarshallID,bountyLink,fullDesc)
+        VALUES (now(),:payout,:endDate,:userID,:link,:fullDesc)");
+        if($sth->execute($args))
+        {
+          $result['success'] = true;
+          $result['errorCode'] = 0;
+        }
+        else
+        {
+          $result['success'] = false;
+          $result['errorCode'] = 1;
+          $result['errorInfo'] = $sth->errorInfo();
+        }
+        echo json_encode($result);
+    }
+    else{
+      $result['success'] = false;
+      $result['errorCode'] = 2;
+      $result['errorInfo'] = 'Must be Marshall to create bounties';
+      echo json_encode($result);
+    }
   }
-  else
-  {
-    $result['success'] = false;
-    $result['errorInfo'] = $sth->errorInfo();
-  }
-  echo json_encode($result);
+
 });
 
 $app->post('/logout', function() use ($dbh){
