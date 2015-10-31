@@ -2,11 +2,11 @@
 <html>
 <head>
     <title>BugBounty Profile</title>
-    <link rel="shortcut icon" type="image/x-icon" href="../../_images/_logos/bug-hunter-icon.ico" />
-    <link rel="stylesheet" type="text/css" href="../../_css/hunter-profile.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="/../_images/_logos/bug-hunter-icon.ico" />
+    <link rel="stylesheet" type="text/css" href="/../_css/hunter-profile.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="../../_javascript/update_profile.js"></script>
+    <script src="/../_javascript/update_profile.js"></script>
 </head>
 <body>
     {{include ('header_logout.php')}}
@@ -16,7 +16,7 @@
 
       <div id="section1A">
         <div id="picture_upload">
-          <img id="profile_picture" src="../../_images/_profiles/_{{username}}/{{username}}_profile.png" alt="Profile Picture" />
+          <img id="profile_picture" src="/../_images/_profiles/_{{username}}/{{username}}_profile.png" alt="Profile Picture" />
           <input type="file" name="profilePicture" />
         </div>
       </div>
