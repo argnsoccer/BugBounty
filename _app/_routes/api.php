@@ -175,6 +175,7 @@ Returns
 $app->post('/api/createBounty', function()
 {
   global $dbh;
+  $args[':ownerId'] = $_POST['userID'];
   $args[':username'] = $_POST['username'];
   $args[':payout'] = $_POST['payout'];
   $args[':link'] = $_POST['link'];
@@ -185,7 +186,7 @@ $app->post('/api/createBounty', function()
   VALUES (now(),:payout,:endDate,:ownerId,:link,:fullDescription)");
   if($sth->execute($args))
   {
-    $args2[]
+    $args2[':ID'] = $_POST['userID'];
     $sth = $dbh->prepare(
     "SELECT * FROM Account WHERE userID = :ID");
     if($sth->execute($args2))
