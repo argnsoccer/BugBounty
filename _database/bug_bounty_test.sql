@@ -235,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `unpaidReport` (
   `message` mediumtext NOT NULL,
   PRIMARY KEY (`reportID`),
   UNIQUE KEY `reportID_UNIQUE` (`reportID`),
-  CONSTRAINT `fk_unpaidReport_Report1` FOREIGN KEY (`reportID`) REFERENCES `Report` (`reportID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_unpaidReport_Report1` FOREIGN KEY (`reportID`) REFERENCES `rReport` (`reportID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
