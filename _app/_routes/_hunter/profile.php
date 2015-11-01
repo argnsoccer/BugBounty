@@ -1,9 +1,6 @@
 <?php
 
-if(!isset($_SESSION))
-{
-  session_start();
-}
+session_start();
 session_set_cookie_params(0);
 
 
@@ -12,8 +9,7 @@ function getUserNameDetailsHunter($dbh, $username)
 	$statement = $dbh->prepare("
 				SELECT *
 				FROM Account
-				WHERE username = :username"
-	);
+				WHERE username = :username");
 
 	$args[':username'] = $username;
 
@@ -24,33 +20,9 @@ function getUserNameDetailsHunter($dbh, $username)
     	$template_array = array(
     		"username" => $row['username'],
     		"email" => $row['email'],
-				"dateCreated" => $row['dateCreated'],
-				"dateOfLastActivity" => $row['dateOfLastActivity'],
     		"error" => 0,
-				//reports they've been paid for
-				//unpaid reports
+    		//"picture" => $row['picture'],
     	);
-			$statement = $dbh->prepare("
-			SELECT *
-			FROM Report
-			WHERE username = :username");
-			$args[':username'] = $username;
-			if($statement->execute($args)){
-				$row = $statement->fetch(PDO::FETCH_ASSOC);
-				if($row['Paid'] == true){
-					$template_array['paidReportText'] = $row['reportText'];
-					$template_array['payoutAmt'] = $row['payoutAmt'];
-					$template_array['bountyID'] = $row['bountyID'];
-				}
-				if($row['Assessed'] = false){
-					$template_array['currentReportText'] = $row['reportText'];
-					$template_array['bountyID'] = $row['bountyID'];
-				}
-			}
-			else{
-				$template_array['error'] = 3;
-				$template_array['message'] = 'Second statement not run';
-			}
     }
     else {
     	$template_array = array(
