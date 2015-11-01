@@ -8,7 +8,7 @@ $app = new \Slim\Slim([
 	'view' => new \Slim\Views\Twig()
 ]);
 
-$dbname = 'BugBounty';
+$dbname = 'bug_bounty_test';
 $user = 'testuser';
 $pass = 'cse3345bugbountypass';
 $host = '52.88.178.244';
