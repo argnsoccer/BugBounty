@@ -38,4 +38,42 @@ $(document).ready(function ()
         }
       });
   });
+
+  $("#submitProfile").click(function(event) {
+      userInfo = {};
+
+      $.ajax({
+        url: '/api/getLoggedInUser',
+        data: userInfo,
+        dataType: 'json',
+        async: 'false',
+        type: 'GET',
+        success: function(response)
+        {
+          if (response['error'] == '0')
+          {
+            if (response['userType'] == 'hunter')
+            {
+              var address = "/_hunter/profile/" + response['username'];
+              window.location.href = address;
+            }
+            else if (response['userType'] == 'marshall' 
+              || response['userType'] == 'sheriff')
+            {
+              var address = "/_marshall/profile/" + response['username'];
+              window.location.href = address;
+            }
+          }
+          else if(response['error'] == '1')
+          {
+            alert("bad username, no user type");
+          }
+          else
+          {
+            alert("Try again, internal error");
+          }
+        }
+      });
+
+  });
 });

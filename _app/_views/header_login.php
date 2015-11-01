@@ -7,7 +7,7 @@
     <form id="login" name="loginForm" method="post">
       <input class="loginForm" type="text" name="username" placeholder="Username" id="usernameLogin"/>
       <input class="loginForm" type="password" name="password" placeholder="Password" id="passLogin"/>
-      <input class="loginForm" type="submit" value="Log In" id="submitLogin" />
+      <input class="headerInput" type="submit" value="Log In" id="submitLogin" />
     </form>
 
   </div>
