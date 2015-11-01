@@ -15,7 +15,7 @@ $app = new \Slim\Slim([
 
 $dbname = 'bug_bounty_test';
 $user = 'root';
-$pass = 'password123';
+$pass = 'Windows9';
 $host = '127.0.0.1';
 
 try {
