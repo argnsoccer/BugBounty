@@ -1,6 +1,6 @@
-$(document).ready(function () 
+$(document).ready(function ()
 {
-  $("#submitProfileUpdate").click(function(event) 
+  $("#submitProfileUpdate").click(function(event)
   {
   	var userInfo = {};
   	userInfo['username'] = $("updateUsername").val();
@@ -8,7 +8,6 @@ $(document).ready(function ()
   	userInfo['password'] = $("updateOldPassword").val();
   	userInfo['passwordNew'] = $("updateNewPassword").val();
   	userInfo['passwordMatch'] = $("updateNewPasswordConfirm").val();
-
   	alert(userInfo['username']);
 
   });

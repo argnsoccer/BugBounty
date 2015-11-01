@@ -18,7 +18,7 @@
   </div>
   <div id="input_area">
     <div id="report_area">
-      <textarea rows="6" cols="100">Post your bug report comments here</textarea>
+      <textarea rows="6" cols="100" placeholder="Post your bug report comments here"></textarea>
     </div>
     <div id="submit_area">
       <form action="/path/to/action" method="post" id="report_form">

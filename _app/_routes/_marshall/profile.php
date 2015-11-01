@@ -3,11 +3,11 @@
 session_start();
 session_set_cookie_params(0);
 
-function getUserNameDetailsMarshall($dbh, $username)
+function prepareHomeMarshall($dbh, $username)
 {
 	$statement = $dbh->prepare("
-				SELECT * 
-				FROM Account 
+				SELECT *
+				FROM Account
 				WHERE username = :username");
 
 	$args[':username'] = $username;
@@ -51,7 +51,7 @@ $app->get('/_marshall/profile/:username', function($username) use ($app, $dbh) {
 
 	if (isset($_SESSION['userLogin']))
 	{
-		$template_array = getUserNameDetailsMarshall($dbh, $username);
+		$template_array = prepareHomeMarshall($dbh, $username);
 
 		if($template_array['error'] == 0)
 		{
