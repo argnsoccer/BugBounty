@@ -8,7 +8,6 @@
   </head>
   <body>
     {{ include ('header_logout.php') }}
-<<<<<<< HEAD
     <div id="content_area">
       <div id="display-boxes">
         <div class="display-box">
@@ -22,7 +21,6 @@
         <div class="display-box" id="tricky_bugger">
           <a href="/_hunter/search.php">Search</a>
           <p>Has anyone really been far even as decided to use even go want to do look more like?  We'll find out this Sunday.</p>
-=======
 
     <div id="section1">
 
@@ -64,13 +62,11 @@
             <input type="text" name="searchContent">
             <input type="submit" value="Submit Search">
           </form>
->>>>>>> f2035c5a897bf2c4c201f755cb9c5dd6efcc7400
         </div>
       </div>
       <a id="prof_link" href="_hunter/profile/{{username}}">Link to Profile Page</a>
     </div>
-<<<<<<< HEAD
-    
+
   </body>
 </html>
 =======

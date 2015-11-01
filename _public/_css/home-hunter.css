@@ -9,11 +9,10 @@ body
   background-color:  #303030;
 }
 
-#section1 {
+#section1
+{
   padding-top: 40px;
 }
-
-<<<<<<< HEAD
 #display-boxes
 {
   border-spacing: 20px;
@@ -21,15 +20,13 @@ body
   margin-left: auto;
   margin-right: auto;
   margin-top: 10px;
-=======
-#section1A {
+
+#section1A
+{
   float: left;
   width: 33%;
->>>>>>> f2035c5a897bf2c4c201f755cb9c5dd6efcc7400
-
 }
 
-<<<<<<< HEAD
 .display-box
 {
   background-color: #BCBCBC;
@@ -44,17 +41,18 @@ body
   padding-right: 5px;
   text-align: center;
   width: 30%;
-=======
-#section1B {
+
+#section1B
+{
   float: left;
   width: 33%;
 }
 
-#section1C {
+#section1C
+{
   float: left;
   width: 33%;
 }
->>>>>>> f2035c5a897bf2c4c201f755cb9c5dd6efcc7400
 
 .box {
   margin-top: 20px;
@@ -67,7 +65,6 @@ body
   color: #FAFAFA;
 }
 
-<<<<<<< HEAD
 #tricky_bugger
 {
   position: relative;
@@ -82,22 +79,26 @@ body
   padding: 5px;
   text-decoration: none;
 }
-=======
-#trackTable {
+
+#trackTable
+{
   width: 100%;
   padding-top: 40px;
 }
 
-td > a {
+td > a
+{
   display: block;
   color: #FAFAFA;
   margin: 0 auto;
 }
-tr {
+
+tr
+{
   margin: 0 auto;
 }
 
-#discoverButton {
+#discoverButton
+{
   width: 100%;
 }
->>>>>>> f2035c5a897bf2c4c201f755cb9c5dd6efcc7400
