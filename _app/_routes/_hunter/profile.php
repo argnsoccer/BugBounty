@@ -19,16 +19,12 @@ function prepareHomeHunter($dbh, $username)
 		$row = $statement->fetch(PDO::FETCH_ASSOC);
 
     if (isset($row['username'])) {
-    	$template_array['user'] = array(
-    		"username" => $row['username'],
-    		"email" => $row['email'],
-				"userID" => $row['userID']
-    		//"picture" => $row['picture'],
-    	);
-	/*	$template_array['error'] = array(
-				"code" => '0',
-				"message" => 'success'
-			);*/
+			$template_array = array(
+
+				'error' => array('code' => '0', 'message' => 'success'),
+				'user' => array("username" => $row['username'], "email" => $row['email'], "userID" => $row['userID'])
+			);
+
     }
     else {
     	$template_array['error'] = array(
@@ -48,11 +44,12 @@ function prepareHomeHunter($dbh, $username)
 
     	return $template_array;
 	}
-	/*$statement = $dbh->("
+	/*$args2[':username'] = $_SESSION['userLogin'];
+	$statement = $dbh->prepare("
 	SELECT * FROM Report
-	WHERE username=$_SESSION['userLogin']");
+	WHERE username=:username");
 
-	if($statement->execute()){
+	if($statement->execute($args2)){
 		$template_array['reports'] = array(
 
 		);
