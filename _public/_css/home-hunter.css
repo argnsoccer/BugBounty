@@ -9,12 +9,11 @@ body
   background-color:  #303030;
 }
 
-#content_area
-{
-  margin-left: auto;
-  margin-right: auto;
+#section1 {
+  padding-top: 40px;
 }
 
+<<<<<<< HEAD
 #display-boxes
 {
   border-spacing: 20px;
@@ -22,10 +21,15 @@ body
   margin-left: auto;
   margin-right: auto;
   margin-top: 10px;
+=======
+#section1A {
+  float: left;
+  width: 33%;
+>>>>>>> f2035c5a897bf2c4c201f755cb9c5dd6efcc7400
 
-  width: 1000px;
 }
 
+<<<<<<< HEAD
 .display-box
 {
   background-color: #BCBCBC;
@@ -40,9 +44,30 @@ body
   padding-right: 5px;
   text-align: center;
   width: 30%;
-
+=======
+#section1B {
+  float: left;
+  width: 33%;
 }
 
+#section1C {
+  float: left;
+  width: 33%;
+}
+>>>>>>> f2035c5a897bf2c4c201f755cb9c5dd6efcc7400
+
+.box {
+  margin-top: 20px;
+  margin: 0 auto;
+  width: 60%;
+  height: 200px;
+  border-style: solid;
+  border-width: 4px;
+  border-color: #FFA500;
+  color: #FAFAFA;
+}
+
+<<<<<<< HEAD
 #tricky_bugger
 {
   position: relative;
@@ -57,3 +82,22 @@ body
   padding: 5px;
   text-decoration: none;
 }
+=======
+#trackTable {
+  width: 100%;
+  padding-top: 40px;
+}
+
+td > a {
+  display: block;
+  color: #FAFAFA;
+  margin: 0 auto;
+}
+tr {
+  margin: 0 auto;
+}
+
+#discoverButton {
+  width: 100%;
+}
+>>>>>>> f2035c5a897bf2c4c201f755cb9c5dd6efcc7400
