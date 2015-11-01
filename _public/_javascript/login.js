@@ -77,4 +77,11 @@ $(document).ready(function ()
         }
       });
   });
+  
+  $("#radioButtonsForm input:radio:first").click(function() {
+	 
+		alert("clicked");
+	  
+  });
+  
 });

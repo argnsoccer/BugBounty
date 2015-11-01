@@ -12,5 +12,5 @@ $app->get('/_marshall/track', function() use ($app) {
 
 $app->get('/_marshall/track/:bountyID', function($bountyID) use ($app) {
 	echo $bountyID;
-	$app->render('_marshall/track_bounty.php');
+	$app->render('_marshall/track.php');
 });

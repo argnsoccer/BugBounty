@@ -1,0 +1,103 @@
+@font-face
+{
+  font-family: PT-Sans;
+  src: url(../_fonts/PT_Sans-Web-Regular.ttf);
+}
+
+body
+{
+  background-color:  #303030;
+}
+
+#section1 {
+  padding-top: 40px;
+}
+
+<<<<<<< HEAD
+#section1A {
+  float: left;
+  width: 33%;
+=======
+#display-boxes
+{
+  border-spacing: 20px;
+  height: 140px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+>>>>>>> 6ce86850fb9c6dce58a0913919d54fa182712960
+
+}
+
+<<<<<<< HEAD
+#section1B {
+  float: left;
+  width: 33%;
+}
+
+#section1C {
+  float: left;
+  width: 33%;
+}
+=======
+.display-box
+{
+  background-color: #BCBCBC;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px 0px rgba(50, 50, 50, 0.75);
+  display: inline-block;
+  font-family: PT-Sans;
+  height: 90%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: center;
+  width: 30%;
+>>>>>>> 6ce86850fb9c6dce58a0913919d54fa182712960
+
+.box {
+  margin-top: 20px;
+  margin: 0 auto;
+  width: 60%;
+  height: 200px;
+  border-style: solid;
+  border-width: 4px;
+  border-color: #FFA500;
+  color: #FAFAFA;
+}
+
+<<<<<<< HEAD
+#trackTable {
+  width: 100%;
+  padding-top: 40px;
+}
+
+td > a {
+  display: block;
+  color: #FAFAFA;
+  margin: 0 auto;
+}
+tr {
+  margin: 0 auto;
+}
+
+#discoverButton {
+  width: 100%;
+}
+=======
+#tricky_bugger
+{
+  position: relative;
+  top: 40px;
+}
+
+#prof_link
+{
+  background-color: #0000FF;
+  border-radius: 15px;
+  color: #FAFAFA;
+  padding: 5px;
+  text-decoration: none;
+}
+>>>>>>> 6ce86850fb9c6dce58a0913919d54fa182712960
