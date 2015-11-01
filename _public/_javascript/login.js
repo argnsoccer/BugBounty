@@ -1,4 +1,4 @@
-function isSet(key, value) 
+function isSet(key, value)
 {
   if (value == null || value == '')
   {
@@ -8,9 +8,9 @@ function isSet(key, value)
   return true;
 }
 
-$(document).ready(function () 
+$(document).ready(function ()
 {
-	$("#submitLogin").click(function(event) 
+	$("#submitLogin").click(function(event)
 	{
       event.preventDefault();
 
@@ -39,7 +39,6 @@ $(document).ready(function ()
         type: 'POST',
         success: function(response)
         {
-
           if (response['error'] == '0')
           {
             //alert(response['userType']);
@@ -47,7 +46,7 @@ $(document).ready(function ()
             {
               window.location.reload(true);
             }
-            else if (response['userType'] == "marshall" 
+            else if (response['userType'] == "marshall"
               || response['userType'] == "sheriff")
             {
               window.location.reload(true);
@@ -69,7 +68,7 @@ $(document).ready(function ()
             return false;
           }
         },
-        error: function(xhr, status, error) 
+        error: function(xhr, status, error)
         {
         var err = eval("(" + xhr.responseText + ")");
         //alert("Please Try Again, we had an internal error!");
@@ -77,11 +76,11 @@ $(document).ready(function ()
         }
       });
   });
-  
+
   $("#radioButtonsForm input:radio:first").click(function() {
-	 
+
 		alert("clicked");
-	  
+
   });
-  
+
 });
