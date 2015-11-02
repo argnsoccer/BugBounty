@@ -1,9 +1,3 @@
-@font-face
-{
-  font-family: PT-Sans;
-  src: url(../_fonts/PT_Sans-Web-Regular.ttf);
-}
-
 body
 {
   background-color:  #303030;
@@ -13,6 +7,7 @@ body
 {
   padding-top: 40px;
 }
+<<<<<<< HEAD
 #display-boxes
 {
   border-spacing: 20px;
@@ -44,6 +39,16 @@ body
 
 #section1B
 {
+=======
+
+#section1A {
+  float: left;
+  width: 33%;
+
+}
+
+#section1B {
+>>>>>>> 2c28b058b50ad5cc7ca55eca26a16b34430f387b
   float: left;
   width: 33%;
 }
@@ -65,6 +70,7 @@ body
   color: #FAFAFA;
 }
 
+<<<<<<< HEAD
 #tricky_bugger
 {
   position: relative;
@@ -82,6 +88,9 @@ body
 
 #trackTable
 {
+=======
+#trackTable {
+>>>>>>> 2c28b058b50ad5cc7ca55eca26a16b34430f387b
   width: 100%;
   padding-top: 40px;
 }
@@ -101,4 +110,8 @@ tr
 #discoverButton
 {
   width: 100%;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 2c28b058b50ad5cc7ca55eca26a16b34430f387b

@@ -8,10 +8,10 @@ $app = new \Slim\Slim([
 	'view' => new \Slim\Views\Twig()
 ]);
 
-$dbname = 'BugBounty';
-$user = 'testuser';
-$pass = 'cse3345bugbountypass';
-$host = '52.88.178.244';
+$dbname = 'bug_bounty_test';
+$user = 'root';
+$pass = 'password123';
+$host = '127.0.0.1';
 
 try {
   $dbh = new PDO("mysql:host=$host;dbname=$dbname", "$user", "$pass");

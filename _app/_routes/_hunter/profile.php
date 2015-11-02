@@ -4,8 +4,10 @@ session_start();
 session_set_cookie_params(0);
 
 
-function getUserNameDetailsHunter($dbh, $username)
+function prepareHomeHunter($dbh, $username)
 {
+	$template_array = array();
+
 	$statement = $dbh->prepare("
 				SELECT *
 				FROM Account
@@ -17,18 +19,18 @@ function getUserNameDetailsHunter($dbh, $username)
 		$row = $statement->fetch(PDO::FETCH_ASSOC);
 
     if (isset($row['username'])) {
-    	$template_array = array(
-    		"username" => $row['username'],
-    		"email" => $row['email'],
-    		"error" => 0,
-    		//"picture" => $row['picture'],
-    	);
+			$template_array = array(
+
+				'error' => array('code' => '0', 'message' => 'success'),
+				'user' => array("username" => $row['username'], "email" => $row['email'], "userID" => $row['userID'])
+			);
+
     }
     else {
-    	$template_array = array(
-    		"error" => 1,
-    		"message" => 'No username',
-    	);
+    	$template_array['error'] = array(
+    		"code" => '1',
+    		"message" => 'No username'
+			);
 
     	return $template_array;
     }
@@ -36,13 +38,22 @@ function getUserNameDetailsHunter($dbh, $username)
 	}
 	else {
 		$template_array = array(
-    		"error" => 2,
-    		"message" => 'Statement not ran',
+    		"error" => '2',
+    		"message" => 'Statement not ran'
     	);
 
     	return $template_array;
 	}
+	/*$args2[':username'] = $_SESSION['userLogin'];
+	$statement = $dbh->prepare("
+	SELECT * FROM Report
+	WHERE username=:username");
 
+	if($statement->execute($args2)){
+		$template_array['reports'] = array(
+
+		);
+	}*/
 	// $statement = $dbh->("
 	// 	SELECT *
 	// 	FROM Report
@@ -79,9 +90,9 @@ $app->get('/_hunter/profile/:username', function($username) use ($app, $dbh) {
 	if (isset($_SESSION['userLogin']))
 	{
 		if($_SESSION['userLogin'] == $username)
-		{
+	{
 
-			$template_array = getUserNameDetailsHunter($dbh, $username);
+			$template_array = prepareHomeHunter($dbh, $username);
 
 			if($template_array['error'] == 0)
 			{
