@@ -438,7 +438,7 @@ $app->post('/api/updateReport', function() use ($dbh) {
 });
 
   /*
-  Andre Gras
+  Ryan Edson
   Returns all reports a username has submitted
   Error Codes:
   Returns
