@@ -3,8 +3,16 @@
 session_start();
 session_set_cookie_params(0);
 
-function prepareHomeMarshall($dbh, $username)
+function prepareMarshallProfile($dbh, $username)
 {
+	// for marshall profile we need 
+	// 	1)  email
+	// 	2) company name
+	// 	3) username
+	// 	4) all bounties currently active for user
+	// 	5) all bounties that have expired
+		
+
 	$statement = $dbh->prepare("
 				SELECT *
 				FROM Account
@@ -51,7 +59,7 @@ $app->get('/_marshall/profile/:username', function($username) use ($app, $dbh) {
 
 	if (isset($_SESSION['userLogin']))
 	{
-		$template_array = prepareHomeMarshall($dbh, $username);
+		$template_array = prepareMarshallProfile($dbh, $username);
 
 		if($template_array['error'] == 0)
 		{

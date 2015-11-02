@@ -32,7 +32,7 @@ $(document).ready(function ()
       }
 
       $.ajax({
-        url: '/api/userLogin',
+        url: '/api/loginUser',
         data: userInfo,
         dataType: 'json',
         async: 'false',

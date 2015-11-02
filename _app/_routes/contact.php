@@ -1,7 +1,8 @@
 <?php
 
-session_start();
-session_set_cookie_params(0);
+function prepareContactPage($dbh) {
+	
+}
 
 $app->get('/contact', function() use ($app) {
 	if (isset($_SESSION['userLogin'])) {

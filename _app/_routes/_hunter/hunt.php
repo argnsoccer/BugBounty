@@ -1,7 +1,15 @@
 <?php
 
-session_start();
-session_set_cookie_params(0);
+function prepareHuntPage($dbh, $username, $bountyID) {
+	// the hunt page needs
+	// 	1) the username
+	// 	2) the email
+	// 	3) all info regarding the bounty
+
+	$template_array = array();
+
+	return $template_array;
+}
 
 $app->get('/_hunter/hunt', function() use ($app) {
 

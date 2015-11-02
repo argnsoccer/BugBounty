@@ -1,7 +1,8 @@
 <?php
 
-session_start();
-session_set_cookie_params(0);
+function prepareTrackPage($dbh) {
+
+}
 
 $app->get('/_marshall/track', function() use ($app) {
 	echo "please include bounty id";

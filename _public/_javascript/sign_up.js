@@ -35,7 +35,7 @@ $(document).ready(function ()
       }
 
       $.ajax({
-        url: '/api/userSignUp',
+        url: '/api/signUpUser',
         data: userInfo,
         dataType: 'json',
         async: 'false',

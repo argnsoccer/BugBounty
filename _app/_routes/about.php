@@ -1,5 +1,9 @@
 <?php
 
+function prepareAboutPage() {
+	//empty
+}
+
 $app->get('/about', function() use ($app) {
 		if (isset($_SESSION['userLogin'])) {
 		$app->render('about.php', array (

@@ -1,11 +1,15 @@
 <?php
 
-session_start();
-session_set_cookie_params(0);
-
-
-function prepareHomeHunter($dbh, $username)
+function prepareHunterProfile($dbh, $username)
 {
+	// for the hunter profile page, we need
+	// 	1)  the username
+	// 	2)  the email
+	// 	3)  the path to the profile picture
+	// 	4)  all the reports this user has ever submitted
+	// 		(paid and non-paid) (all info including bountyID)
+		
+
 	$template_array = array();
 
 	$statement = $dbh->prepare("
@@ -44,33 +48,6 @@ function prepareHomeHunter($dbh, $username)
 
     	return $template_array;
 	}
-	/*$args2[':username'] = $_SESSION['userLogin'];
-	$statement = $dbh->prepare("
-	SELECT * FROM Report
-	WHERE username=:username");
-
-	if($statement->execute($args2)){
-		$template_array['reports'] = array(
-
-		);
-	}*/
-	// $statement = $dbh->("
-	// 	SELECT *
-	// 	FROM Report
-	// 	WHERE hunterID = :hunterID
-	// 	");
-
-	// if($statement->execute($args)) {
-
-	// 	$template_array['reports'] = array();
-
-	// 	while($row = $statement->fetch(PDO::FETCH_ASSOC))
-	// 	{
-	// 		$report['reportText'] = $row['reportText'];
-	// 		$report
-	// 		array_push($template_array['reports'], $report);
-	// 	}
-	// }
 
 	return $template_array;
 }
@@ -92,7 +69,7 @@ $app->get('/_hunter/profile/:username', function($username) use ($app, $dbh) {
 		if($_SESSION['userLogin'] == $username)
 	{
 
-			$template_array = prepareHomeHunter($dbh, $username);
+			$template_array = prepareHunterProfile($dbh, $username);
 
 			if($template_array['error'] == 0)
 			{
