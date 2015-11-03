@@ -126,21 +126,21 @@ function createBounty($dbh, $args) {
 
     if($sth->execute($args))
     {
-      $result['success'] = true;
-      $result['errorCode'] = 0;
+      $result['success'] = 'true';
+      $result['errorCode'] = '0';
     }
     else
     {
-      $result['success'] = false;
-      $result['errorCode'] = 1;
+      $result['success'] = 'false';
+      $result['errorCode'] = '1';
       $result['errorInfo'] = $sth->errorInfo();
     }
 
     return $result;
   }
   else {
-    $result['success'] = false;
-    $result['errorCode'] = 2;
+    $result['success'] = 'false';
+    $result['errorCode'] = '2';
     $result['errorInfo'] = 'Must be Marshall to create bounties';
     return $result;
   }
