@@ -55,7 +55,7 @@ function loginUser($dbh, $args) {
 
 function signUpUser($dbh, $args) {
   $result['status'] = "complete";
-  
+
   $statement = $dbh->prepare(
     "INSERT INTO Account
       (username, email, password, dateCreated, accountType, dateOfLastActivity)
@@ -87,6 +87,25 @@ function signUpUser($dbh, $args) {
 
 function getUserFromUsername($dbh, $args) {
   //Simple Select query which returns username, email, and type
+
+  $statement = $dbh->prepare("
+  SELECT username, email, accountType FROM Account WHERE username = :username");
+
+  if($statement->execute($args))
+  {
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+
+    $result['username'] = $row['username'];
+    $result['userType'] = strtolower($row['accountType']);
+    $result['email'] = $row['email'];
+    $result['error'] = '0';
+  }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = 'Statement not executed';
+
+  }
 }
 
 function getUserFromEmail($dbh, $args) {
@@ -96,23 +115,15 @@ function getUserFromEmail($dbh, $args) {
 
 function createBounty($dbh, $args) {
 
-  if($args[':username'] != $_SESSION['userLogin'])
-  {
-    $result['errorCode'] = 3;
-    $result['success'] = false;
-    $result['errorInfo'] = 'username sent does not match user logged in';
-      return $result;
-  }
-
-  if($_SESSION['userType'] == 'marshall') {
+    if($_SESSION['userType'] == 'marshall') {
 
     $sth = $dbh->prepare(
-      "INSERT INTO 
+      "INSERT INTO
         BountyPool (dateCreated, PayoutPool, dateEnding, bountyMarshallID, bountyLink, fullDescription, bountyName)
-      VALUES 
+      VALUES
         (now(),:payout,:endDate,:userID,:link,:fullDesc, :bountyName)"
-    ); //something wrong here
-        
+    );
+
     if($sth->execute($args))
     {
       $result['success'] = true;
@@ -124,7 +135,7 @@ function createBounty($dbh, $args) {
       $result['errorCode'] = 1;
       $result['errorInfo'] = $sth->errorInfo();
     }
-        
+
     return $result;
   }
   else {
@@ -156,7 +167,7 @@ function getReportsFromUsernameBountyID($dbh, $args) {
 }
 
 function getPreferredReports($dbh, $args) {
-  
+
 }
 //*************************************************************************************
 //Session Accessing Functions go here**************************************************
@@ -226,7 +237,7 @@ Complete
 */
 
 $app->get('/api/getLoggedInUser', function() {
- 
+
   $result = getLoggedInUser();
 
   echo json_encode($result);
@@ -261,7 +272,7 @@ Complete
 */
 
 $app->get('/api/deleteSession', function() {
-  
+
   $result = deleteSession();
 
   echo json_encode($result);
@@ -372,15 +383,13 @@ $app->get('/api/getUserFromEmail/:email', function($email) use ($dbh) {
     0 = bounty created
     1 = statement did not execute
     2 = user was hunter
-    3 = username sent does not match user logged in
   Returns
 
-  Incomplete
+  complete
   */
 
 $app->post('/api/createBounty', function() use ($dbh) {
 
-  $args[':username'] = $_POST['username'];
   $args[':bountyName'] = $_POST['name'];
   $args[':payout'] = $_POST['payout'];
   $args[':link'] = $_POST['link'];
