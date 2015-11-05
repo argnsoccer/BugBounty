@@ -9,8 +9,8 @@ $app = new \Slim\Slim([
 ]);
 
 $dbname = 'bug_bounty_test';
-$user = 'root';
-$pass = 'password123';
+$user = 'bugUser';
+$pass = 'bugPassword';
 $host = '127.0.0.1';
 
 try {
