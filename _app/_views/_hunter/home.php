@@ -8,22 +8,6 @@
   </head>
   <body>
     {{ include ('header_logout.php') }}
-<<<<<<< HEAD
-    <div id="content_area">
-      <div id="display-boxes">
-        <div class="display-box">
-          <a href="/_hunter/discover.php">Discover</a>
-          <p>Find hot young bugs in your local area</p>
-        </div>
-        <div class="display-box">
-          <a href="/_hunter/hunt.php">Hunt</a>
-          <p>Hunt the <i>hell</i> out of those bugs</p>
-        </div>
-        <div class="display-box" id="tricky_bugger">
-          <a href="/_hunter/search.php">Search</a>
-          <p>Has anyone really been far even as decided to use even go want to do look more like?  We'll find out this Sunday.</p>
-=======
->>>>>>> 2c28b058b50ad5cc7ca55eca26a16b34430f387b
 
     <div id="section1">
 
@@ -69,13 +53,6 @@
       </div>
 
     </div>
-<<<<<<< HEAD
-
-  </body>
-</html>
-=======
-=======
->>>>>>> 2c28b058b50ad5cc7ca55eca26a16b34430f387b
 
     <div id="section2">
     </div>
@@ -88,7 +65,3 @@
 
 
 <!-- <a href="_hunter/profile/{{username}}">Link to Profile Page</a> -->
-<<<<<<< HEAD
->>>>>>> f2035c5a897bf2c4c201f755cb9c5dd6efcc7400
-=======
->>>>>>> 2c28b058b50ad5cc7ca55eca26a16b34430f387b

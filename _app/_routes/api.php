@@ -4,55 +4,269 @@ if(!isset($_SESSION))
 {
   session_start();
 }
-session_set_cookie_params(0);
+//Database Accessing Functions go here*************************************************
 
-// try {
-//   $dbh = new PDO("mysql:host=$host;dbname=$dbname", "$user", "$pass");
-// }
-// catch (PDOException $e) {
-//     $response = "Failed to connect: ";
-//     $response .= $e->getMessage();
-//     die ($response);
-// }
+function loginUser($dbh, $args) {
 
-$app->get('/api/test', function () use ($dbh) {
-    echo "API";
-});
+  $result['status'] = "complete";
+  global $dbh;
+  if(!isset($_SESSION['userLogin'])){
 
-/*
-Danny Rizzuto
-Update the session information from javascript
-Error Codes:
-  0 = returns username
-  1 = no user is logged in
-*/
+    $statement = $dbh->prepare("SELECT username, userID, accountType, email FROM Account WHERE username = :username AND password = :password");
 
-$app->get('/api/getLoggedInUser', function() {
+    if($statement->execute($args))
+    {
+      $row = $statement->fetch(PDO::FETCH_ASSOC);
+      if (isset($row['username']))
+      {
+        $result["username"] = $row['username'];
+        $result["userType"] = strtolower($row['accountType']);
+        $result['userID'] = $row['userID'];
+        $result['email'] = $row['email'];
+
+        $_SESSION['userLogin'] = $row['username'];
+        $usn[':username'] = $row['username'];
+        $_SESSION['userType'] = strtolower($row['accountType']);
+        $_SESSION['userID'] = $row['userID'];
+        $_SESSION['email'] = $row['email'];
+
+        $result['error'] = '0';
+      }
+      else
+      {
+        $result['error'] = '1';
+        $result['message'] = "The username and password combination did not work";
+      }
+    }
+    else
+    {
+      $result['error'] = '2';
+      $result['message'] = $statement->errorInfo();
+    }
+
+    return $result;
+  }
+  else
+  {
+    $result['error'] = 3;
+    $result['message'] = 'user is already logged in';
+
+    return $result;
+  }
+}
+
+function signUpUser($dbh, $args) {
+  $result['status'] = "complete";
+
+  $statement = $dbh->prepare(
+    "INSERT INTO Account
+      (username, email, password, dateCreated, accountType, dateOfLastActivity)
+    VALUES
+      (:username, :email, :password, NOW(), :accountType, NOW())"
+  );
+
+  if($statement->execute($args))
+  {
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    $result['username'] = $_POST['username'];
+    $result['userType'] = strtolower($_POST['accountType']);
+    $result['error'] = '0';
+
+    $_SESSION['userLogin'] = $_POST['username'];
+    $_SESSION['userType'] = strtolower($_POST['accountType']);
+    $_SESSION['userID'] = $row['userID'];
+    }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = $statement->errorInfo()[2];
+
+    //THIS NEEDS TO BE FIXED TO DIFFERENTIATE BETWEEN EMAIL AND USERNAME
+  }
+
+  return $result;
+}
+
+function getUserFromUsername($dbh, $args) {
+  //Simple Select query which returns username, email, and type
+
+  $statement = $dbh->prepare("
+  SELECT username, email, accountType FROM Account WHERE username = :username");
+
+  if($statement->execute($args))
+  {
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+
+    $result['username'] = $row['username'];
+    $result['userType'] = strtolower($row['accountType']);
+    $result['email'] = $row['email'];
+    $result['error'] = '0';
+  }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = 'Statement not executed';
+
+  }
+}
+
+function getUserFromEmail($dbh, $args) {
+   //Simple Select query which returns username, email, and type
+
+  $statement = $dbh->prepare("
+  SELECT username, email, accountType FROM Account WHERE email = :email");
+
+  if($statement->execute($args))
+  {
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+
+    $result['username'] = $row['username'];
+    $result['userType'] = strtolower($row['accountType']);
+    $result['email'] = $row['email'];
+    $result['error'] = '0';
+  }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = 'Statement not executed';
+  }
+  return $result;
+}
+
+
+function createBounty($dbh, $args) {
+
+    if($_SESSION['userType'] == 'marshall') {
+
+    $sth = $dbh->prepare(
+      "INSERT INTO
+        BountyPool (dateCreated, PayoutPool, dateEnding, bountyMarshallID, bountyLink, fullDescription, bountyName)
+      VALUES
+        (now(),:payout,:endDate,:userID,:link,:fullDesc, :bountyName)"
+    );
+
+    if($sth->execute($args))
+    {
+      $result['success'] = 'true';
+      $result['errorCode'] = '0';
+    }
+    else
+    {
+      $result['success'] = 'false';
+      $result['errorCode'] = '1';
+      $result['errorInfo'] = $sth->errorInfo();
+    }
+
+    return $result;
+  }
+  else {
+    $result['success'] = 'false';
+    $result['errorCode'] = '2';
+    $result['errorInfo'] = 'Must be Marshall to create bounties';
+    return $result;
+  }
+}
+
+function createReport($dbh, $args) {
+
+  $statement = $dbh->prepare("
+  INSERT INTO report (bountyID,username,ReportText)
+  VALUES (:bountyID,:username,:ReportText)");
+
+  if($statement->execute($args))
+  {
+    $result['error'] = '0';
+  }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = 'Statement not executed';
+
+  }
+  return $result;
+}
+
+function updateReport($dbh, $args) {
+
+}
+
+function getReportsFromUsername($dbh, $args) {
+
+}
+
+function getReportsFromBountyID($dbh, $args) {
+  
+}
+
+function getReportsFromUsernameBountyID($dbh, $args) {
+$statement = $dbh->prepare("
+  SELECT * FROM report
+  WHERE bountyID=:bountyID");
+
+  if($statement->execute($args))
+  {
+    $result['reportArray'] = array();
+    $result['error'] = 0;
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+  {
+    array_push($result['reportArray'],$row);
+  }
+  }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = 'Statement not executed';
+
+  }
+  return $result;
+}
+
+
+function getPreferredReports($dbh) {
+ //Join query to get all preferred bounties
+
+  $statement = $dbh->prepare("
+  SELECT * FROM bountypool,preferredbounties
+  WHERE bountypool.poolID=preferredbounties.bountyID");
+
+  if($statement->execute($args))
+  {
+    $result['bountyArray'] = array();
+    $result['error'] = 0;
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+  {
+    array_push($result['bountyArray'],$row);
+  }
+  }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = 'Statement not executed';
+
+  }
+  return $result;
+}
+//*************************************************************************************
+//Session Accessing Functions go here**************************************************
+function getLoggedInUser() {
   $result['status'] = "complete";
 
   if (isset($_SESSION['userLogin'])) {
     $result['error'] = '0';
     $result['username'] = $_SESSION['userLogin'];
     $result['userType'] = $_SESSION['userType'];
+    $result['email'] = $_SESSION['email'];
+    $result['userID'] = $_SESSION['userID'];
   }
   else {
     $result['error'] = '1';
     $result['message'] = 'No user is logged in';
   }
 
-  echo json_encode($result);
+  return $result;
+}
 
-});
-
-/*
-Danny Rizzuto
-Update the session information from javascript
-Error Codes:
-  0 = session info updated
-  1 = session infor not updated
-*/
-
-$app->get('/api/updateSession', function ($property, $value) use ($dbh) {
+function updateSession() {
   $result['status'] = 'complete';
 
   try
@@ -66,18 +280,10 @@ $app->get('/api/updateSession', function ($property, $value) use ($dbh) {
     $result['message'] = $e->getMessage();
   }
 
-  echo json_encode($result);
-});
+  return $result;
+}
 
-/*
-Danny Rizzuto
-Delete the current Session
-Error Codes:
-  0 = session deleted
-  1 = session not deleted
-*/
-
-$app->get('/api/deleteSession', function() {
+function deleteSession() {
   $result['status'] = "complete";
 
   try {
@@ -89,6 +295,64 @@ $app->get('/api/deleteSession', function() {
     $result['error'] = '1';
     $result['message'] = $e->getMessage();
   }
+
+  return $result;
+}
+//*************************************************************************************
+
+
+$app->get('/api/test', function () use ($dbh) {
+    echo "API";
+});
+
+/*
+Danny Rizzuto
+Get the logged in user from javascript
+Error Codes:
+  0 = returns username
+  1 = no user is logged in
+
+Complete
+*/
+
+$app->get('/api/getLoggedInUser', function() {
+
+  $result = getLoggedInUser();
+
+  echo json_encode($result);
+
+});
+
+/*
+Danny Rizzuto
+Update the session information from javascript
+Error Codes:
+  0 = session info updated
+  1 = session infor not updated
+
+Complete
+*/
+
+$app->get('/api/updateSession', function ($property, $value) use ($dbh) {
+
+ $result = updateSession();
+
+  echo json_encode($result);
+});
+
+/*
+Danny Rizzuto
+Delete the current Session
+Error Codes:
+  0 = session deleted
+  1 = session not deleted
+
+Complete
+*/
+
+$app->get('/api/deleteSession', function() {
+
+  $result = deleteSession();
 
   echo json_encode($result);
 });
@@ -105,53 +369,18 @@ Returns
   username
   userType
   userID
+
+  Complete
 */
 
-$app->post('/api/userLogin', function () {
-  $result['status'] = "complete";
-  global $dbh;
-  if(!isset($_SESSION['userLogin'])){
+$app->post('/api/loginUser', function () use ($dbh) {
 
-    $args[':username'] = $_POST['username'];
-    $args[':password'] = $_POST['password'];
+  $args[':username'] = $_POST['username'];
+  $args[':password'] = $_POST['password'];
 
-    $statement = $dbh->prepare("SELECT username, userID, accountType FROM Account WHERE username = :username AND password = :password");
+  $result = loginUser($dbh, $args);
 
-    if($statement->execute($args))
-    {
-      $row = $statement->fetch(PDO::FETCH_ASSOC);
-      if (isset($row['username']))
-      {
-        $result["username"] = strtolower($row['username']);
-        $result["userType"] = strtolower($row['accountType']);
-        $result['userID'] = $row['userID'];
-
-        $_SESSION['userLogin'] = strtolower($row['username']);
-        $usn[':username'] = $row['username'];
-        $_SESSION['userType'] = strtolower($row['accountType']);
-        $_SESSION['userID'] = $row['userID'];
-
-        $result['error'] = '0';
-      }
-      else
-      {
-        $result['error'] = '1';
-        $result['message'] = "The username and password combination did not work";
-      }
-    }
-    else
-    {
-      $result['error'] = '2';
-      $result['message'] = $statement->errorInfo();
-    }
-
-    echo json_encode($result);
-  }
-  else{
-    $result['error'] = 3;
-    $result['message'] = 'user is already logged in';
-    echo json_encode($result);
-  }
+  echo json_encode($result);
 });
 
 /*
@@ -165,46 +394,66 @@ Error Codes:
 Returns
   username
   userType
+
+Complete
 */
 
-  $app->post('/api/userSignUp', function() {
-    $result['status'] = "complete";
-    global $dbh;
+$app->post('/api/signUpUser', function() use ($dbh) {
 
-    $args[':username'] = strtolower($_POST['username']);
-    $args[':password'] = $_POST['password'];
-    $args[':email'] = strtolower($_POST['email']);
-    $args[':accountType'] = strtolower($_POST['accountType']);
+  $args[':username'] = $_POST['username'];
+  $args[':password'] = $_POST['password'];
+  $args[':email'] = strtolower($_POST['email']);
+  $args[':accountType'] = strtolower($_POST['accountType']);
 
+  $result = signUpUser($dbh, $args);
 
-    $statement = $dbh->prepare(
-      "INSERT INTO Account
-      (username, email, password, dateCreated, accountType, dateOfLastActivity)
-      VALUES
-      (:username, :email, :password, NOW(), :accountType, NOW())");
+  echo json_encode($result);
 
-    if($statement->execute($args))
-    {
-      $row = $statement->fetch(PDO::FETCH_ASSOC);
-      $result['username'] = strtolower($_POST['username']);
-      $result['userType'] = strtolower($_POST['accountType']);
-      $result['error'] = '0';
+});
 
-      $_SESSION['userLogin'] = strtolower($_POST['username']);
-      $_SESSION['userType'] = strtolower($_POST['accountType']);
-      $_SESSION['userID'] = $row['userID'];
-    }
-    else
-    {
-      $result['error'] = '1';
-      $result['message'] = $statement->errorInfo()[2];
+/*
+Andre Gras
+Get the basics of a user from username
+Error Codes:
+  0 = user returned all good
+  1 = username  doesnt exists
+Returns
+  username
+  userType
 
-      //THIS NEEDS TO BE FIXED TO DIFFERENTIATE BETWEEN EMAIL AND USERNAME
-    }
+Incomplete
+*/
 
-    echo json_encode($result);
+$app->get('/api/getUserFromUsername/:username', function($username) use ($dbh) {
+  $args[':username'] = $username;
 
-  });
+  $result = getUserFromUsername($dbh, $args);
+
+  echo json_encode($result);
+
+});
+
+/*
+Michael Gilbert
+Get the basics of a user from email
+Error Codes:
+  0 = user returned all good
+  1 = email doesnt exists
+Returns
+  username
+  userType
+
+complete
+*/
+
+$app->get('/api/getUserFromEmail/:email', function($email) use ($dbh) {
+  $args[':email'] = $username;
+
+  $result = getUserFromEmail($dbh, $args);
+
+  echo json_encode($result);
+
+});
 
   /*
   Andre Gras
@@ -213,125 +462,131 @@ Returns
     0 = bounty created
     1 = statement did not execute
     2 = user was hunter
-    3 = username sent does not match user logged in
   Returns
-    username
-    userType
+
+  complete
   */
 
-$app->post('/api/createBounty', function()
-{
-  global $dbh;
+$app->post('/api/createBounty', function() use ($dbh) {
 
-    $usn = strtolower($_POST['username']);
-    if($usn != $_SESSION['userLogin'])
-    {
-      $result['errorCode'] = 3;
-      $result['success'] = false;
-      $result['errorInfo'] = 'username sent does not match user logged in';
-      echo json_encode($result);
-    }
-    else{
-      if($_SESSION['userType'] == 'marshall'){
+  $args[':bountyName'] = $_POST['name'];
+  $args[':payout'] = $_POST['payout'];
+  $args[':link'] = $_POST['link'];
+  $args[':endDate'] = $_POST['endDate'];
+  $args[':fullDesc'] = $_POST['desc'];
+  $args['userID'] = $_SESSION['userID'];
 
-        $args[':bountyName'] = $_POST['name'];
-        $args[':payout'] = $_POST['payout'];
-        $args[':link'] = $_POST['link'];
-        $args[':endDate'] = $_POST['endDate'];
-        $args[':fullDesc'] = $_POST['desc'];
-        $args['userID'] = $_SESSION['userID'];
-        $sth = $dbh->prepare(
-        "INSERT INTO BountyPool (dateCreated,PayoutPool,dateEnding,bountyMarshallID,bountyLink,fullDescription, bountyName)
-        VALUES (now(),:payout,:endDate,:userID,:link,:fullDesc, :bountyName)");
-        if($sth->execute($args))
-        {
-          $result['success'] = true;
-          $result['errorCode'] = 0;
-        }
-        else
-        {
-          $result['success'] = false;
-          $result['errorCode'] = 1;
-          $result['errorInfo'] = $sth->errorInfo();
-        }
-        echo json_encode($result);
-    }
-    else{
-      $result['success'] = false;
-      $result['errorCode'] = 2;
-      $result['errorInfo'] = 'Must be Marshall to create bounties';
-      echo json_encode($result);
-    }
-  }
+  $result = createBounty($dbh, $args);
+
+  echo json_encode($result);
 
 });
 
-$app->post('/logout', function() use ($dbh){
-  session_destroy();
-  $result = array("success" => true);
+  /*
+  Michael Gilbert
+  Creates a report
+  Error Codes:
+  1: no statement executed
+  Returns
+
+  complete
+  */
+
+$app->post('/api/createReport', function() use ($dbh) {
+
+  $args[':bountyID'] = $_POST['bountyID'];
+  $args[':username'] = $_POST['username'];
+  $args[':reportText'] = $_POST['reportText'];
+
+  $result = createReport($dbh, $args);
+
+  echo json_encode($result);
+
+});
+
+  /*
+  Ryan Edson
+  Updates a report with whether they are getting paid or not
+  Also adds report to PaymentTable (table which will handle paypal, not in db yet)
+  Error Codes:
+  Returns
+
+  Incomplete
+  */
+
+$app->post('/api/updateReport', function() use ($dbh) {
+
+  $args[':reportID'] = $_POST['reportID'];
+  $args[':payAmount'] = $_POST['payAmount']; //pay amount of 0 clearly means the bounty was not accepted
+  $args[':username'] = $_POST['username'];
+  $args[':message'] = $_POST['message'];
+
+  $result = updateReport($dbh, $args);
+
   echo json_encode($result);
 });
 
-$app->get('/api/getUser/:username', function($username) {
-  global $dbh;
-  $sth = $dbh->prepare(
-    "SELECT userID, email, dateCreated FROM Account
-    WHERE username = :username");
-  $sth->bindParam(':username', $username);
-  if ($sth->execute()) {
-    $row = $sth->fetch(PDO::FETCH_ASSOC);
-    $result['success'] = true;
-    $result['userID'] = $row['userID'];
-    $result['email'] = $row['email'];
-    $result['dateCreated'] = $row['dateCreated'];
-  }
-  else {
-    $result['success'] = false;
-    $result['error'] = $sth->errorInfo();
-  }
-  echo json_encode($result);
+  /*
+  Ryan Edson
+  Returns all reports a username has submitted
+  Error Codes:
+  Returns
+
+  Incomplete
+  */
+
+$app->get('/api/getReportsFromUsername/:username', function($username) use ($dbh) {
+
+  });
+
+  /*
+  Michael Gilbert
+  returns all reports on a certain bounty
+  Error Codes:
+  Returns
+
+  Incomplete
+  */
+
+$app->get('/api/getReportsFromBountyID/:bountyID', function($bountyID) use ($dbh) {
+
+  $args[':bountyID'] = $_POST['bountyID'];
+  echo json_encode(getReportsFromBountyID($dbh,$args));
+
+  });
+
+/*
+  Ryan Edson
+  returns all bounties a user has logged on a certain bounty
+  Error Codes:
+  Returns
+
+  Incomplete
+  */
+
+$app->get('/api/getReportsFromUsernameBountyID/:usename/:bountyID', function($username, $bountyID) use ($dbh) {
+
+
+
+  });
+
+  /*
+  Michael Gilbert
+  gets all the reports from the preferred reports table
+  Error Codes:
+  1: no statement executed
+  Returns
+  array of preferred bounties
+
+  complete
+  */
+
+$app->get('/api/getPreferredReports', function($bountyID) use ($dbh) {
+
+  echo json_encode(getPreferredReports($dbh));
+
 });
 
-$app->post('/api/addUser', function() {
-  global $dbh;
-
-  if (!isset($_POST['email']) ||
-    !isset($_POST['username']) ||
-    !isset($_POST['password'])) {
-    $result['success'] = false;
-    $result['errorInfo'] = "please fill out all of the fields.";
-    echo json_encode($result);
-    return;
-  }
-
-  $infoCheck = validateSignUpInfo($_POST['username'], $_POST['email']);
-
-  if ($infoCheck['validUsername'] == false) {
-    $result['success'] = false;
-    $result['errorInfo'] = $infoCheck['errorInfo']['usernameError'];
-  }
-  else if ($infoCheck['validEmail'] == false) {
-    $result['success'] = false;
-    $result['errorInfo'] = $infoCheck['errorInfo']['emailError'];
-  }
-  else {
-    $args[':email'] = $_POST['email'];
-    $args[':username'] = $_POST['username'];
-    $args[':password'] = $_POST['password'];
-    $sth = $dbh->prepare(
-      "INSERT INTO Account (email, username, password, dateCreated, activated)
-      VALUE (:email, :username, :password, NOW(), 1)");
-    if ($sth->execute($args)) {
-      $result['success'] = true;
-      $result['userId'] = $dbh->lastInsertId();
-    }
-    else {
-      $result['success'] = false;
-      $result['errorInfo'] = $sth->errorInfo();
-    }
-  }
-  echo json_encode($result);
-});
 
 // function validateSignUpInfo($username, $email) {
 //   global $dbh;

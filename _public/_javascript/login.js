@@ -10,8 +10,8 @@ function isSet(key, value)
 
 $(document).ready(function ()
 {
-	$("#submitLogin").click(function(event)
-	{
+  $("#submitLogin").click(function(event)
+  {
       event.preventDefault();
 
       var userInfo = {}
@@ -32,7 +32,7 @@ $(document).ready(function ()
       }
 
       $.ajax({
-        url: '/api/userLogin',
+        url: '/api/loginUser',
         data: userInfo,
         dataType: 'json',
         async: 'false',
@@ -79,7 +79,7 @@ $(document).ready(function ()
 
   $("#radioButtonsForm input:radio:first").click(function() {
 
-		alert("clicked");
+    alert("clicked");
 
   });
 

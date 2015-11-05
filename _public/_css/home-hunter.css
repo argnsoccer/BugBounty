@@ -3,43 +3,9 @@ body
   background-color:  #303030;
 }
 
-#section1
-{
+#section1 {
   padding-top: 40px;
 }
-<<<<<<< HEAD
-#display-boxes
-{
-  border-spacing: 20px;
-  height: 140px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
-
-#section1A
-{
-  float: left;
-  width: 33%;
-}
-
-.display-box
-{
-  background-color: #BCBCBC;
-  border-radius: 10px;
-  box-shadow: 0px 2px 5px 0px rgba(50, 50, 50, 0.75);
-  display: inline-block;
-  font-family: PT-Sans;
-  height: 90%;
-  margin-left: 10px;
-  margin-right: 10px;
-  padding-left: 5px;
-  padding-right: 5px;
-  text-align: center;
-  width: 30%;
-
-#section1B
-{
-=======
 
 #section1A {
   float: left;
@@ -48,13 +14,11 @@ body
 }
 
 #section1B {
->>>>>>> 2c28b058b50ad5cc7ca55eca26a16b34430f387b
   float: left;
   width: 33%;
 }
 
-#section1C
-{
+#section1C {
   float: left;
   width: 33%;
 }
@@ -70,48 +34,20 @@ body
   color: #FAFAFA;
 }
 
-<<<<<<< HEAD
-#tricky_bugger
-{
-  position: relative;
-  top: 40px;
-}
-
-#prof_link
-{
-  background-color: #0000FF;
-  border-radius: 15px;
-  color: #FAFAFA;
-  padding: 5px;
-  text-decoration: none;
-}
-
-#trackTable
-{
-=======
 #trackTable {
->>>>>>> 2c28b058b50ad5cc7ca55eca26a16b34430f387b
   width: 100%;
   padding-top: 40px;
 }
 
-td > a
-{
+td > a {
   display: block;
   color: #FAFAFA;
   margin: 0 auto;
 }
-
-tr
-{
+tr {
   margin: 0 auto;
 }
 
-#discoverButton
-{
+#discoverButton {
   width: 100%;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 2c28b058b50ad5cc7ca55eca26a16b34430f387b
