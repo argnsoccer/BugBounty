@@ -526,6 +526,8 @@ $app->get('/api/getReportsFromUsername/:username', function($username) use ($dbh
 
 $app->get('/api/getReportsFromBountyID/:bountyID', function($bountyID) use ($dbh) {
 
+  //MGILBERTTTTTTTTTTTTTTTTTTTT
+
   });
 
 /*
@@ -538,6 +540,8 @@ $app->get('/api/getReportsFromBountyID/:bountyID', function($bountyID) use ($dbh
   */
 
 $app->get('/api/getReportsFromUsernameBountyID/:usename/:bountyID', function($username, $bountyID) use ($dbh) {
+
+
 
   });
 
@@ -553,8 +557,10 @@ $app->get('/api/getReportsFromUsernameBountyID/:usename/:bountyID', function($us
   */
 
 $app->get('/api/getPreferredReports', function($bountyID) use ($dbh) {
+
 	echo json_encode(getPreferredReports($dbh));
-  });
+
+});
 
 
 // function validateSignUpInfo($username, $email) {
