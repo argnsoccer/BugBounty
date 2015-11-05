@@ -546,7 +546,7 @@ $app->get('/api/getReportsFromUsername/:username', function($username) use ($dbh
 
 $app->get('/api/getReportsFromBountyID/:bountyID', function($bountyID) use ($dbh) {
 
-	$args['bountyID'] = $_POST['bountyID'];
+	$args[':bountyID'] = $_POST['bountyID'];
   echo json_encode(getReportsFromBountyID($dbh,$args));
 
   });
