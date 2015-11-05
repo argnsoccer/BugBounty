@@ -109,7 +109,26 @@ function getUserFromUsername($dbh, $args) {
 }
 
 function getUserFromEmail($dbh, $args) {
-  //Simple Select query which returns username, email, and type
+   //Simple Select query which returns username, email, and type
+
+  $statement = $dbh->prepare("
+  SELECT username, email, accountType FROM Account WHERE email = :email");
+
+  if($statement->execute($args))
+  {
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+
+    $result['username'] = $row['username'];
+    $result['userType'] = strtolower($row['accountType']);
+    $result['email'] = $row['email'];
+    $result['error'] = '0';
+  }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = 'Statement not executed';
+  }
+  return $result;
 }
 
 
@@ -148,6 +167,21 @@ function createBounty($dbh, $args) {
 
 function createReport($dbh, $args) {
 
+  $statement = $dbh->prepare("
+  INSERT INTO report (bountyID,username,ReportText)
+  VALUES (:bountyID,:username,:ReportText)");
+
+  if($statement->execute($args))
+  {
+    $result['error'] = '0';
+  }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = 'Statement not executed';
+
+  }
+  return $result;
 }
 
 function updateReport($dbh, $args) {
@@ -166,8 +200,29 @@ function getReportsFromUsernameBountyID($dbh, $args) {
 
 }
 
-function getPreferredReports($dbh, $args) {
 
+function getPreferredReports($dbh) {
+ //Join query to get all preferred bounties
+
+  $statement = $dbh->prepare("
+  SELECT * FROM bountypool,preferredbounties
+  WHERE bountypool.poolID=preferredbounties.bountyID");
+
+  if($statement->execute($args))
+  {
+	  $result['bountyArray'] = array();
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+	{
+		array_push($result['bountyArray'],$row);
+	}
+  }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = 'Statement not executed';
+
+  }
+  return $result;
 }
 //*************************************************************************************
 //Session Accessing Functions go here**************************************************
@@ -364,7 +419,7 @@ Returns
   username
   userType
 
-Incomplete
+complete
 */
 
 $app->get('/api/getUserFromEmail/:email', function($email) use ($dbh) {
@@ -407,9 +462,10 @@ $app->post('/api/createBounty', function() use ($dbh) {
   Michael Gilbert
   Creates a report
   Error Codes:
+  1: no statement executed
   Returns
 
-  Incomplete
+  complete
   */
 
 $app->post('/api/createReport', function() use ($dbh) {
@@ -489,13 +545,15 @@ $app->get('/api/getReportsFromUsernameBountyID/:usename/:bountyID', function($us
   Michael Gilbert
   gets all the reports from the preferred reports table
   Error Codes:
+  1: no statement executed
   Returns
+  array of preferred bounties
 
-  Incomplete
+  complete
   */
 
 $app->get('/api/getPreferredReports', function($bountyID) use ($dbh) {
-
+	echo json_encode(getPreferredReports($dbh));
   });
 
 
