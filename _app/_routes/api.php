@@ -193,11 +193,30 @@ function getReportsFromUsername($dbh, $args) {
 }
 
 function getReportsFromBountyID($dbh, $args) {
-
+	
 }
 
 function getReportsFromUsernameBountyID($dbh, $args) {
+$statement = $dbh->prepare("
+  SELECT * FROM report
+  WHERE bountyID=:bountyID");
 
+  if($statement->execute($args))
+  {
+	  $result['reportArray'] = array();
+	  $result['error'] = 0;
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+	{
+		array_push($result['reportArray'],$row);
+	}
+  }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = 'Statement not executed';
+
+  }
+  return $result;
 }
 
 
@@ -211,6 +230,7 @@ function getPreferredReports($dbh) {
   if($statement->execute($args))
   {
 	  $result['bountyArray'] = array();
+	  $result['error'] = 0;
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
 	{
 		array_push($result['bountyArray'],$row);
@@ -526,6 +546,9 @@ $app->get('/api/getReportsFromUsername/:username', function($username) use ($dbh
 
 $app->get('/api/getReportsFromBountyID/:bountyID', function($bountyID) use ($dbh) {
 
+	$args[':bountyID'] = $_POST['bountyID'];
+  echo json_encode(getReportsFromBountyID($dbh,$args));
+
   });
 
 /*
@@ -538,6 +561,8 @@ $app->get('/api/getReportsFromBountyID/:bountyID', function($bountyID) use ($dbh
   */
 
 $app->get('/api/getReportsFromUsernameBountyID/:usename/:bountyID', function($username, $bountyID) use ($dbh) {
+
+
 
   });
 
@@ -553,8 +578,10 @@ $app->get('/api/getReportsFromUsernameBountyID/:usename/:bountyID', function($us
   */
 
 $app->get('/api/getPreferredReports', function($bountyID) use ($dbh) {
+
 	echo json_encode(getPreferredReports($dbh));
-  });
+
+});
 
 
 // function validateSignUpInfo($username, $email) {
