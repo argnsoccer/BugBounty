@@ -210,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `Report` (
   UNIQUE KEY `reportID_UNIQUE` (`reportID`),
   KEY `fk_Report_BountyPool2` (`bountyID`),
   KEY `fk_Report_Account1` (`username`),
-  CONSTRAINT `fk_Report_Account1` FOREIGN KEY (`username`) REFERENCES `Account` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Report_Account1` FOREIGN KEY (`username`) REFERENCES `Account` (`username`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `fk_Report_BountyPool2` FOREIGN KEY (`bountyID`) REFERENCES `BountyPool` (`poolID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
