@@ -8,8 +8,9 @@
       <li class="leftNav"><a href="/">Home</a></li>
       <li class="leftNav"><a href="/_hunter/discover">Discover</a></li>
       <li class="leftNav"><a href="/_hunter/report">Report</a></li>
-      <li class="leftNav"><a href="/contact">Contact</a></li>
+      <li class="leftNav"><a href="/why">Why Us</a></li>
       <li class="leftNav"><a href="/about">About</a></li>
+      <li class="leftNav"><a href="/contact">Contact</a></li>
       <li class="leftNav">
          <form class="navbar-form navbar-left" role="search">
         <div class="form-group">

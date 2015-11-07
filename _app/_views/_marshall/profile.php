@@ -1,45 +1,46 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>BugBounty Profile</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/../_images/_logos/bug-hunter-icon.ico" />
-    <link rel="stylesheet" type="text/css" href="/../_css/marshall-profile.css" />
-    <link rel="stylesheet" type="text/css" href="/../_css/profile.css" />
+  <title>BugBounty Profile</title>
+  <link rel="shortcut icon" type="image/x-icon" href="../_images/_logos/bug-hunter-icon.ico" />
+  <link rel="stylesheet" type="text/css" href="/../_css/header.css">
+  <link rel="stylesheet" type="text/css" href="/../_css/default.css">
+  <link rel="stylesheet" type="text/css" href="/../_css/marshall-profile.css" />
+  <link rel="stylesheet" type="text/css" href="/../_css/profile.css" />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="/../_javascript/update_profile.js"></script>
+  {{include ('bootstrap_header.php')}}
 </head>
 <body>
-    {{include ('header_logout.php')}}
-    <h1>Edit Your Profile</h1>
+    {{include ('header_marshall.php')}}
+  <div class="container-fluid">
 
-    <div id="section1">
+    <div class="row">
 
-      <div id="section1A">
-        <div id="picture_upload">
+      <div class="col-md-4">
+         <div id="picture_upload">
           <img id="profile_picture" src="/../_images/_profiles/_{{username}}/{{username}}_profile.png" alt="Profile Picture" />
           <input type="file" name="profilePicture" />
         </div>
       </div>
 
-      <div id = "section1B">
-        <form id="profileUpdateForm" method="post">
-          <div id="profileInfo">
-            <input type="text" placeholder="{{username}}" id="updateUsername"/>
-            <input type="text" placeholder="{{email}}" id="updateEmail" />
-            <input type="password" placeholder="Old Password" id="updateOldPassword"/>
-            <input type="password" placeholder="New Password" id="updateNewPassword"/>
-            <input type="password" placeholder="Confirm New Password" id="updateNewPasswordConfirm" />
-            <input type="submit" value="Update" id="submitProfileUpdate" />
-          </div>
-        </form>
+      <div class="col-md-4">
+        <table class="bountyTable">
+          <tr class="tableRow">
+            <th>Dummy Company Name</th>
+            <th>Dummy Bounty Name</th>
+            <th>Dummy Report Number</th>
+            <th>Dummy Report Date</th>
+            <th>Dummy Paid Date</th>
+            <th>Dummy Amount Paid</th>
+          </tr>
+        </table>
       </div>
 
-      <div id = "section1C">
+      <div class="col-md-4">
         <form id="profileUpdateForm" method="post">
           <div id="profileInfo">
-            <input type="text" placeholder="{{username}}" id="updateUsername"/>
-            <input type="text" placeholder="{{email}}" id="updateEmail" />
+            <input type="text" placeholder="{{username}}" id="updateUsername" class="form-contol"/>
+            <input type="email" placeholder="{{email}}" id="updateEmail" />
             <input type="password" placeholder="Old Password" id="updateOldPassword"/>
             <input type="password" placeholder="New Password" id="updateNewPassword"/>
             <input type="password" placeholder="Confirm New Password" id="updateNewPasswordConfirm" />
@@ -50,13 +51,14 @@
 
     </div>
 
-    <div id="section2">
+    <div class="row">
 
-      <div id="section2A">
+      <div class="col-md-8">
+         <div id="section2A">
         <table class="headerTable">
           <tr>
-            <th>Hounty Name</th>
-            <th>Username</th>
+            <th>Company Name</th>
+            <th>Bounty Name</th>
             <th>Report Number</th>
             <th>Report Date</th>
             <th>Paid Date</th>
@@ -64,10 +66,39 @@
           </tr>
         </table>
 
-        <table class="paidProjectsTable">
+        <table class="paidtable">
           <tr class="tableRow">
             <th>Dummy Company Name</th>
-            <th>Dummy Usernaem</th>
+            <th>Dummy Bounty Name</th>
+            <th>Dummy Report Number</th>
+            <th>Dummy Report Date</th>
+            <th>Dummy Paid Date</th>
+            <th>Dummy Amount Paid</th>
+          </tr>
+        </table>
+      </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-12">
+        <table class="headerTable">
+          <tr>
+            <th>Company Name</th>
+            <th>Bounty Name</th>
+            <th>Report Number</th>
+            <th>Report Date</th>
+            <th>Paid Date</th>
+            <th>Amount Paid</th>
+          </tr>
+        </table>
+
+        <table class="paidtable">
+          <tr class="tableRow">
+            <th>Dummy Company Name</th>
+            <th>Dummy Bounty Name</th>
             <th>Dummy Report Number</th>
             <th>Dummy Report Date</th>
             <th>Dummy Paid Date</th>
@@ -78,35 +109,12 @@
 
     </div>
 
-    <div id="section3">
 
-      <div id="section3A">
-         <table class="headerTable">
-          <tr>
-            <th>Bounty Name</th>
-            <th>Usernaem</th>
-            <th>Report Number</th>
-            <th>Report Date</th>
-          </tr>
-        </table>
+  </div>
 
-        <table id="currentProjectsTable">
-          <tr class="tableRow">
-            <th>Dummy Company Name</th>
-            <th>Dumm Username</th>
-            <th>Dummy Report Number</th>
-            <th>Dummy Report Date</th>
-          </tr>
-
-        </table>
-      </div>
-
-    </div>
-
-
-   <!--  <div id="content_area">
-        
-    </div> -->
-    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script type="text/javascript" src="/../_javascript/update_profile.js"></script>
+  <script type="text/javascript" src="/../_javascript/logout.js"></script>
+  {{include ('bootstrap_footer.php')}}    
 </body>
 </html>

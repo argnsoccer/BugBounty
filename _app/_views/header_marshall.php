@@ -6,9 +6,11 @@
     </a>
     <ul class="nav navbar-nav">
       <li class="leftNav"><a href="/">Home</a></li>
-      <li class="leftNav"><a href="/_marshall/track">Track</a></li>
-      <li class="leftNav"><a href="/contact">Contact</a></li>
+      <li class="leftNav"><a href="/_marshall/upload">Upload</a></li>
+      <li class="leftNav"><a href="/_marshall/pay">Pay</a></li>
+      <li class="leftNav"><a href="/why">Why Us</a></li>
       <li class="leftNav"><a href="/about">About</a></li>
+      <li class="leftNav"><a href="/contact">Contact</a></li>
     </ul>
 
   </div>
