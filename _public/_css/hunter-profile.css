@@ -1,74 +1,23 @@
-﻿@font-face 
-{
-  font-family: PT-Sans;
-  src: url(../_fonts/PT_Sans-Web-Regular.ttf);
-}
-
-@font-face
-{
-    font-family: Helvetica;
-    src: url(../_fonts/Helvetica.otf);
-}
-
-body 
-{
-    background-color: #303030;
-}
-
-h1
-{
-    color: #FAFAFA;
-    font-family: Helvetica;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-#section1 {
+﻿#section1 {
   margin-bottom: 100px;
 }
 
 #section1A {
   float: left;
-  width: 66%;
-  height:33%;
-}
-
-#profile_picture {
-    border-color: #5b5b5b;
-    border-width: 2px;
-    border-style: solid;
-    height: 200px;
-}
-
-#picture_upload {
-    float: left;
-    height: 100px;
-    margin-left: 75px;
-    width: 100px;
-}
-
-#section1B {
-  float: left;
   width: 33%;
   height:33%;
 }
 
-#profileUpdateForm {
-  margin-left: auto;
-    margin-right: auto;
+#section1B {
+  float: left;
+  width: 34%;
+  height:33%;
 }
 
-#profileInfo {
-    float: right;
-}
-
-#profileInfo > input {
-    border-radius: 10px;
-    display: block;
-    height: 35px;
-    margin-top: 5px;
-    width: 275px;
-    text-align: center;
+#section1C {
+  float: left;
+  width: 33%;
+  height:33%;
 }
 
 #section2A {

@@ -4,6 +4,7 @@
     <title>BugBounty Profile</title>
     <link rel="shortcut icon" type="image/x-icon" href="/../_images/_logos/bug-hunter-icon.ico" />
     <link rel="stylesheet" type="text/css" href="/../_css/hunter-profile.css" />
+    <link rel="stylesheet" type="text/css" href="/../_css/profile.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="/../_javascript/update_profile.js"></script>
@@ -22,6 +23,30 @@
       </div>
 
       <div id = "section1B">
+        <table class="headerTable">
+          <tr>
+            <th>Company Name</th>
+            <th>Bounty Name</th>
+            <th>Report Number</th>
+            <th>Report Date</th>
+            <th>Paid Date</th>
+            <th>Amount Paid</th>
+          </tr>
+        </table>
+
+        <table class="bountyTable">
+          <tr class="tableRow">
+            <th>Dummy Company Name</th>
+            <th>Dummy Bounty Name</th>
+            <th>Dummy Report Number</th>
+            <th>Dummy Report Date</th>
+            <th>Dummy Paid Date</th>
+            <th>Dummy Amount Paid</th>
+          </tr>
+        </table>
+      </div>
+
+        <div id = "section1C">
         <form id="profileUpdateForm" method="post">
           <div id="profileInfo">
             <input type="text" placeholder="{{username}}" id="updateUsername"/>

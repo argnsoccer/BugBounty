@@ -1,0 +1,104 @@
+@font-face 
+{
+  font-family: PT-Sans;
+  src: url(../_fonts/PT_Sans-Web-Regular.ttf);
+}
+
+@font-face
+{
+    font-family: Helvetica;
+    src: url(../_fonts/Helvetica.otf);
+}
+
+@font-face
+{
+    font-family: Helvetica-Rounded;
+    src: url(../_fonts/HelveticaRounded-Black.otf);
+}
+
+body 
+{
+    background-color: #BCBCBC;
+    color: #303030;
+}
+
+h1
+{
+	color: #303030;
+    font-family: Helvetica;
+    text-align: center;
+}
+
+h2
+{
+    color: #FAFAFA;
+    font-family: Helvetica;
+}
+
+h4
+{
+    color: #FAFAFA;
+    font-family: Helvetica;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+#profile_picture
+{
+    border-color: #5b5b5b;
+    border-width: 2px;
+    border-style: solid;
+    height: 200px;
+    width: 200px;
+}
+
+#profile_picture {
+    border-color: #5b5b5b;
+    border-width: 2px;
+    border-style: solid;
+    height: 200px;
+}
+
+#picture_upload {
+    float: left;
+    height: 100px;
+    margin-left: 75px;
+    width: 100px;
+}
+
+#profile_link
+{
+    border-radius: 5px;
+    background-color: #0000FF;
+    border-style: none;
+    box-shadow: 0 2px 8px 0 black;
+    color: #FAFAFA;
+    display: inline-block;
+    font-family: Helvetica;
+    font-size: medium;
+    height: 24px;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 8px;
+    width: 75px;
+}
+
+#profileUpdateForm {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#profileInfo {
+    float: right;
+}
+
+#profileInfo > input {
+	border-color: #5b5b5b;
+	border-width: 1px;
+    border-radius: 10px;
+    display: block;
+    height: 35px;
+    margin: 3px;
+    width: 275px;
+    text-align: center;
+}

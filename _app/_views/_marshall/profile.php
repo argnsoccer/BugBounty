@@ -3,7 +3,8 @@
 <head>
     <title>BugBounty Profile</title>
     <link rel="shortcut icon" type="image/x-icon" href="/../_images/_logos/bug-hunter-icon.ico" />
-    <link rel="stylesheet" type="text/css" href="/../_css/hunter-profile.css" />
+    <link rel="stylesheet" type="text/css" href="/../_css/marshall-profile.css" />
+    <link rel="stylesheet" type="text/css" href="/../_css/profile.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="/../_javascript/update_profile.js"></script>
@@ -22,6 +23,19 @@
       </div>
 
       <div id = "section1B">
+        <form id="profileUpdateForm" method="post">
+          <div id="profileInfo">
+            <input type="text" placeholder="{{username}}" id="updateUsername"/>
+            <input type="text" placeholder="{{email}}" id="updateEmail" />
+            <input type="password" placeholder="Old Password" id="updateOldPassword"/>
+            <input type="password" placeholder="New Password" id="updateNewPassword"/>
+            <input type="password" placeholder="Confirm New Password" id="updateNewPasswordConfirm" />
+            <input type="submit" value="Update" id="submitProfileUpdate" />
+          </div>
+        </form>
+      </div>
+
+      <div id = "section1C">
         <form id="profileUpdateForm" method="post">
           <div id="profileInfo">
             <input type="text" placeholder="{{username}}" id="updateUsername"/>
