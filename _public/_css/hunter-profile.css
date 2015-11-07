@@ -1,50 +1,4 @@
-﻿#section1 {
-  margin-bottom: 100px;
-}
-
-#section1A {
-  float: left;
-  width: 33%;
-  height:33%;
-}
-
-#section1B {
-  float: left;
-  width: 34%;
-  height:33%;
-}
-
-#section1C {
-  float: left;
-  width: 33%;
-  height:33%;
-}
-
-#section2A {
-  margin: 5px;
-  border-color: #ffa500;
-  border-style: solid;
-  border-width: 2px;
-  width: 70%;
-  overflow-y: scroll;
-  height: 180px;
-  float: left;
-  background-color: #FAFAFA;
-}
-
-#section3A {
-  margin: 5px;
-  border-color: #ffa500;
-  border-style: solid;
-  border-width: 2px;
-  width: 99%;
-  overflow-y: scroll;
-  height: 180px;
-  float: left;
-  background-color: #FAFAFA;
-}
-
-table {
+﻿table {
   width: 100%;
 }
 
@@ -62,6 +16,4 @@ table, th, td {
 
 .headerTable {
   background-color: #FC8989;
-  /*position: fixed;*/
-
 }

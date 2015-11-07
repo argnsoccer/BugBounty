@@ -16,11 +16,9 @@
     src: url(../_fonts/HelveticaRounded-Black.otf);
 }
 
-body 
-{
-    background-color: #BCBCBC;
-    color: #303030;
-}
+/*body {
+  background-color: #BCBCBC !important;
+}*/
 
 h1
 {
@@ -57,39 +55,6 @@ h4
     border-width: 2px;
     border-style: solid;
     height: 200px;
-}
-
-#picture_upload {
-    float: left;
-    height: 100px;
-    margin-left: 75px;
-    width: 100px;
-}
-
-#profile_link
-{
-    border-radius: 5px;
-    background-color: #0000FF;
-    border-style: none;
-    box-shadow: 0 2px 8px 0 black;
-    color: #FAFAFA;
-    display: inline-block;
-    font-family: Helvetica;
-    font-size: medium;
-    height: 24px;
-    padding-top: 5px;
-    padding-left: 10px;
-    padding-right: 8px;
-    width: 75px;
-}
-
-#profileUpdateForm {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#profileInfo {
-    float: right;
 }
 
 #profileInfo > input {

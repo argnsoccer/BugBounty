@@ -3,101 +3,23 @@
   src: url(../_fonts/PT_Sans-Web-Regular.ttf);
 }
 
-body
-{
-    margin: auto;
-}
-
-#navBar 
-{
-  background-color: #0f0f0f;
-  box-shadow: 0 2px 8px 0;
-  height: 25px;
-  margin: 0;
-  padding: 5px;
-}
-
-#navBar * 
-{
-  display: inline;
-  text-decoration: none;
+.navbar-custom {
+	background-color: #303030;
 }
 
 #navbarLogo
 {
-  height: 100%;
+  padding: 0;
+  height: 20px;
 }
 
-li.leftNav
-{
-  color: #FAFAFA;
-  font-family: PT-Sans, Arial, sans-serif;
-  font-size: large;
-  padding: 2px;
-  position: relative;
-  bottom: 3px;
-  margin: 5px;
-}
-
-li.leftNav:hover
-{
-  background-color: #5b5b5b;
-  height: 22px;
-}
-
-li.leftNav > a
-{
-  color: #FAFAFA;
-}
-
-#loginContainer
-{
-  float: right;
-  padding-right: 2px;
-}
-
-#login
-{
-  float: left;
-}
-
-.headerButton {
-  margin-left: 3px;
-  margin-right: 3px;
-  margin-top: 2px;
-  margin-bottom: 2px;
-}
-
-#profileButton 
-{
-    float: right;
-}
-
-#logout 
-{
-    float: right;
-}
-
-.headerInput {
-    border-radius: 5px;
-    border-style: none;
-    box-shadow: 0 2px 8px 0 black;
-    color: #FAFAFA;
-    font-family: Helvetica;
-    font-size: medium;
-    height: 24px;
-    width: 75px;
+#navBarDropDown {
+  padding: 3px;
 }
 
 #submitLogin {
-  background-color: #ffa500;
+	background-color: #ffa500;
+	color: #FAFAFA;
+	border-radius: 10px;
 }
 
-#submitProfile {
-  background-color: #1E50E1;
-}
-
-#submitLogout
-{
-  background-color: #ffa500;
-}

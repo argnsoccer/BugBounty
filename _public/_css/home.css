@@ -4,45 +4,13 @@
     src: url(../_fonts/PT_Sans-Web-Regular.ttf);
 }
 
+.row {
+  padding-bottom: 20px;
+}
+
 /*body {
-  background-color: blue;
-}
-*/
-.section1A {
-  float: left;
-  width: 66%;
-  height: 300px;
-  background-color: #303030;
-}
-
-.section2A {
-  float: left;
-  width: 33%;
-  height: 300px;
-  margin: 0 auto;
-  background-color: #303030;
-}
-
-.section1B {
-  float: left;
-  width: 33%;
-  height: 300px;
-  background-color: #303050;
-}
-
-.section2B {
-  float: left;
-  width: 33%;
-  height: 300px;
-  background-color: #303060;
-}
-
-.section3B {
-  float: left;
-  width: 33%;
-  height: 300px;
-  background-color: #303070;
-}
+  background-color: #BCBCBC !important;
+}*/
 
 .featureIcon
 {
@@ -51,26 +19,22 @@
 
 .featureText
 {
-    color: #FAFAFA;
-    font-family: sans-serif;
-    text-align: left;
-    text-indent: 3px;
-    vertical-align: middle;
+  padding-left: 10px;
 }
 
-#signUpHeader {
+/*#signUpHeader {
   color: white;
   font-family: sans-serif;
-}
+}*/
 
-#signUp {
+/*#signUp {
   margin: 0 auto;
   color: white;
-}
+}*/
 
 .signUpForm {
-  height: 40px;
   width: 250px;
+  height: 30px;
   border-radius: 10px;
   display: block;
   margin: 7px;
@@ -81,4 +45,8 @@
   font-family: Helvetica;
   font-size: medium;
   color: #FAFAFA;
+}
+
+#bountyBoard {
+  height: 400px;
 }
