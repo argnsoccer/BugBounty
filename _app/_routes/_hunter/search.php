@@ -3,9 +3,18 @@
 session_start();
 session_set_cookie_params(0);
 
-$app->get('/_hunter/search', function() use ($app) {
+function prepareSearchHunterPage($dbh) {
+	$template_array = array(
+		"username" => $_SESSION['userLogin'],
+		"email" => $_SESSION['email']
+	);
 
-	$template_array = array("username" => "test");
+	return $template_array;
+}
+
+$app->get('/_hunter/search', function() use ($app, $dbh) {
+
+	$template_array = prepareSearchHunterPage($dbh);
 
 	$app->render('_hunter/search.php', $template_array);
 

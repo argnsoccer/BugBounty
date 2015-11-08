@@ -1,5 +1,8 @@
 <?php
 
+session_start();
+session_set_cookie_params(0);
+
 function prepareHunterProfile($dbh, $username) {
 	// for the hunter profile page, we need
 	// 	1)  the username
@@ -7,7 +10,6 @@ function prepareHunterProfile($dbh, $username) {
 	// 	3)  the path to the profile picture
 	// 	4)  all the reports this user has ever submitted
 	// 		(paid and non-paid) (all info including bountyID)
-
 		
 	if ($username === $_SESSION['userLogin'] 
 		&& $_SESSION['userType'] === 'hunter')
@@ -15,10 +17,9 @@ function prepareHunterProfile($dbh, $username) {
 		$template_array['username'] = $username;
 		$template_array['userType'] = $_SESSION['userType'];
 		$template_array['email'] = $_SESSION['email'];
-
-		//call for paid and viewed reports
-		//call for non-paid reports
-		//call for profile picture
+		$template_array['unpaid'] = array();  //call for paid and viewed reports
+		$template_array['paid'] = array();  //call for paid and viewed reports
+		$template_array['picture'] = "";  //call for profile picture
 
 		$template_array['error'] = 0; //for time being
 
