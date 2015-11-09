@@ -193,13 +193,33 @@ function getReportsFromUsername($dbh, $args) {
 }
 
 function getReportsFromBountyID($dbh, $args) {
-	
+$statement = $dbh->prepare("
+  SELECT * FROM report
+  WHERE bountyID=:bountyID");
+
+  if($statement->execute($args))
+  {
+	  $result['reportArray'] = array();
+	  $result['error'] = 0;
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+	{
+		array_push($result['reportArray'],$row);
+	}
+  }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = 'Statement not executed';
+
+  }
+  return $result;	
 }
 
 function getReportsFromUsernameBountyID($dbh, $args) {
 $statement = $dbh->prepare("
   SELECT * FROM report
-  WHERE bountyID=:bountyID");
+  WHERE bountyID=:bountyID
+  AND username=:username");
 
   if($statement->execute($args))
   {
