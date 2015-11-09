@@ -192,6 +192,34 @@ function getReportsFromUsername($dbh, $args) {
 
 }
 
+function getProfilePictureFromUsername($dbh, $args){
+  if($_SESSION['userType'] == 'marshall'){
+    $statement = $dbh->prepare("
+    SELECT Marshall.imageLoc FROM Marshall, Account WHERE Account.userID = Marshall.marshallID AND Account.username = :username");
+    if($sth->execute($args))
+    {
+      $row = $statement->fetch(PDO::FETCH_ASSOC);
+      $result['success'] = 'true';
+      $result['imagePath'] = $row['imageLoc'];
+      $result['error'] = '0';
+    }
+    else
+    {
+      $result['success'] = 'false';
+      $result['error'] = '2';
+      $result['message'] = 'statement did not execute';
+    }
+
+  }
+  else{
+    $result['error'] = '1';
+    $result['message'] = 'Hunters do not have profile pictures';
+  }
+
+
+
+}
+
 function getReportsFromBountyID($dbh, $args) {
 $statement = $dbh->prepare("
   SELECT * FROM report
@@ -212,7 +240,7 @@ $statement = $dbh->prepare("
     $result['message'] = 'Statement not executed';
 
   }
-  return $result;	
+  return $result;
 }
 
 function getReportsFromUsernameBountyID($dbh, $args) {
@@ -556,14 +584,32 @@ $app->get('/api/getReportsFromUsername/:username', function($username) use ($dbh
   });
 
   /*
-  Michael Gilbert
-  returns all reports on a certain bounty
+  Andre Gras
+  returns profile picture path for Marshalls (no hunter prof pic)
   Error Codes:
+  0 - profile path returned
+  1 - logged in user is a hunter
+  2 - statement did not execute
   Returns
+  imageLoc (image path for profile picture)
 
   Incomplete
   */
 
+
+$app->get('/api/getProfilePictureFromUsername/:username', function($username) use ($dbh) {
+  $args[':username'] = $_GET['username'];
+  echo json_encode(getProfilePictureFromUsername($dbh,$args));
+});
+
+/*
+Michael Gilbert
+returns all reports on a certain bounty
+Error Codes:
+Returns
+
+Incomplete
+*/
 $app->get('/api/getReportsFromBountyID/:bountyID', function($bountyID) use ($dbh) {
 
 	$args[':bountyID'] = $_GET['bountyID'];
