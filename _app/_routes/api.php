@@ -274,7 +274,6 @@ function getPreferredReports($dbh) {
   $statement = $dbh->prepare("
   SELECT * FROM bountypool,preferredbounties
   WHERE bountypool.poolID=preferredbounties.bountyID");
-
   if($statement->execute($args))
   {
 	  $result['bountyArray'] = array();
@@ -289,6 +288,36 @@ function getPreferredReports($dbh) {
     $result['error'] = '1';
     $result['message'] = 'Statement not executed';
 
+  }
+  return $result;
+}
+
+function getActiveBounties($dbh, $args) {
+
+  $statement = $dbh->prepare("
+  SELECT BountyPool.* FROM Marshall, BountyPool
+  WHERE Marshall.marshallID=BountyPool.bountyMarshallID AND Marshall.marshallID=:userID AND dateCreated < now()"); //completed version of this will have dateCreated < now() < dateEnding (but our test vars)
+  if($_SESSION['userType'] == 'marshall')
+  {
+    if($statement->execute($args))
+    {
+  	  $result['activeBounties'] = array();
+  	  $result['error'] = 0;
+      while($row = $statement->fetch(PDO::FETCH_ASSOC))
+  	  {
+  		 array_push($result['activeBounties'],$row);
+  	  }
+    }
+    else
+    {
+      $result['error'] = '2';
+      $result['message'] = 'Statement not executed';
+
+    }
+  }
+  else{
+    $result['error'] = '1';
+    $result['message'] = 'user is not a Marshall';
   }
   return $result;
 }
@@ -593,13 +622,31 @@ $app->get('/api/getReportsFromUsername/:username', function($username) use ($dbh
   Returns
   imageLoc (image path for profile picture)
 
-  Incomplete
+  complete
   */
 
 
 $app->get('/api/getProfilePictureFromUsername/:username', function($username) use ($dbh) {
   $args[':username'] = $_GET['username'];
   echo json_encode(getProfilePictureFromUsername($dbh,$args));
+});
+
+/*
+Andre Gras
+returns active bounties Marshalls
+Error Codes:
+0 - profile path returned
+1 - logged in user is a hunter
+2 - statement did not execute
+Returns
+All bounties with all fields from BountyPool
+
+complete
+*/
+
+$app->get('/api/getActiveBounties/', function($username) use ($dbh) {
+  $args[':userID'] = $_SESSION['userID'];
+  echo json_encode(getActiveBounties($dbh,$args));
 });
 
 /*
