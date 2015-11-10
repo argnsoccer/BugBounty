@@ -321,6 +321,37 @@ function getActiveBounties($dbh, $args) {
   }
   return $result;
 }
+
+function getPastBounties($dbh, $args) {
+
+  $statement = $dbh->prepare("
+  SELECT BountyPool.* FROM Marshall, BountyPool
+  WHERE Marshall.marshallID=BountyPool.bountyMarshallID AND Marshall.marshallID=:userID AND now() > dateEnding"); //completed version of this will have dateCreated < now() < dateEnding (but our test vars)
+  if($_SESSION['userType'] == 'marshall')
+  {
+    if($statement->execute($args))
+    {
+  	  $result['pastBounties'] = array();
+  	  $result['error'] = 0;
+      while($row = $statement->fetch(PDO::FETCH_ASSOC))
+  	  {
+  		 array_push($result['pastBounties'],$row);
+  	  }
+    }
+    else
+    {
+      $result['error'] = '2';
+      $result['message'] = 'Statement not executed';
+
+    }
+  }
+  else{
+    $result['error'] = '1';
+    $result['message'] = 'user is not a Marshall';
+  }
+  return $result;
+}
+
 //*************************************************************************************
 //Session Accessing Functions go here**************************************************
 function getLoggedInUser() {
@@ -633,13 +664,13 @@ $app->get('/api/getProfilePictureFromUsername/:username', function($username) us
 
 /*
 Andre Gras
-returns active bounties Marshalls
+returns active bounties for logged in Marshall
 Error Codes:
 0 - profile path returned
 1 - logged in user is a hunter
 2 - statement did not execute
 Returns
-All bounties with all fields from BountyPool
+All active bounties with all fields from BountyPool
 
 complete
 */
@@ -647,6 +678,24 @@ complete
 $app->get('/api/getActiveBounties/', function($username) use ($dbh) {
   $args[':userID'] = $_SESSION['userID'];
   echo json_encode(getActiveBounties($dbh,$args));
+});
+
+/*
+Andre Gras
+returns past bounties for logged in Marshall
+Error Codes:
+0 - profile path returned
+1 - logged in user is a hunter
+2 - statement did not execute
+Returns
+All past bounties with all fields from BountyPool
+
+complete
+*/
+
+$app->get('/api/getPastBounties/', function($username) use ($dbh) {
+  $args[':userID'] = $_SESSION['userID'];
+  echo json_encode(getPastBounties($dbh,$args));
 });
 
 /*
