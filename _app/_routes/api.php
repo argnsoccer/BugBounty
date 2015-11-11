@@ -186,9 +186,46 @@ function createReport($dbh, $args) {
 
 function updateReport($dbh, $args) {
 
+  $statement = $dbh->prepare(
+  "UPDATE report 
+  SET payAmount = :payAmount, username = :username, message = :message
+  WHERE reportID = :reportID");
+  
+  if($statement->execute($args))
+  {
+    $result['error'] = '0';
+  }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = 'Statement not executed';
+
+  }
+  return $result;
 }
 
 function getReportsFromUsername($dbh, $args) {
+  $statement = $dbh->prepare(
+  "SELECT * FROM report
+  WHERE username=:username");
+
+  if($statement->execute($args))
+  {
+    $result['reportArray'] = array();
+    $result['error'] = 0;
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+    {
+      array_push($result['reportArray'],$row);
+    }
+  }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = 'Statement not executed';
+
+  }
+  return $result;
+
 
 }
 
@@ -244,8 +281,8 @@ $statement = $dbh->prepare("
 }
 
 function getReportsFromUsernameBountyID($dbh, $args) {
-$statement = $dbh->prepare("
-  SELECT * FROM report
+$statement = $dbh->prepare(
+  "SELECT * FROM report
   WHERE bountyID=:bountyID
   AND username=:username");
 
@@ -254,9 +291,9 @@ $statement = $dbh->prepare("
 	  $result['reportArray'] = array();
 	  $result['error'] = 0;
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
-	{
-		array_push($result['reportArray'],$row);
-	}
+  	{
+  		array_push($result['reportArray'],$row);
+  	}
   }
   else
   {
@@ -615,7 +652,7 @@ $app->post('/api/createReport', function() use ($dbh) {
   Error Codes:
   Returns
 
-  Incomplete
+  complete
   */
 
 $app->post('/api/updateReport', function() use ($dbh) {
@@ -636,11 +673,13 @@ $app->post('/api/updateReport', function() use ($dbh) {
   Error Codes:
   Returns
 
-  Incomplete
+  complete
   */
 
 $app->get('/api/getReportsFromUsername/:username', function($username) use ($dbh) {
 
+  $args[':username'] = $_GET['username'];
+  echo json_encode(getReportsFromUsername($dbh,$args));
   });
 
   /*
@@ -719,12 +758,14 @@ $app->get('/api/getReportsFromBountyID/:bountyID', function($bountyID) use ($dbh
   Error Codes:
   Returns
 
-  Incomplete
+  complete
   */
 
 $app->get('/api/getReportsFromUsernameBountyID/:usename/:bountyID', function($username, $bountyID) use ($dbh) {
 
-
+  $args[':username'] = $_GET['username'];
+  $args[':bountyID'] = $_GET['bountyID'];
+  echo json_encode(getReportsFromUsernameBountyID($dbh,$args));
 
   });
 
