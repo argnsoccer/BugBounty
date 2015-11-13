@@ -1,3 +1,4 @@
+
 <?php
 
 session_start();
@@ -43,6 +44,8 @@ function preparePayPage($dbh) {
 
 	return $template_array;
 }
+	//for the Pay Page
+	// 1)  all reports the user had identified to pay
 
 $app->get('/_marshall/pay', function($bounty_id) use ($app, $dbh) {
 	$template_array = preparePayPage($dbh);
