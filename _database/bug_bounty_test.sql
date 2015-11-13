@@ -219,11 +219,10 @@ UNLOCK TABLES;
 CREATE TABLE IF NOT EXISTS `Report`(
   `bountyID` int(10) unsigned NOT NULL,
   `username` varchar(20) NOT NULL,
-  `description` mediumtext,
+  `description` longtext,
   `dateSubmitted` datetime NOT NULL,
-  `imageLoc` varchar(100),
   `link` mediumtext,
-  `path` mediumtext NOT NULL,
+  `pathToError` mediumtext NOT NULL,
   `filePath` mediumtext,
   `errorName` varchar(30),
   `reportID` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -242,7 +241,7 @@ CREATE TABLE IF NOT EXISTS `Report`(
 
 LOCK TABLES `Report` WRITE;
 /*!40000 ALTER TABLE `report` DISABLE KEYS */;
-INSERT INTO `Report` (bountyID, username, description, dateSubmitted, imageLoc, reportID)VALUES
+INSERT INTO `Report` (bountyID, username, description, dateSubmitted, filePath, reportID)VALUES
 (1,'testHunter1','This is report Text 1 for bounty 1 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter1/report1.jpg',1),
 (1,'testHunter2','This is report Text 1 for bounty 1 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter2/report1.jpg',2),
 (1,'testHunter2','This is report Text 2 for bounty 1 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter2/report2.jpg',3),

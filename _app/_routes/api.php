@@ -171,12 +171,28 @@ function createBounty($dbh, $args) {
 function createReport($dbh, $args) {
 
   $statement = $dbh->prepare("
-  INSERT INTO report (bountyID,username,ReportText)
-  VALUES (:bountyID,:username,:ReportText)");
+  INSERT INTO report (bountyID, username, description, link, dateSubmitted, pathToError)
+  VALUES (:bountyID,:username,:description, :link, NOW(), :pathToError)");
 
   if($statement->execute($args))
   {
-    $result['error'] = '0';
+
+    $reportID = $dbh->lastInsertId();
+    $args2[":filePath"] = '../_files/'.$args[":bountyID"].'/'.$args[":username"].$reportID;
+    $args2[":reportID"] = $reportID;
+    mkdir('../_files/'.$args[":bountyID"].'/'.$reportID);
+    $statement = $dbh->prepare("
+    UPDATE Report
+    SET filePath = :filePath
+    WHERE reportID=:reportID");
+    if($statement->execute($arsg))
+    {
+      $result['error'] = '0';
+    }
+    else{
+      $result['error'] = '2';
+      $result['message'] = 'Statement 2 not executed';
+    }
   }
   else
   {
@@ -661,7 +677,9 @@ $app->post('/api/createReport', function() use ($dbh) {
 
   $args[':bountyID'] = $_POST['bountyID'];
   $args[':username'] = $_POST['username'];
-  $args[':reportText'] = $_POST['reportText'];
+  $args[':description'] = $_POST['description'];
+  $args[':link'] = $_POST['link'];
+  $args[':pathToError'] = $_POST['pathToError'];
 
   $result = createReport($dbh, $args);
 
@@ -792,7 +810,7 @@ $app->get('/api/getReportsFromUsernameBountyID/:usename/:bountyID', function($us
   echo json_encode(getReportsFromUsernameBountyID($dbh,$args));
 
   });
-  
+
 $app->get('/api/getReportsFromUsernamePaidVsUnpaid/:username/:auxiliary/', function($bountyID) use ($dbh)
 {
 	$args[":auxiliary"] = $_GET['auxiliary'];
