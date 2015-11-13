@@ -55,12 +55,14 @@ function loginUser($dbh, $args) {
 
 function signUpUser($dbh, $args) {
   $result['status'] = "complete";
-
+  $args[":imageLoc"] = "_images/_profiles/_".$args[':username'];
+  mkdir($args[":imageLoc"]);
+  copy("_images/_profiles/_mgilbert/mgilbert_profile.png", $args[":imageLoc"]."default_profile.png");
   $statement = $dbh->prepare(
     "INSERT INTO Account
-      (username, email, password, dateCreated, accountType, dateOfLastActivity)
+      (username, email, password, dateCreated, accountType, dateOfLastActivity, imageLoc)
     VALUES
-      (:username, :email, :password, NOW(), :accountType, NOW())"
+      (:username, :email, :password, NOW(), :accountType, NOW(), :imageLoc)"
   );
 
   if($statement->execute($args))
@@ -73,7 +75,8 @@ function signUpUser($dbh, $args) {
     $_SESSION['userLogin'] = $_POST['username'];
     $_SESSION['userType'] = strtolower($_POST['accountType']);
     $_SESSION['userID'] = $row['userID'];
-    }
+
+  }
   else
   {
     $result['error'] = '1';
@@ -187,10 +190,10 @@ function createReport($dbh, $args) {
 function updateReport($dbh, $args) {
 
   $statement = $dbh->prepare(
-  "UPDATE report 
+  "UPDATE report
   SET payAmount = :payAmount, username = :username, message = :message
   WHERE reportID = :reportID");
-  
+
   if($statement->execute($args))
   {
     $result['error'] = '0';
@@ -232,7 +235,7 @@ function getReportsFromUsername($dbh, $args) {
 function getProfilePictureFromUsername($dbh, $args){
   if($_SESSION['userType'] == 'marshall'){
     $statement = $dbh->prepare("
-    SELECT Marshall.imageLoc FROM Marshall, Account WHERE Account.userID = Marshall.marshallID AND Account.username = :username");
+    SELECT Account.imageLoc FROM Account WHERE username = :username");
     if($sth->execute($args))
     {
       $row = $statement->fetch(PDO::FETCH_ASSOC);
@@ -247,10 +250,6 @@ function getProfilePictureFromUsername($dbh, $args){
       $result['message'] = 'statement did not execute';
     }
 
-  }
-  else{
-    $result['error'] = '1';
-    $result['message'] = 'Hunters do not have profile pictures';
   }
 
 
@@ -785,126 +784,3 @@ $app->get('/api/getPreferredReports', function($bountyID) use ($dbh) {
 	echo json_encode(getPreferredReports($dbh));
 
 });
-
-
-// function validateSignUpInfo($username, $email) {
-//   global $dbh;
-
-//   $sth = $dbh->prepare(
-//     "SELECT count(username) AS uCount FROM Account
-//     WHERE username = :username");
-//   $sth->bindParam(':username', $username);
-
-//   if ($sth->execute()) {
-//     $row = $sth->fetch(PDO::FETCH_ASSOC);
-//     $result['success'] = true;
-//     $result['validUsername'] = $row['uCount'] == 0;
-//     $badUsername = $result['validUsername'] ? '' : "the username $username is already taken.";
-//   }
-//   else {
-//     $result['success'] = false;
-//     $result['errorInfo'] = array("dbError" => $sth->errorInfo());
-//   }
-
-//   $sth = $dbh->prepare(
-//     "SELECT count(email) AS eCount FROM Account
-//     WHERE email = :email");
-//   $sth->bindParam(':email', $email);
-
-//   if ($sth->execute()) {
-//     $row = $sth->fetch(PDO::FETCH_ASSOC);
-//     $result['success'] = true;
-//     $result['validEmail'] = $row['eCount'] == 0;
-//     $badEmail = $result['validEmail'] ? '' : "the email $email is already taken.";
-//   }
-//   else {
-//     $result['success'] = false;
-//     $result['errorInfo'] = array("dbError" => $sth->errorInfo());
-//   }
-
-//   $result['errorInfo'] = array(
-//     'usernameError' => $badUsername,
-//     'emailError' => $badEmail
-//   );
-
-//   return $result;
-// }
-
-// $app->get('/api/getProfile/:username', function($username) {
-//   global $dbh;
-//   $sth = $dbh->prepare(
-//     "SELECT marshallID, description, imageLoc, company FROM Marshall
-//     WHERE username = :username");
-//   $sth->bindParam(':username', $username);
-//   if ($sth->execute()) {
-//     $row = $sth->fetch(PDO::FETCH_ASSOC);
-//     $result['description'] = $row['description'];
-//     $result['imageLoc'] = $row['imageLoc'];
-//     $result['company'] = $row['company'];
-//     $result['marshallID'] = $row['marshallID'];
-//   }
-//   else {
-//     $result['success'] = false;
-//     $result['error'] = $sth->errorInfo();
-//   }
-//   $sth = $dbh->prepare(
-//   "SELECT * FROM BountyPool WHERE bountyMarshallID = $result['marshallID']"
-//   );
-//   if($sth->execut()){
-//     $row = $sth->fetch(PDO::FETCH_ASSOC);
-//     $result['dateCreated'] = $row['dateCreated'];
-//     $result['PayoutPool'] = $row['PayoutPool'];
-//     $result['dateEnding'] = $row['dateEnding'];
-//     $result['bountyLink'] = $row['bountyLink'];
-//     $result['success'] = true;
-//   }
-//   else{
-//     $result['success'] = false;
-//     $result['error'] = $sth->errorInfo();
-//   }
-//   echo json_encode($result);
-// });
-
-// $app->post('/api/sendReport', function()){
-//   global $dbh;
-//   $args[':reportText'] = $_POST['reportText'];
-//   $args[':username'] = $_POST['username'];
-//   $args[':bountyID'] = $_POST['bountyID'];
-//   $sth = $dbh->prepare(
-//   "INSERT into Report (reportText, username, bountyID) values (:reportText, :username, :bountyID)"
-//   )
-//   if($sth->execute($args)){
-//     $result['success'] = true;
-//   }
-//   else{
-//     $result['success'] = false;
-//     $result['error'] = $sth->errorInfo();
-//   }
-//   echo json_encode($result);
-// }
-
-// $app->get('/api/getReport', function(){
-//   global $dbh;
-//   $args[':username'] = $_POST['username'];
-//   $args[':marshallID'] = $_POST['marshallID'];
-//   $args[':bountyID'] = $_POST['bountyID'];
-//   $sth = $dbh->prepare(
-//   "SELECT ReportText, Paid, Assessed, payountAmt, dateSubmitted, ScreenshotFolderLoc FROM Report
-//     WHERE marshallID = :marshallID AND bountyID = :bountyID");
-//   )
-//   if($sth->execute($args)){
-//     $row = $sth->fetch(PDO::FETCH_ASSOC);
-//     $result['success'] = true;
-//     $result['ReportText'] = $row['ReportText'];
-//     $result['Paid'] = $row['Paid'];
-//     $result['Assessed'] = $row['Assessed'];
-//     $result['payountAmt'] = $row['payountAmt'];
-//     $result['dateSubmitted'] = $row['dateSubmitted'];
-//     $result['ScreenshotFolderLoc'] = $row['ScreenshotFolderLoc'];
-//   }
-//   else{
-//     $result['success'] = false;
-//     $result['error'] = $sth->errorInfo();
-//   }
-//   echo json_encode($result);
-// });
