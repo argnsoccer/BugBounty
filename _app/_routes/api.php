@@ -12,7 +12,7 @@ function loginUser($dbh, $args) {
   global $dbh;
   if(!isset($_SESSION['userLogin'])){
 
-    $statement = $dbh->prepare("SELECT username, userID, accountType, email FROM Account WHERE username = :username AND password = :password");
+    $statement = $dbh->prepare("SELECT username, userID, accountType FROM Account WHERE username = :username AND password = :password");
 
     if($statement->execute($args))
     {
@@ -22,13 +22,11 @@ function loginUser($dbh, $args) {
         $result["username"] = $row['username'];
         $result["userType"] = strtolower($row['accountType']);
         $result['userID'] = $row['userID'];
-        $result['email'] = $row['email'];
 
         $_SESSION['userLogin'] = $row['username'];
         $usn[':username'] = $row['username'];
         $_SESSION['userType'] = strtolower($row['accountType']);
         $_SESSION['userID'] = $row['userID'];
-        $_SESSION['email'] = $row['email'];
 
         $result['error'] = '0';
       }
@@ -188,17 +186,103 @@ function createReport($dbh, $args) {
 
 function updateReport($dbh, $args) {
 
+  $statement = $dbh->prepare(
+  "UPDATE report 
+  SET payAmount = :payAmount, username = :username, message = :message
+  WHERE reportID = :reportID");
+  
+  if($statement->execute($args))
+  {
+    $result['error'] = '0';
+  }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = 'Statement not executed';
+
+  }
+  return $result;
 }
 
 function getReportsFromUsername($dbh, $args) {
+  $statement = $dbh->prepare(
+  "SELECT * FROM report
+  WHERE username=:username");
+
+  if($statement->execute($args))
+  {
+    $result['reportArray'] = array();
+    $result['error'] = 0;
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+    {
+      array_push($result['reportArray'],$row);
+    }
+  }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = 'Statement not executed';
+
+  }
+  return $result;
+
+
+}
+
+function getReportsFromUsernamePaidOrUnPaid($dbh,$args)
+{
+  $statement = $dbh->prepare("
+  SELECT * FROM report,:auxiliary
+  WHERE report.bountyID=:auxiliary.bountyID
+  AND username:username");
+
+  if($statement->execute($args))
+  {
+    $result['reportArray'] = array();
+    $result['error'] = 0;
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+  {
+    array_push($result['reportArray'],$row);
+  }
+  }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = 'Statement not executed';
+
+  }
+  return $result;
+}
+
+function getProfilePictureFromUsername($dbh, $args){
+  if($_SESSION['userType'] == 'marshall'){
+    $statement = $dbh->prepare("
+    SELECT Marshall.imageLoc FROM Marshall, Account WHERE Account.userID = Marshall.marshallID AND Account.username = :username");
+    if($sth->execute($args))
+    {
+      $row = $statement->fetch(PDO::FETCH_ASSOC);
+      $result['success'] = 'true';
+      $result['imagePath'] = $row['imageLoc'];
+      $result['error'] = '0';
+    }
+    else
+    {
+      $result['success'] = 'false';
+      $result['error'] = '2';
+      $result['message'] = 'statement did not execute';
+    }
+
+  }
+  else{
+    $result['error'] = '1';
+    $result['message'] = 'Hunters do not have profile pictures';
+  }
+
+
 
 }
 
 function getReportsFromBountyID($dbh, $args) {
-  
-}
-
-function getReportsFromUsernameBountyID($dbh, $args) {
 $statement = $dbh->prepare("
   SELECT * FROM report
   WHERE bountyID=:bountyID");
@@ -221,6 +305,30 @@ $statement = $dbh->prepare("
   return $result;
 }
 
+function getReportsFromUsernameBountyID($dbh, $args) {
+$statement = $dbh->prepare(
+  "SELECT * FROM report
+  WHERE bountyID=:bountyID
+  AND username=:username");
+
+  if($statement->execute($args))
+  {
+    $result['reportArray'] = array();
+    $result['error'] = 0;
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+    {
+      array_push($result['reportArray'],$row);
+    }
+  }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = 'Statement not executed';
+
+  }
+  return $result;
+}
+
 
 function getPreferredReports($dbh) {
  //Join query to get all preferred bounties
@@ -228,7 +336,6 @@ function getPreferredReports($dbh) {
   $statement = $dbh->prepare("
   SELECT * FROM bountypool,preferredbounties
   WHERE bountypool.poolID=preferredbounties.bountyID");
-
   if($statement->execute($args))
   {
     $result['bountyArray'] = array();
@@ -246,6 +353,67 @@ function getPreferredReports($dbh) {
   }
   return $result;
 }
+
+function getActiveBounties($dbh, $args) {
+
+  $statement = $dbh->prepare("
+  SELECT BountyPool.* FROM Marshall, BountyPool
+  WHERE Marshall.marshallID=BountyPool.bountyMarshallID AND Marshall.marshallID=:userID AND dateCreated < now()"); //completed version of this will have dateCreated < now() < dateEnding (but our test vars)
+  if($_SESSION['userType'] == 'marshall')
+  {
+    if($statement->execute($args))
+    {
+      $result['activeBounties'] = array();
+      $result['error'] = 0;
+      while($row = $statement->fetch(PDO::FETCH_ASSOC))
+      {
+       array_push($result['activeBounties'],$row);
+      }
+    }
+    else
+    {
+      $result['error'] = '2';
+      $result['message'] = 'Statement not executed';
+
+    }
+  }
+  else{
+    $result['error'] = '1';
+    $result['message'] = 'user is not a Marshall';
+  }
+  return $result;
+}
+
+function getPastBounties($dbh, $args) {
+
+  $statement = $dbh->prepare("
+  SELECT BountyPool.* FROM Marshall, BountyPool
+  WHERE Marshall.marshallID=BountyPool.bountyMarshallID AND Marshall.marshallID=:userID AND now() > dateEnding"); //completed version of this will have dateCreated < now() < dateEnding (but our test vars)
+  if($_SESSION['userType'] == 'marshall')
+  {
+    if($statement->execute($args))
+    {
+      $result['pastBounties'] = array();
+      $result['error'] = 0;
+      while($row = $statement->fetch(PDO::FETCH_ASSOC))
+      {
+       array_push($result['pastBounties'],$row);
+      }
+    }
+    else
+    {
+      $result['error'] = '2';
+      $result['message'] = 'Statement not executed';
+
+    }
+  }
+  else{
+    $result['error'] = '1';
+    $result['message'] = 'user is not a Marshall';
+  }
+  return $result;
+}
+
 //*************************************************************************************
 //Session Accessing Functions go here**************************************************
 function getLoggedInUser() {
@@ -255,8 +423,6 @@ function getLoggedInUser() {
     $result['error'] = '0';
     $result['username'] = $_SESSION['userLogin'];
     $result['userType'] = $_SESSION['userType'];
-    $result['email'] = $_SESSION['email'];
-    $result['userID'] = $_SESSION['userID'];
   }
   else {
     $result['error'] = '1';
@@ -511,7 +677,7 @@ $app->post('/api/createReport', function() use ($dbh) {
   Error Codes:
   Returns
 
-  Incomplete
+  complete
   */
 
 $app->post('/api/updateReport', function() use ($dbh) {
@@ -532,25 +698,81 @@ $app->post('/api/updateReport', function() use ($dbh) {
   Error Codes:
   Returns
 
-  Incomplete
+  complete
   */
 
 $app->get('/api/getReportsFromUsername/:username', function($username) use ($dbh) {
 
+  $args[':username'] = $_GET['username'];
+  echo json_encode(getReportsFromUsername($dbh,$args));
   });
 
   /*
-  Michael Gilbert
-  returns all reports on a certain bounty
+  Andre Gras
+  returns profile picture path for Marshalls (no hunter prof pic)
   Error Codes:
+  0 - profile path returned
+  1 - logged in user is a hunter
+  2 - statement did not execute
   Returns
+  imageLoc (image path for profile picture)
 
-  Incomplete
+  complete
   */
 
+
+$app->get('/api/getProfilePictureFromUsername/:username', function($username) use ($dbh) {
+  $args[':username'] = $_GET['username'];
+  echo json_encode(getProfilePictureFromUsername($dbh,$args));
+});
+
+/*
+Andre Gras
+returns active bounties for logged in Marshall
+Error Codes:
+0 - profile path returned
+1 - logged in user is a hunter
+2 - statement did not execute
+Returns
+All active bounties with all fields from BountyPool
+
+complete
+*/
+
+$app->get('/api/getActiveBounties/', function($username) use ($dbh) {
+  $args[':userID'] = $_SESSION['userID'];
+  echo json_encode(getActiveBounties($dbh,$args));
+});
+
+/*
+Andre Gras
+returns past bounties for logged in Marshall
+Error Codes:
+0 - profile path returned
+1 - logged in user is a hunter
+2 - statement did not execute
+Returns
+All past bounties with all fields from BountyPool
+
+complete
+*/
+
+$app->get('/api/getPastBounties/', function($username) use ($dbh) {
+  $args[':userID'] = $_SESSION['userID'];
+  echo json_encode(getPastBounties($dbh,$args));
+});
+
+/*
+Michael Gilbert
+returns all reports on a certain bounty
+Error Codes:
+Returns
+
+Incomplete
+*/
 $app->get('/api/getReportsFromBountyID/:bountyID', function($bountyID) use ($dbh) {
 
-  $args[':bountyID'] = $_POST['bountyID'];
+  $args[':bountyID'] = $_GET['bountyID'];
   echo json_encode(getReportsFromBountyID($dbh,$args));
 
   });
@@ -561,14 +783,23 @@ $app->get('/api/getReportsFromBountyID/:bountyID', function($bountyID) use ($dbh
   Error Codes:
   Returns
 
-  Incomplete
+  complete
   */
 
 $app->get('/api/getReportsFromUsernameBountyID/:usename/:bountyID', function($username, $bountyID) use ($dbh) {
 
-
+  $args[':username'] = $_GET['username'];
+  $args[':bountyID'] = $_GET['bountyID'];
+  echo json_encode(getReportsFromUsernameBountyID($dbh,$args));
 
   });
+  
+$app->get('/api/getReportsFromUsernamePaidVsUnpaid/:username/:auxiliary/', function($bountyID) use ($dbh)
+{
+  $args[":auxiliary"] = $_GET['auxiliary'];
+  $args[":username"] = $_GET['username'];
+  echo json_encode(getReportsFromUsernamePaidOrUnPaid($dbh,$args));
+});
 
   /*
   Michael Gilbert
@@ -586,126 +817,3 @@ $app->get('/api/getPreferredReports', function($bountyID) use ($dbh) {
   echo json_encode(getPreferredReports($dbh));
 
 });
-
-
-// function validateSignUpInfo($username, $email) {
-//   global $dbh;
-
-//   $sth = $dbh->prepare(
-//     "SELECT count(username) AS uCount FROM Account
-//     WHERE username = :username");
-//   $sth->bindParam(':username', $username);
-
-//   if ($sth->execute()) {
-//     $row = $sth->fetch(PDO::FETCH_ASSOC);
-//     $result['success'] = true;
-//     $result['validUsername'] = $row['uCount'] == 0;
-//     $badUsername = $result['validUsername'] ? '' : "the username $username is already taken.";
-//   }
-//   else {
-//     $result['success'] = false;
-//     $result['errorInfo'] = array("dbError" => $sth->errorInfo());
-//   }
-
-//   $sth = $dbh->prepare(
-//     "SELECT count(email) AS eCount FROM Account
-//     WHERE email = :email");
-//   $sth->bindParam(':email', $email);
-
-//   if ($sth->execute()) {
-//     $row = $sth->fetch(PDO::FETCH_ASSOC);
-//     $result['success'] = true;
-//     $result['validEmail'] = $row['eCount'] == 0;
-//     $badEmail = $result['validEmail'] ? '' : "the email $email is already taken.";
-//   }
-//   else {
-//     $result['success'] = false;
-//     $result['errorInfo'] = array("dbError" => $sth->errorInfo());
-//   }
-
-//   $result['errorInfo'] = array(
-//     'usernameError' => $badUsername,
-//     'emailError' => $badEmail
-//   );
-
-//   return $result;
-// }
-
-// $app->get('/api/getProfile/:username', function($username) {
-//   global $dbh;
-//   $sth = $dbh->prepare(
-//     "SELECT marshallID, description, imageLoc, company FROM Marshall
-//     WHERE username = :username");
-//   $sth->bindParam(':username', $username);
-//   if ($sth->execute()) {
-//     $row = $sth->fetch(PDO::FETCH_ASSOC);
-//     $result['description'] = $row['description'];
-//     $result['imageLoc'] = $row['imageLoc'];
-//     $result['company'] = $row['company'];
-//     $result['marshallID'] = $row['marshallID'];
-//   }
-//   else {
-//     $result['success'] = false;
-//     $result['error'] = $sth->errorInfo();
-//   }
-//   $sth = $dbh->prepare(
-//   "SELECT * FROM BountyPool WHERE bountyMarshallID = $result['marshallID']"
-//   );
-//   if($sth->execut()){
-//     $row = $sth->fetch(PDO::FETCH_ASSOC);
-//     $result['dateCreated'] = $row['dateCreated'];
-//     $result['PayoutPool'] = $row['PayoutPool'];
-//     $result['dateEnding'] = $row['dateEnding'];
-//     $result['bountyLink'] = $row['bountyLink'];
-//     $result['success'] = true;
-//   }
-//   else{
-//     $result['success'] = false;
-//     $result['error'] = $sth->errorInfo();
-//   }
-//   echo json_encode($result);
-// });
-
-// $app->post('/api/sendReport', function()){
-//   global $dbh;
-//   $args[':reportText'] = $_POST['reportText'];
-//   $args[':username'] = $_POST['username'];
-//   $args[':bountyID'] = $_POST['bountyID'];
-//   $sth = $dbh->prepare(
-//   "INSERT into Report (reportText, username, bountyID) values (:reportText, :username, :bountyID)"
-//   )
-//   if($sth->execute($args)){
-//     $result['success'] = true;
-//   }
-//   else{
-//     $result['success'] = false;
-//     $result['error'] = $sth->errorInfo();
-//   }
-//   echo json_encode($result);
-// }
-
-// $app->get('/api/getReport', function(){
-//   global $dbh;
-//   $args[':username'] = $_POST['username'];
-//   $args[':marshallID'] = $_POST['marshallID'];
-//   $args[':bountyID'] = $_POST['bountyID'];
-//   $sth = $dbh->prepare(
-//   "SELECT ReportText, Paid, Assessed, payountAmt, dateSubmitted, ScreenshotFolderLoc FROM Report
-//     WHERE marshallID = :marshallID AND bountyID = :bountyID");
-//   )
-//   if($sth->execute($args)){
-//     $row = $sth->fetch(PDO::FETCH_ASSOC);
-//     $result['success'] = true;
-//     $result['ReportText'] = $row['ReportText'];
-//     $result['Paid'] = $row['Paid'];
-//     $result['Assessed'] = $row['Assessed'];
-//     $result['payountAmt'] = $row['payountAmt'];
-//     $result['dateSubmitted'] = $row['dateSubmitted'];
-//     $result['ScreenshotFolderLoc'] = $row['ScreenshotFolderLoc'];
-//   }
-//   else{
-//     $result['success'] = false;
-//     $result['error'] = $sth->errorInfo();
-//   }
-//   echo json_encode($result);
-// });

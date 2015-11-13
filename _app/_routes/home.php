@@ -29,7 +29,7 @@ function prepareHome($dbh){
 
 		return $template_array;
 	}
-	else if($_SESSION['userType'] === "hunter")
+	else if($_SESSION['userType'] === "marshall")
 	{
 		$template_array["username"] = $_SESSION['username'];
 
