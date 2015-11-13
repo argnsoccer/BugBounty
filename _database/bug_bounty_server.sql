@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `bug_bounty_server`.`Report` (
   `link` mediumtext,
   `path` mediumtext NOT NULL,
   `filePath` mediumtext,
-  `errorName` varchar(30);
+  `errorName` varchar(30),
   `reportID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`reportID`)  COMMENT '',
   UNIQUE INDEX `reportID_UNIQUE` (`reportID` ASC)  COMMENT '',
