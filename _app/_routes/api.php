@@ -229,6 +229,31 @@ function getReportsFromUsername($dbh, $args) {
 
 }
 
+function getReportsFromUsernamePaidOrUnPaid($dbh,$args)
+{
+	$statement = $dbh->prepare("
+  SELECT * FROM report,:auxiliary
+  WHERE report.bountyID=:auxiliary.bountyID
+  AND username:username");
+
+  if($statement->execute($args))
+  {
+	  $result['reportArray'] = array();
+	  $result['error'] = 0;
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+	{
+		array_push($result['reportArray'],$row);
+	}
+  }
+  else
+  {
+    $result['error'] = '1';
+    $result['message'] = 'Statement not executed';
+
+  }
+  return $result;
+}
+
 function getProfilePictureFromUsername($dbh, $args){
   if($_SESSION['userType'] == 'marshall'){
     $statement = $dbh->prepare("
@@ -768,6 +793,13 @@ $app->get('/api/getReportsFromUsernameBountyID/:usename/:bountyID', function($us
   echo json_encode(getReportsFromUsernameBountyID($dbh,$args));
 
   });
+  
+$app->get('/api/getReportsFromUsernamePaidVsUnpaid/:username/:auxiliary/', function($bountyID) use ($dbh)
+{
+	$args[":auxiliary"] = $_GET['auxiliary'];
+	$args[":username"] = $_GET['username'];
+	echo json_encode(getReportsFromUsernamePaidOrUnPaid($dbh,$args));
+}
 
   /*
   Michael Gilbert
