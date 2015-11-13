@@ -840,4 +840,5 @@ $app->post('/api/payReport', function() use ($dbh){
     "customerId" => $aCustomerId
   ]);
 
+  echo($clientToken);
 });
