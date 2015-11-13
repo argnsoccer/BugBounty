@@ -48,7 +48,7 @@ $(document).ready(function ()
           }
           else if (response['error'] == '1')
           {
-            alert("Please choose a differnet username!");
+            alert(response['message']);
           }
           else if (response['error'] == '2')
           {

@@ -5,9 +5,9 @@
 
 <html>
   <head>
-      <title>I ain't afraid of no bugs!</title>
-      <link rel="shortcut icon" type="image/x-icon" href="../_images/_logos/bug-hunter-icon.ico" />
-      <link rel="stylesheet" type="text/css" href="../_css/home.css">
+	<title>I ain't afraid of no bugs!</title>
+	<link rel="shortcut icon" type="image/x-icon" href="../_images/_logos/bug-hunter-icon.ico" />
+	<link rel="stylesheet" type="text/css" href="../_css/home.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="_javascript/sign_up.js"></script>

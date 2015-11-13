@@ -1,7 +1,6 @@
 $(document).ready(function ()
 {
-  $("#submitProfileUpdate").click(function(event)
-  {
+  $("#submitProfileUpdate").click(function(event){
   	var userInfo = {};
   	userInfo['username'] = $("updateUsername").val();
   	userInfo['email'] = $("updateEmail").val();
@@ -9,6 +8,9 @@ $(document).ready(function ()
   	userInfo['passwordNew'] = $("updateNewPassword").val();
   	userInfo['passwordMatch'] = $("updateNewPasswordConfirm").val();
   	alert(userInfo['username']);
-
+	
+    $.ajax({
+	  url: '/api/
+	});
   });
 });
