@@ -5,7 +5,7 @@ session_set_cookie_params(0);
 
 function prepareHuntpage($dbh, $bountyID){
 
-	// for HUnt, the template array must contain
+	// for Hunt, the template array must contain
 	// 	1)  the username
 	// 	2)  the email of the username
 	// 	3)  the bounty link
@@ -16,7 +16,7 @@ function prepareHuntpage($dbh, $bountyID){
 		"username" => $_SESSION['userLogin'],
 		"email" => $_SESSION['email']
 	);
-	
+
 	$template_array["bounty"] = array(
 		'id' => $bountyID,
 		'name' => '',
@@ -24,7 +24,7 @@ function prepareHuntpage($dbh, $bountyID){
 		'link' => "http://www.smu.edu"
 		); //call for bounty link, name, ownder
 
-	
+
 	return $template_array;
 }
 
