@@ -345,7 +345,7 @@ $statement = $dbh->prepare(
 }
 
 
-function getPreferredReports($dbh) {
+function getPreferredBounties($dbh) {
  //Join query to get all preferred bounties
 
   $statement = $dbh->prepare("
@@ -816,7 +816,7 @@ $app->get('/api/getReportsFromUsernamePaidVsUnpaid/:username/:auxiliary/', funct
 	$args[":auxiliary"] = $_GET['auxiliary'];
 	$args[":username"] = $_GET['username'];
 	echo json_encode(getReportsFromUsernamePaidOrUnPaid($dbh,$args));
-}
+});
 
   /*
   Michael Gilbert
@@ -829,8 +829,15 @@ $app->get('/api/getReportsFromUsernamePaidVsUnpaid/:username/:auxiliary/', funct
   complete
   */
 
-$app->get('/api/getPreferredReports', function($bountyID) use ($dbh) {
+$app->get('/api/getPreferredBounties', function($bountyID) use ($dbh) {
 
-	echo json_encode(getPreferredReports($dbh));
+	echo json_encode(getPreferredBounties($dbh));
+
+});
+
+$app->post('/api/payReport', function() use ($dbh){
+  $clientToken = Braintree_ClientToken::generate([
+    "customerId" => $aCustomerId
+  ]);
 
 });
