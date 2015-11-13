@@ -22,9 +22,10 @@
         <div class="col-md-2">{{report.pathToError}}</div>
         <div class="col-md-2">
             <form>
-                <input type="button" value="download" name="download" />
-                <input type="button" value="dismiss" name="dismiss" />
-                <input type="button" value="pay" name="pay" />
+                <input type="button" value="Download" name="download" />
+                <input type="button" value="Dismiss" name="dismiss" />
+                <input type="submit" value="Pay" name="pay" />
+                <input type="text" name="payAmount" />
             </form>
         </div>
     </div>
