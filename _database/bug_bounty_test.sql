@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `Report` (
   `link` mediumtext,
   `path` mediumtext NOT NULL,
   `filePath` mediumtext,
-  `errorName` varchar(30);
+  `errorName` varchar(30),
   `reportID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`reportID`),
   UNIQUE KEY `reportID_UNIQUE` (`reportID`),
