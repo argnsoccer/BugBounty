@@ -55,12 +55,14 @@ function loginUser($dbh, $args) {
 
 function signUpUser($dbh, $args) {
   $result['status'] = "complete";
-
+  $args[":imageLoc"] = "_images/_profiles/_".$args[':username'];
+  mkdir($args[":imageLoc"]);
+  copy("_images/_profiles/_mgilbert/mgilbert_profile.png", $args[":imageLoc"]."default_profile.png");
   $statement = $dbh->prepare(
     "INSERT INTO Account
-      (username, email, password, dateCreated, accountType, dateOfLastActivity)
+      (username, email, password, dateCreated, accountType, dateOfLastActivity, imageLoc)
     VALUES
-      (:username, :email, :password, NOW(), :accountType, NOW())"
+      (:username, :email, :password, NOW(), :accountType, NOW(), :imageLoc)"
   );
 
   if($statement->execute($args))
@@ -73,7 +75,8 @@ function signUpUser($dbh, $args) {
     $_SESSION['userLogin'] = $_POST['username'];
     $_SESSION['userType'] = strtolower($_POST['accountType']);
     $_SESSION['userID'] = $row['userID'];
-    }
+
+  }
   else
   {
     $result['error'] = '1';
@@ -168,12 +171,28 @@ function createBounty($dbh, $args) {
 function createReport($dbh, $args) {
 
   $statement = $dbh->prepare("
-  INSERT INTO report (bountyID,username,ReportText)
-  VALUES (:bountyID,:username,:ReportText)");
+  INSERT INTO report (bountyID, username, description, link, dateSubmitted, pathToError)
+  VALUES (:bountyID,:username,:description, :link, NOW(), :pathToError)");
 
   if($statement->execute($args))
   {
-    $result['error'] = '0';
+
+    $reportID = $dbh->lastInsertId();
+    $args2[":filePath"] = '../_files/'.$args[":bountyID"].'/'.$args[":username"].$reportID;
+    $args2[":reportID"] = $reportID;
+    mkdir('../_files/'.$args[":bountyID"].'/'.$reportID);
+    $statement = $dbh->prepare("
+    UPDATE Report
+    SET filePath = :filePath
+    WHERE reportID=:reportID");
+    if($statement->execute($arsg))
+    {
+      $result['error'] = '0';
+    }
+    else{
+      $result['error'] = '2';
+      $result['message'] = 'Statement 2 not executed';
+    }
   }
   else
   {
@@ -187,10 +206,10 @@ function createReport($dbh, $args) {
 function updateReport($dbh, $args) {
 
   $statement = $dbh->prepare(
-  "UPDATE report 
+  "UPDATE report
   SET payAmount = :payAmount, username = :username, message = :message
   WHERE reportID = :reportID");
-  
+
   if($statement->execute($args))
   {
     $result['error'] = '0';
@@ -257,7 +276,7 @@ function getReportsFromUsernamePaidOrUnPaid($dbh,$args)
 function getProfilePictureFromUsername($dbh, $args){
   if($_SESSION['userType'] == 'marshall'){
     $statement = $dbh->prepare("
-    SELECT Marshall.imageLoc FROM Marshall, Account WHERE Account.userID = Marshall.marshallID AND Account.username = :username");
+    SELECT Account.imageLoc FROM Account WHERE username = :username");
     if($sth->execute($args))
     {
       $row = $statement->fetch(PDO::FETCH_ASSOC);
@@ -272,10 +291,6 @@ function getProfilePictureFromUsername($dbh, $args){
       $result['message'] = 'statement did not execute';
     }
 
-  }
-  else{
-    $result['error'] = '1';
-    $result['message'] = 'Hunters do not have profile pictures';
   }
 
 
@@ -330,7 +345,7 @@ $statement = $dbh->prepare(
 }
 
 
-function getPreferredReports($dbh) {
+function getPreferredBounties($dbh) {
  //Join query to get all preferred bounties
 
   $statement = $dbh->prepare("
@@ -662,7 +677,9 @@ $app->post('/api/createReport', function() use ($dbh) {
 
   $args[':bountyID'] = $_POST['bountyID'];
   $args[':username'] = $_POST['username'];
-  $args[':reportText'] = $_POST['reportText'];
+  $args[':description'] = $_POST['description'];
+  $args[':link'] = $_POST['link'];
+  $args[':pathToError'] = $_POST['pathToError'];
 
   $result = createReport($dbh, $args);
 
@@ -793,7 +810,7 @@ $app->get('/api/getReportsFromUsernameBountyID/:usename/:bountyID', function($us
   echo json_encode(getReportsFromUsernameBountyID($dbh,$args));
 
   });
-  
+
 $app->get('/api/getReportsFromUsernamePaidVsUnpaid/:username/:auxiliary/', function($bountyID) use ($dbh)
 {
   $args[":auxiliary"] = $_GET['auxiliary'];
@@ -812,8 +829,15 @@ $app->get('/api/getReportsFromUsernamePaidVsUnpaid/:username/:auxiliary/', funct
   complete
   */
 
-$app->get('/api/getPreferredReports', function($bountyID) use ($dbh) {
+$app->get('/api/getPreferredBounties', function($bountyID) use ($dbh) {
 
-  echo json_encode(getPreferredReports($dbh));
+  echo json_encode(getPreferredBounties($dbh));
+
+});
+
+$app->post('/api/payReport', function() use ($dbh){
+  $clientToken = Braintree_ClientToken::generate([
+    "customerId" => $aCustomerId
+  ]);
 
 });
