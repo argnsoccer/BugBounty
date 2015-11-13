@@ -7,10 +7,29 @@ $(document).ready(function ()
   	userInfo['password'] = $("updateOldPassword").val();
   	userInfo['passwordNew'] = $("updateNewPassword").val();
   	userInfo['passwordMatch'] = $("updateNewPasswordConfirm").val();
-  	alert(userInfo['username']);
 	
-    $.ajax({
-	  url: '/api/
+   $.ajax({
+	  url: '/api/updateUserInfo',
+	  data: userInfo,
+	  dataType: 'json',
+	  async: 'false',
+	  type: 'POST',
+	  success: function(response){
+		  
+		  if(response['errorCode'] == '0'){
+			  //Success
+			  alert("Succesfully created bounty!");
+			  window.location.href = "/";
+		  }
+		  else{
+			  alert(response['errorInfo']);
+		  }
+	  }
+	  error: function (xhr, status, error) {
+		  var err = eval("(" + xhr.responseText + ")");
+		  //alert("Please Try Again, we had an internal error!");
+		  alert(err.message);
+	  }
 	});
   });
 });
