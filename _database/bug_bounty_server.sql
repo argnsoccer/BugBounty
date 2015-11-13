@@ -88,16 +88,12 @@ ENGINE = InnoDB;
 -- Table `bug_bounty_server`.`Report`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bug_bounty_server`.`Report` (
-  `bountyID` int(10) unsigned NOT NULL,
-  `username` varchar(20) NOT NULL,
-  `description` mediumtext,
-  `dateSubmitted` datetime NOT NULL,
-  `imageLoc` varchar(100),
-  `link` mediumtext,
-  `path` mediumtext NOT NULL,
-  `filePath` mediumtext,
-  `errorName` varchar(30),
-  `reportID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `bountyID` INT UNSIGNED NOT NULL COMMENT '',
+  `username` VARCHAR(20) NOT NULL COMMENT '',
+  `reportText` MEDIUMTEXT NOT NULL COMMENT '',
+  `dateSubmitted` DATETIME NOT NULL COMMENT '',
+  `imageLoc` VARCHAR(100) NOT NULL COMMENT '',
+  `reportID` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '',
   PRIMARY KEY (`reportID`)  COMMENT '',
   UNIQUE INDEX `reportID_UNIQUE` (`reportID` ASC)  COMMENT '',
   CONSTRAINT `fk_Report_BountyPool2`

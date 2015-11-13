@@ -1,0 +1,89 @@
+@font-face 
+{
+  font-family: PT-Sans;
+  src: url(../_fonts/PT_Sans-Web-Regular.ttf);
+}
+
+@font-face
+{
+    font-family: Helvetica;
+    src: url(../_fonts/Helvetica.otf);
+}
+
+@font-face
+{
+    font-family: Helvetica-Rounded;
+    src: url(../_fonts/HelveticaRounded-Black.otf);
+}
+
+/*body {
+  background-color: #BCBCBC !important;
+}*/
+
+h1
+{
+	color: #303030;
+    font-family: Helvetica;
+    text-align: center;
+}
+
+h2
+{
+    color: #FAFAFA;
+    font-family: Helvetica;
+}
+
+h4
+{
+    color: #FAFAFA;
+    font-family: Helvetica;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+#profile_picture
+{
+    border-color: #5b5b5b;
+    border-width: 2px;
+    border-style: solid;
+    height: 200px;
+    width: 200px;
+}
+
+#profile_picture {
+    border-color: #5b5b5b;
+    border-width: 2px;
+    border-style: solid;
+    height: 200px;
+}
+
+#profileInfo > input {
+	border-color: #5b5b5b;
+	border-width: 1px;
+    border-radius: 10px;
+    display: block;
+    height: 35px;
+    margin: 3px;
+    width: 275px;
+    text-align: center;
+}
+
+table {
+  width: 100%;
+}
+
+.tableRow:nth-child(even) {
+  background-color: #B0B0B0;
+}
+
+.tableRow:nth-child(odd) {
+  background-color: ##FAFAFA;
+}
+
+table, th, td {
+  border-collapse: collapse;
+}
+
+.headerTable {
+  background-color: #FC8989;
+}

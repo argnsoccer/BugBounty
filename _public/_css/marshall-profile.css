@@ -1,48 +1,4 @@
-﻿@font-face 
-{
-  font-family: PT-Sans;
-  src: url(../_fonts/PT_Sans-Web-Regular.ttf);
-}
-
-@font-face
-{
-    font-family: Helvetica;
-    src: url(../_fonts/Helvetica.otf);
-}
-
-@font-face
-{
-    font-family: Helvetica-Rounded;
-    src: url(../_fonts/HelveticaRounded-Black.otf);
-}
-
-body 
-{
-    background-color: #303030;
-}
-
-h1
-{
-    color: #FAFAFA;
-    font-family: Helvetica;
-    text-align: center;
-}
-
-h2
-{
-    color: #FAFAFA;
-    font-family: Helvetica;
-}
-
-h4
-{
-    color: #FAFAFA;
-    font-family: Helvetica;
-    margin-bottom: 0;
-    text-align: center;
-}
-
-form
+﻿/*form
 {
     width: 100%;
 }
@@ -122,23 +78,6 @@ li.leftNav > a
     float: left;
 }
 
-#profile_link
-{
-    border-radius: 5px;
-    background-color: #0000FF;
-    border-style: none;
-    box-shadow: 0 2px 8px 0 black;
-    color: #FAFAFA;
-    display: inline-block;
-    font-family: Helvetica;
-    font-size: medium;
-    height: 24px;
-    padding-top: 5px;
-    padding-left: 10px;
-    padding-right: 8px;
-    width: 75px;
-}
-
 #content_area
 {
     height: 1800px;
@@ -190,15 +129,6 @@ li.leftNav > a
     margin-left: 75px;
     top: 500px;
     width: 300px;
-}
-
-#profile_picture
-{
-    border-color: #5b5b5b;
-    border-width: 2px;
-    border-style: solid;
-    height: 200px;
-    width: auto;
 }
 
 #picture_upload > input
@@ -267,4 +197,4 @@ li.leftNav > a
     top: 950px;
     height: 400px;
     width: 800px;
-}
+}*/

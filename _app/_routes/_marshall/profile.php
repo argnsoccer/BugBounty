@@ -12,41 +12,25 @@ function prepareMarshallProfile($dbh, $username)
 	// 	4) all bounties currently active for user
 	// 	5) all bounties that have expired
 		
+	if ($username === $_SESSION['userLogin'] 
+		&& $_SESSION['userType'] === 'marshall')
+	{
+		$template_array['username'] = $username;
+		$template_array['userType'] = $_SESSION['userType'];
+		$template_array['email'] = $_SESSION['email'];
 
-	$statement = $dbh->prepare("
-				SELECT *
-				FROM Account
-				WHERE username = :username");
+		//call for current bounties in database
+		//call for past bounties in database
+		//call for profile picture
 
-	$args[':username'] = $username;
+		$template_array["error"] = 0; //for time being
 
-	if($statement->execute($args)) {
-		$row = $statement->fetch(PDO::FETCH_ASSOC);
-
-    if (isset($row['username'])) {
-    	$template_array = array(
-    		"username" => $row['username'],
-    		"email" => $row['email'],
-    		"error" => 0,
-    		//"picture" => $row['picture'],
-    	);
-    }
-    else {
-    	$template_array = array(
-    		"error" => 1,
-    		"message" => 'No username',
-    	);
-    }
+		return $template_array;
+	}
+	else
+	{
 
 	}
-	else {
-		$template_array = array(
-    		"error" => 2,
-    		"message" => 'Statement not ran',
-    	);
-	}
-
-	return $template_array;
 }
 
 $app->get('/_marshall/profile', function() use ($app) {
@@ -57,21 +41,27 @@ $app->get('/_marshall/profile', function() use ($app) {
 $app->get('/_marshall/profile/:username', function($username) use ($app, $dbh) {
 	//echo $username;
 
-	if (isset($_SESSION['userLogin']))
-	{
-		$template_array = prepareMarshallProfile($dbh, $username);
+	$template_array = prepareMarshallProfile($dbh, $username);
 
-		if($template_array['error'] == 0)
-		{
+	if (isset($_SESSION['userLogin'])
+		&& isset($template_array['error'])
+		&& $template_array['error'] === 0)
+	{
 			$app->render('_marshall/profile.php', $template_array);
-		}
-		else if ($template_array['error'] == 1)
+	}
+	else 
+	{
+		if ($template_array['error'] === 1)
 		{
 			echo "error - No username is database with passed username";
 		}
-		else if ($template_array['error'] == 1)
+		else if ($template_array['error'] === 2)
 		{
 			echo "error - statement was not ran";
+		}
+		else 
+		{
+			echo "error - no error code returned";
 		}
 	}
 });

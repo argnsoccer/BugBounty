@@ -10,8 +10,8 @@ function isSet(key, value)
 
 $(document).ready(function ()
 {
-	$("#submitLogin").click(function(event)
-	{
+  $("#submitLogin").click(function(event)
+  {
       event.preventDefault();
 
       var userInfo = {}
@@ -75,12 +75,6 @@ $(document).ready(function ()
         alert(err.message);
         }
       });
-  });
-
-  $("#radioButtonsForm input:radio:first").click(function() {
-
-		alert("clicked");
-
   });
 
 });

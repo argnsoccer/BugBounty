@@ -250,19 +250,19 @@ function getReportsFromUsername($dbh, $args) {
 
 function getReportsFromUsernamePaidOrUnPaid($dbh,$args)
 {
-	$statement = $dbh->prepare("
+  $statement = $dbh->prepare("
   SELECT * FROM report,:auxiliary
   WHERE report.bountyID=:auxiliary.bountyID
   AND username:username");
 
   if($statement->execute($args))
   {
-	  $result['reportArray'] = array();
-	  $result['error'] = 0;
+    $result['reportArray'] = array();
+    $result['error'] = 0;
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
-	{
-		array_push($result['reportArray'],$row);
-	}
+  {
+    array_push($result['reportArray'],$row);
+  }
   }
   else
   {
@@ -304,12 +304,12 @@ $statement = $dbh->prepare("
 
   if($statement->execute($args))
   {
-	  $result['reportArray'] = array();
-	  $result['error'] = 0;
+    $result['reportArray'] = array();
+    $result['error'] = 0;
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
-	{
-		array_push($result['reportArray'],$row);
-	}
+  {
+    array_push($result['reportArray'],$row);
+  }
   }
   else
   {
@@ -328,12 +328,12 @@ $statement = $dbh->prepare(
 
   if($statement->execute($args))
   {
-	  $result['reportArray'] = array();
-	  $result['error'] = 0;
+    $result['reportArray'] = array();
+    $result['error'] = 0;
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
-  	{
-  		array_push($result['reportArray'],$row);
-  	}
+    {
+      array_push($result['reportArray'],$row);
+    }
   }
   else
   {
@@ -353,12 +353,12 @@ function getPreferredBounties($dbh) {
   WHERE bountypool.poolID=preferredbounties.bountyID");
   if($statement->execute($args))
   {
-	  $result['bountyArray'] = array();
-	  $result['error'] = 0;
+    $result['bountyArray'] = array();
+    $result['error'] = 0;
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
-	{
-		array_push($result['bountyArray'],$row);
-	}
+  {
+    array_push($result['bountyArray'],$row);
+  }
   }
   else
   {
@@ -378,12 +378,12 @@ function getActiveBounties($dbh, $args) {
   {
     if($statement->execute($args))
     {
-  	  $result['activeBounties'] = array();
-  	  $result['error'] = 0;
+      $result['activeBounties'] = array();
+      $result['error'] = 0;
       while($row = $statement->fetch(PDO::FETCH_ASSOC))
-  	  {
-  		 array_push($result['activeBounties'],$row);
-  	  }
+      {
+       array_push($result['activeBounties'],$row);
+      }
     }
     else
     {
@@ -408,12 +408,12 @@ function getPastBounties($dbh, $args) {
   {
     if($statement->execute($args))
     {
-  	  $result['pastBounties'] = array();
-  	  $result['error'] = 0;
+      $result['pastBounties'] = array();
+      $result['error'] = 0;
       while($row = $statement->fetch(PDO::FETCH_ASSOC))
-  	  {
-  		 array_push($result['pastBounties'],$row);
-  	  }
+      {
+       array_push($result['pastBounties'],$row);
+      }
     }
     else
     {
@@ -789,7 +789,7 @@ Incomplete
 */
 $app->get('/api/getReportsFromBountyID/:bountyID', function($bountyID) use ($dbh) {
 
-	$args[':bountyID'] = $_GET['bountyID'];
+  $args[':bountyID'] = $_GET['bountyID'];
   echo json_encode(getReportsFromBountyID($dbh,$args));
 
   });
@@ -813,9 +813,9 @@ $app->get('/api/getReportsFromUsernameBountyID/:usename/:bountyID', function($us
 
 $app->get('/api/getReportsFromUsernamePaidVsUnpaid/:username/:auxiliary/', function($bountyID) use ($dbh)
 {
-	$args[":auxiliary"] = $_GET['auxiliary'];
-	$args[":username"] = $_GET['username'];
-	echo json_encode(getReportsFromUsernamePaidOrUnPaid($dbh,$args));
+  $args[":auxiliary"] = $_GET['auxiliary'];
+  $args[":username"] = $_GET['username'];
+  echo json_encode(getReportsFromUsernamePaidOrUnPaid($dbh,$args));
 });
 
   /*
@@ -831,7 +831,7 @@ $app->get('/api/getReportsFromUsernamePaidVsUnpaid/:username/:auxiliary/', funct
 
 $app->get('/api/getPreferredBounties', function($bountyID) use ($dbh) {
 
-	echo json_encode(getPreferredBounties($dbh));
+  echo json_encode(getPreferredBounties($dbh));
 
 });
 

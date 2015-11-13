@@ -6,14 +6,19 @@ function prepareDiscoverPage($dbh) {
 	// 	2)  the email of the username
 	// 	3)  the top 10 bounties
 
-	$template_array = array();
+	$template_array = array(
+		"username" => $_SESSION['userLogin'],
+		"email" => $_SESSION['email']
+	);
+	
+	$template_array['bounties'] = array();  //call for 10 bounties
 
 	return $template_array;
 }
 
-$app->get('/_hunter/discover', function() use ($app) {
+$app->get('/_hunter/discover', function() use ($app, $dbh) {
 
-	$template_array = array("username" => "test");
+	$template_array = prepareDiscoverPage($dbh);
 
 	$app->render('_hunter/discover.php', $template_array);
 
