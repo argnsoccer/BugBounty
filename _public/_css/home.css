@@ -47,10 +47,6 @@
   color: #FAFAFA;
 }
 
-#bountyBoard {
-  height: 400px;
-}
-
 /* GLOBAL STYLES
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
@@ -93,25 +89,6 @@ h1 {
 /* RESPONSIVE CSS
 -------------------------------------------------- */
 
-@media (min-width: 768px) {
-  /* Navbar positioning foo */
-  .navbar-wrapper {
-    margin-top: 20px;
-  }
-  .navbar-wrapper .container {
-    padding-right: 15px;
-    padding-left: 15px;
-  }
-  .navbar-wrapper .navbar {
-    padding-right: 0;
-    padding-left: 0;
-  }
-
-  /* The navbar becomes detached from the top, so we round the corners */
-  .navbar-wrapper .navbar {
-    border-radius: 4px;
-  }
-
   /* Bump up size of carousel content */
   .carousel-caption p {
     margin-bottom: 20px;
@@ -119,13 +96,31 @@ h1 {
     line-height: 1.4;
   }
 
-  .featurette-heading {
-    font-size: 50px;
-  }
+  /* Bounty Wall
+-------------------------------------------------- */
+
+  #bountyBoard {
+  height: 500px;
 }
 
-@media (min-width: 992px) {
-  .featurette-heading {
-    margin-top: 120px;
-  }
+.bountyWall {
+  background-image: url("/../_images/_random/wanted_240x308.png");
+  background-size: 255px 308px;
+  background-repeat: no-repeat;
+  background-position: center; 
+  height: 300px;
+}
+
+.bountyName {
+  text-align: center;
+}
+
+.img-circle {
+/*  height: 140px;
+  width: 140px;*/
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 140px;
+  width: 140px;
 }

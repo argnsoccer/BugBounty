@@ -349,8 +349,10 @@ function getPreferredBounties($dbh) {
  //Join query to get all preferred bounties
 
   $statement = $dbh->prepare("
-  SELECT * FROM bountypool,preferredbounties
-  WHERE bountypool.poolID=preferredbounties.bountyID");
+    SELECT * FROM BountyPool, PreferredBounties 
+    WHERE BountyPool.poolID=PreferredBounties.bountyID"
+   );
+
   if($statement->execute($args))
   {
     $result['bountyArray'] = array();
@@ -372,8 +374,11 @@ function getPreferredBounties($dbh) {
 function getActiveBounties($dbh, $args) {
 
   $statement = $dbh->prepare("
-  SELECT BountyPool.* FROM Marshall, BountyPool
-  WHERE Marshall.marshallID=BountyPool.bountyMarshallID AND Marshall.marshallID=:userID AND dateCreated < now()"); //completed version of this will have dateCreated < now() < dateEnding (but our test vars)
+    SELECT BountyPool.* FROM Marshall, BountyPool
+    WHERE Marshall.marshallID=BountyPool.bountyMarshallID 
+    AND Marshall.marshallID=:userID AND dateCreated < now()"
+  ); //completed version of this will have dateCreated < now() < dateEnding (but our test vars)
+  
   if($_SESSION['userType'] == 'marshall')
   {
     if($statement->execute($args))

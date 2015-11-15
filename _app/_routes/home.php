@@ -35,6 +35,12 @@ function prepareHome($dbh){
 
 		return $template_array;
 	}
+	else 
+	{
+		$template_array = getPreferredBounties($dbh);
+
+		return $template_array;
+	}
 }
 
 $app->get('/', function() use ($app, $dbh) {
@@ -62,6 +68,8 @@ $app->get('/', function() use ($app, $dbh) {
 	}
 	else
 	{
-		$app->render('home.php');
+		$template_array = prepareHome($dbh);
+
+		$app->render('home.php', $template_array);
 	}
 });

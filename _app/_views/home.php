@@ -13,74 +13,9 @@
     {{include ('bootstrap_header.php')}}
   </head>
   <body>
-<!-- 
-  <div class="container-fluid">
-    <div class="row">
-
-      <div class="col-sm-4">
-        <h3>Hunters, Make Some Moeny For Using the Internet!</h3>
-        <table>
-          <tr>
-            <td><img class="featureIcon" src="../_images/_icons/marshall-to-hunters.png"/></td>
-            <td class="featureText">Get paid to discover problems on peoples websites.</td>
-          </tr>
-          <tr>
-            <td><img class="featureIcon" src="../_images/_icons/get-paid.png"></td>
-            <td class="featureText">Pick projects and websites you want to spend time on.</td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="col-sm-4">
-        <h3>Marshalls, use th Power of the People to Find Bugs!</h3>
-        <table>
-          <tr>
-            <td><img class="featureIcon" src="../_images/_icons/marshall-to-hunters.png"/></td>
-            <td class="featureText">Connect to a large base of bug hunters.</td>
-          </tr>
-          <tr>
-            <td><img class="featureIcon" src="../_images/_icons/get-paid.png"></td>
-            <td class="featureText">Spend less time focussing on finding problems.</td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="col-sm-4">
-        <h3 id="signUpHeader">Sign Up Now!</h3>
-        <form id="signUp" class="signUpForm" method="post">
-          <input class="signUpForm" type="text" placeholder="Your email" id="signUpEmail">
-          <input class="signUpForm" type="text" placeholder="Choose a username" id="signUpUsername">
-          <input class="signUpForm" type="password" placeholder="Choose a password" id="signUpPassword">
-        
-          <span id="radioButtonsForm">
-            Hunter<input type="radio" name="accountType" value="hunter" id="signUpHunter" />
-            Marshall<input type="radio" name="accountType" value="marshall" id="signUpMarshall"/>
-          </span>
-        
-          <input class="signUpForm" type="submit" value="Sign Up!" id="submitSignUp">
-        </form>
-      </div>
-
-    </div>
-
-    <div class="row" id="bountyBoard">
-
-      <div class="col-sm-4">
-        <p>Wanted</p>
-      </div>
-
-      <div class="col-sm-4">
-        <p>Wanted</p>
-      </div>
-
-      <div class="col-sm-4">
-        <p>Wanted</p>
-      </div>
-    </div>
-  </div>
- -->
 
  {{ include ('header_login.php') }}
+
     <!-- Carousel
     ================================================== -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -147,36 +82,142 @@
 
     <div class="container marketing">
 
-      <!-- Three columns of text below the carousel -->
-      <div class="row">
+      <div id="bountyBoard">
 
-        <div class="col-md-4">
-          <img class="img-circle" src="" alt="Generic placeholder image" width="140" height="140">
-          <h2>Heading</h2>
-          <p></p>
-<!--           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+        <div class="row">
+
+          <div class="col-md-4">
+            <div class="cycle-slideshow bountyWall" 
+            data-cycle-fx=fade 
+            data-cycle-timeout=3000 
+            data-cycle-caption="#adv-custom-caption"
+            data-cycle-slides="> div"
+            data-cycle-center-horz=true
+            data-cycle-center-vert=true>
+              <div class="bounty">
+                <img class="img-circle" src={{bountyArray[0].imageLoc}}>
+                <h3 class="bountyName">{{bountyArray[0].bountyName}}</h3>
+              </div>
+              <div class="bounty">
+                <img class="img-circle" src={{bountyArray[1].imageLoc}}>
+                <h3 class="bountyName">{{bountyArray[1].bountyName}}</h3>
+              </div>
+              <div class="bounty">
+                <img class="img-circle" src={{bountyArray[2].imageLoc}}>
+                <h3 class="bountyName">{{bountyArray[2].bountyName}}</h3>
+              </div>
+            </div>
+
+            <div class="cycle-slideshow" 
+            data-cycle-fx=fade 
+            data-cycle-timeout=3000 
+            data-cycle-caption="#adv-custom-caption"
+            data-cycle-slides="> div"
+            data-cycle-center-horz=true
+            data-cycle-center-vert=true>
+              <div class="bounty">
+                <h3 class="bountyDescription">{{bountyArray[0].lineDescription}}</h3>
+              </div>
+              <div class="bounty">
+                <h3 class="bountyDescription">{{bountyArray[1].lineDescription}}</h3>
+              </div>
+              <div class="bounty">
+                <h3 class="bountyDescription">{{bountyArray[2].lineDescription}}</h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="cycle-slideshow bountyWall" 
+            data-cycle-fx=fade 
+            data-cycle-timeout=3000 
+            data-cycle-caption="#adv-custom-caption"
+            data-cycle-slides="> div"
+            data-cycle-center-horz=true
+            data-cycle-center-vert=true>
+              <div class="bounty">
+                <img class="img-circle" src={{bountyArray[0].imageLoc}}>
+                <h3 class="bountyName">{{bountyArray[0].bountyName}}</h3>
+              </div>
+              <div class="bounty">
+                <img class="img-circle" src={{bountyArray[1].imageLoc}}>
+                <h3 class="bountyName">{{bountyArray[1].bountyName}}</h3>
+              </div>
+              <div class="bounty">
+                <img class="img-circle" src={{bountyArray[2].imageLoc}}>
+                <h3 class="bountyName">{{bountyArray[2].bountyName}}</h3>
+              </div>
+            </div>
+
+            <div class="cycle-slideshow" 
+            data-cycle-fx=fade 
+            data-cycle-timeout=3000 
+            data-cycle-caption="#adv-custom-caption"
+            data-cycle-slides="> div"
+            data-cycle-center-horz=true
+            data-cycle-center-vert=true>
+              <div class="bounty">
+                <h3 class="bountyDescription">{{bountyArray[0].lineDescription}}</h3>
+              </div>
+              <div class="bounty">
+                <h3 class="bountyDescription">{{bountyArray[1].lineDescription}}</h3>
+              </div>
+              <div class="bounty">
+                <h3 class="bountyDescription">{{bountyArray[2].lineDescription}}</h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="cycle-slideshow bountyWall" 
+            data-cycle-fx=fade 
+            data-cycle-timeout=3000 
+            data-cycle-caption="#adv-custom-caption"
+            data-cycle-slides="> div"
+            data-cycle-center-horz=true
+            data-cycle-center-vert=true>
+              <div class="bounty">
+                <img class="img-circle" src={{bountyArray[0].imageLoc}}>
+                <h3 class="bountyName">{{bountyArray[0].bountyName}}</h3>
+              </div>
+              <div class="bounty">
+                <img class="img-circle" src={{bountyArray[1].imageLoc}}>
+                <h3 class="bountyName">{{bountyArray[1].bountyName}}</h3>
+              </div>
+              <div class="bounty">
+                <img class="img-circle" src={{bountyArray[2].imageLoc}}>
+                <h3 class="bountyName">{{bountyArray[2].bountyName}}</h3>
+              </div>
+            </div>
+
+            <div class="cycle-slideshow" 
+            data-cycle-fx=fade 
+            data-cycle-timeout=3000 
+            data-cycle-caption="#adv-custom-caption"
+            data-cycle-slides="> div"
+            data-cycle-center-horz=true
+            data-cycle-center-vert=true>
+              <div class="bounty">
+                <h3 class="bountyDescription">{{bountyArray[0].lineDescription}}</h3>
+              </div>
+              <div class="bounty">
+                <h3 class="bountyDescription">{{bountyArray[1].lineDescription}}</h3>
+              </div>
+              <div class="bounty">
+                <h3 class="bountyDescription">{{bountyArray[2].lineDescription}}</h3>
+              </div>
+            </div>
+          </div>
+
+
         </div>
-
-        <div class="col-md-4">
-          <img class="img-circle" src="" alt="Generic placeholder image" width="140" height="140">
-          <h2>Heading</h2>
-          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-<!--           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
-        </div>
-
-        <div class="col-md-4">
-          <img class="img-circle" src="" alt="Generic placeholder image" width="140" height="140">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-<!--           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
-        </div>
-
       </div>
 
     </div><!-- /.container -->
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="/../_javascript/_jquery/cycle.js"></script>
     <script type="text/javascript" src="/../_javascript/sign_up.js"></script>
     <script type="text/javascript" src="/../_javascript/search_bounty.js"></script>
     <script type="text/javascript" src="/../_javascript/login.js"></script>
