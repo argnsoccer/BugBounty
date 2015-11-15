@@ -14,21 +14,76 @@
     {{ include ('header_hunter.php') }}
 
     <div class="container-fluid">
-      <div class="row">
+      <div class="rowS">
 
         <div class="col-md-4">
           <div class="box">
             <h3>Discover</h3>
             <p class="description">Dicover new bounties now!  Click the link above to get Started or the link in the Navigation Bar!</p>
-            <form id="discoverButton" action="/_hunter/discover" class="contentSection">
-              <input type="submit" value="Discover Bounties Now!" />
-            </form>
+            <a class="btn btn-default" href="/_hunter/discover">Discover Bounties Now!</a>
           </div>
         </div>
 
         <div class="col-md-4">
           <div class="box">
             <h3>Track</h3>
+            <p class="description">Quickly jump into past bounties!</p>
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+              <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+              </ol>
+
+              <div class="carousel-inner-SI" role="listbox">
+
+                <div class="pastbounty active">
+                  <div class="container">
+                    <div class="carousel-caption">
+                      <p><a class="btn btn-lg btn-primary" href="/_hunter/hunt/{{trackBounties[0].id}}" role="button">{{bounty.name}}</a></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pastbounty">
+                  <div class="container">
+                    <div class="carousel-caption">
+                      <p><a class="btn btn-lg btn-primary" href="/_hunter/hunt/{{trackBounties[1].id}}" role="button">{{bounty.name}}</a></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pastbounty">
+                  <div class="container">
+                    <div class="carousel-caption">
+                      <p><a class="btn btn-lg btn-primary" href="/_hunter/hunt/{{trackBounties[2].id}}" role="button">{{bounty.name}}</a></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pastbounty">
+                  <div class="container">
+                    <div class="carousel-caption">
+                      <p><a class="btn btn-lg btn-primary" href="/_hunter/hunt/{{trackBounties[3].id}}" role="button">{{bounty.name}}</a></p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+
+          </div>
+            </div>
+            <!-- <h3>Track</h3>
             <p class="description">Quickly jump into past bounties!</p>
             <table id="trackTable" class="contentSection">
 
@@ -38,7 +93,7 @@
               </tr>
               {% endfor %}
 
-            </table>
+            </table> -->
           </div>
         </div>
 
@@ -46,9 +101,19 @@
           <div class="box">
             <h3>Search</h3>
             <p class="description">Enter a more advanced search with these options to find exactly the kind of boutnies that suit your style!</p>
-            <form id="searchForm" class="contentSection">
-              <input type="text" name="searchContent" placeholder="Search Now!">
-              <input type="submit" value="Submit Search">
+            <form id="searchForm" class="form-group">
+              <div>
+                <label><input type="checkbox"> Option 1A  </label>
+                <label><input type="checkbox"> Option 2A</label>
+                <label><input type="checkbox"> Option 3A</label>
+              </div>
+              <div>
+                <label><input type="checkbox"> Option 1B</label>
+                <label><input type="checkbox"> Option 2B</label>
+                <label><input type="checkbox"> Option 3B</label>
+              </div>
+              <input type="text" id="searchAdvancedText" placeholder="Search Now!">
+              <button type="submit" class="btn btn-default" id="submitAdvancedSearch">Submit Search</button>
             </form>
           </div>
         </div>
@@ -92,6 +157,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="/../_javascript/logout.js"></script>
     <script type="text/javascript" src="/../_javascript/basic_search.js"></script>
+    <script type="text/javascript" src="/../_javascript/advanced_search.js"></script>
 
     {{include ('bootstrap_footer.php')}}
   </body>
