@@ -13,9 +13,9 @@
       <li class="leftNav">
          <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search for a Bounty!">
+          <input type="text" id="searchText" class="form-control" placeholder="Search for a Bounty!">
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" id="submitSearch">Submit</button>
       </form>
     </li>
     </ul>

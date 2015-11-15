@@ -49,7 +49,7 @@
     </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script type="text/javascript" src="/../_javascript/search_bounty.js"></script>
+  <script type="text/javascript" src="/../_javascript/basic_search.js"></script>
   <script type="text/javascript" src="/../_javascript/login.js"></script>
   <script type="text/javascript" src="/../_javascript/logout.js"></script>
   {{include ('bootstrap_footer.php')}} 

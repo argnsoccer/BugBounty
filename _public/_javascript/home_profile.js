@@ -1,5 +1,3 @@
-var username = "testHunter1";
-
 $(document).ready(function () {
   var testInfo = {};
   testInfo['username'] = username;
