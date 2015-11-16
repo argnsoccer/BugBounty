@@ -6,7 +6,7 @@
       <link rel="shortcut icon" type="image/x-icon" href="../_images/_logos/bug-hunter-icon.ico" />
       <link rel="stylesheet" type="text/css" href="/../_css/header.css">
       <link rel="stylesheet" type="text/css" href="/../_css/default.css">
-      <link rel="stylesheet" type="text/css" href="/../_css/home.css">
+      <link rel="stylesheet" type="text/css" href="/../_css/home-hunter.css">
 
       {{include ('bootstrap_header.php')}}
   </head>
@@ -28,45 +28,36 @@
           <div class="box">
             <h3>Track</h3>
             <p class="description">Quickly jump into past bounties!</p>
+
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
-              <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-              </ol>
+              <div class="carousel-inner" role="listbox">
 
-              <div class="carousel-inner-SI" role="listbox">
-
-                <div class="pastbounty active">
-                  <div class="container">
-                    <div class="carousel-caption">
-                      <p><a class="btn btn-lg btn-primary" href="/_hunter/hunt/{{trackBounties[0].id}}" role="button">{{bounty.name}}</a></p>
-                    </div>
+                <div class="item active">
+                  <div class="container-trackBounty">
+                    <h1>{{trackBounties[0].name}}</h1>
+                    <a class="btn btn-lg btn-primary" href="/_hunter/hunt/{{trackBounties[0].id}}" role="button">Hunt Now</a>
                   </div>
                 </div>
 
-                <div class="pastbounty">
-                  <div class="container">
-                    <div class="carousel-caption">
-                      <p><a class="btn btn-lg btn-primary" href="/_hunter/hunt/{{trackBounties[1].id}}" role="button">{{bounty.name}}</a></p>
-                    </div>
+                <div class="item">
+                  <div class="container-trackBounty">
+                    <h1>{{trackBounties[1].name}}</h1>
+                    <a class="btn btn-lg btn-primary" href="/_hunter/hunt/{{trackBounties[1].id}}" role="button">Hunt Now</a>
                   </div>
                 </div>
 
-                <div class="pastbounty">
-                  <div class="container">
-                    <div class="carousel-caption">
-                      <p><a class="btn btn-lg btn-primary" href="/_hunter/hunt/{{trackBounties[2].id}}" role="button">{{bounty.name}}</a></p>
-                    </div>
+                <div class="item">
+                  <div class="container-trackBounty">
+                    <h1>{{trackBounties[2].name}}</h1>
+                    <a class="btn btn-lg btn-primary" href="/_hunter/hunt/{{trackBounties[2].id}}" role="button">Hunt Now</a>
                   </div>
                 </div>
 
-                <div class="pastbounty">
-                  <div class="container">
-                    <div class="carousel-caption">
-                      <p><a class="btn btn-lg btn-primary" href="/_hunter/hunt/{{trackBounties[3].id}}" role="button">{{bounty.name}}</a></p>
-                    </div>
+                <div class="item">
+                  <div class="container-trackBounty">
+                    <h1>{{trackBounties[3].name}}</h1>
+                    <a class="btn btn-lg btn-primary" href="/_hunter/hunt/{{trackBounties[3].id}}" role="button">Hunt Now</a>
                   </div>
                 </div>
 
@@ -81,19 +72,8 @@
                 <span class="sr-only">Next</span>
               </a>
 
-          </div>
-            </div>
-            <!-- <h3>Track</h3>
-            <p class="description">Quickly jump into past bounties!</p>
-            <table id="trackTable" class="contentSection">
+             </div><!-- /.carousel -->
 
-              {% for bounty in trackBounties %}
-              <tr>
-                <td><a href="/_hunter/hunt/{{bounty.id}}">{{bounty.name}}</a></td>
-              </tr>
-              {% endfor %}
-
-            </table> -->
           </div>
         </div>
 

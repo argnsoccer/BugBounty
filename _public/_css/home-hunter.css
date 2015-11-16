@@ -1,0 +1,30 @@
+/* CUSTOMIZE THE CAROUSEL - not singed in
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+  margin-bottom: 60px;
+}
+/* Since positioning the image, we need to help out the caption */
+/*.carousel-caption {
+  z-index: 10;
+}*/
+
+/* Declare heights because of positioning of img element */
+/*.carousel .item {
+  height: 500px;
+}*/
+.carousel-inner > .item {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.container-trackBounty {
+  width: 50%;
+ 	margin: 0 auto;
+}
+
+.carousel-control.left, .carousel-control.right {
+    background-image: none !important;
+}
