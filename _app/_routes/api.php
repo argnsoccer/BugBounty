@@ -434,6 +434,33 @@ function getPastBounties($dbh, $args) {
   return $result;
 }
 
+function getBountyFromBountyID($dbh, $args) {
+  if ($_SESSION['userLogin']) {
+
+    $statement = $dbh->prepare("
+      SELECT * FROM BountyPool
+      WHERE poolID = :bountyID"
+    );
+
+    if ($statement->execute($args)) {
+      $result['bounty'] = $statement->fetch(PDO::FETCH_ASSOC);
+      $result['error'] = 0;
+    }
+    else {
+      $result['bounty'] = array();
+      $result['error'] = 1;
+      $result['message'] = "Statement not executed";
+    }
+  }
+  else {
+    $result['bounty'] = array();
+    $result['error'] = 2;
+    $result['message'] = "No user logged in";
+  }
+
+  return $result;
+}
+
 //*************************************************************************************
 //Session Accessing Functions go here**************************************************
 function getLoggedInUser() {
@@ -834,9 +861,16 @@ $app->get('/api/getReportsFromUsernamePaidVsUnpaid/:username/:auxiliary/', funct
   complete
   */
 
-$app->get('/api/getPreferredBounties', function($bountyID) use ($dbh) {
+$app->get('/api/getPreferredBounties', function() use ($dbh) {
 
   echo json_encode(getPreferredBounties($dbh));
+
+});
+
+$app->get('/api/getBountyFromBountyID/:bountyID', function($bountyID) use ($dbh) {
+
+  $args[":bountyID"] = $bountyID;
+  echo json_encode(getBountyFromBountyID($dbh, $args));
 
 });
 
