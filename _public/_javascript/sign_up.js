@@ -1,6 +1,6 @@
-function isSet(key, value) 
+function isSet(key, value)
 {
-  if (value == null || value == '')
+  if (value === null || value === '')
   {
     alert("Please check that properties are all filled in!");
     return false;
@@ -9,62 +9,63 @@ function isSet(key, value)
 }
 
 
-$(document).ready(function () 
+$(document).ready(function ()
 {
-  $("#submitSignUp").click(function(event) 
+  $("#submitSignUp").click(function(event)
   {
     event.preventDefault();
+    console.log("captured button click");
 
-    var userInfo = {}
+    var userInfo = {};
 
-    userInfo["username"] = $("#signUpUsername").val();
-    userInfo["password"] = $("#signUpPassword").val();
-    userInfo["email"] = $("#signUpEmail").val();
-    userInfo["accountType"] = $("input[name='accountType']:checked").val();
+    userInfo.username = $("#inputUsername").val();
+    userInfo.email = $("#inputEmail").val();
+    userInfo.password = $("#inputPassword").val();
+    userInfo.accountType = $('.accountType:checked').val();
 
       for (var property in userInfo)
       {
         if (!isSet(property, userInfo[property]))
         {
-          $('input[type="text"].loginForm, input[type="password"].loginForm')
+          /*$('input[type="text"].loginForm, input[type="password"].loginForm')
       .css("border","2px solid red");
           $('input[type="text"].loginForm,input[type="password"].loginForm')
-      .css("box-shadow","0 0 3px red");
+      .css("box-shadow","0 0 3px red");*/
           return false;
         }
       }
 
-      $.ajax({
-        url: '/api/signUpUser',
-        data: userInfo,
-        dataType: 'json',
-        async: 'false',
-        type: 'POST',
-        success: function(response) {
-          
-          if (response['error'] == '0')
-          {
-            window.location.href = "/";
-          }
-          else if (response['error'] == '1')
-          {
-            alert("Please choose a differnet username!");
-          }
-          else if (response['error'] == '2')
-          {
-            alert("An account already exists for this email!");
-          }
-          else
-          {
-            alert(response["message"]);
-          }
-        },
-        error: function (xhr, status, error) {
-          var err = eval("(" + xhr.responseText + ")");
-          //alert("Please Try Again, we had an internal error!");
-          alert(err.message);
+    $.ajax({
+      url: '/api/signUpUser',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        username: userInfo.username,
+        email: userInfo.email,
+        password: userInfo.password,
+        accountType: userInfo.accountType
+      },
+      async: 'true',
+      success: function(response) {
+        if (response[':error'] === '0')
+        {
+          alert("successfully created account");
+          //window.location.href = "/";
         }
-      });
-
+        else if (response[':error'] === '1')
+        {
+          alert("Please choose a different username!");
+        }
+        else if (response[':error'] === '2')
+        {
+          alert("An account already exists for this email!");
+        }
+        else
+        {
+          console.log(response);
+          alert(response[':message']);
+        }
+      }
+    });
   });
 });

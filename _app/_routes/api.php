@@ -55,14 +55,14 @@ function loginUser($dbh, $args) {
 
 function signUpUser($dbh, $args) {
   $result['status'] = "complete";
-  $args[":imageLoc"] = "_images/_profiles/_".$args[':username'];
-  mkdir($args[":imageLoc"]);
-  copy("_images/_profiles/_mgilbert/mgilbert_profile.png", $args[":imageLoc"]."default_profile.png");
+  //$args[":imageLoc"] = "_images/_profiles/_".$args[':username'];
+  //mkdir($args[":imageLoc"]);
+  //copy("_images/_profiles/_mgilbert/mgilbert_profile.png", $args[":imageLoc"]."default_profile.png");
   $statement = $dbh->prepare(
     "INSERT INTO Account
-      (username, email, password, dateCreated, accountType, dateOfLastActivity, imageLoc)
+      (username, email, password, dateCreated, accountType, dateOfLastActivity)
     VALUES
-      (:username, :email, :password, NOW(), :accountType, NOW(), :imageLoc)"
+      (:username, :email, :password, NOW(), :accountType, NOW())"
   );
 
   if($statement->execute($args))
@@ -349,7 +349,7 @@ function getPreferredBounties($dbh) {
  //Join query to get all preferred bounties
 
   $statement = $dbh->prepare("
-    SELECT * FROM BountyPool, PreferredBounties 
+    SELECT * FROM BountyPool, PreferredBounties
     WHERE BountyPool.poolID=PreferredBounties.bountyID"
    );
 
@@ -375,10 +375,10 @@ function getActiveBounties($dbh, $args) {
 
   $statement = $dbh->prepare("
     SELECT BountyPool.* FROM Marshall, BountyPool
-    WHERE Marshall.marshallID=BountyPool.bountyMarshallID 
+    WHERE Marshall.marshallID=BountyPool.bountyMarshallID
     AND Marshall.marshallID=:userID AND dateCreated < now()"
   ); //completed version of this will have dateCreated < now() < dateEnding (but our test vars)
-  
+
   if($_SESSION['userType'] == 'marshall')
   {
     if($statement->execute($args))
