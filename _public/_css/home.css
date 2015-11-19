@@ -100,7 +100,7 @@ h1 {
 -------------------------------------------------- */
 
   #bountyBoard {
-  height: 500px;
+  height: 400px;
 }
 
 .bountyWall {
@@ -124,3 +124,17 @@ h1 {
   height: 140px;
   width: 140px;
 }
+
+.rowBenefit {
+  height: 400px;
+}
+
+.imageBenefit {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 80px;
+  width: 80px;
+}
+
+.

@@ -215,6 +215,118 @@
 
     </div><!-- /.container -->
 
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4">
+          <h1>Benefits for a Marshal</h1>
+          <h3>Who makes a marshal?</h3>
+          <p>Anyone with a website!  Whether you are a start up, a big business, or just a guy in a basement hacking away,
+            Running a website is hard.  Making sure all the bugs people find are fixed is part of the difficulty, but 
+            BugBounty makes it easier for you.  Here are some of the benefits a Marshal receives by using BugBounty.
+          </p>
+        </div>
+          <div class="col-md-4">
+          <div class="cycle-slideshow" 
+          data-cycle-fx=fade 
+          data-cycle-timeout=3500 
+          data-cycle-caption="#adv-custom-caption"
+          data-cycle-slides="> div"
+          data-cycle-center-horz=true
+          data-cycle-center-vert=true>
+            <div class="benefit">
+              <img class="img-circle imageBenefit" src="/../_images/_icons/marshal_world-formatted.png">
+              <p class="marshalBenefit">As a website developer, you cannot always create every error a user or viewer may see.
+                So, let the entire world have a way to contact you when they do see that elusive error.  Let the entire internet 
+                community make your website better!
+              </p>
+            </div>
+            <div class="benefit">
+              <img class="img-circle imageBenefit" src="/../_images/_icons/hunter_time-formatted.png">
+              <p class="hunterBenefit">Let's be honest, you probably spend a lot of time on the internet.  Start benefitting from it!
+                You are here anyway, why not capitalize?
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="cycle-slideshow" 
+          data-cycle-fx=fade 
+          data-cycle-timeout=3700 
+          data-cycle-caption="#adv-custom-caption"
+          data-cycle-slides="> div"
+          data-cycle-center-horz=true
+          data-cycle-center-vert=true>
+            <div class="benefit">
+              <img class="img-circle imageBenefit" src="/../_images/_icons/hunter_prize-formatted.png">
+              <p class="hunterBenefit">Grow you skills on the interent and let companies take notice.  Websites have problems, 
+                you find these problems, so build of your repotation so you these companies knwo you are here to help!
+              </p>
+            </div>
+            <div class="benefit">
+              <img class="img-circle imageBenefit" src="/../_images/_icons/hunter_tool-formatted.png">
+              <p class="hunterBenefit">Whether you have been trained in web technologies or are just an avid user of the internet, 
+                you have the skills and tools to help these websites be better.  And as you hunt, these skills will only grow!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row benefitRow">
+        <div class="col-md-4">
+          <div class="cycle-slideshow" 
+          data-cycle-fx=fade 
+          data-cycle-timeout=2900 
+          data-cycle-caption="#adv-custom-caption"
+          data-cycle-slides="> div"
+          data-cycle-center-horz=true
+          data-cycle-center-vert=true>
+            <div class="benefit">
+              <img class="img-circle imageBenefit" src="/../_images/_icons/hunter_money-formatted.png">
+              <p class="hunterBenefit">You see whats wrong with websites.  Instead of simply ignoring theses problems, 
+                why not report them and get paid for it.  Add to your bank account while you surf the web.  Easy money.
+              </p>
+            </div>
+            <div class="benefit">
+              <img class="img-circle imageBenefit" src="/../_images/_icons/hunter_time-formatted.png">
+              <p class="hunterBenefit">Let's be honest, you probably spend a lot of time on the internet.  Start benefitting from it!
+                You are here anyway, why not capitalize?
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="cycle-slideshow" 
+          data-cycle-fx=fade 
+          data-cycle-timeout=3300 
+          data-cycle-caption="#adv-custom-caption"
+          data-cycle-slides="> div"
+          data-cycle-center-horz=true
+          data-cycle-center-vert=true>
+            <div class="benefit">
+              <img class="img-circle imageBenefit" src="/../_images/_icons/hunter_prize-formatted.png">
+              <p class="hunterBenefit">Grow you skills on the interent and let companies take notice.  Websites have problems, 
+                you find these problems, so build of your repotation so you these companies knwo you are here to help!
+              </p>
+            </div>
+            <div class="benefit">
+              <img class="img-circle imageBenefit" src="/../_images/_icons/hunter_tool-formatted.png">
+              <p class="hunterBenefit">Whether you have been trained in web technologies or are just an avid user of the internet, 
+                you have the skills and tools to help these websites be better.  And as you hunt, these skills will only grow!
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h1>Benefits for a Hunter</h1>
+          <h3>Who makes a Bug Hunter?</h3>
+          <p>Literally anyone with an internet connnection.  Websites are targeted at people and the owner's of those websites
+            want to keep their user's invested.  But a bug can turn them off from that.  That's why Marshal's are so interested
+            in you!  You provide a solution to a problem they themselves can't solve, mass testing and bug reporting!  Here are 
+            some of the benefits of being a hunter.
+        </div>
+      </div>
+    </div>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="/../_javascript/_jquery/cycle.js"></script>
