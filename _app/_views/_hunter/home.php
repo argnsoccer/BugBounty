@@ -14,7 +14,7 @@
     {{ include ('header_hunter.php') }}
 
     <div class="container-fluid">
-      <div class="rowS">
+      <div class="row">
 
         <div class="col-md-4">
           <div class="box">
@@ -103,32 +103,53 @@
       <div class="row">
 
         <div class="col-md-8">
-          <h3>New to BugBounty?</h3>
-          <p>Bug Bounty is a website where companies pay you for finding bugs in their
-            websites.  They post a bounty and you can either come to the site and press
-            the report button in the navigation bar when you find a bug or you can 
-            use our own search bar to find bounties and track them on our site.  Click
-            "Why Us" in the navigation bar to find out more!  Happy Hunting, get them pesky bugs.
-          </p>
-        </div>
-
-        <div calss="col-md-4">
-            <h3>Newsfeed</h3>
-            <p>Stay up to date!</p>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-        </div>
-
-        <div class="row">
+          <div class="col-md-8">
+            <h3>New to BugBounty?</h3>
+            <p>Bug Bounty is a website where companies pay you for finding bugs in their
+              websites.  They post a bounty and you can either come to the site and press
+              the report button in the navigation bar when you find a bug or you can 
+              use our own search bar to find bounties and track them on our site.  Click
+              "Why Us" in the navigation bar to find out more!  Happy Hunting, get them pesky bugs.
+            </p>
+          </div>
           <div class="col-md-8">
             <h3>Updates</h3>
+            <p>dfsklajlkshdjkhgsflkdhgkljdfhgkjldhkjfshdakljfhksajdfhkjlasdhksadhkjfhsadkjlfhs
+              sdkjfhskldjhfkjlshadkjfhsakljdfhslkdjfhkldjsahfsklajhfkjlsadhfkjasdhfklsajdhfklj
+              sfdjklhkjlsadhlkjsadhfkjlsadhkjflhskdljahfkjlashkjlfhdsalkjhfkjlsadhkjfdsjaljfhl
+            </p>
           </div>
+          
         </div>
 
+        <div class="col-md-4">
+          <h3>Newsfeed</h3>
+          <p>Stay up to date!</p>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+        </div>
       </div>
     </div>
 

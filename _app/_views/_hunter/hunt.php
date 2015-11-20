@@ -15,7 +15,8 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-11">
-            <iframe src={{bounty.link}} name="hunt_frame"></iframe>
+            <iframe src={{bounty.bountyLink}} name="hunt_frame"></iframe>
+            <p>{{bounty.bountyLink}}</p>
           </div>
           <div class="col-xs-1">
             <button type="button" class="btn btn-primary" data-toggle="modal" 

@@ -12,17 +12,19 @@ function prepareHuntpage($dbh, $bountyID){
 	//	4)  the bounty name
 	//	5)  the bounty owner
 
-	$template_array = array(
-		"username" => $_SESSION['userLogin'],
-		"email" => $_SESSION['email']
-	);
+	$args[':bountyID'] = $bountyID;
 
-	$template_array["bounty"] = array(
-		'id' => $bountyID,
-		'name' => '',
-		'ownder' => '',
-		'link' => "http://www.smu.edu"
-		); //call for bounty link, name, ownder
+	$template_array = getBountyFromBountyID($dbh, $args);
+
+	$template_array["username"] = $_SESSION['userLogin'];
+	$template_array["email"] = $_SESSION['email'];
+
+	// $template_array= array(
+	// 	'id' => $bountyID,
+	// 	'name' => '',
+	// 	'ownder' => '',
+	// 	'bountyLink' => "http://www.soccernet.com"
+	// 	); //call for bounty link, name, ownder
 
 
 	return $template_array;
@@ -37,6 +39,8 @@ $app->get('/_hunter/hunt', function() use ($app) {
 $app->get('/_hunter/hunt/:bountyID', function($bountyID) use ($app, $dbh) {
 
 	$template_array = prepareHuntpage($dbh, $bountyID);
+
+	// echo print_r($template_array);
 
 	$app->render('_hunter/hunt.php', $template_array);
 
