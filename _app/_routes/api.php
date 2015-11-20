@@ -55,14 +55,14 @@ function loginUser($dbh, $args) {
 
 function signUpUser($dbh, $args) {
   $result['status'] = "complete";
-  //$args[":imageLoc"] = "_images/_profiles/_".$args[':username'];
-  //mkdir($args[":imageLoc"]);
-  //copy("_images/_profiles/_mgilbert/mgilbert_profile.png", $args[":imageLoc"]."default_profile.png");
+  $args[":imageLoc"] = "_images/_profiles/_".$args[':username'];
+  mkdir($args[":imageLoc"]);
+  copy("_images/_profiles/_mgilbert/mgilbert_profile.png", $args[":imageLoc"]."default_profile.png");
   $statement = $dbh->prepare(
     "INSERT INTO Account
-      (username, email, password, dateCreated, accountType, dateOfLastActivity)
+      (username, email, password, dateCreated, accountType, dateOfLastActivity, imageLoc)
     VALUES
-      (:username, :email, :password, NOW(), :accountType, NOW())"
+      (:username, :email, :password, NOW(), :accountType, NOW(), :imageLoc)"
   );
 
   if($statement->execute($args))
@@ -563,9 +563,7 @@ $app->post('/api/loginUser', function () use ($dbh) {
 
   $args[':username'] = $_POST['username'];
   $args[':password'] = $_POST['password'];
-
   $result = loginUser($dbh, $args);
-
   echo json_encode($result);
 });
 
@@ -590,11 +588,8 @@ $app->post('/api/signUpUser', function() use ($dbh) {
   $args[':password'] = $_POST['password'];
   $args[':email'] = strtolower($_POST['email']);
   $args[':accountType'] = strtolower($_POST['accountType']);
-
   $result = signUpUser($dbh, $args);
-
   echo json_encode($result);
-
 });
 
 /*

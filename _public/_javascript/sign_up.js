@@ -47,18 +47,21 @@ $(document).ready(function ()
       },
       async: 'true',
       success: function(response) {
-        if (response[':error'] === '0')
+        if (response.error === '0')
         {
           alert("successfully created account");
-          //window.location.href = "/";
+          window.location.href = "/";
         }
-        else if (response[':error'] === '1')
+        else if (response.error === '1')
         {
+          console.log(response.message);
           alert("Please choose a different username!");
+
         }
-        else if (response[':error'] === '2')
+        else if (response.error === '2')
         {
           alert("An account already exists for this email!");
+          console.log(response.message);
         }
         else
         {
