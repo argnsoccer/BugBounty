@@ -850,6 +850,10 @@ $app->post('/api/payReport', function() use ($dbh){
     'paymentMethodNonce' => $nonce,
   ]);
 
+  $result2['amount'] = $amount;
+  $result2['paymentMethodNonce'] = $nonce;
+
   echo json_encode($result);
+  echo json_encode($result2);
 
 });
