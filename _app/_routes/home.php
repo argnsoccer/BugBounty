@@ -12,6 +12,8 @@ function prepareHome($dbh){
 	{
 		$template_array["username"] = $_SESSION['userLogin'];
 
+		$template_array['preferredBounties'] = getPreferredBounties($dbh);
+
 		$template_array['trackBounties'] = array(
 			array (
 				'id' => "0001",

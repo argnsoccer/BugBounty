@@ -1,5 +1,5 @@
 .box {
-	height: 400px;
+/*	height: 400px;*/
 }
 
 table, thead, tbody {
@@ -26,20 +26,37 @@ td a {
 	text-decoration: none;
 }
 
-.bountyWallRight {
-  margin-top: 5px;
-  background-image: url("/../_images/_random/wanted_240x308.png");
-  background-size: 155px 208px;
-  background-repeat: no-repeat;
-  background-position: 10%; 
-  height: 208px;
+  #bountyBoard {
+  margin-top: 10px;
+  height: 200px;
+  margin-bottom: 40px;
 }
 
-.bountyWallLeft {
+.bountyWall {
   margin-top: 5px;
   background-image: url("/../_images/_random/wanted_240x308.png");
-  background-size: 155px 208px;
+  background-size: 166px 200px;
   background-repeat: no-repeat;
-  background-position: 10%; 
-  height: 208px;
+  background-position: center; 
+  height: 200px;
+}
+
+.bountyName {
+  text-align: center;
+}
+
+.img-circle {
+/*  height: 140px;
+  width: 140px;*/
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0px;
+  height: 94px;
+  width: 94px;
+}
+
+#discoverButton {
+	margin-left: auto;
+	margin-right: auto;
 }
