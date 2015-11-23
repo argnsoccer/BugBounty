@@ -3,6 +3,6 @@
         "slim/slim": "~2.0",
         "slim/views": "^0.1.3",
         "twig/twig": "^1.22",
-        "braintree/braintree_php": "3.7.0"
+        "braintree/braintree_php": "3.6.1"
     }
 }
