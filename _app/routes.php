@@ -4,6 +4,8 @@ require '_routes/home.php';
 require '_routes/contact.php';
 require '_routes/about.php';
 require '_routes/why.php';
+require '_routes/signup.php';
+require '_routes/billinginfo.php';
 
 
 

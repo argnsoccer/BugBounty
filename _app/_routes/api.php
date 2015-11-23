@@ -590,9 +590,7 @@ $app->post('/api/loginUser', function () use ($dbh) {
 
   $args[':username'] = $_POST['username'];
   $args[':password'] = $_POST['password'];
-
   $result = loginUser($dbh, $args);
-
   echo json_encode($result);
 });
 
@@ -617,11 +615,8 @@ $app->post('/api/signUpUser', function() use ($dbh) {
   $args[':password'] = $_POST['password'];
   $args[':email'] = strtolower($_POST['email']);
   $args[':accountType'] = strtolower($_POST['accountType']);
-
   $result = signUpUser($dbh, $args);
-
   echo json_encode($result);
-
 });
 
 /*
