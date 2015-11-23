@@ -8,10 +8,9 @@
     <link rel="stylesheet" type="text/css" href="/../_css/signup.css">
     <title>Signin Template for Bootstrap</title>
     {{include ('bootstrap_header.php')}}
-    <!-- Custom styles for this template -->
   </head>
   <body>
-    <!-- {{ include ('header_login.php') }} -->
+    {{ include ('header_login.php') }}
     <div class="container">
       <form class="form-signin">
         <h2 class="form-signin-heading">Please Sign Up!</h2>
@@ -33,7 +32,7 @@
         </div>
         <button class="btn btn-lg btn-primary btn-block" id="submitSignUp" type="submit">Continue</button>
       </form>
-    </div> <!-- /container -->
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="/../_javascript/signup.js"></script>
     {{include ('bootstrap_footer.php')}}
