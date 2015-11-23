@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `Account` (
   `accountType` VARCHAR(10) NOT NULL COMMENT '',
   `loggedIn` TINYINT(1) NOT NULL COMMENT '',
   `dateOfLastActivity` DATETIME NOT NULL COMMENT '',
+  `imageLoc` mediumtext NULL COMMENT '',
   PRIMARY KEY (`userID`)  COMMENT '',
   UNIQUE INDEX `username_UNIQUE` (`username` ASC)  COMMENT '',
   UNIQUE INDEX `email_UNIQUE` (`email` ASC)  COMMENT '',
@@ -49,11 +50,11 @@ ENGINE = InnoDB;
 LOCK TABLES `Account` WRITE;
 /*!40000 ALTER TABLE `Account` DISABLE KEYS */;
 INSERT INTO `Account` VALUES
-(1,'testHunter1','testHunter1@me.com','testHunter1','2015-10-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00'),
-(2,'testHunter2','testHunter2@me.com','testHunter2','2015-10-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00'),
-(3,'testMarshall1','testMarshall1@me.com','testMarshall1','2015-10-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00'),
-(4,'testMarshall2','testMarshall2@me.com','testMarshall2','2015-10-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00'),
-(5,'testMarshall3','testMarshall3@me.com','testMarshall3','2015-10-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00');
+(1,'testHunter1','testHunter1@me.com','testHunter1','2015-10-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00', '_images/_profiles/_testHunter1/default_profile.png'),
+(2,'testHunter2','testHunter2@me.com','testHunter2','2015-10-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00', '_images/_profiles/_testHunter2/default_profile.png'),
+(3,'testMarshall1','testMarshall1@me.com','testMarshall1','2015-10-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png'),
+(4,'testMarshall2','testMarshall2@me.com','testMarshall2','2015-10-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png'),
+(5,'testMarshall3','testMarshall3@me.com','testMarshall3','2015-10-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png');
 /*!40000 ALTER TABLE `Account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,7 +112,6 @@ CREATE TABLE IF NOT EXISTS `Marshall` (
   `numRankings` int(11) NOT NULL,
   `rankingAvg` int(11) NOT NULL,
   `description` varchar(200) NOT NULL,
-  `imageLoc` varchar(45) NOT NULL,
   `company` varchar(25) NOT NULL,
   PRIMARY KEY (`marshallID`),
   UNIQUE KEY `userID_UNIQUE` (`marshallID`),
@@ -126,9 +126,9 @@ CREATE TABLE IF NOT EXISTS `Marshall` (
 LOCK TABLES `Marshall` WRITE;
 /*!40000 ALTER TABLE `marshall` DISABLE KEYS */;
 INSERT INTO `Marshall` VALUES
-(3,0,0,0,'This is marshallDescription1','','company1'),
-(4,0,0,0,'This is marshallDescription2','','company2'),
-(5,0,0,0,'This is marshallDescription3','','company3');
+(3,0,0,0,'This is marshallDescription1','company1'),
+(4,0,0,0,'This is marshallDescription2','company2'),
+(5,0,0,0,'This is marshallDescription3','company3');
 /*!40000 ALTER TABLE `marshall` ENABLE KEYS */;
 UNLOCK TABLES;
 
