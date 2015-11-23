@@ -19,6 +19,8 @@ function prepareHuntpage($dbh, $bountyID){
 	$template_array["username"] = $_SESSION['userLogin'];
 	$template_array["email"] = $_SESSION['email'];
 
+
+
 	// $template_array= array(
 	// 	'id' => $bountyID,
 	// 	'name' => '',
