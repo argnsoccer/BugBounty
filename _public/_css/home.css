@@ -8,19 +8,6 @@
   padding-bottom: 20px;
   height: 400px;
 }
-
-/*body {
-  background-color: #BCBCBC !important;
-}*/
-
-.featureIcon
-{
-    height: 75px;
-}
-
-.featureText
-{
-  padding-left: 10px;
 }
 
 /*#signUpHeader {
@@ -58,7 +45,7 @@ body {
 }
 
 h1 { 
-  padding-top: 100px !important;
+  padding-top: 5px !important;
 }
 
 
@@ -67,7 +54,7 @@ h1 {
 
 /* Carousel base class */
 .carousel {
-  margin-bottom: 60px;
+  
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
@@ -77,7 +64,6 @@ h1 {
 /* Declare heights because of positioning of img element */
 .carousel .item {
   height: 500px;
-  background-color: #777;
 }
 .carousel-inner > .item > img {
   display: block;
@@ -100,15 +86,18 @@ h1 {
 -------------------------------------------------- */
 
   #bountyBoard {
-  height: 500px;
+  margin-top: 10px;
+  height: 400px;
+  margin-bottom: 40px;
 }
 
 .bountyWall {
+  margin-top: 5px;
   background-image: url("/../_images/_random/wanted_240x308.png");
   background-size: 255px 308px;
   background-repeat: no-repeat;
   background-position: center; 
-  height: 300px;
+  height: 400px;
 }
 
 .bountyName {
@@ -123,4 +112,21 @@ h1 {
   margin-right: auto;
   height: 140px;
   width: 140px;
+}
+
+.rowBenefit {
+  height: 400px;
+}
+
+.imageBenefit {
+  display: block;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 80px;
+  width: 80px;
+}
+
+.benefit {
+  margin-top: 40px;
 }

@@ -57,7 +57,7 @@ function signUpUser($dbh, $args) {
   $result['status'] = "complete";
   $args[":imageLoc"] = "_images/_profiles/_".$args[':username'];
   mkdir($args[":imageLoc"]);
-  copy("_images/_profiles/_mgilbert/mgilbert_profile.png", $args[":imageLoc"]."default_profile.png");
+  copy("_images/_profiles/_mgilbert/mgilbert_profile.png", $args[":imageLoc"]."/default_profile.png");
   $statement = $dbh->prepare(
     "INSERT INTO Account
       (username, email, password, dateCreated, accountType, dateOfLastActivity, imageLoc)

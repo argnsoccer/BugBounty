@@ -1,3 +1,18 @@
 body {
-	background-color: #CCCCCC !important;
+	background-color: #FAFAFA  !important;
+}
+
+.hunterBackground {
+	background-color: #E74C3C;
+}
+
+.marshalBackground {
+	background-color: #59ABE3;
+}
+.defaultBackground {
+	background-color: #F5D76E;
+}
+
+.whiteBackground {
+	background-color: #adad85;
 }
