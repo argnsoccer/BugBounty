@@ -89,15 +89,15 @@ CREATE TABLE IF NOT EXISTS `BountyPool` (
 LOCK TABLES `BountyPool` WRITE;
 /*!40000 ALTER TABLE `BountyPool` DISABLE KEYS */;
 INSERT INTO `BountyPool` VALUES
-(1,'2015-10-29 21:44:19','1','2020-01-01 00:00:00',3,'www.google.com','_images/_bounties/_testMarshall1/bounty1.jpg','lineDesc1','fullDescription1', 'bounty1'),
-(2,'2015-10-29 21:44:19','2','2020-01-01 00:00:00',4,'www.google.com','_images/_bounties/_testMarshall2/bounty2.jpg','lineDesc2','fullDescription2', 'bounty2'),
-(3,'2015-10-29 21:44:19','3','2015-09-08 00:00:00',5,'www.google.com','_images/_bounties/_testMarshall3/bounty3.jpg','lineDesc3','fullDescription3', 'bounty3'),
-(4,'2015-10-29 21:44:19','4','2015-09-08 00:00:00',3,'www.google.com','_images/_bounties/_testMarshall1/bounty4.jpg','lineDesc4','fullDescription4', 'bounty4'),
-(5,'2015-10-29 21:44:19','5','2015-09-08 00:00:00',4,'www.google.com','_images/_bounties/_testMarshall2/bounty5.jpg','lineDesc5','fullDescription5', 'bounty5'),
-(6,'2015-10-29 21:44:19','6','2020-01-01 00:00:00',5,'www.google.com','_images/_bounties/_testMarshall3/bounty6.jpg','lineDesc6','fullDescription6', 'bounty6'),
-(7,'2015-10-29 21:44:19','7','2020-01-01 00:00:00',3,'www.google.com','_images/_bounties/_testMarshall1/bounty7.jpg','lineDesc7','fullDescription7', 'bounty7'),
-(8,'2015-10-29 21:44:19','8','2020-01-01 00:00:00',4,'www.google.com','_images/_bounties/_testMarshall2/bounty8.jpg','lineDesc8','fullDescription8', 'bounty8'),
-(9,'2015-10-29 21:44:19','9','2015-01-01 00:00:00',5,'www.google.com','_images/_bounties/_testMarshall3/bounty9.jpg','lineDesc9','fullDescription9', 'bounty9');
+(1,'2015-10-29 21:44:19','1','2020-01-01 00:00:00',3,'http://www.smu.edu','_images/_bounties/_testMarshall1/bounty1.png','lineDesc1','fullDescription1', 'bounty1'),
+(2,'2015-10-29 21:44:19','2','2020-01-01 00:00:00',4,'http://www.smu.edu','_images/_bounties/_testMarshall2/bounty2.png','lineDesc2','fullDescription2', 'bounty2'),
+(3,'2015-10-29 21:44:19','3','2015-09-08 00:00:00',5,'http://www.smu.edu','_images/_bounties/_testMarshall3/bounty3.png','lineDesc3','fullDescription3', 'bounty3'),
+(4,'2015-10-29 21:44:19','4','2015-09-08 00:00:00',3,'http://www.smu.edu','_images/_bounties/_testMarshall1/bounty4.png','lineDesc4','fullDescription4', 'bounty4'),
+(5,'2015-10-29 21:44:19','5','2015-09-08 00:00:00',4,'http://www.smu.edu','_images/_bounties/_testMarshall2/bounty5.png','lineDesc5','fullDescription5', 'bounty5'),
+(6,'2015-10-29 21:44:19','6','2020-01-01 00:00:00',5,'http://www.smu.edu','_images/_bounties/_testMarshall3/bounty6.png','lineDesc6','fullDescription6', 'bounty6'),
+(7,'2015-10-29 21:44:19','7','2020-01-01 00:00:00',3,'http://www.smu.edu','_images/_bounties/_testMarshall1/bounty7.png','lineDesc7','fullDescription7', 'bounty7'),
+(8,'2015-10-29 21:44:19','8','2020-01-01 00:00:00',4,'http://www.smu.edu','_images/_bounties/_testMarshall2/bounty8.png','lineDesc8','fullDescription8', 'bounty8'),
+(9,'2015-10-29 21:44:19','9','2015-01-01 00:00:00',5,'http://www.smu.edu','_images/_bounties/_testMarshall3/bounty9.png','lineDesc9','fullDescription9', 'bounty9');
 /*!40000 ALTER TABLE `BountyPool` ENABLE KEYS */;
 UNLOCK TABLES;
 
