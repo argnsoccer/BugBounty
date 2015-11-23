@@ -869,9 +869,25 @@ $app->get('/api/getBountyFromBountyID/:bountyID', function($bountyID) use ($dbh)
 
 });
 
-$app->post('/api/payReport', function() use ($dbh){
+$app->get('/api/getClientToken', function() use ($dbh){
   $clientToken = Braintree_ClientToken::generate([
     "customerId" => $aCustomerId
   ]);
+  echo($clientToken);
+});
+
+$app->post('/api/payReport', function() use ($dbh){
+  $nonce = $_POST['payment_method_nonce'];
+  $amount = $_POST['amount'];
+  $result = Braintree_Transaction::sale([
+    'amount' => $amount,
+    'paymentMethodNonce' => $nonce,
+  ]);
+
+  $result2['amount'] = $amount;
+  $result2['paymentMethodNonce'] = $nonce;
+
+  echo json_encode($result);
+  echo json_encode($result2);
 
 });
