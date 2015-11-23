@@ -8,14 +8,11 @@ function isSet(key, value)
   return true;
 }
 
-
 $(document).ready(function ()
 {
   $("#submitSignUp").click(function(event)
   {
     event.preventDefault();
-    console.log("captured button click");
-
     var userInfo = {};
 
     userInfo.username = $("#inputUsername").val();
@@ -50,7 +47,7 @@ $(document).ready(function ()
         if (response.error === '0')
         {
           alert("successfully created account");
-          window.location.href = "/";
+          window.location.href = "/billinginfo";
         }
         else if (response.error === '1')
         {

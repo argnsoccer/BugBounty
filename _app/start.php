@@ -9,9 +9,9 @@ $app = new \Slim\Slim([
 ]);
 
 $dbname = 'bug_bounty_test';
-$user = 'bugUser';
+$user = 'zack';
 $pass = '3.00x10^8m/s';
-$host = '52.88.178.244';
+$host = 'localhost';
 
 try {
   $dbh = new PDO("mysql:host=$host;dbname=$dbname", "$user", "$pass");
