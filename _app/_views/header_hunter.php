@@ -22,21 +22,9 @@
 
   </div>
 
-<!--   <div class=" nav navbar-right">
-    <ul class="nav navbar-nav">
-      <li>
-        <button type="submit" id="submitProfile" class="btn btn-success rightButton">Profile</button>
-      </li>
-      <li>
-        <button type="submit" class="btn btn-danger rightButton endButton" id="submitLogout" name="logoutForm" method="post">Log Out</button>
-      </li>
-    </ul>
-
-  </div> -->
-
-   <div class="nav navbar-nav navbar-right">
+  <div class="nav navbar-nav navbar-right">
     <button type="submit" id="submitProfile" class="btn btn-success rightButton">Profile</button>
     <button type="submit" class="btn btn-danger rightButton endButton" id="submitLogout" name="logoutForm" method="post">Log Out</button>
   </div>
-  
+
 </div>

@@ -1,30 +1,45 @@
-/* CUSTOMIZE THE CAROUSEL - not singed in
--------------------------------------------------- */
-
-/* Carousel base class */
-.carousel {
-  margin-bottom: 60px;
-}
-/* Since positioning the image, we need to help out the caption */
-/*.carousel-caption {
-  z-index: 10;
-}*/
-
-/* Declare heights because of positioning of img element */
-/*.carousel .item {
-  height: 500px;
-}*/
-.carousel-inner > .item {
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
+.box {
+	height: 400px;
 }
 
-.container-trackBounty {
-  width: 50%;
- 	margin: 0 auto;
+table, thead, tbody {
+   border: 1px solid black;
 }
 
-.carousel-control.left, .carousel-control.right {
-    background-image: none !important;
+td, th {
+	text-align: center;
+	height:40px;
+}
+
+.pastRow:hover { 
+	background: #FAFAFA; 
+}
+
+td a { 
+  display: block; 
+  padding-right: 8px;
+  padding-left: 8px; 
+  padding-top: 2px;
+  padding-bottom: 2px;
+
+  color: #adad85;
+	text-decoration: none;
+}
+
+.bountyWallRight {
+  margin-top: 5px;
+  background-image: url("/../_images/_random/wanted_240x308.png");
+  background-size: 155px 208px;
+  background-repeat: no-repeat;
+  background-position: 10%; 
+  height: 208px;
+}
+
+.bountyWallLeft {
+  margin-top: 5px;
+  background-image: url("/../_images/_random/wanted_240x308.png");
+  background-size: 155px 208px;
+  background-repeat: no-repeat;
+  background-position: 10%; 
+  height: 208px;
 }
