@@ -3,8 +3,9 @@
   src: url(../_fonts/PT_Sans-Web-Regular.ttf);
 }
 
-.navbar-custom {
-	background-color: #303030;
+.navbar-default {
+    border-color: #E7E7E7;
+    background-color: #CC3333;
 }
 
 #navbarLogo

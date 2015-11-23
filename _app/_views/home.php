@@ -29,19 +29,19 @@
 
       <div class="carousel-inner" role="listbox">
 
-        <div class="item active">
+        <div class="item active hunterBackground">
           <img class="slidePicture" src="/../_images/_logos/hunter_285x255.png">
           <div class="container">
             <div class="carousel-caption">
               <h1>Make Money For Using the Internet!</h1>
               <p>The internet needs people to find problems with their websites.  Put your time on the internet to use by helping our Marshal's find bugs on their websties.
                 Best of all?  You get paid!</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Become a hunter</a></p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Become a Hunter</a></p>
             </div>
           </div>
         </div>
 
-        <div class="item">
+        <div class="item marshalBackground">
           <img class="slidePicture" src="/../_images/_logos/marshal_285x255.png">
           <div class="container">
             <div class="carousel-caption">
@@ -52,7 +52,7 @@
           </div>
         </div>
 
-        <div class="item">
+        <div class="item whiteBackground">
           <div class="container">
             <div class="carousel-caption">
               <h1>Still unsure on signing up?</h1>
@@ -112,18 +112,12 @@
             data-cycle-fx=fade 
             data-cycle-timeout=3000 
             data-cycle-caption="#adv-custom-caption"
-            data-cycle-slides="> div"
+            data-cycle-slides="> h3"
             data-cycle-center-horz=true
             data-cycle-center-vert=true>
-              <div class="bounty">
                 <h3 class="bountyDescription">{{bountyArray[0].lineDescription}}</h3>
-              </div>
-              <div class="bounty">
                 <h3 class="bountyDescription">{{bountyArray[1].lineDescription}}</h3>
-              </div>
-              <div class="bounty">
                 <h3 class="bountyDescription">{{bountyArray[2].lineDescription}}</h3>
-              </div>
             </div>
           </div>
 
@@ -153,18 +147,12 @@
             data-cycle-fx=fade 
             data-cycle-timeout=3000 
             data-cycle-caption="#adv-custom-caption"
-            data-cycle-slides="> div"
+            data-cycle-slides="> h3"
             data-cycle-center-horz=true
             data-cycle-center-vert=true>
-              <div class="bounty">
                 <h3 class="bountyDescription">{{bountyArray[3].lineDescription}}</h3>
-              </div>
-              <div class="bounty">
                 <h3 class="bountyDescription">{{bountyArray[4].lineDescription}}</h3>
-              </div>
-              <div class="bounty">
                 <h3 class="bountyDescription">{{bountyArray[5].lineDescription}}</h3>
-              </div>
             </div>
           </div>
 
@@ -194,18 +182,12 @@
             data-cycle-fx=fade 
             data-cycle-timeout=3000 
             data-cycle-caption="#adv-custom-caption"
-            data-cycle-slides="> div"
+            data-cycle-slides="> h3"
             data-cycle-center-horz=true
             data-cycle-center-vert=true>
-              <div class="bounty">
                 <h3 class="bountyDescription">{{bountyArray[6].lineDescription}}</h3>
-              </div>
-              <div class="bounty">
                 <h3 class="bountyDescription">{{bountyArray[7].lineDescription}}</h3>
-              </div>
-              <div class="bounty">
                 <h3 class="bountyDescription">{{bountyArray[8].lineDescription}}</h3>
-              </div>
             </div>
           </div>
 
