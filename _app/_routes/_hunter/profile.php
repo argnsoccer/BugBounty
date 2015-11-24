@@ -14,12 +14,9 @@ function prepareHunterProfile($dbh, $username) {
 	if ($username === $_SESSION['userLogin'] 
 		&& $_SESSION['userType'] === 'hunter')
 	{
-		$template_array['username'] = $username;
-		$template_array['userType'] = $_SESSION['userType'];
-		$template_array['email'] = $_SESSION['email'];
-		$template_array['unpaid'] = array();  //call for paid and viewed reports
-		$template_array['paid'] = array();  //call for paid and viewed reports
-		$template_array['picture'] = "";  //call for profile picture
+		$args[':username'] = $username;
+
+		$template_array['user'] = getUserFromUsername($dbh, $args);
 
 		$template_array['error'] = 0; //for time being
 
@@ -46,6 +43,7 @@ $app->get('/_hunter/profile/:username', function($username) use ($app, $dbh) {
 		&& $template_array['error'] === 0)
 	{
 			$app->render('_hunter/profile.php', $template_array);
+			// echo print_r($template_array);
 	}
 	else 
 	{

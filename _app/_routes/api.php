@@ -55,9 +55,16 @@ function loginUser($dbh, $args) {
 
 function signUpUser($dbh, $args) {
   $result['status'] = "complete";
-  $args[":imageLoc"] = "_images/_profiles/_".$args[':username'];
+  $args[":imageLoc"] = "/_images/_profiles/_".$args[':username']."/profile.png";
   mkdir($args[":imageLoc"]);
-  copy("_images/_profiles/_mgilbert/mgilbert_profile.png", $args[":imageLoc"]."/default_profile.png");
+
+  if($args[':accountType'] === 'hunter') {
+    copy("_images/_profiles/_default_hunter/profile.png", $args[":imageLoc"]);
+  }
+  else if ($args[':accountType'] === 'marshal') {
+    copy("_images/_profiles/_default_marshal/profile.png", $args[":imageLoc"]);
+  }
+
   $statement = $dbh->prepare(
     "INSERT INTO Account
       (username, email, password, dateCreated, accountType, dateOfLastActivity, imageLoc)
@@ -92,7 +99,7 @@ function getUserFromUsername($dbh, $args) {
   //Simple Select query which returns username, email, and type
 
   $statement = $dbh->prepare("
-  SELECT username, email, accountType FROM Account WHERE username = :username");
+  SELECT username, email, accountType, imageLoc FROM Account WHERE username = :username");
 
   if($statement->execute($args))
   {
@@ -101,6 +108,7 @@ function getUserFromUsername($dbh, $args) {
     $result['username'] = $row['username'];
     $result['userType'] = strtolower($row['accountType']);
     $result['email'] = $row['email'];
+    $result['proPic'] = $row['imageLoc'];
     $result['error'] = '0';
   }
   else
@@ -109,6 +117,8 @@ function getUserFromUsername($dbh, $args) {
     $result['message'] = 'Statement not executed';
 
   }
+
+  return $result;
 }
 
 function getUserFromEmail($dbh, $args) {
