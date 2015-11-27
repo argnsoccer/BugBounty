@@ -14,13 +14,16 @@
 
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-11">
-            <iframe src={{bounty.link}} name="hunt_frame"></iframe>
-          </div>
-          <div class="col-xs-1">
+          <div class="col-md-12">
+            <h3>{{bounty.bountyName}}</h3>
             <button type="button" class="btn btn-primary" data-toggle="modal" 
             data-target="#exampleModal" data-whatever="@getbootstrap">Report</button>
-            <a href={{bounty.link}} class="btn btn-primary" role="button" target='_blank'>New Tab</a>
+            <a href={{bounty.bountyLink}} class="btn btn-default" role="button" target='_blank'>New Tab</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <iframe src={{bounty.bountyLink}} name="hunt_frame"></iframe>
           </div>
         </div>
       </div>
@@ -62,7 +65,7 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
       <script type="text/javascript" src="/../_javascript/logout.js"></script>
       <script type="text/javascript" src="/../_javascript/submit_report.js"></script>
-      <script type="text/javascript" src="/../_javascript/search_bounty.js"></script>
+      <script type="text/javascript" src="/../_javascript/basic_search.js"></script>
       {{include ('bootstrap_footer.php')}} 
 
 

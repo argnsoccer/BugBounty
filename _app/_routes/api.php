@@ -55,9 +55,16 @@ function loginUser($dbh, $args) {
 
 function signUpUser($dbh, $args) {
   $result['status'] = "complete";
-  $args[":imageLoc"] = "_images/_profiles/_".$args[':username'];
+  $args[":imageLoc"] = "/_images/_profiles/_".$args[':username']."/profile.png";
   mkdir($args[":imageLoc"]);
-  copy("_images/_profiles/_mgilbert/mgilbert_profile.png", $args[":imageLoc"]."default_profile.png");
+
+  if($args[':accountType'] === 'hunter') {
+    copy("_images/_profiles/_default_hunter/profile.png", $args[":imageLoc"]);
+  }
+  else if ($args[':accountType'] === 'marshal') {
+    copy("_images/_profiles/_default_marshal/profile.png", $args[":imageLoc"]);
+  }
+
   $statement = $dbh->prepare(
     "INSERT INTO Account
       (username, email, password, dateCreated, accountType, dateOfLastActivity, imageLoc)
@@ -92,7 +99,7 @@ function getUserFromUsername($dbh, $args) {
   //Simple Select query which returns username, email, and type
 
   $statement = $dbh->prepare("
-  SELECT username, email, accountType FROM Account WHERE username = :username");
+  SELECT username, email, accountType, imageLoc FROM Account WHERE username = :username");
 
   if($statement->execute($args))
   {
@@ -101,6 +108,7 @@ function getUserFromUsername($dbh, $args) {
     $result['username'] = $row['username'];
     $result['userType'] = strtolower($row['accountType']);
     $result['email'] = $row['email'];
+    $result['proPic'] = $row['imageLoc'];
     $result['error'] = '0';
   }
   else
@@ -109,6 +117,8 @@ function getUserFromUsername($dbh, $args) {
     $result['message'] = 'Statement not executed';
 
   }
+
+  return $result;
 }
 
 function getUserFromEmail($dbh, $args) {
@@ -349,7 +359,7 @@ function getPreferredBounties($dbh) {
  //Join query to get all preferred bounties
 
   $statement = $dbh->prepare("
-    SELECT * FROM BountyPool, PreferredBounties 
+    SELECT * FROM BountyPool, PreferredBounties
     WHERE BountyPool.poolID=PreferredBounties.bountyID"
    );
 
@@ -375,10 +385,10 @@ function getActiveBounties($dbh, $args) {
 
   $statement = $dbh->prepare("
     SELECT BountyPool.* FROM Marshall, BountyPool
-    WHERE Marshall.marshallID=BountyPool.bountyMarshallID 
+    WHERE Marshall.marshallID=BountyPool.bountyMarshallID
     AND Marshall.marshallID=:userID AND dateCreated < now()"
   ); //completed version of this will have dateCreated < now() < dateEnding (but our test vars)
-  
+
   if($_SESSION['userType'] == 'marshall')
   {
     if($statement->execute($args))
@@ -431,6 +441,33 @@ function getPastBounties($dbh, $args) {
     $result['error'] = '1';
     $result['message'] = 'user is not a Marshall';
   }
+  return $result;
+}
+
+function getBountyFromBountyID($dbh, $args) {
+  if ($_SESSION['userLogin']) {
+
+    $statement = $dbh->prepare("
+      SELECT * FROM BountyPool
+      WHERE poolID = :bountyID"
+    );
+
+    if ($statement->execute($args)) {
+      $result['bounty'] = $statement->fetch(PDO::FETCH_ASSOC);
+      $result['error'] = 0;
+    }
+    else {
+      $result['bounty'] = array();
+      $result['error'] = 1;
+      $result['message'] = "Statement not executed";
+    }
+  }
+  else {
+    $result['bounty'] = array();
+    $result['error'] = 2;
+    $result['message'] = "No user logged in";
+  }
+
   return $result;
 }
 
@@ -563,9 +600,7 @@ $app->post('/api/loginUser', function () use ($dbh) {
 
   $args[':username'] = $_POST['username'];
   $args[':password'] = $_POST['password'];
-
   $result = loginUser($dbh, $args);
-
   echo json_encode($result);
 });
 
@@ -590,11 +625,8 @@ $app->post('/api/signUpUser', function() use ($dbh) {
   $args[':password'] = $_POST['password'];
   $args[':email'] = strtolower($_POST['email']);
   $args[':accountType'] = strtolower($_POST['accountType']);
-
   $result = signUpUser($dbh, $args);
-
   echo json_encode($result);
-
 });
 
 /*
@@ -834,15 +866,38 @@ $app->get('/api/getReportsFromUsernamePaidVsUnpaid/:username/:auxiliary/', funct
   complete
   */
 
-$app->get('/api/getPreferredBounties', function($bountyID) use ($dbh) {
+$app->get('/api/getPreferredBounties', function() use ($dbh) {
 
   echo json_encode(getPreferredBounties($dbh));
 
 });
 
-$app->post('/api/payReport', function() use ($dbh){
+$app->get('/api/getBountyFromBountyID/:bountyID', function($bountyID) use ($dbh) {
+
+  $args[":bountyID"] = $bountyID;
+  echo json_encode(getBountyFromBountyID($dbh, $args));
+
+});
+
+$app->get('/api/getClientToken', function() use ($dbh){
   $clientToken = Braintree_ClientToken::generate([
     "customerId" => $aCustomerId
   ]);
+  echo($clientToken);
+});
+
+$app->post('/api/payReport', function() use ($dbh){
+  $nonce = $_POST['payment_method_nonce'];
+  $amount = $_POST['amount'];
+  $result = Braintree_Transaction::sale([
+    'amount' => $amount,
+    'paymentMethodNonce' => $nonce,
+  ]);
+
+  $result2['amount'] = $amount;
+  $result2['paymentMethodNonce'] = $nonce;
+
+  echo json_encode($result);
+  echo json_encode($result2);
 
 });

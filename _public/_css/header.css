@@ -3,8 +3,13 @@
   src: url(../_fonts/PT_Sans-Web-Regular.ttf);
 }
 
-.navbar-custom {
-	background-color: #303030;
+body {
+  padding-top: 50px;
+}
+
+.navbar-default {
+    border-color: #E7E7E7;
+    background-color: #CC3333;
 }
 
 #navbarLogo
@@ -17,9 +22,29 @@
   padding: 3px;
 }
 
-#submitLogin {
-	background-color: #ffa500;
-	color: #FAFAFA;
-	border-radius: 10px;
+form > input {
+  display: block;
+  margin: 6px;
 }
 
+#submitLogin {
+  margin: 4px;
+  width: 94%;
+}
+
+ #login {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.rightNavBar {
+  margin: 4px;
+}
+
+.endButton {
+  margin-right: 25px; 
+}
+
+.rightButton {
+  width: 80px;
+}

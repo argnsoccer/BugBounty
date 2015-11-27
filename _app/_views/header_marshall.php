@@ -1,4 +1,4 @@
-<div class="navbar navbar-default navbar-custom">
+<div class="navbar navbar-inverse navbar-fixed-top">
 
   <div class="navbar-header">
     <a class="navbar-brand">
@@ -15,19 +15,8 @@
 
   </div>
 
-  <div class=" nav navbar-right">
-    <ul class="nav navbar-nav">
-      <li>
-        <form id="profileButton" name="profileForm" class="headerButton">
-          <input class="headerInput" type="submit" value="Profile" id="submitProfile">
-        </form>
-      </li>
-      <li>
-        <form id="logout" name="logoutForm" method="post" class="headerButton">
-          <input class="headerInput" type="submit" value="Log Out" id="submitLogout">
-        </form>
-      </li>
-    </ul>
-
+  <div class="nav navbar-nav navbar-right">
+    <button type="submit" id="submitProfile" class="btn btn-success rightButton">Profile</button>
+    <button type="submit" class="btn btn-danger rightButton endButton" id="submitLogout" name="logoutForm" method="post">Log Out</button>
   </div>
 </div>

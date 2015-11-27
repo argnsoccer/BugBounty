@@ -10,28 +10,42 @@ function prepareHome($dbh){
 
 	if ($_SESSION['userType'] === "hunter")
 	{
-		$template_array["username"] = $_SESSION['username'];
+		$template_array["username"] = $_SESSION['userLogin'];
+
+		$template_array['preferredBounties'] = getPreferredBounties($dbh);
 
 		$template_array['trackBounties'] = array(
 			array (
 				'id' => "0001",
-				'name' => "Google"),
+				'company' => 'Google',
+				'number' => 3,
+				'date' => '11/03/1993',
+				'name' => "Google Needs A Car"),
 			array (
 				'id' => "0002",
-				'name' => "Microsoft"),
+				'company' => 'Microsoft',
+				'number' => 3,
+				'date' => '11/03/1993',
+				'name' => "Microsoft Helps the World"),
 			array (
 				'id' => "0003",
-				'name' => "Apple"),
+				'company' => 'Apple',
+				'number' => 3,
+				'date' => '11/03/1993',
+				'name' => "Apple wants an orange"),
 			array (
 				'id' => "0004",
-				'name' => "Yahoo")
+				'company' => 'Yahoo',
+				'number' => 3,
+				'date' => '11/03/1993',
+				'name' => "Yahoo is not very good milk")
 		); //need to be 4 most recent bounties
 
 		return $template_array;
 	}
 	else if($_SESSION['userType'] === "marshall")
 	{
-		$template_array["username"] = $_SESSION['username'];
+		$template_array["username"] = $_SESSION['userLogin'];
 
 		return $template_array;
 	}
@@ -44,6 +58,8 @@ function prepareHome($dbh){
 }
 
 $app->get('/', function() use ($app, $dbh) {
+
+	echo $_SESSION['username'];
 
 	if (isset($_SESSION['userLogin']))
 	{
