@@ -10,46 +10,55 @@
     src: url(../_fonts/PT_Sans-Web-Regular.ttf);
 }
 
-/*body 
+/*body
 {
     background-color: #303030;
 }*/
 
 #what_is
 {
-    color: #FAFAFA;
+    border-radius: 5px;
     margin-left: auto;
+    margin-top: 10px;
     margin-right: auto;
+    padding: 5px;
     width: 730px;
 }
 
 #what_is > h1
 {
     font-family: PT-Sans;
+    margin-top: 0;
 }
 
 #who_is
 {
-    color: #FAFAFA;
+    border-radius: 5px;
     margin-left: auto;
+    margin-top: 10px;
     margin-right: auto;
+    padding: 5px;
     width: 730px;
 }
 
 #who_is > h1
 {
     font-family: PT-Sans;
+    margin-top: 0;
 }
 
 .profile-picture
 {
-    height: 150px;
-    width: 125px;
+    display: block;
+    width: 130px;
+    height: 160px;
+
+    margin: 0 auto;
 }
 
 .profile-picture + p
 {
-    color: #FAFAFA;
+    /*color: #FAFAFA;*/
     font-family: Helvetica;
     text-align: center;
     margin-top: 0;
@@ -57,10 +66,10 @@
 
 .bio
 {
-    color: #FAFAFA;
-    font-family: sans-serif;
-    height: 150px;
+    /*color: #FAFAFA;*/
+    /*font-family: sans-serif;*/
+    /*height: 150px;*/
     text-align: left;
-    padding-bottom: 30px;
-    width: 600px;
+    /*padding-bottom: 30px;*/
+    /*width: 600px;*/
 }
