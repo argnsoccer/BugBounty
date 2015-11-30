@@ -36,6 +36,8 @@ CREATE TABLE IF NOT EXISTS `Account` (
   `loggedIn` TINYINT(1) NOT NULL COMMENT '',
   `dateOfLastActivity` DATETIME NOT NULL COMMENT '',
   `imageLoc` mediumtext NULL COMMENT '',
+  `rssLink` VARCHAR(100) NULL COMMENT '',
+  `rssCreated` TINYINT(1) NOT NULL COMMENT '',
   PRIMARY KEY (`userID`)  COMMENT '',
   UNIQUE INDEX `username_UNIQUE` (`username` ASC)  COMMENT '',
   UNIQUE INDEX `email_UNIQUE` (`email` ASC)  COMMENT '',
@@ -283,7 +285,17 @@ CREATE TABLE IF NOT EXISTS `unpaidReport` (
   `message` mediumtext NOT NULL,
   PRIMARY KEY (`reportID`),
   UNIQUE KEY `reportID_UNIQUE` (`reportID`),
-  CONSTRAINT `fk_unpaidReport_Report1` FOREIGN KEY (`reportID`) REFERENCES `rReport` (`reportID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_unpaidReport_Report1` FOREIGN KEY (`reportID`) REFERENCES `Report` (`reportID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+CREATE TABLE IF NOT EXISTS `Subscription` (
+  `subscriptionID` int(10) unsigned NOT NULL,
+  `userID` int(10) UNSIGNED NOT NULL,
+  `rssLink` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`subscriptionID`),
+  UNIQUE KEY `subscriptionID_UNIQUE` (`subscriptionID`),
+  CONSTRAINT `fk_subscription_account` FOREIGN KEY (`userID`) REFERENCES `Account` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

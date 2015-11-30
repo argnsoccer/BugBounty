@@ -36,6 +36,8 @@ CREATE TABLE IF NOT EXISTS `Account` (
   `loggedIn` TINYINT(1) NOT NULL COMMENT '',
   `dateOfLastActivity` DATETIME NOT NULL COMMENT '',
   `imageLoc` mediumtext NULL COMMENT '',
+  `rssLink` VARCHAR(100) NULL COMMENT '',
+  `rssCreated` TINYINT(1) NOT NULL COMMENT '',
   PRIMARY KEY (`userID`)  COMMENT '',
   UNIQUE INDEX `username_UNIQUE` (`username` ASC)  COMMENT '',
   UNIQUE INDEX `email_UNIQUE` (`email` ASC)  COMMENT '',
@@ -49,7 +51,7 @@ ENGINE = InnoDB;
 
 LOCK TABLES `Account` WRITE;
 /*!40000 ALTER TABLE `Account` DISABLE KEYS */;
-INSERT INTO `Account` VALUES
+INSERT INTO `Account` (userID,username,email,password,dateCreated,activated,dateDeactivated,accountType,loggedIn,dateOfLastActivity,imageLoc) VALUES
 (1,'testHunter1','testHunter1@me.com','testHunter1','2015-10-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00', '_images/_profiles/_testHunter1/default_profile.png'),
 (2,'testHunter2','testHunter2@me.com','testHunter2','2015-10-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00', '_images/_profiles/_testHunter2/default_profile.png'),
 (3,'testMarshall1','testMarshall1@me.com','testMarshall1','2015-10-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png'),
@@ -98,7 +100,7 @@ INSERT INTO `BountyPool` VALUES
 (7,'2015-10-29 21:44:19','7','2020-01-01 00:00:00',3,'http://www.smu.edu','_images/_bounties/_testMarshal7/bounty7.png','lineDesc7','fullDescription7', 'bounty7'),
 (8,'2015-10-29 21:44:19','8','2020-01-01 00:00:00',4,'http://www.smu.edu','_images/_bounties/_testMarshal8/bounty8.png','lineDesc8','fullDescription8', 'bounty8'),
 (9,'2015-10-29 21:44:19','9','2015-01-01 00:00:00',5,'http://www.smu.edu','_images/_bounties/_testMarshal9/bounty9.png','lineDesc9','fullDescription9', 'bounty9');
-/*!40000 ALTER TABLE `BountyPool` ENABLE KEYS */
+/*!40000 ALTER TABLE `BountyPool` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -283,7 +285,17 @@ CREATE TABLE IF NOT EXISTS `unpaidReport` (
   `message` mediumtext NOT NULL,
   PRIMARY KEY (`reportID`),
   UNIQUE KEY `reportID_UNIQUE` (`reportID`),
-  CONSTRAINT `fk_unpaidReport_Report1` FOREIGN KEY (`reportID`) REFERENCES `rReport` (`reportID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_unpaidReport_Report1` FOREIGN KEY (`reportID`) REFERENCES `Report` (`reportID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+CREATE TABLE IF NOT EXISTS `Subscription` (
+  `subscriptionID` int(10) unsigned NOT NULL,
+  `userID` int(10) UNSIGNED NOT NULL,
+  `rssLink` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`subscriptionID`),
+  UNIQUE KEY `subscriptionID_UNIQUE` (`subscriptionID`),
+  CONSTRAINT `fk_subscription_account` FOREIGN KEY (`userID`) REFERENCES `Account` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
