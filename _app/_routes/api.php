@@ -517,7 +517,7 @@ function createRSS($dbh, $args) {
    );
 
     $mysqlArray['username'] = $args['username'];
-    $mysqlArray['rssLink'] = $file_path;
+    $mysqlArray['rssLink'] = "http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/".$file_path;
 
     if($statement->execute($mysqlArray))
     {
@@ -555,6 +555,7 @@ function addRSS($dbh, $args) {
 
     $rss_file = fopen($args['link'], "w");
     fwrite($rss_file, $xml->asXML());
+    fclose($rss_file);
 
     $result['xml'] = $xml->asXML();
     $result['error'] = "0";

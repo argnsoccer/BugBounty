@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <rss version="2.0">
 	<channel>
-		<title>Updater for Microsoft</title>
+		<title>test1</title>
 		<link>_rss/_profiles/_testMarshall1</link>
 		<image>
 			<url>_images/_profiles/_/profile.png</url>
 			<title> RSS picture</title>
 			<link>_rss/_profiles/_testMarshall1/rss_testMarshall1.xml</link>
 		</image>
-		<description>Yo we here</description>
+		<description>test1</description>
 		<language>en-us</language>
 		<category/>
-		<copyright>None</copyright>
+		<copyright>test1</copyright>
 		<lastBuildDate/>
 		<ttl>340</ttl>
-	<item><title>This is a post</title><description>yadydayda</description><pubDate>2015/12/03</pubDate></item></channel>
+	<item><title>fdasfd</title><description>sadfsadf</description><pubDate>2015/12/03</pubDate></item><item><title>holy</title><description>batman</description><pubDate>2015/12/03</pubDate></item></channel>
 </rss>
