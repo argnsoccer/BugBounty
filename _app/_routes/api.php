@@ -471,6 +471,149 @@ function getBountyFromBountyID($dbh, $args) {
   return $result;
 }
 
+function createRSS($dbh, $args) {
+
+  $file_path = $args['link']."/rss_".$args['username'].".xml";
+
+  $xml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n";
+  $xml = $xml."<rss version=\"2.0\">\n";
+  $xml = $xml."\t<channel>\n";
+  $xml = $xml."\t\t<title>".$args['title']."</title>\n";
+  $xml = $xml."\t\t<link>".$args['link']."</link>\n";
+
+  $xml = $xml."\t\t<image>\n";
+  $xml = $xml."\t\t\t<url>".$args['imageURL']."</url>\n";
+  $xml = $xml."\t\t\t<title>".$args['imageTitle']."</title>\n";
+  $xml = $xml."\t\t\t<link>".$file_path."</link>\n";
+  $xml = $xml."\t\t</image>\n";
+
+  $xml = $xml."\t\t<description>".$args['description']."</description>\n";
+  $xml = $xml."\t\t<language>".$args['language']."</language>\n";
+  $xml = $xml."\t\t<category>".$args['category']."</category>\n";
+  $xml = $xml."\t\t<copyright>".$args['copyright']."</copyright>\n";
+  $xml = $xml."\t\t<lastBuildDate>".$args['lastBuildDate']."</lastBuildDate>\n";
+  $xml = $xml."\t\t<ttl>".$args['ttl']."</ttl>\n";
+
+  $xml = $xml."\t</channel>\n";
+  $xml = $xml."</rss>\n";
+
+  try { 
+
+    $xmlTest = simplexml_load_string($xml);
+
+    $result['xmlLink'] = $file_path;
+
+    if (!file_exists($args['link'])) {
+      mkdir($args['link'], 0777, true);
+    }
+
+    $rss_file = fopen($file_path, "w");
+    fwrite($rss_file, $xml);
+
+    $statement = $dbh->prepare("
+    UPDATE Account 
+    SET rssCreated = 1, rssLink = :rssLink
+    WHERE username = :username"
+   );
+
+    $mysqlArray['username'] = $args['username'];
+    $mysqlArray['rssLink'] = $file_path;
+
+    if($statement->execute($mysqlArray))
+    {
+      $result['error'] = '0';
+      $result['message'] = 'All gucci';
+    }
+    else
+    {
+      $result['error'] = '1';
+      $result['message'] = 'Statement not executed';
+    }
+
+      return $result;
+  }
+    catch (Exception $e) {
+      $result['error'] = "2";
+      $result['message'] = $e->getMessage();
+
+      return $result;
+  }
+}
+
+function addRSS($dbh, $args) {
+
+  if(file_exists($args['link'])) {
+
+    $xml = simplexml_load_file($args['link']);
+
+
+    $new_item = $xml->channel->addChild("item"); 
+
+    $new_item->addChild("title", $args['title']);
+    $new_item->addChild("description", $args['description']);
+    $new_item->addChild("pubDate", $args['pubDate']);
+
+    $rss_file = fopen($args['link'], "w");
+    fwrite($rss_file, $xml->asXML());
+
+    $result['xml'] = $xml->asXML();
+    $result['error'] = "0";
+    $result['message'] = "All gucci";
+
+  }
+  else {
+    $result['error'] = "1";
+    $result['message'] = "RSS File does not Exist";
+  }
+
+  return $result;
+}
+
+function rssExists($dbh, $args) {
+
+  $statement = $dbh->prepare("
+    SELECT rssCreated, rssLink
+    FROM Account
+    WHERE username = :username"
+  );
+
+  if($statement->execute($args)) {
+
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+
+    if($row['rssCreated']) {
+
+      if(file_exists($row['rssLink'])) {
+        $result['link'] = $row['rssLink'];
+        $result['exists'] = "1";
+        $result['error'] = "0";
+        $message['message'] = "All gucci";
+      }
+      else {
+        $result['exists'] = "0";
+        $result['error'] = "1";
+        $message['message'] = "File does not exist";
+      }
+    }
+    else {
+      $result['exists'] = "0";
+      $result['error'] = "1";
+      $message['message'] = "File does not exist";
+    }
+
+  }
+  else {
+    $result['error'] = "1";
+    $message['message'] = "Statement did not execute";
+  }
+
+  return $result;
+}
+
+function addSubscription($dbh, $args) {
+
+}
+
 //*************************************************************************************
 //Session Accessing Functions go here**************************************************
 function getLoggedInUser() {
@@ -526,6 +669,10 @@ function deleteSession() {
 
 $app->get('/api/test', function () use ($dbh) {
     echo "API";
+});
+
+$app->get('/api/phpInfo', function () use ($dbh) {
+    echo phpInfo();
 });
 
 /*
@@ -899,5 +1046,59 @@ $app->post('/api/payReport', function() use ($dbh){
 
   echo json_encode($result);
   echo json_encode($result2);
+
+});
+
+$app->post('/api/createRSS', function() use ($dbh) {
+  $args['username'] = $_SESSION['userLogin'];
+
+  $args['title'] = $_POST['title'];
+  $args['category'] = $_POST['category'];
+  $args['copyright'] = $_POST['copyright'];
+  $args['description'] = $_POST['description'];
+
+  $args['link'] = "_rss/_profiles/_".$args['username'];
+  $args['imageURL'] = "_images/_profiles/_".$args['user']."/profile.png";
+  $args['imageTitle'] = $args['user']." RSS picture";
+
+  $args['language'] = "en-us";
+  $args['creationDate'] = date("Y/m/d");
+  $args['ttl'] = "340";
+
+
+  echo json_encode(createRSS($dbh, $args), JSON_UNESCAPED_SLASHES);
+
+  // echo json_encode(print_r($args));
+
+});
+
+$app->post('/api/addRSS', function() use ($dbh) {
+  $args['user'] = $_SESSION['userLogin'];
+
+  $args['title'] = $_POST['title'];
+  $args['category'] = $_POST['category'];
+  $args['description'] = $_POST['description'];
+  $args['pubDate'] = date('Y/m/d');
+
+  $args['link'] = "_rss/_profiles/_".$args['user']."/rss_".$args['user'].".xml";
+
+  echo json_encode(addRSS($dbh, $args));
+
+});
+
+$app->get('/api/rssExists', function() use ($dbh) {
+
+  $args[":username"] = $_SESSION['userLogin'];
+
+  echo json_encode(rssExists($dbh, $args), JSON_UNESCAPED_SLASHES);
+
+});
+
+$app->get('/api/addSubscription', function($companyName) use ($dbh) {
+
+  $args[":username"] = $_SESSION['userLogin'];
+  $args[':bountyID'] = $_GET['$companyName'];
+
+  echo json_encode(addSubscription($dbh, $args), JSON_UNESCAPED_SLASHES);
 
 });

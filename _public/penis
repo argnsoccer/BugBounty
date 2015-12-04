@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<rss version="2.0">
+	<channel>
+		<title>title 1</title>
+		<link>_rss/_profiles/_testMarshall1</link>
+		<image>
+			<url>_images/_profiles/_testMarshall1/profile.png</url>
+			<title>testMarshall1 RSS picture</title>
+			<link>penis</link>
+		</image>
+		<description>description 1</description>
+		<language>en-us</language>
+		<category>categorty 56</category>
+		<copyright>copyright 1</copyright>
+		<lastBuildDate></lastBuildDate>
+		<ttl>340</ttl>
+	</channel>
+</rss>
