@@ -1,5 +1,7 @@
 RewriteEngine On
 
+php_flag magic_quotes_gpc Off
+
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [QSA,L]

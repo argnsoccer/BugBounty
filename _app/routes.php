@@ -20,5 +20,8 @@ require '_routes/_marshall/profile.php';
 require '_routes/_marshall/upload.php';
 require '_routes/_marshall/pay.php';
 require '_routes/_marshall/track.php';
+require '_routes/_marshall/rss_create.php';
+require '_routes/_marshall/rss_add.php';
+require '_routes/_marshall/rss_info.php';
 
 require '_routes/api.php';

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<rss version="2.0">
+	<channel>
+		<title>Test Marshall Bug Bounty RSS</title>
+		<link>http://www.bugbounty.com/_rss/_profiles/_testMarshall1</link>
+		<image>
+			<url>http://www.bugbounty.com/_images/_profiles/_/profile.png</url>
+			<title> RSS picture</title>
+			<link>http://www.bugbounty.com/_rss/_profiles/_testMarshall1/rss_testMarshall1.xml</link>
+		</image>
+		<description>This is the newsfeed for Test Marshal's Bug Bounty ifnormation. </description>
+		<language>en-us</language>
+		<category/>
+		<copyright/>
+		<lastBuildDate>Wed, 02 Oct 2002 08:00:00 EST</lastBuildDate>
+		<ttl>340</ttl>
+		<item>
+			<title>New Bug Bounty Posted 11/29 - The Best</title>
+			<description>Our new bounty is up for our page.  Check it out!</description>
+			<pubDate>Wed, 02 Oct 2002 08:00:00 EST</pubDate>
+		</item>
+	</channel>
+</rss>

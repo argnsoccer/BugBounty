@@ -143,7 +143,7 @@
           <script type="text/javascript">
             (function() {
               var params = {
-                rssmikle_url: "http://feed.mikle.com/support/rss/",
+                rssmikle_url: "http://www.bugbounty.design/_rss/_profiles/_testMarshall1/rss_testMarshall1.xml",
                 rssmikle_frame_width: "350",
                 rssmikle_frame_height: "500",
                 frame_height_by_article: "0",

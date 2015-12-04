@@ -2,7 +2,7 @@
 
   <div class="navbar-header">
     <a class="navbar-brand">
-      <img id="navbarLogo" src="../_images/_logos/BugBountyTextLogo.png" alt="BugBounty"/>
+      <img id="navbarLogo" src="/_images/_logos/BugBountyTextLogo.png" alt="BugBounty"/>
     </a>
     <ul class="nav navbar-nav">
       <li class="leftNav"><a href="/">Home</a></li>

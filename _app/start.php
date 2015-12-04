@@ -2,6 +2,17 @@
 
 session_start();
 
+function remove_magic_quotes($array) {
+    foreach ($array as $k => $v) {
+        if (is_array($v)) {
+            $array[$k] = remove_magic_quotes($v);
+        } else {
+            $array[$k] = stripslashes($v);
+        }
+    }
+    return $array;
+}
+
 require '../vendor/autoload.php';
 
 $app = new \Slim\Slim([
@@ -32,5 +43,11 @@ $view->setTemplatesDirectory('../_app/_views');
 $view->parserExtensions = [
 	new \Slim\Views\TwigExtension()
 ];
+
+if (get_magic_quotes_gpc()) {
+    $_GET    = remove_magic_quotes($_GET);
+    $_POST   = remove_magic_quotes($_POST);
+    $_COOKIE = remove_magic_quotes($_COOKIE);
+}
 
 require 'routes.php';
