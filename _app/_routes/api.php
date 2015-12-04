@@ -53,6 +53,26 @@ function loginUser($dbh, $args) {
   }
 }
 
+function updateUserDetails($dbh,$args,$pass)
+{
+	$statement = $dbh-prepare("
+	UPDATE Account
+	SET $args
+	WHERE userID=$_SESSION['userID']
+	AND password=$pass");
+	if($statement->execute())
+	{
+		$result['error'] = 0;
+		$result['message'] = "success";
+	}
+	else
+	{
+		$result['error'] = 1;
+		$result['message'] = "Statement not executed";
+	}
+	return $result;
+}
+
 function signUpUser($dbh, $args) {
   $result['status'] = "complete";
   $args[":imageLoc"] = "/_images/_profiles/_".$args[':username']."/profile.png";
@@ -1161,4 +1181,31 @@ $app->get('/api/addSubscription', function($companyName) use ($dbh) {
 
   echo json_encode(addSubscription($dbh, $args), JSON_UNESCAPED_SLASHES);
 
+});
+
+$app->post('/api/updateUserDetails',function() use($dbh)
+{
+	$changeVal = $_POST['changeCode'];
+	$change = '';
+	if($changeVal == 0 | $changeVal == 3 | $changeVal == 4 | $changeVal == 6)
+	{
+		$change = $change."user=".$_POST['username'];
+	}
+	if($changeVal == 2 | $changeVal == 3 | $changeVal == 4 | $changeVal == 6)
+	{
+		$change = $change.',';
+	}
+	if($changeVal == 1 | $changeVal == 2 | $changeVal == 3 | $changeVal == 6)
+	{
+		$change = $change."email=".$_POST['email'];
+	}
+	if($changeVal == 5 | $changeVal == 6)
+	{
+		$change = $change.",";
+	}
+	if($changeVal == 2 | $changeVal == 4 | $changeVal == 5 | $changeVal == 6)
+	{
+		$change = $change."password=".$_POST['new_password'];
+	}
+	echo json_encode(updateUserDetails($dbh,$change,$_POST['password']));
 });
