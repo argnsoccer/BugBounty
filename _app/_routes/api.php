@@ -1048,7 +1048,6 @@ $app->post('/api/payReport', function() use ($dbh){
   $args[':transactionID'] = $result->transaction->id;
   $args[':amount'] = $amount;
   $args[':paymentInfo'] = $result->transaction->creditCardDetails;
-  echo($result->transaction->creditCardDetails);
   $result2['amount'] = $amount;
   $result2['paymentMethodNonce'] = $nonce;
 
