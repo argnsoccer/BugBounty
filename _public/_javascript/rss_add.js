@@ -1,5 +1,4 @@
-$(document).ready(function ()
-{
+$(document).ready(function () {
 
   $("#rssAddSubmit").click(function(event) {
 

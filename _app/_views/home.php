@@ -36,7 +36,7 @@
               <h1>Make Money For Using the Internet!</h1>
               <p>The internet needs people to find problems with their websites.  Put your time on the internet to use by helping our Marshal's find bugs on their websties.
                 Best of all?  You get paid!</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Become a Hunter</a></p>
+              <p><a class="btn btn-lg btn-primary" href="/_hunter/signup" role="button">Become a Hunter</a></p>
             </div>
           </div>
         </div>
@@ -47,12 +47,13 @@
             <div class="carousel-caption">
               <h1>Let others find Bugs!</h1>
               <p>All websites have their problems and its hard to find them all in testing.  How about use the power of the internet to let you find those pesky bugs?  Start focusing on more important matters.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Become a Marshall</a></p>
+              <p><a class="btn btn-lg btn-primary" href="/_marshal/signup" role="button">Become a Marshal</a></p>
             </div>
           </div>
         </div>
 
         <div class="item whiteBackground">
+          <img id="slidePicture-Q" src="/../_images/_icons/home_question_mark-formatted.png">
           <div class="container">
             <div class="carousel-caption">
               <h1>Still unsure on signing up?</h1>
@@ -223,9 +224,10 @@
               </p>
             </div>
             <div class="benefit">
-              <img class="img-circle imageBenefit" src="/../_images/_icons/hunter_time-formatted.png">
-              <p class="hunterBenefit">Let's be honest, you probably spend a lot of time on the internet.  Start benefitting from it!
-                You are here anyway, why not capitalize?
+              <img class="img-circle imageBenefit" src="/../_images/_icons/marshal_target-formatted.png">
+              <p class="marshalBenefit">Pin point the exact errors your userbase is experiencing so you can ensure the best user
+                experience.  If everyone is experiencing an error, you will quickly loose users.  With a location for them to post to
+                you will have quick access to find what errors are the most important to fix.
               </p>
             </div>
           </div>
@@ -239,15 +241,17 @@
           data-cycle-center-horz=true
           data-cycle-center-vert=true>
             <div class="benefit">
-              <img class="img-circle imageBenefit" src="/../_images/_icons/hunter_prize-formatted.png">
-              <p class="hunterBenefit">Grow you skills on the interent and let companies take notice.  Websites have problems, 
-                you find these problems, so build of your repotation so you these companies knwo you are here to help!
+              <img class="img-circle imageBenefit" src="/../_images/_icons/marshal_people-formatted.png">
+              <p class="marshalBenefit">The more people to test your website and find errors with it the better.  
+                You can only hire so many employees to test a website.  With BugBounty, you can employ the world
+                affordably.  The power of ther internet is at your disposal!
               </p>
             </div>
             <div class="benefit">
-              <img class="img-circle imageBenefit" src="/../_images/_icons/hunter_tool-formatted.png">
-              <p class="hunterBenefit">Whether you have been trained in web technologies or are just an avid user of the internet, 
-                you have the skills and tools to help these websites be better.  And as you hunt, these skills will only grow!
+              <img class="img-circle imageBenefit" src="/../_images/_icons/marshal_health-formatted.png">
+              <p class="marshalBenefit">A second opinion is always important.  When you get diagnosed, always see
+                more than one doctor.  Why should you website be any different?  You have had you inhouse doctor take a look.
+                Now get that second, third, fourth, infinte opinion!
               </p>
             </div>
           </div>
@@ -271,7 +275,7 @@
             <div class="benefit">
               <img class="img-circle imageBenefit" src="/../_images/_icons/hunter_time-formatted.png">
               <p class="hunterBenefit">Let's be honest, you probably spend a lot of time on the internet.  Start benefitting from it!
-                You are here anyway, why not capitalize?
+                You are here anyway, why not capitalize?  You know what they say, time is money!
               </p>
             </div>
           </div>

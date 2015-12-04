@@ -55,8 +55,8 @@
     <button type="button" class="btn btn-default dropdown-toggle rightButton endButton" data-toggle="dropdown"
     aria-haspopup="true" aria-expanded="false">Sign Up <span class="caret"></span></button>
     <ul class="dropdown-menu">
-      <li><a href="/signup">As a Hunter</a></li>
-      <li><a href="/signup">As a Marshal</a></li>
+      <li><a href="/_hunter/signup">As a Hunter</a></li>
+      <li><a href="/_marshal/signup">As a Marshal</a></li>
       <li role="separator" class="divider"></li>
       <li><a href="/why">I'm Not Sure</a></li>
     </ul>

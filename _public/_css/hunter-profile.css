@@ -17,6 +17,18 @@
 }
 */
 
+h3 {
+  display:inline;
+}
+
+.addOnCustom {
+  width: 150px !important;
+}
+
+.formControlCustom {
+  width: 100% !important;
+}
+
 #profile_picture
 {
     border-color: #5b5b5b;
@@ -59,6 +71,11 @@ table {
   background-color: ##FAFAFA;
 }
 
+table {
+  overflow-y:scroll; 
+  display:block;
+}
+
 table, th, td {
   border-collapse: collapse;
 }
@@ -66,3 +83,16 @@ table, th, td {
 .headerTable {
   background-color: #FC8989;
 }
+
+.tableBottom {
+  padding-top: 150px;
+}
+
+.messageButton {
+     background:none!important;
+     border:none; 
+     padding:0!important;
+     /*border is optional*/
+     cursor: pointer;
+}
+

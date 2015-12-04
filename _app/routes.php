@@ -14,6 +14,7 @@ require '_routes/_hunter/hunt.php';
 require '_routes/_hunter/search.php';
 require '_routes/_hunter/discover.php';
 require '_routes/_hunter/report.php';
+require '_routes/_hunter/bounty_pro.php';
 
 
 require '_routes/_marshall/profile.php';

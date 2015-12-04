@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -13,7 +12,7 @@
     {{ include ('header_login.php') }}
     <div class="container">
       <form class="form-signin">
-        <h2 class="form-signin-heading">Please Sign Up!</h2>
+        <h2 class="form-signin-heading">Hunter Sign Up!</h2>
         <label for="inputUsername" class="sr-only">Username</label>
         <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
         <label for="inputEmail" class="sr-only">Email address</label>
@@ -22,15 +21,8 @@
         <input type="password" id="inputPassword" class="form-control" placeholder="Choose a Password" required>
         <label for="confirmPassword" class="sr-only">Password</label>
         <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your Password" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" class="accountType" value="hunter"> Hunter
-          </label>
-          <label>
-            <input type="checkbox" class="accountType" value="marshal"> Marshal
-          </label>
-        </div>
         <button class="btn btn-lg btn-primary btn-block" id="submitSignUp" type="submit">Continue</button>
+        <a href="/_marshal/signup">Not a Hunter?</a>
       </form>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

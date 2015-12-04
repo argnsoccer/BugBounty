@@ -20,6 +20,36 @@ function prepareHunterProfile($dbh, $username) {
 
 		$template_array['error'] = 0; //for time being
 
+		$template_array['recentBounties'] = array(
+			array(
+				"name" => "name1",
+				"company" => "Microsoft"
+			),
+			array(
+				"name" => "name2",
+				"company" => "Apple"
+			)
+		);
+
+		$template_array['recentReports'] = array(
+			array(
+				"date" => "2012/12/05",
+				"name" => "name1",
+				"company" => "Microsoft",
+				"amountPaid" => "100.00",
+				"message" => "Great find!",
+				"reportID" => "0001"
+			),
+			array(
+				"date" => "2012/12/05",
+				"name" => "name2",
+				"company" => "Apple",
+				"amountPaid" => "0.00",
+				"message" => "eh not an error",
+				"reportID" => "0002"
+			)
+		);
+
 		return $template_array;
 	}
 	else
