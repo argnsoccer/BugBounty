@@ -497,7 +497,7 @@ function createRSS($dbh, $args) {
   $xml = $xml."\t</channel>\n";
   $xml = $xml."</rss>\n";
 
-  try { 
+  try {
 
     $xmlTest = simplexml_load_string($xml);
 
@@ -511,7 +511,7 @@ function createRSS($dbh, $args) {
     fwrite($rss_file, $xml);
 
     $statement = $dbh->prepare("
-    UPDATE Account 
+    UPDATE Account
     SET rssCreated = 1, rssLink = :rssLink
     WHERE username = :username"
    );
@@ -547,7 +547,7 @@ function addRSS($dbh, $args) {
     $xml = simplexml_load_file($args['link']);
 
 
-    $new_item = $xml->channel->addChild("item"); 
+    $new_item = $xml->channel->addChild("item");
 
     $new_item->addChild("title", $args['title']);
     $new_item->addChild("description", $args['description']);
@@ -1037,13 +1037,34 @@ $app->get('/api/getClientToken', function() use ($dbh){
 $app->post('/api/payReport', function() use ($dbh){
   $nonce = $_POST['payment_method_nonce'];
   $amount = $_POST['amount'];
+  $args[":hunterID"] = $_POST['hunterID'];
+  $args[":marshallID"] = $_POST['marshallID'];
+  $args[":reportID"] = $_POST['reportID'];
+  $args[":bountyID"] = $_POST['bountyID'];
   $result = Braintree_Transaction::sale([
     'amount' => $amount,
     'paymentMethodNonce' => $nonce,
   ]);
-
+  $args[':transactionID'] = $result->transaction->id;
+  $args[':amount'] = $amount;
+  $args[':paymentInfo'] = $result->transaction->creditCardDetails;
+  echo($result->transaction->creditCardDetails);
   $result2['amount'] = $amount;
   $result2['paymentMethodNonce'] = $nonce;
+
+  $statement = $dbh->prepare("
+  INSERT INTO Transactions (transactionID, hunterID, marshallID, amount, paymentInfo, reportID, bountyID)
+  VALUES (:transactionID,:hunterID,:marshallID, :amount, :paymentInfo, :reportID, :bountyID)");
+
+  if($statement->execute($args))
+  {
+    $result2['error'] = '0';
+    $result2['message'] = 'success';
+  }
+  else{
+    $result2['error'] = '1';
+    $result2['message'] = 'statement not executed';
+  }
 
   echo json_encode($result);
   echo json_encode($result2);
