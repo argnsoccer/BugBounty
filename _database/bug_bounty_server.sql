@@ -309,6 +309,23 @@ LOCK TABLES `unpaidReport` WRITE;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+CREATE TABLE IF NOT EXISTS `Transactions` (
+  `transactionID` int(10) unsigned NOT NULL,
+  `hunterID` int(10) unsigned NOT NULL,
+  `marshallID` int(10) unsigned NOT NULL,
+  `amount` VARCHAR(10) NOT NULL,
+  `paymentInfo` mediumtext NOT NULL,
+  `reportID` int(10) unsigned NOT NULL,
+  `bountyID` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`transactionID`),
+  UNIQUE KEY `transactionID_UNIQUE` (`transactionID`),
+  CONSTRAINT `fk_hunter_Account` FOREIGN KEY (`hunterID`) REFERENCES `Account` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_marshall_Marshall` FOREIGN KEY (`marshallID`) REFERENCES `Marshall` (`marshallID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_reportID_Report` FOREIGN KEY (`reportID`) REFERENCES `Report` (`reportID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_bounty_BountyPool` FOREIGN KEY (`bountyID`) REFERENCES `BountyPool` (`bountyID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
