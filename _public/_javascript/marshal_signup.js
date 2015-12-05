@@ -1,3 +1,8 @@
+$(window).load(function () {
+  $("#descButton").hide();
+  // $('#countriesDropwDown').hide();
+});
+
 function isSet(key, value) {
   if (value === null 
     || value === '') {
@@ -12,7 +17,7 @@ function isSet(key, value) {
       delay: 100,
       placement: {
         from: "top",
-        align: "center",
+        align: "right",
         allow_dismiss: true,
       }
     });
@@ -20,6 +25,29 @@ function isSet(key, value) {
     return false;
   }
   return true;
+}
+
+function passwordsMatch (password, confirmPassword) {
+  if (password == confirmPassword) {
+    return true;
+  }
+
+  $.notify({
+    // options
+    message: "  " + "Passwords do not match!",
+    icon: 'glyphicon glyphicon-alert'
+    },{
+    // settings
+    type: 'danger',
+    delay: 100,
+    placement: {
+      from: "top",
+      align: "right",
+      allow_dismiss: true,
+    }
+  });
+
+  return false;
 }
 
 function validateEmail(email) {
@@ -45,6 +73,10 @@ $(document).ready(function ()
       userInfo.email = $("#signUpEmail").val();
       userInfo.password = $("#signUpPassword").val();
       userInfo.confirmPassword = $("#signUpConfirmPassword").val();
+
+      if(!passwordsMatch(userInfo.password, userInfo.confirmPassword)) {
+        return false;
+      }
 
       for (var property in userInfo)
       {
@@ -76,7 +108,7 @@ $(document).ready(function ()
                 delay: 100,
                 placement: {
                   from: "top",
-                  align: "center",
+                  align: "right",
                   allow_dismiss: true,
                 }
               });
@@ -96,7 +128,7 @@ $(document).ready(function ()
                       delay: 100,
                       placement: {
                       from: "top",
-                      align: "center",
+                      align: "right",
                       allow_dismiss: true,
                     }
                   });
@@ -126,7 +158,7 @@ $(document).ready(function ()
                         delay: 100,
                         placement: {
                           from: "top",
-                          align: "center",
+                          align: "right",
                           allow_dismiss: true,
                         }
                       });
@@ -139,15 +171,17 @@ $(document).ready(function ()
                       $("#signUpPassword").val('');
                       $("#signUpConfirmPassword").val('');
 
-                      $("#signUpUsername").attr('placeholder', 'name');
-                      $("#signUpEmail").attr('placeholder', 'age');
-                      $("#signUpPassword").attr('placeholder', 'gender');
+                      $("#signUpUsername").attr('placeholder', 'Company');
+                      $("#signUpEmail").attr('placeholder', 'Compay Type');
+                      // $("#signUpPassword").attr('placeholder', 'Country');
+                      $("#descButton").show();
+                      $("#signUpPassword").hide();
                       $("#signUpConfirmPassword").hide()
 
                       $.notify({
                         // options
                         message: "  " + "Basic Details Saved",
-                        icon: 'glyphicon glyphicon-alert'
+                        icon: 'glyphicon glyphicon-info-sign'
                         },{
                         // settings
                         type: 'info',
@@ -157,8 +191,9 @@ $(document).ready(function ()
                           allow_dismiss: true,
                         }
                       });
-                      $("#step1").removeClass("activeStep");
-                      $("#step2").addClass("activeStep");
+                      $("#step1").removeClass("activeStepMarshal");
+                      $("#step2").addClass("activeStepMarshal");
+
                       clicks = clicks + 1;
                     }
 
@@ -169,8 +204,8 @@ $(document).ready(function ()
                   }
                   else if (response.error === '1')
                   {
-                    console.log(response.message);
-                      }
+                    alert("Statement did not occur");
+                  }
                 }
               });
             }
@@ -189,9 +224,9 @@ $(document).ready(function ()
     }
     else if (clicks == 1) {
 
-      userInfo.name = $("#signUpUsername").val();
-      userInfo.age = $("#signUpEmail").val();
-      userInfo.gender = $("#signUpPassword").val();
+      userInfo.company = $("#signUpUsername").val();
+      userInfo.type = $("#signUpEmail").val();
+      userInfo.description = $("#signUpDescription").val();
 
 
       $("#signUpUsername").val('');
@@ -204,6 +239,7 @@ $(document).ready(function ()
       $("#signUpPassword").attr('placeholder', 'I dont know');
       $("#signUpConfirmPassword").attr('placeholder', 'I dont know');
       $("#signUpConfirmPassword").show();
+      $("#descButton").hide();
 
       $("#submitSignUp").removeClass("btn-primary");
       $("#submitSignUp").addClass("btn-success");
@@ -212,7 +248,7 @@ $(document).ready(function ()
       $.notify({
         // options
         message: "  " + "More Details Saved",
-        icon: 'glyphicon glyphicon-alert'
+        icon: 'glyphicon glyphicon-info-sign'
         },{
         // settings
         type: 'info',
@@ -222,8 +258,8 @@ $(document).ready(function ()
           allow_dismiss: true,
         }
       });
-      $("#step2").removeClass("activeStep");
-      $("#step3").addClass("activeStep");
+      $("#step2").removeClass("activeStepMarshal");
+      $("#step3").addClass("activeStepMarshal");
 
       clicks = clicks + 1;
     }

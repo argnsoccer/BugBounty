@@ -36,6 +36,46 @@ function prepareHunterProfile($dbh, $username) {
 			array(
 				"name" => "name2",
 				"company" => "Apple"
+			),
+			array(
+				"name" => "name2",
+				"company" => "Apple"
+			),
+			array(
+				"name" => "name2",
+				"company" => "Apple"
+			),
+			array(
+				"name" => "name2",
+				"company" => "Apple"
+			),
+			array(
+				"name" => "name2",
+				"company" => "Apple"
+			),
+			array(
+				"name" => "name2",
+				"company" => "Apple"
+			),
+			array(
+				"name" => "name2",
+				"company" => "Apple"
+			),
+			array(
+				"name" => "name2",
+				"company" => "Apple"
+			),
+			array(
+				"name" => "name2",
+				"company" => "Apple"
+			),
+			array(
+				"name" => "name2",
+				"company" => "Apple"
+			),
+			array(
+				"name" => "name2",
+				"company" => "Apple"
 			)
 		);
 
@@ -55,7 +95,71 @@ function prepareHunterProfile($dbh, $username) {
 				"amountPaid" => "0.00",
 				"message" => "eh not an error",
 				"reportID" => "0002"
-			)
+			),
+			array(
+				"date" => "2012/12/05",
+				"name" => "name2",
+				"company" => "Apple",
+				"amountPaid" => "0.00",
+				"message" => "eh not an error",
+				"reportID" => "0002"
+			),
+			array(
+				"date" => "2012/12/05",
+				"name" => "name2",
+				"company" => "Apple",
+				"amountPaid" => "0.00",
+				"message" => "eh not an error",
+				"reportID" => "0002"
+			),
+			array(
+				"date" => "2012/12/05",
+				"name" => "name2",
+				"company" => "Apple",
+				"amountPaid" => "0.00",
+				"message" => "eh not an error",
+				"reportID" => "0002"
+			),
+			array(
+				"date" => "2012/12/05",
+				"name" => "name2",
+				"company" => "Apple",
+				"amountPaid" => "0.00",
+				"message" => "eh not an error",
+				"reportID" => "0002"
+			),
+			array(
+				"date" => "2012/12/05",
+				"name" => "name2",
+				"company" => "Apple",
+				"amountPaid" => "0.00",
+				"message" => "eh not an error",
+				"reportID" => "0002"
+			),
+			array(
+				"date" => "2012/12/05",
+				"name" => "name2",
+				"company" => "Apple",
+				"amountPaid" => "0.00",
+				"message" => "eh not an error",
+				"reportID" => "0002"
+			),
+			array(
+				"date" => "2012/12/05",
+				"name" => "name2",
+				"company" => "Apple",
+				"amountPaid" => "0.00",
+				"message" => "eh not an error",
+				"reportID" => "0002"
+			),
+			array(
+				"date" => "2012/12/05",
+				"name" => "name2",
+				"company" => "Apple",
+				"amountPaid" => "0.00",
+				"message" => "eh not an error",
+				"reportID" => "0002"
+			),
 		);
 
 		return $template_array;

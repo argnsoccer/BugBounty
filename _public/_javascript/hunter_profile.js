@@ -19,6 +19,7 @@ function checkUpdate(userInfo) {
           setVariables["newPassword"] = 1;
       }
       else {
+
           code = -1;
           return code;
       }
@@ -75,42 +76,50 @@ $(document).ready(function () {
     if (code == -2) {
 
       $('#changePassworldOldForm').val('');
-      $('#changePassworldNewForm').val('');
-      $('#changePassworldConfirmForm').val('');
+      $('#changePasswordNewForm').val('');
+      $('#changePasswordConfirmForm').val('');
 
       $.notify({
         // options
-        message: "  " + "Include your password",
-        icon: 'glyphicon glyphicon-remove-circle'
+        message: "  " + "Please include your password!",
+        icon: 'glyphicon glyphicon-alert'
         },{
         // settings
         type: 'danger',
+        delay: 100,
+        z_index: 1050,
         placement: {
-          from: "bottom",
+          from: "top",
           align: "right",
           allow_dismiss: true,
         }
       });
+
+      return false;
     }
     else if (code == -1) {
 
       $('#changePassworldOldForm').val('');
-      $('#changePassworldNewForm').val('');
-      $('#changePassworldConfirmForm').val('');
+      $('#changePasswordNewForm').val('');
+      $('#changePasswordConfirmForm').val('');
 
       $.notify({
         // options
-        message: "  " + "New and Confirm do not match",
-        icon: 'glyphicon glyphicon-remove-circle'
+        message: "  " + "New and Confirm do not match!",
+        icon: 'glyphicon glyphicon-alert'
         },{
         // settings
         type: 'danger',
+        delay: 100,
+        z_index: 1050,
         placement: {
-          from: "bottom",
+          from: "top",
           align: "right",
           allow_dismiss: true,
         }
       });
+
+      return false;
     }
     else {
 
@@ -221,6 +230,81 @@ $(document).ready(function () {
     //     });
     //   }
     // });
+  });
+
+  $(".detailsButton").click(function() { 
+
+    var reportID = $(this).attr("data-ID");
+
+    var reportURL = '/api/getReportFromReportID/' + reportID;
+
+    $.ajax({
+      url: reportURL,
+      dataType: 'json',
+      type: 'GET',
+      success: function(response)
+      {
+        $('#errorReport').val(response.report.errorName);
+        $('#descErrorReport').val(response.report.description);
+        $('#pathErrorReport').val(response.report.pathToError);
+      },
+      error: function(xhr, status, error)
+      {
+      var err = eval("(" + xhr.responseText + ")");
+      //alert("Please Try Again, we had an internal error!");
+      $.notify({
+          // options
+          message: "  " + err + " \nsomething went wrong, please try again",
+          icon: 'glyphicon glyphicon-remove-circle'
+          },{
+          // settings
+          type: 'danger',
+          placement: {
+            from: "top",
+            align: "right",
+            allow_dismiss: true,
+          }
+        });
+      }
+    });
+  });
+
+  $(".messageButton").click(function() { 
+
+    var reportID = $(this).attr("data-ID");
+
+    var reportURL = '/api/getReportFromReportID/' + reportID;
+
+    $.ajax({
+      url: reportURL,
+      dataType: 'json',
+      type: 'GET',
+      success: function(response)
+      {
+        if (response.report.message == null) {
+          response.report.message = "No message has been posted";
+        }
+        $('#messageReport').val(response.report.message);
+      },
+      error: function(xhr, status, error)
+      {
+      var err = eval("(" + xhr.responseText + ")");
+      //alert("Please Try Again, we had an internal error!");
+      $.notify({
+          // options
+          message: "  " + err + " \nsomething went wrong, please try again",
+          icon: 'glyphicon glyphicon-remove-circle'
+          },{
+          // settings
+          type: 'danger',
+          placement: {
+            from: "top",
+            align: "right",
+            allow_dismiss: true,
+          }
+        });
+      }
+    });
   });
 
 });

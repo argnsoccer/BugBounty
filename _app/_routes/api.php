@@ -1101,7 +1101,7 @@ $app->get('/api/getReportsFromUsername/:username', function($username) use ($dbh
 
   $args[':username'] = $_GET['username'];
   echo json_encode(getReportsFromUsername($dbh,$args));
-  });
+});
 
 $app->get('/api/getReportFromReportID/:reportID', function($reportID) use ($dbh) {
   $args[':reportID'] = $reportID;
@@ -1110,12 +1110,9 @@ $app->get('/api/getReportFromReportID/:reportID', function($reportID) use ($dbh)
   WHERE reportID = :reportID");
   if ($statement->execute($args))
   {
-    $result['report'] = array();
-    while($row = $statement->fetch(PDO::FETCH_ASSOC))
-    {
-      array_push($result['report'],$row);
-    }
-    $result['error'] = 0;
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    $result['error'] = '0';
+    $result['report'] = $row;
   }
   else {
     $result['report'] = array();

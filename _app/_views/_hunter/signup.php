@@ -14,7 +14,7 @@
       <div class="row stepRow">
         <div class="col-12-md ">
           <span id="stepDisplay">
-            <span id="step1" class="stepBlock activeStep">
+            <span id="step1" class="stepBlock activeStepHunter">
               <h3 class="headerStep">Step 1</h3>
               <p class="descStep">Basic Details</p>
             </span>
@@ -48,7 +48,7 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
-    <script type="text/javascript" src="/../_javascript/signup.js"></script>
+    <script type="text/javascript" src="/../_javascript/hunter_signup.js"></script>
     {{include ('bootstrap_footer.php')}}
   </body>
 </html>

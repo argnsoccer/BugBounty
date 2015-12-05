@@ -1,4 +1,4 @@
-﻿<html>
+<html>
   <head>
       <title>BugBounty Profile</title>
       <link rel="shortcut icon" type="image/x-icon" href="../_images/_logos/bug-hunter-icon.ico" />
@@ -95,64 +95,63 @@
           </form>
         </div>
 <!-- 
-        http://codepen.io/lukepeters/pen/bfFur -->
+  git add -->
 
-        <div class="col-md-6 tableTop">
-         <h3 class="tableTitle">Recent Bounties<h3>
-           <table class="w3-table-all" style="width:100%">
+        <div class="col-md-6 tableTop tableCol">
+          <h3 class="tableTitle">Past Bounties</h3>
+          <table>
             <tbody>
-              <tr class="tableHeader">
-                <th>Bounty Name</th>
-                <th>Company</th>
+              <tr class="rowTable header">
+                <th class="cell">Bounty Name</th>
+                <th class="cell">Company</th>
               </tr>
               {% for bounty in recentBounties %}
-              <tr class="tableRow">
-                <td><a>{{bounty.name}}</a></td>
-                <td><a>{{bounty.company}}</a></td>
-              </tr>
+              <tr class="rowTable">
+                <td class="cell"><a href="/_hunter/bounty/{{bounty.id}}">{{bounty.name}}</a></td>
+                <td class="cell"><a href="/_hunter/company/{{user.id}}">{{bounty.company}}</a></td>
+              </tr> 
               {% endfor %}
             </tbody>
           </table>
         </div>
 
         <div class="col-md-6 tableBottom">
-         <h3 class="tableTitle">Submitted Reports<h3>
-           <table class="w3-table-all" style="width:100%">
+          <h3 class="tableTitle">Submitted Reports</h3>
+          <table>
             <tbody>
-              <tr>
-                <th>Date Submitted</th>
-                <th>Bounty Name</th>
-                <th>Company</th>
-                <th>Paid</th>
-                <th>Details</th>
-                <th>Response</th>
+              <tr class="rowTable header">
+                <th class="cell">Date Submitted</th>
+                <th class="cell">Bounty Name</th>
+                <th class="cell">Company</th>
+                <th class="cell">Paid</th>
+                <th class="cell">Details</th>
+                <th class="cell">Response</th>
               </tr>
               {% for report in recentReports %}
-              <tr class="tableRow">
-                <td>{{report.date}}</td>
-                <td>{{report.name}}</td>
-                <td>{{report.company}}</td>
-                <td>{{report.amountPaid}}</td>
-                <td>
-                  <button type="button" class="messageButton" data-toggle="modal" 
+              <tr class="rowTable">
+                <td class="cell">{{report.date}}</td>
+                <td class="cell">{{report.name}}</td>
+                <td class="cell">{{report.company}}</td>
+                <td class="cell">{{report.amountPaid}}</td>
+                <td class="cell">
+                  <button type="button" class="detailsButton" data-toggle="modal" 
                   data-target="#detailsModal" data-whatever="@getbootstrap" 
                   data-ID={{report.reportID}}>
-                    Click to View
-                  </button></td>
-                <td>
+                    View
+                  </button>
+                </td>
+                <td class="cell">
                   <button type="button" class="messageButton" data-toggle="modal" 
                     data-target="#messageModal" data-whatever="@getbootstrap" 
                     data-ID={{report.reportID}}>
-                    Click to View
+                    View
                   </button>
                 </td>
-              </tr>
+              </tr> 
               {% endfor %}
             </tbody>
           </table>
         </div>
-
-
       </div>
 
       <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
@@ -164,12 +163,18 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label for="recipient-name" class="control-label">Error:</label>
+                  <textarea id="errorReport">
+                  </textarea>
                 </div>
                 <div class="form-group">
                   <label for="message-text" class="control-label">Description of Error:</label>
+                  <textarea id="descErrorReport">
+                  </textarea>
                 </div>
                 <div class="form-group">
                   <label for="message-text" class="control-label">Path to Error:</label>
+                  <textarea id="pathErrorReport">
+                  </textarea>
                 </div>
               </div>
             </div>
@@ -186,6 +191,8 @@
                <div class="modal-body">
                 <div class="form-group">
                   <label for="recipient-name" class="control-label">Message:</label>
+                  <textarea id="messageReport">
+                  </textarea>
                 </div>
               </div>
             </div>
