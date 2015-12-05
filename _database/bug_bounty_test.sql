@@ -186,6 +186,11 @@ CREATE TABLE IF NOT EXISTS `paidReport` (
 -- Dumping data for table `paidreport`
 --
 
+INSERT INTO paidReport (reportID, paidAmount, message, publish) VALUES (1,1,'message 1', 0);
+INSERT INTO paidReport (reportID, paidAmount, message, publish) VALUES (2,2,'message 2', 0);
+INSERT INTO paidReport (reportID, paidAmount, message, publish) VALUES (3,3,'message 3', 0);
+INSERT INTO paidReport (reportID, paidAmount, message, publish) VALUES (4,4,'message 4', 0);
+
 LOCK TABLES `paidReport` WRITE;
 /*!40000 ALTER TABLE `paidreport` DISABLE KEYS */;
 /*!40000 ALTER TABLE `paidreport` ENABLE KEYS */;
@@ -312,7 +317,7 @@ UNLOCK TABLES;
 
 
 CREATE TABLE IF NOT EXISTS `Transactions` (
-  `transactionID` VARCHAR(8) unsigned NOT NULL,
+  `transactionID` VARCHAR(8) NOT NULL,
   `hunterID` int(10) unsigned NOT NULL,
   `marshallID` int(10) unsigned NOT NULL,
   `amount` int(10) NOT NULL,
@@ -322,8 +327,8 @@ CREATE TABLE IF NOT EXISTS `Transactions` (
   PRIMARY KEY (`transactionID`),
   UNIQUE KEY `transactionID_UNIQUE` (`transactionID`),
   CONSTRAINT `fk_hunter_Account` FOREIGN KEY (`hunterID`) REFERENCES `Account` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_marshall_Marshall` FOREIGN KEY (`marshallID`) REFERENCES `Marshall` (`marshallID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-  CONSTRAINT `fk_reportID_Report` FOREIGN KEY (`reportID`) REFERENCES `Report` (`reportID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_marshall_Marshall` FOREIGN KEY (`marshallID`) REFERENCES `Marshall` (`marshallID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_reportID_Report` FOREIGN KEY (`reportID`) REFERENCES `Report` (`reportID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_bounty_BountyPool` FOREIGN KEY (`bountyID`) REFERENCES `BountyPool` (`bountyID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

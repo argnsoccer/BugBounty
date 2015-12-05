@@ -46,31 +46,98 @@ function loginUser($dbh, $args) {
   }
   else
   {
-    $result['error'] = 3;
+    $result['error'] = '3';
     $result['message'] = 'user is already logged in';
 
     return $result;
   }
 }
 
-function updateUserDetails($dbh,$args,$pass)
+function updateUserDetails($dbh,$change,$inputs)
 {
-  $args2[':userID'] = $_SESSION['userID'];
-  $args2[':pass'] = $pass;
-	$statement = $dbh-prepare("
-	UPDATE Account
-	SET $args
-	WHERE userID = :userID
-	AND password=:pass");
-	if($statement->execute($args2))
+	$args = array();
+	$args[':userID'] = $_SESSION['userID'];
+	$args[':pass'] = $pass;
+	$result['error'] = 0;
+	if($change[0])
 	{
-		$result['error'] = 0;
-		$result['message'] = "success";
+		$result['error'] = $result['error'] + 1;
+		$statement = $dbh->prepare("
+		SELECT * FROM Account
+		WHERE username=$inputs['username']");
+		if($statement->execute())
+		{
+			if($statement->rowCount() == 0)
+			{
+				$statement = $dbh->prepare("
+				UPDATE Account
+				SET username=$inputs['username']
+				WHERE userID = :userID
+				AND password=:pass");
+				if($statement->execute($args))
+				{
+					$result['error'] = $result['error'] - 1;
+					$result['message'] = $result['message']."username change successful ";
+				}
+				else
+				{
+					$result['message'] = $result['message']."username change failed, possible incorrect password or sql error"
+				}
+			}
+			else
+			{
+				$result['message'] = $result['message']."new username is taken "
+			}
+		}
 	}
-	else
+	if($change[1])
 	{
-		$result['error'] = 1;
-		$result['message'] = "Statement not executed";
+		$result['error'] = $result['error'] + 1;
+		$statement = $dbh->prepare("
+		SELECT * FROM Account
+		WHERE email=$inputs['email']");
+		if($statement->execute())
+		{
+			if($statement->rowCount() == 0)
+			{
+				$statement = $dbh->prepare("
+				UPDATE Account
+				SET email=$inputs['email']
+				WHERE userID = :userID
+				AND password=:pass");
+				if($statement->execute($args))
+				{
+					$result['error'] = $result['error'] - 1;
+					$result['message'] = $result['message']."email change successful ";
+				}
+				else
+				{
+					$result['message'] = $result['message']."email change failed, possible incorrect password or sql error"
+				}
+			}
+			else
+			{
+				$result['message'] = $result['message']."new email is taken "
+			}
+		}
+	}
+	if($change[2])
+	{
+		$result['error'] = $result['error'] + 1;
+		$statement = $dbh->prepare("
+		UPDATE Account
+		SET password=$inputs['new_password']
+		WHERE userID = :userID
+		AND password=:pass");
+		if($statement->execute($args))
+		{
+			$result['error'] = $result['error'] - 1;
+			$result['message'] = $result['message']."password change successful ";
+		}
+		else
+		{
+			$result['message'] = $result['message']."password change failed, possible incorrect password or sql error"
+		}
 	}
 	return $result;
 }
@@ -1129,14 +1196,35 @@ $app->get('/api/getReportsFromBountyID/:bountyID', function($bountyID) use ($dbh
 
   });
 
-$app->get('/api/getNumberReportsFiled/:username', function($reportID) use($dbh) {
-  $args[':username'] = $reportID;
+$app->get('/api/getNumberReportsFiled/:username', function($username) use($dbh) {
+  $args[':username'] = $username;
   echo json_encode(getNumberReportsFiled($dbh,$args));
 
 });
 
-/*$app->get('/api/getNumberReportsApproved/:username')
-username=username and count from paidReports
+function getNumberReportsApproved($dbh, $args){
+  $statement = $dbh->prepare(
+  "SELECT COUNT(p.reportID) AS num FROM paidReport p INNER JOIN Report r ON p.reportID = r.reportID
+  WHERE r.username = :username");
+
+  if($statement->execute($args))
+  {
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    $result['error'] = '0';
+    $result['message'] = 'success';
+    $result['numberOfReports'] = $row['num'];
+  }
+  else {
+    $result['error'] = '1';
+    $result['message'] = 'statement did not execute';
+  }
+  return $result;
+}
+
+$app->get('/api/getNumberReportsApproved/:username', function($username) use($dbh) {
+  $args[':username'] = $username;
+  echo json_encode(getNumberReportsApproved($dbh,$args));
+});
 /*
   Ryan Edson
   returns all bounties a user has logged on a certain bounty
@@ -1292,29 +1380,39 @@ $app->get('/api/addSubscription', function($companyName) use ($dbh) {
 
 });
 
+/*
+Michael Gilbert
+Updates a user's account info
+Change code specifies which info is being changed
+Codes:
+0: username
+1: email
+2: password
+3: username and email
+4: username and password
+5: email and password
+6: username and email and password
+Errors: Number is equal to number of failed changes
+Message: This will explain the source of the failed changes
+*/
 $app->post('/api/updateUserDetails',function() use($dbh)
 {
 	$changeVal = $_POST['changeCode'];
-	$change = '';
+	$change = array();
+	$change[0] = false;
+	$change[1] = false;
+	$change[2] = false;
 	if($changeVal == 0 | $changeVal == 3 | $changeVal == 4 | $changeVal == 6)
 	{
-		$change = $change."user=".$_POST['username'];
+		$change[0] = true;//username
 	}
-	if($changeVal == 2 | $changeVal == 3 | $changeVal == 4 | $changeVal == 6)
+	if($changeVal == 1 | $changeVal == 3 | $changeVal == 5 | $changeVal == 6)
 	{
-		$change = $change.',';
-	}
-	if($changeVal == 1 | $changeVal == 2 | $changeVal == 3 | $changeVal == 6)
-	{
-		$change = $change."email=".$_POST['email'];
-	}
-	if($changeVal == 5 | $changeVal == 6)
-	{
-		$change = $change.",";
+		$change[1] = true;//email
 	}
 	if($changeVal == 2 | $changeVal == 4 | $changeVal == 5 | $changeVal == 6)
 	{
-		$change = $change."password=".$_POST['new_password'];
+		$change[2] = true;//password
 	}
-	echo json_encode(updateUserDetails($dbh,$change,$_POST['password']));
+	echo json_encode(updateUserDetails($dbh,$change,$_POST));
 });
