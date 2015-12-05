@@ -950,7 +950,8 @@ $app->get('/api/getReportFromReportID/:reportID', function($reportID) use ($dbh)
   SELECT * FROM Report
       WHERE reportID = :reportID"
   );
-  if ($statement->execute($args)) {
+  if ($statement->execute($args))
+  {
     $result['report'] = array();
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
