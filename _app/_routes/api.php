@@ -64,14 +64,14 @@ function updateUserDetails($dbh,$change,$inputs)
 		$result['error'] = $result['error'] + 1;
 		$statement = $dbh->prepare("
 		SELECT * FROM Account
-		WHERE username=$inputs['username']");
+		WHERE username = '".$inputs['username']."'");
 		if($statement->execute())
 		{
 			if($statement->rowCount() == 0)
 			{
 				$statement = $dbh->prepare("
 				UPDATE Account
-				SET username=$inputs['username']
+				SET username = '".$inputs['username']."'
 				WHERE userID = :userID
 				AND password=:pass");
 				if($statement->execute($args))
@@ -81,12 +81,12 @@ function updateUserDetails($dbh,$change,$inputs)
 				}
 				else
 				{
-					$result['message'] = $result['message']."username change failed, possible incorrect password or sql error"
+					$result['message'] = $result['message']."username change failed, possible incorrect password or sql error";
 				}
 			}
 			else
 			{
-				$result['message'] = $result['message']."new username is taken "
+				$result['message'] = $result['message']."new username is taken ";
 			}
 		}
 	}
@@ -95,14 +95,14 @@ function updateUserDetails($dbh,$change,$inputs)
 		$result['error'] = $result['error'] + 1;
 		$statement = $dbh->prepare("
 		SELECT * FROM Account
-		WHERE email=$inputs['email']");
+		WHERE email = '".$inputs['email']."'");
 		if($statement->execute())
 		{
 			if($statement->rowCount() == 0)
 			{
 				$statement = $dbh->prepare("
 				UPDATE Account
-				SET email=$inputs['email']
+				SET email= '".$inputs['email']."'
 				WHERE userID = :userID
 				AND password=:pass");
 				if($statement->execute($args))
@@ -112,12 +112,12 @@ function updateUserDetails($dbh,$change,$inputs)
 				}
 				else
 				{
-					$result['message'] = $result['message']."email change failed, possible incorrect password or sql error"
+					$result['message'] = $result['message']."email change failed, possible incorrect password or sql error";
 				}
 			}
 			else
 			{
-				$result['message'] = $result['message']."new email is taken "
+				$result['message'] = $result['message']."new email is taken ";
 			}
 		}
 	}
@@ -126,7 +126,7 @@ function updateUserDetails($dbh,$change,$inputs)
 		$result['error'] = $result['error'] + 1;
 		$statement = $dbh->prepare("
 		UPDATE Account
-		SET password=$inputs['new_password']
+		SET password = '".$inputs['new_password']."'
 		WHERE userID = :userID
 		AND password=:pass");
 		if($statement->execute($args))
@@ -136,7 +136,7 @@ function updateUserDetails($dbh,$change,$inputs)
 		}
 		else
 		{
-			$result['message'] = $result['message']."password change failed, possible incorrect password or sql error"
+			$result['message'] = $result['message']."password change failed, possible incorrect password or sql error";
 		}
 	}
 	return $result;
