@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS `Account` (
   `imageLoc` mediumtext NULL COMMENT '',
   `rssLink` VARCHAR(100) NULL COMMENT '',
   `rssCreated` TINYINT(1) NOT NULL COMMENT '',
+  `name` VARCHAR(40) NOT NULL COMMENT '',
   PRIMARY KEY (`userID`)  COMMENT '',
   UNIQUE INDEX `username_UNIQUE` (`username` ASC)  COMMENT '',
   UNIQUE INDEX `email_UNIQUE` (`email` ASC)  COMMENT '',
@@ -310,7 +311,7 @@ UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 CREATE TABLE IF NOT EXISTS `Transactions` (
-  `transactionID` int(10) unsigned NOT NULL,
+  `transactionID` VARCHAR(8) unsigned NOT NULL,
   `hunterID` int(10) unsigned NOT NULL,
   `marshallID` int(10) unsigned NOT NULL,
   `amount` VARCHAR(10) NOT NULL,
