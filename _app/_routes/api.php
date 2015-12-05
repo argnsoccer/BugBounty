@@ -55,12 +55,14 @@ function loginUser($dbh, $args) {
 
 function updateUserDetails($dbh,$args,$pass)
 {
+  $args2[':userID'] = $_SESSION['userID'];
+  $args2[':pass'] = $pass;
 	$statement = $dbh-prepare("
 	UPDATE Account
 	SET $args
-	WHERE userID=$_SESSION['userID']
-	AND password=$pass");
-	if($statement->execute())
+	WHERE userID = :userID
+	AND password=:pass");
+	if($statement->execute($args2))
 	{
 		$result['error'] = 0;
 		$result['message'] = "success";
@@ -914,7 +916,7 @@ $app->post('/api/updateReport', function() use ($dbh) {
   echo json_encode($result);
 });
 
-$app->pos('/api/updateReport', function() use ($dbh) {
+$app->post('/api/updateReport', function() use ($dbh) {
 
   $args[':reportID'] = $_POST['reportID'];
   $args[':payAmount'] = $_POST['payAmount']; //pay amount of 0 clearly means the bounty was not accepted
@@ -941,32 +943,29 @@ $app->get('/api/getReportsFromUsername/:username', function($username) use ($dbh
   echo json_encode(getReportsFromUsername($dbh,$args));
   });
 
-  $app->get('/api/getReportFromReportID/:reportID', function($reportID) use ($dbh) {
+$app->get('/api/getReportFromReportID/:reportID', function($reportID) use ($dbh) {
 
-    $args[':reportID'] = $_GET['reportID'];
-    if ($_SESSION['userLogin']) {
-      $statement = $dbh->prepare("
-      SELECT * FROM Report
-        WHERE reportID = :reportID"
-      );
+  $args[':reportID'] = $_GET['reportID'];
+  $statement = $dbh->prepare("
+  SELECT * FROM Report
+      WHERE reportID = :reportID"
+  );
+  if ($statement->execute($args)) {
+    $result['report'] = array();
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+    {
+     array_push($result['report'],$row);
+    }
+    $result['error'] = 0;
+  }
+  else {
+    $result['report'] = array();
+    $result['error'] = 1;
+    $result['message'] = "Statement not executed";
+  }
 
-    if ($statement->execute($args)) {
-      $result['report'] = $statement->fetch(PDO::FETCH_ASSOC);
-      $result['error'] = 0;
-    }
-    else {
-      $result['report'] = array();
-      $result['error'] = 1;
-      $result['message'] = "Statement not executed";
-    }
-    else {
-      $result['report'] = array();
-      $result['error'] = 2;
-      $result['message'] = "No user logged in";
-    }
-
-    echo json_encode($result));
-  });
+  echo json_encode($result);
+});
 
   /*
   Andre Gras
