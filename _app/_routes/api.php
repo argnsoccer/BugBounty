@@ -46,7 +46,7 @@ function loginUser($dbh, $args) {
   }
   else
   {
-    $result['error'] = 3;
+    $result['error'] = '3';
     $result['message'] = 'user is already logged in';
 
     return $result;
@@ -1057,14 +1057,35 @@ $app->get('/api/getReportsFromBountyID/:bountyID', function($bountyID) use ($dbh
 
   });
 
-$app->get('/api/getNumberReportsFiled/:username', function($reportID) use($dbh) {
-  $args[':username'] = $reportID;
+$app->get('/api/getNumberReportsFiled/:username', function($username) use($dbh) {
+  $args[':username'] = $username;
   echo json_encode(getNumberReportsFiled($dbh,$args));
 
 });
 
-/*$app->get('/api/getNumberReportsApproved/:username')
-username=username and count from paidReports
+function getNumberReportsApproved($dbh, $args){
+  $statement = $dbh->prepare(
+  "SELECT COUNT(p.reportID) AS num FROM paidReport p INNER JOIN Report r ON p.reportID = r.reportID
+  WHERE r.username = :username");
+
+  if($statement->execute($args))
+  {
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    $result['error'] = '0';
+    $result['message'] = 'success';
+    $result['numberOfReports'] = $row['num'];
+  }
+  else {
+    $result['error'] = '1';
+    $result['message'] = 'statement did not execute';
+  }
+  return $result;
+}
+
+$app->get('/api/getNumberReportsApproved/:username', function($username) use($dbh) {
+  $args[':username'] = $username;
+  echo json_encode(getNumberReportsApproved($dbh,$args));
+});
 /*
   Ryan Edson
   returns all bounties a user has logged on a certain bounty
