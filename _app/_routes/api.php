@@ -495,6 +495,25 @@ function getBountyFromBountyID($dbh, $args) {
   return $result;
 }
 
+function getNumberReportsFiled($dbh,$args){
+
+  $statement =$dbh->prepare(
+  "SELECT COUNT(reportID) AS num FROM Report WHERE username=:username");
+
+  if($statement->execute($args))
+  {
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    $result['error'] = '0';
+    $result['message'] = 'success';
+    $result['numberOfReports'] = $row['num'];
+  }
+  else {
+    $result['error'] = '1';
+    $result['message'] = 'statement did not execute';
+  }
+  return $result;
+}
+
 function createRSS($dbh, $args) {
 
   $file_path = $args['link']."/rss_".$args['username'].".xml";
@@ -1033,11 +1052,19 @@ Incomplete
 */
 $app->get('/api/getReportsFromBountyID/:bountyID', function($bountyID) use ($dbh) {
 
-  $args[':bountyID'] = $_GET['bountyID'];
+  $args[':bountyID'] = $bountyID;
   echo json_encode(getReportsFromBountyID($dbh,$args));
 
   });
 
+$app->get('/api/getNumberReportsFiled/:username', function($reportID) use($dbh) {
+  $args[':username'] = $reportID;
+  echo json_encode(getNumberReportsFiled($dbh,$args));
+
+});
+
+/*$app->get('/api/getNumberReportsApproved/:username')
+username=username and count from paidReports
 /*
   Ryan Edson
   returns all bounties a user has logged on a certain bounty
