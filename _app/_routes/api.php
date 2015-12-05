@@ -53,6 +53,28 @@ function loginUser($dbh, $args) {
   }
 }
 
+function updateUserDetails($dbh,$args,$pass)
+{
+  $args2[':userID'] = $_SESSION['userID'];
+  $args2[':pass'] = $pass;
+	$statement = $dbh-prepare("
+	UPDATE Account
+	SET $args
+	WHERE userID = :userID
+	AND password=:pass");
+	if($statement->execute($args2))
+	{
+		$result['error'] = 0;
+		$result['message'] = "success";
+	}
+	else
+	{
+		$result['error'] = 1;
+		$result['message'] = "Statement not executed";
+	}
+	return $result;
+}
+
 function signUpUser($dbh, $args) {
   $result['status'] = "complete";
   $args[":imageLoc"] = "/_images/_profiles/_".$args[':username']."/profile.png";
@@ -499,7 +521,7 @@ function createRSS($dbh, $args) {
   $xml = $xml."\t</channel>\n";
   $xml = $xml."</rss>\n";
 
-  try { 
+  try {
 
     $xmlTest = simplexml_load_string($xml);
 
@@ -513,7 +535,7 @@ function createRSS($dbh, $args) {
     fwrite($rss_file, $xml);
 
     $statement = $dbh->prepare("
-    UPDATE Account 
+    UPDATE Account
     SET rssCreated = 1, rssLink = :rssLink
     WHERE username = :username"
    );
@@ -549,7 +571,7 @@ function addRSS($dbh, $args) {
     $xml = simplexml_load_file($args['link']);
 
 
-    $new_item = $xml->channel->addChild("item"); 
+    $new_item = $xml->channel->addChild("item");
 
     $new_item->addChild("title", $args['title']);
     $new_item->addChild("description", $args['description']);
@@ -896,6 +918,18 @@ $app->post('/api/updateReport', function() use ($dbh) {
   echo json_encode($result);
 });
 
+$app->post('/api/updateReport', function() use ($dbh) {
+
+  $args[':reportID'] = $_POST['reportID'];
+  $args[':payAmount'] = $_POST['payAmount']; //pay amount of 0 clearly means the bounty was not accepted
+  $args[':username'] = $_POST['username'];
+  $args[':message'] = $_POST['message'];
+
+  $result = updateReport($dbh, $args);
+
+  echo json_encode($result);
+});
+
   /*
   Ryan Edson
   Returns all reports a username has submitted
@@ -910,6 +944,31 @@ $app->get('/api/getReportsFromUsername/:username', function($username) use ($dbh
   $args[':username'] = $_GET['username'];
   echo json_encode(getReportsFromUsername($dbh,$args));
   });
+
+$app->get('/api/getReportFromReportID/:reportID', function($reportID) use ($dbh) {
+
+  $args[':reportID'] = $_GET['reportID'];
+  $statement = $dbh->prepare("
+  SELECT * FROM Report
+      WHERE reportID = :reportID"
+  );
+  if ($statement->execute($args))
+  {
+    $result['report'] = array();
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+    {
+     array_push($result['report'],$row);
+    }
+    $result['error'] = 0;
+  }
+  else {
+    $result['report'] = array();
+    $result['error'] = 1;
+    $result['message'] = "Statement not executed";
+  }
+
+  echo json_encode($result);
+});
 
   /*
   Andre Gras
@@ -1039,13 +1098,33 @@ $app->get('/api/getClientToken', function() use ($dbh){
 $app->post('/api/payReport', function() use ($dbh){
   $nonce = $_POST['payment_method_nonce'];
   $amount = $_POST['amount'];
+  $args[":hunterID"] = $_POST['hunterID'];
+  $args[":marshallID"] = $_POST['marshallID'];
+  $args[":reportID"] = $_POST['reportID'];
+  $args[":bountyID"] = $_POST['bountyID'];
   $result = Braintree_Transaction::sale([
     'amount' => $amount,
     'paymentMethodNonce' => $nonce,
   ]);
-
+  $args[':transactionID'] = $result->transaction->id;
+  $args[':amount'] = $amount;
+  $args[':paymentInfo'] = $result->transaction->creditCardDetails;
   $result2['amount'] = $amount;
   $result2['paymentMethodNonce'] = $nonce;
+
+  $statement = $dbh->prepare("
+  INSERT INTO Transactions (transactionID, hunterID, marshallID, amount, paymentInfo, reportID, bountyID)
+  VALUES (:transactionID,:hunterID,:marshallID, :amount, :paymentInfo, :reportID, :bountyID)");
+
+  if($statement->execute($args))
+  {
+    $result2['error'] = '0';
+    $result2['message'] = 'success';
+  }
+  else{
+    $result2['error'] = '1';
+    $result2['message'] = 'statement not executed';
+  }
 
   echo json_encode($result);
   echo json_encode($result2);
@@ -1104,4 +1183,31 @@ $app->get('/api/addSubscription', function($companyName) use ($dbh) {
 
   echo json_encode(addSubscription($dbh, $args), JSON_UNESCAPED_SLASHES);
 
+});
+
+$app->post('/api/updateUserDetails',function() use($dbh)
+{
+	$changeVal = $_POST['changeCode'];
+	$change = '';
+	if($changeVal == 0 | $changeVal == 3 | $changeVal == 4 | $changeVal == 6)
+	{
+		$change = $change."user=".$_POST['username'];
+	}
+	if($changeVal == 2 | $changeVal == 3 | $changeVal == 4 | $changeVal == 6)
+	{
+		$change = $change.',';
+	}
+	if($changeVal == 1 | $changeVal == 2 | $changeVal == 3 | $changeVal == 6)
+	{
+		$change = $change."email=".$_POST['email'];
+	}
+	if($changeVal == 5 | $changeVal == 6)
+	{
+		$change = $change.",";
+	}
+	if($changeVal == 2 | $changeVal == 4 | $changeVal == 5 | $changeVal == 6)
+	{
+		$change = $change."password=".$_POST['new_password'];
+	}
+	echo json_encode(updateUserDetails($dbh,$change,$_POST['password']));
 });
