@@ -314,7 +314,7 @@ CREATE TABLE IF NOT EXISTS `Transactions` (
   `transactionID` VARCHAR(8) unsigned NOT NULL,
   `hunterID` int(10) unsigned NOT NULL,
   `marshallID` int(10) unsigned NOT NULL,
-  `amount` VARCHAR(10) NOT NULL,
+  `amount` int(10) NOT NULL,
   `paymentInfo` mediumtext NOT NULL,
   `reportID` int(10) unsigned NOT NULL,
   `bountyID` int(10) unsigned NOT NULL,
