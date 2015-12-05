@@ -795,6 +795,78 @@ $app->post('/api/loginUser', function () use ($dbh) {
   echo json_encode($result);
 });
 
+/*Danny Rizzuto 
+Check to see if username is available
+*/
+
+$app->get('/api/usernameTaken/:username', function($username) use ($dbh) {
+
+  $args[':username'] = $username;
+
+  $result = [];
+
+  $statement = $dbh->prepare("
+    SELECT username
+    FROM Account 
+    WHERE username = :username"
+  );
+
+  if($statement->execute($args)) {
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    if (isset($row['username'])) {
+      $result['taken'] = '1';
+      $result['error'] = '0';
+    }
+    else {
+      $result['taken'] = '0';
+      $result['error'] = '0';
+    }
+  }
+  else {
+    $result['error'] = '1';
+    $result['message'] = "The username and password combination did not work";
+  }
+
+  echo json_encode($result);
+
+});
+
+/*Danny Rizzuto 
+Check to see if email is available
+*/
+
+$app->get('/api/emailTaken/:email', function($email) use ($dbh) {
+
+  $args[':email'] = $email;
+
+  $result = [];
+
+  $statement = $dbh->prepare("
+    SELECT email
+    FROM Account 
+    WHERE email = :email"
+  );
+
+  if($statement->execute($args)) {
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    if (isset($row['email'])) {
+      $result['taken'] = '1';
+      $result['error'] = '0';
+    }
+    else {
+      $result['taken'] = '0';
+      $result['error'] = '0';
+    }
+  }
+  else {
+    $result['error'] = '1';
+    $result['message'] = "The username and password combination did not work";
+  }
+
+  echo json_encode($result);
+
+});
+
 /*
 Danny Rizzuto
 Sign Up a user

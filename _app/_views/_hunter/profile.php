@@ -36,6 +36,13 @@
             <div class="form-group">
                 <label for="InputName"></label>
                 <div class="input-group">
+                  <span class="input-group-addon addOnCustom">Name</span>
+                  <p class="form-control formControlCustom">{{user.name}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="InputName"></label>
+                <div class="input-group">
                   <span class="input-group-addon addOnCustom">Email</span>
                   <p class="form-control formControlCustom">{{user.email}}</p>
                 </div>
@@ -45,13 +52,6 @@
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Joined</span>
                   <p class="form-control formControlCustom">{{user.dateJoined}}</p>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="InputName"></label>
-                <div class="input-group">
-                  <span class="input-group-addon addOnCustom">Name</span>
-                  <p class="form-control formControlCustom">{{user.name}}</p>
                 </div>
             </div>
           </form>

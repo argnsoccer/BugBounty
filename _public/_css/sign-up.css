@@ -1,7 +1,24 @@
-body {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #eee;
+#stepDisplay {
+  padding: 2px;
+  display: inline-block;
+  margin-right: auto;
+  margin-left: auto;
+  border-style: inset;
+}
+
+.stepBlock {
+  display: inline-block;
+  text-align: center;
+  border-color: black;
+  padding: 10px;
+}
+
+.headerStep, .descStep {
+  display: inline;
+}
+
+.activeStep {
+  background-color: #F56960;
 }
 
 .form-signin {
