@@ -22,9 +22,9 @@ function prepareHunterProfile($dbh, $username) {
 
 		$template_array['user']['numReportsFiled'] = $dummy_reports['numberOfReports'];
 
-		// $dummy_reports = getNumberReportsApproved($dbh, $args);
+		$dummy_reports = getNumberReportsApproved($dbh, $args);
 
-		// $template_array['user']['numReportsApproved'] = $dummy_reports['numberOfReports'];
+		$template_array['user']['numReportsApproved'] = $dummy_reports['numberOfReports'];
 
 		$template_array['error'] = 0; //for time being
 

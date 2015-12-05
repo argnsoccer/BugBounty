@@ -94,6 +94,8 @@
             </div>
           </form>
         </div>
+<!-- 
+        http://codepen.io/lukepeters/pen/bfFur -->
 
         <div class="col-md-6 tableTop">
          <h3 class="tableTitle">Recent Bounties<h3>
