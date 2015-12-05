@@ -1,3 +1,62 @@
+function checkUpdate(userInfo) {
+  var setVariables = {};
+  var code = -3;
+
+  if (userInfo["password"] == "") {
+    code = -2;
+
+    return code;
+  }
+
+  if(userInfo['username'] != '') {
+      setVariables["username"] = 1;
+  }
+  if(userInfo['email'] != '') {
+      setVariables["email"] = 1;
+  }
+  if(userInfo['newPassword'] != '') {
+      if(userInfo['newPassword'] == userInfo["confirmPassword"]) {
+          setVariables["newPassword"] = 1;
+      }
+      else {
+          code = -1;
+          return code;
+      }
+  }
+
+  if (setVariables["username"]) {
+      if (setVariables["email"]) {
+          if (setVariables["newPassword"]) {
+              code = 6;
+          }
+          else {
+              code = 3;
+          }
+      }
+      else if (setVariables["newPassword"]) {
+          code = 4;
+      }
+      else {
+          code = 0;
+      }
+  }
+  else if (setVariables["email"]) {
+      if (setVariables["newPassword"]) {
+          code = 5;
+      }
+      else {
+          code = 1
+      }
+  }
+  else if(setVariables["newPassword"]) {
+      code = 2;
+  }
+
+  return code;
+
+}
+
+
 $(document).ready(function () {
 
 //Profile -----------------------------------
@@ -7,25 +66,57 @@ $(document).ready(function () {
 
     userInfo["username"] = $("#changeUsernameForm").val();
     userInfo["email"] = $("#changeEmailForm").val();
-    userInfo["oldPassword"] = $("#changePassworldOldForm").val();
+    userInfo["password"] = $("#changePassworldOldForm").val();
     userInfo["newPassword"] = $("#changePasswordNewForm").val();
     userInfo["confirmPassword"] = $("#changePasswordConfirmForm").val();
 
-    $('#profileChangeModal').modal('hide');
+    var code = checkUpdate(userInfo);
 
-            $.notify({
-          // options
-          message: "  " + "Profile Info Updated",
-          icon: 'glyphicon glyphicon-ok'
-          },{
-          // settings
-          type: 'success',
-          placement: {
-            from: "top",
-            align: "right",
-            allow_dismiss: true,
-          }
-        });
+    if (code == -2) {
+
+      $('#changePassworldOldForm').val('');
+      $('#changePassworldNewForm').val('');
+      $('#changePassworldConfirmForm').val('');
+
+      $.notify({
+        // options
+        message: "  " + "Include your password",
+        icon: 'glyphicon glyphicon-remove-circle'
+        },{
+        // settings
+        type: 'danger',
+        placement: {
+          from: "bottom",
+          align: "right",
+          allow_dismiss: true,
+        }
+      });
+    }
+    else if (code == -1) {
+
+      $('#changePassworldOldForm').val('');
+      $('#changePassworldNewForm').val('');
+      $('#changePassworldConfirmForm').val('');
+
+      $.notify({
+        // options
+        message: "  " + "New and Confirm do not match",
+        icon: 'glyphicon glyphicon-remove-circle'
+        },{
+        // settings
+        type: 'danger',
+        placement: {
+          from: "bottom",
+          align: "right",
+          allow_dismiss: true,
+        }
+      });
+    }
+    else {
+
+      $('#profileChangeModal').modal('hide');
+      
+    }
 
     // $.ajax({
     //   url: '/api/addRSS',

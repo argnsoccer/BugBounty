@@ -44,7 +44,7 @@
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Joined</span>
-                  <p class="form-control formControlCustom">{{user.datejoined}}</p>
+                  <p class="form-control formControlCustom">{{user.dateJoined}}</p>
                 </div>
             </div>
             <div class="form-group">
@@ -201,23 +201,23 @@
                 <div class="modal-body">
                   <div class="input-group">
                     <span class="input-group-addon addOnCustom">Username</span>
-                    <input type ="text" class="form-control" id="changeUsernameForm">
+                    <input type ="text" class="form-control modalInput" id="changeUsernameForm">
                   </div>
                   <div class="input-group">
                     <span class="input-group-addon addOnCustom">Email</span>
-                    <input type ="text" class="form-control" id="changeEmailForm">
+                    <input type ="text" class="form-control modalInput" id="changeEmailForm">
                   </div>
                   <div class="input-group">
                     <span class="input-group-addon addOnCustom">Old Password</span>
-                    <input type ="password" class="form-control" id="changePassworldOldForm">
+                    <input type ="password" class="form-control modalInput" id="changePassworldOldForm">
                   </div>
                   <div class="input-group">
                     <span class="input-group-addon addOnCustom">New Password</span>
-                    <input type ="password" class="form-control" id="changePasswordNewForm">
+                    <input type ="password" class="form-control modalInput" id="changePasswordNewForm">
                   </div>
                   <div class="input-group">
                     <span class="input-group-addon addOnCustom">Confirm Password</span>
-                    <input type ="password" class="form-control" id="changePasswordConfirmForm">
+                    <input type ="password" class="form-control modalInput" id="changePasswordConfirmForm">
                   </div>
                 </div>
               </form>
@@ -239,15 +239,15 @@
                 <div class="modal-body">
                   <div class="input-group">
                     <span class="input-group-addon addOnCustom">Option 1</span>
-                    <input type ="text" class="form-control" id="changePaymentOption1Form">
+                    <input type ="text" class="form-control modalInput" id="changePaymentOption1Form">
                   </div>
                   <div class="input-group">
                     <span class="input-group-addon addOnCustom">Option 2</span>
-                    <input type ="text" class="form-control" id="changePaymentOption2Form">
+                    <input type ="text" class="form-control modalInput" id="changePaymentOption2Form">
                   </div>
                   <div class="input-group">
                     <span class="input-group-addon addOnCustom">Password</span>
-                    <input type ="password" class="form-control" id="changePaymentPasswordForm">
+                    <input type ="password" class="form-control modalInput" id="changePaymentPasswordForm">
                   </div>
                 </div>
               </form>

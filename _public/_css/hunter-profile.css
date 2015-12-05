@@ -96,3 +96,18 @@ table, th, td {
      cursor: pointer;
 }
 
+.input-group {
+  width: 100%;
+}
+
+.formControlCustom {
+  text-align: center;
+}
+
+.modal-footer {
+  height: 40px;
+}
+
+.modalInput {
+  text-align: center;
+}
