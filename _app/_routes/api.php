@@ -99,7 +99,7 @@ function getUserFromUsername($dbh, $args) {
   //Simple Select query which returns username, email, and type
 
   $statement = $dbh->prepare("
-  SELECT username, email, accountType, imageLoc FROM Account WHERE username = :username");
+  SELECT username, name, email, accountType, imageLoc, dateCreated FROM Account WHERE username = :username");
 
   if($statement->execute($args))
   {
@@ -110,6 +110,8 @@ function getUserFromUsername($dbh, $args) {
     $result['email'] = $row['email'];
     $result['proPic'] = $row['imageLoc'];
     $result['error'] = '0';
+    $result['name'] = $row['name'];
+    $result['dateJoined'] = substr($row['dateCreated'], 0, -9);
   }
   else
   {
