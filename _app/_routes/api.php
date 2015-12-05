@@ -944,18 +944,16 @@ $app->get('/api/getReportsFromUsername/:username', function($username) use ($dbh
   });
 
 $app->get('/api/getReportFromReportID/:reportID', function($reportID) use ($dbh) {
-
-  $args[':reportID'] = $_GET['reportID'];
-  $statement = $dbh->prepare("
-  SELECT * FROM Report
-      WHERE reportID = :reportID"
-  );
+  $args[':reportID'] = $reportID;
+  $statement = $dbh->prepare(
+  "SELECT * FROM Report
+  WHERE reportID = :reportID");
   if ($statement->execute($args))
   {
     $result['report'] = array();
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
-     array_push($result['report'],$row);
+      array_push($result['report'],$row);
     }
     $result['error'] = 0;
   }
@@ -1093,6 +1091,7 @@ $app->get('/api/getClientToken', function() use ($dbh){
   echo($clientToken);
 });
 
+//Andre Gras
 $app->post('/api/payReport', function() use ($dbh){
   $nonce = $_POST['payment_method_nonce'];
   $amount = $_POST['amount'];
@@ -1107,21 +1106,30 @@ $app->post('/api/payReport', function() use ($dbh){
   $args[':transactionID'] = $result->transaction->id;
   $args[':amount'] = $amount;
   $args[':paymentInfo'] = $result->transaction->creditCardDetails;
-  $result2['amount'] = $amount;
-  $result2['paymentMethodNonce'] = $nonce;
 
-  $statement = $dbh->prepare("
-  INSERT INTO Transactions (transactionID, hunterID, marshallID, amount, paymentInfo, reportID, bountyID)
+  $statement = $dbh->prepare(
+  "INSERT INTO Transactions (transactionID, hunterID, marshallID, amount, paymentInfo, reportID, bountyID)
   VALUES (:transactionID,:hunterID,:marshallID, :amount, :paymentInfo, :reportID, :bountyID)");
 
   if($statement->execute($args))
   {
-    $result2['error'] = '0';
-    $result2['message'] = 'success';
+    $statement = $dbh->prepare(
+    "INSERT INTO paidReport (reportID, paidAmount, datePaid, message, publish)
+    VALUES (:reportID, :amount, now(), 'This report has been paid to ANONYMOOSE', 0)");
+
+    if($statement->execute($args))
+    {
+      $result2['error'] = '0';
+      $result2['message'] = 'second statement success. Transaction complete.';
+    }
+    else{
+      $result2['error'] = '2';
+      $result2['message'] = 'second statement not executed';
+    }
   }
   else{
     $result2['error'] = '1';
-    $result2['message'] = 'statement not executed';
+    $result2['message'] = 'first statement not executed';
   }
 
   echo json_encode($result);
