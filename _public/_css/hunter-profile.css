@@ -80,6 +80,10 @@ textarea {
   width: 100%;
 }
 
+.input-group-Modal {
+  padding: 5px;
+}
+
 .formControlCustom {
   text-align: center;
 }

@@ -6,7 +6,7 @@
       <link rel="shortcut icon" type="image/x-icon" href="../_images/_logos/bug-hunter-icon.ico" />
       <link rel="stylesheet" type="text/css" href="/../_css/header.css">
       <link rel="stylesheet" type="text/css" href="/../_css/default.css">
-      <link rel="stylesheet" type="text/css" href="/../_css/home-hunter.css">
+      <link rel="stylesheet" type="text/css" href="/../_css/hunter-home.css">
 
       {{include ('bootstrap_header.php')}}
   </head>
@@ -14,7 +14,7 @@
     {{ include ('header_hunter.php') }}
 
     <div class="container-fluid">
-      <div class="row hunterBackground">
+      <div class="row">
 
         <div class="col-md-8">
           <div class="box">
@@ -31,39 +31,28 @@
                     data-cycle-center-horz=true
                     data-cycle-center-vert=true>
                       <div class="bounty">
-                        <img class="img-circle" src={{bountyArray[0].imageLoc}}>
-                        <h3 class="bountyName">{{preferredBounties.bountyArray[0].bountyName}}</h3>
+                        <img class="img-circle" src={{preferredBounties.bountyArray[0].imageLoc}}>
+                        <h3 class="bountyName">
+                          <a href="/_hunter/bounty/{{preferredBounties.bountyArray[0].poolID}}">
+                            {{preferredBounties.bountyArray[0].bountyName}}
+                          </a>
+                        </h3>
                       </div>
                       <div class="bounty">
-                        <img class="img-circle" src={{bountyArray[1].imageLoc}}>
-                        <h3 class="bountyName">{{preferredBounties.bountyArray[1].bountyName}}</h3>
+                        <img class="img-circle" src={{preferredBounties.bountyArray[1].imageLoc}}>
+                        <h3 class="bountyName">
+                          <a href="/_hunter/bounty/{{preferredBounties.bountyArray[1].poolID}}">
+                            {{preferredBounties.bountyArray[1].bountyName}}
+                          </a>
+                        </h3>
                       </div>
                       <div class="bounty">
-                        <img class="img-circle" src={{bountyArray[2].imageLoc}}>
-                        <h3 class="bountyName">{{preferredBounties.bountyArray[2].bountyName}}</h3>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-4">
-                    <div class="cycle-slideshow bountyWall" 
-                    data-cycle-fx=fade 
-                    data-cycle-timeout=3000 
-                    data-cycle-caption="#adv-custom-caption"
-                    data-cycle-slides="> div"
-                    data-cycle-center-horz=true
-                    data-cycle-center-vert=true>
-                      <div class="bounty">
-                        <img class="img-circle" src={{bountyArray[3].imageLoc}}>
-                        <h3 class="bountyName">{{preferredBounties.bountyArray[3].bountyName}}</h3>
-                      </div>
-                      <div class="bounty">
-                        <img class="img-circle" src={{bountyArray[4].imageLoc}}>
-                        <h3 class="bountyName">{{preferredBounties.bountyArray[4].bountyName}}</h3>
-                      </div>
-                      <div class="bounty">
-                        <img class="img-circle" src={{bountyArray[5].imageLoc}}>
-                        <h3 class="bountyName">{{preferredBounties.bountyArray[5].bountyName}}</h3>
+                        <img class="img-circle" src={{preferredBounties.bountyArray[2].imageLoc}}>
+                        <h3 class="bountyName">
+                          <a href="/_hunter/bounty/{{preferredBounties.bountyArray[2].poolID}}">
+                            {{preferredBounties.bountyArray[2].bountyName}}
+                          </a>
+                        </h3>
                       </div>
                     </div>
                   </div>
@@ -77,16 +66,63 @@
                     data-cycle-center-horz=true
                     data-cycle-center-vert=true>
                       <div class="bounty">
-                        <img class="img-circle" src={{bountyArray[6].imageLoc}}>
-                        <h3 class="bountyName">{{preferredBounties.bountyArray[6].bountyName}}</h3>
+                        <img class="img-circle" src={{preferredBounties.bountyArray[3].imageLoc}}>
+                        <h3 class="bountyName">
+                          <a href="/_hunter/bounty/{{preferredBounties.bountyArray[3].poolID}}">
+                            {{preferredBounties.bountyArray[3].bountyName}}
+                          </a>
+                        </h3>
                       </div>
                       <div class="bounty">
-                        <img class="img-circle" src={{bountyArray[7].imageLoc}}>
-                        <h3 class="bountyName">{{preferredBounties.bountyArray[7].bountyName}}</h3>
+                        <img class="img-circle" src={{preferredBounties.bountyArray[4].imageLoc}}>
+                        <h3 class="bountyName">
+                          <a href="/_hunter/bounty/{{preferredBounties.bountyArray[4].poolID}}">
+                            {{preferredBounties.bountyArray[4].bountyName}}
+                          </a>
+                        </h3>
                       </div>
                       <div class="bounty">
-                        <img class="img-circle" src={{bountyArray[8].imageLoc}}>
-                        <h3 class="bountyName">{{preferredBounties.bountyArray[8].bountyName}}</h3>
+                        <img class="img-circle" src={{preferredBounties.bountyArray[5].imageLoc}}>
+                        <h3 class="bountyName">
+                          <a href="/_hunter/bounty/{{preferredBounties.bountyArray[5].poolID}}">
+                            {{preferredBounties.bountyArray[5].bountyName}}
+                          </a>
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="cycle-slideshow bountyWall" 
+                    data-cycle-fx=fade 
+                    data-cycle-timeout=3000 
+                    data-cycle-caption="#adv-custom-caption"
+                    data-cycle-slides="> div"
+                    data-cycle-center-horz=true
+                    data-cycle-center-vert=true>
+                      <div class="bounty">
+                        <img class="img-circle" src={{preferredBounties.bountyArray[6].imageLoc}}>
+                        <h3 class="bountyName">
+                          <a href="/_hunter/bounty/{{preferredBounties.bountyArray[6].poolID}}">
+                            {{preferredBounties.bountyArray[6].bountyName}}
+                          </a>
+                        </h3>
+                      </div>
+                      <div class="bounty">
+                        <img class="img-circle" src={{preferredBounties.bountyArray[7].imageLoc}}>
+                        <h3 class="bountyName">
+                          <a href="/_hunter/bounty/{{preferredBounties.bountyArray[7].poolID}}">
+                            {{preferredBounties.bountyArray[7].bountyName}}
+                          </a>
+                        </h3>
+                      </div>
+                      <div class="bounty">
+                        <img class="img-circle" src={{preferredBounties.bountyArray[8].imageLoc}}>
+                        <h3 class="bountyName">
+                          <a href="/_hunter/bounty/{{preferredBounties.bountyArray[8].poolID}}">
+                            {{preferredBounties.bountyArray[8].bountyName}}
+                          </a>
+                        </h3>
                       </div>
                     </div>
                   </div>
@@ -101,28 +137,24 @@
           <div class="box">
             <h3>Track</h3>
             <p class="description">Quickly jump into past bounties!</p>
-
             <table>
-              <thead>
-                <tr>
-                  <th>Bounty<br>Name</th>
-                  <th>Company<br>Name</th>
-                  <th>Last<br>activity</th>
-                  <th>Pending<br>Reports</th>
-                </tr>
-              </thead>
               <tbody>
-                {% for bounty in trackBounties %}
-                <tr class="pastRow">
-                  <td><a href="/_hunter/hunt/{{bounty.id}}">{{bounty.name}}</a></td>
-                  <td><a href="/_hunter/hunt/{{trackBounties[0].id}}">{{bounty.company}}</a></td>
-                  <td><a href="/_hunter/hunt/{{trackBounties[0].id}}">{{bounty.date}}</a></td>
-                  <td><a href="/_hunter/hunt/{{trackBounties[0].id}}">{{bounty.number}}</a></td>
+                <tr class="rowTable header">
+                  <th class="cell">Bounty Name</th>
+                  <th class="cell">Company Name</th>
+                  <th class="cell">Last Activity</th>
+                  <th class="cell">Pending Reports</th>
                 </tr>
+                {% for bounty in trackBounties %}
+                <tr class="rowTable">
+                  <td class="cell"><a href="/_hunter/bounty/{{bounty.id}}">{{bounty.name}}</a></td>
+                  <td class="cell"><a href="/_hunter/company/{{bounty.company}}">{{bounty.company}}</a></td>
+                  <td class="cell">{{bounty.date}}</td>
+                  <td class="cell">{{bounty.number}}</td>
+                </tr> 
                 {% endfor %}
               </tbody>
             </table>
-
           </div>
         </div>
 
@@ -145,7 +177,7 @@
               var params = {
                 rssmikle_url: "http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/_rss/_profiles/_testMarshall1/rss_testMarshall1.xml",
                 rssmikle_frame_width: "350",
-                rssmikle_frame_height: "500",
+                rssmikle_frame_height: "400",
                 frame_height_by_article: "0",
                 rssmikle_target: "_blank",
                 rssmikle_font: "Arial, Helvetica, sans-serif",
@@ -193,7 +225,7 @@
             ();
           </script>
 
-          <div id="rssBox" style="font-size:10px; text-align:center; width:400px;">
+          <div id="rssBox" style="font-size:10px; text-align:center; width:370px;">
             <a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a>
           </div><!-- end feedwind code -->
 
@@ -201,15 +233,7 @@
 
         <div class="col-md-7">
 
-          <div class="col-md-12">
-            <h3>Updates</h3>
-            <p>dfsklajlkshdjkhgsflkdhgkljdfhgkjldhkjfshdakljfhksajdfhkjlasdhksadhkjfhsadkjlfhs
-              sdkjfhskldjhfkjlshadkjfhsakljdfhslkdjfhkldjsahfsklajhfkjlsadhfkjasdhfklsajdhfklj
-              sfdjklhkjlsadhlkjsadhfkjlsadhkjflhskdljahfkjlashkjlfhdsalkjhfkjlsadhkjfdsjaljfhl
-            </p>
-          </div>
-
-          <div class="col-md-12">
+          <div class="col-md-12" class="bottomBox">
             <h3>New to BugBounty?</h3>
             <p>Bug Bounty is a website where companies pay you for finding bugs in their
               websites.  They post a bounty and you can either come to the site and press
@@ -218,7 +242,23 @@
               <a href="/why">Why Us</a> in the navigation bar to find out more!  Happy Hunting, get them pesky bugs.
             </p>
           </div>
-      
+
+          <div class="col-md-12" class="bottomBox">
+            <h3>Message of the Day</h3>
+            <p>dfsklajlkshdjkhgsflkdhgkljdfhgkjldhkjfshdakljfhksajdfhkjlasdhksadhkjfhsadkjlfhs
+              sdkjfhskldjhfkjlshadkjfhsakljdfhslkdjfhkldjsahfsklajhfkjlsadhfkjasdhfklsajdhfklj
+              sfdjklhkjlsadhlkjsadhfkjlsadhkjflhskdljahfkjlashkjlfhdsalkjhfkjlsadhkjfdsjaljfhl
+            </p>
+          </div>
+
+          <div class="col-md-12" class="bottomBoxS">
+            <h3>Advice</h3>
+            <p>dfsklajlkshdjkhgsflkdhgkljdfhgkjldhkjfshdakljfhksajdfhkjlasdhksadhkjfhsadkjlfhs
+              sdkjfhskldjhfkjlshadkjfhsakljdfhslkdjfhkldjsahfsklajhfkjlsadhfkjasdhfklsajdhfklj
+              sfdjklhkjlsadhlkjsadhfkjlsadhkjflhskdljahfkjlashkjlfhdsalkjhfkjlsadhkjfdsjaljfhl
+            </p>
+          </div>
+  
         </div>
       </div>
     </div>

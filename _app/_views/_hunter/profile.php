@@ -94,8 +94,6 @@
             </div>
           </form>
         </div>
-<!-- 
-  git add -->
 
         <div class="col-md-6 tableTop tableCol">
           <h3 class="tableTitle">Past Bounties</h3>
@@ -107,8 +105,8 @@
               </tr>
               {% for bounty in recentBounties %}
               <tr class="rowTable">
-                <td class="cell"><a href="/_hunter/bounty/{{bounty.id}}">{{bounty.name}}</a></td>
-                <td class="cell"><a href="/_hunter/company/{{user.id}}">{{bounty.company}}</a></td>
+                <td class="cell"><a href="/_hunter/bounty/{{bounty.bountyID}}">{{bounty.name}}</a></td>
+                <td class="cell"><a href="/_hunter/company/{{bounty.accountID}}">{{bounty.company}}</a></td>
               </tr> 
               {% endfor %}
             </tbody>
@@ -130,8 +128,8 @@
               {% for report in recentReports %}
               <tr class="rowTable">
                 <td class="cell">{{report.date}}</td>
-                <td class="cell">{{report.name}}</td>
-                <td class="cell">{{report.company}}</td>
+                <td class="cell"><a href="/_hunter/bounty/{{report.bountyID}}">{{report.name}}</td>
+                <td class="cell"><a href="/_hunter/company/{{report.accountID}}">{{report.company}}</a></td>
                 <td class="cell">{{report.amountPaid}}</td>
                 <td class="cell">
                   <button type="button" class="detailsButton" data-toggle="modal" 
@@ -163,17 +161,17 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label for="recipient-name" class="control-label">Error:</label>
-                  <textarea id="errorReport">
+                  <textarea id="errorReport" readonly>
                   </textarea>
                 </div>
                 <div class="form-group">
                   <label for="message-text" class="control-label">Description of Error:</label>
-                  <textarea id="descErrorReport">
+                  <textarea id="descErrorReport" readonly>
                   </textarea>
                 </div>
                 <div class="form-group">
                   <label for="message-text" class="control-label">Path to Error:</label>
-                  <textarea id="pathErrorReport">
+                  <textarea id="pathErrorReport" readonly>
                   </textarea>
                 </div>
               </div>
@@ -191,7 +189,7 @@
                <div class="modal-body">
                 <div class="form-group">
                   <label for="recipient-name" class="control-label">Message:</label>
-                  <textarea id="messageReport">
+                  <textarea id="messageReport" readonly>
                   </textarea>
                 </div>
               </div>
@@ -208,23 +206,23 @@
               <h4 class="modal-title" id="exampleModalLabel">Change Profile Details</h4>
               <form id="reportForm" data-ID={{bounty.id}} data-username={{username}}>
                 <div class="modal-body">
-                  <div class="input-group">
+                  <div class="input-group input-group-Modal">
                     <span class="input-group-addon addOnCustom">Username</span>
                     <input type ="text" class="form-control modalInput" id="changeUsernameForm">
                   </div>
-                  <div class="input-group">
+                  <div class="input-group input-group-Modal">
                     <span class="input-group-addon addOnCustom">Email</span>
                     <input type ="text" class="form-control modalInput" id="changeEmailForm">
                   </div>
-                  <div class="input-group">
+                  <div class="input-group input-group-Modal">
                     <span class="input-group-addon addOnCustom">Old Password</span>
                     <input type ="password" class="form-control modalInput" id="changePassworldOldForm">
                   </div>
-                  <div class="input-group">
+                  <div class="input-group input-group-Modal">
                     <span class="input-group-addon addOnCustom">New Password</span>
                     <input type ="password" class="form-control modalInput" id="changePasswordNewForm">
                   </div>
-                  <div class="input-group">
+                  <div class="input-group input-group-Modal">
                     <span class="input-group-addon addOnCustom">Confirm Password</span>
                     <input type ="password" class="form-control modalInput" id="changePasswordConfirmForm">
                   </div>
@@ -246,15 +244,15 @@
               <h4 class="modal-title" id="exampleModalLabel">Change Payment Details</h4>
               <form id="reportForm" data-ID={{bounty.id}} data-username={{username}}>
                 <div class="modal-body">
-                  <div class="input-group">
+                  <div class="input-group input-group-Modal">
                     <span class="input-group-addon addOnCustom">Option 1</span>
                     <input type ="text" class="form-control modalInput" id="changePaymentOption1Form">
                   </div>
-                  <div class="input-group">
+                  <div class="input-group input-group-Modal">
                     <span class="input-group-addon addOnCustom">Option 2</span>
                     <input type ="text" class="form-control modalInput" id="changePaymentOption2Form">
                   </div>
-                  <div class="input-group">
+                  <div class="input-group input-group-Modal">
                     <span class="input-group-addon addOnCustom">Password</span>
                     <input type ="password" class="form-control modalInput" id="changePaymentPasswordForm">
                   </div>

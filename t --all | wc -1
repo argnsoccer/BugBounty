@@ -1,0 +1,209 @@
+[33mcommit ec3b36751cdf1e0a192eea71c6dcd2f08f2a15bb[m
+Author: drizzutojr <drizzuto@smu.edu>
+Date:   Sat Dec 5 09:27:04 2015 -0600
+
+    profile done without all api calls
+
+[1mdiff --git a/_app/_routes/_hunter/profile.php b/_app/_routes/_hunter/profile.php[m
+[1mindex bc67d9a..c3948f7 100644[m
+[1m--- a/_app/_routes/_hunter/profile.php[m
+[1m+++ b/_app/_routes/_hunter/profile.php[m
+[36m@@ -36,6 +36,46 @@[m [mfunction prepareHunterProfile($dbh, $username) {[m
+ 			array([m
+ 				"name" => "name2",[m
+ 				"company" => "Apple"[m
+[32m+[m			[32m),[m
+[32m+[m			[32marray([m
+[32m+[m				[32m"name" => "name2",[m
+[32m+[m				[32m"company" => "Apple"[m
+[32m+[m			[32m),[m
+[32m+[m			[32marray([m
+[32m+[m				[32m"name" => "name2",[m
+[32m+[m				[32m"company" => "Apple"[m
+[32m+[m			[32m),[m
+[32m+[m			[32marray([m
+[32m+[m				[32m"name" => "name2",[m
+[32m+[m				[32m"company" => "Apple"[m
+[32m+[m			[32m),[m
+[32m+[m			[32marray([m
+[32m+[m				[32m"name" => "name2",[m
+[32m+[m				[32m"company" => "Apple"[m
+[32m+[m			[32m),[m
+[32m+[m			[32marray([m
+[32m+[m				[32m"name" => "name2",[m
+[32m+[m				[32m"company" => "Apple"[m
+[32m+[m			[32m),[m
+[32m+[m			[32marray([m
+[32m+[m				[32m"name" => "name2",[m
+[32m+[m				[32m"company" => "Apple"[m
+[32m+[m			[32m),[m
+[32m+[m			[32marray([m
+[32m+[m				[32m"name" => "name2",[m
+[32m+[m				[32m"company" => "Apple"[m
+[32m+[m			[32m),[m
+[32m+[m			[32marray([m
+[32m+[m				[32m"name" => "name2",[m
+[32m+[m				[32m"company" => "Apple"[m
+[32m+[m			[32m),[m
+[32m+[m			[32marray([m
+[32m+[m				[32m"name" => "name2",[m
+[32m+[m				[32m"company" => "Apple"[m
+[32m+[m			[32m),[m
+[32m+[m			[32marray([m
+[32m+[m				[32m"name" => "name2",[m
+[32m+[m				[32m"company" => "Apple"[m
+ 			)[m
+ 		);[m
+ [m
+[36m@@ -55,7 +95,71 @@[m [mfunction prepareHunterProfile($dbh, $username) {[m
+ 				"amountPaid" => "0.00",[m
+ 				"message" => "eh not an error",[m
+ 				"reportID" => "0002"[m
+[31m-			)[m
+[32m+[m			[32m),[m
+[32m+[m			[32marray([m
+[32m+[m				[32m"date" => "2012/12/05",[m
+[32m+[m				[32m"name" => "name2",[m
+[32m+[m				[32m"company" => "Apple",[m
+[32m+[m				[32m"amountPaid" => "0.00",[m
+[32m+[m				[32m"message" => "eh not an error",[m
+[32m+[m				[32m"reportID" => "0002"[m
+[32m+[m			[32m),[m
+[32m+[m			[32marray([m
+[32m+[m				[32m"date" => "2012/12/05",[m
+[32m+[m				[32m"name" => "name2",[m
+[32m+[m				[32m"company" => "Apple",[m
+[32m+[m				[32m"amountPaid" => "0.00",[m
+[32m+[m				[32m"message" => "eh not an error",[m
+[32m+[m				[32m"reportID" => "0002"[m
+[32m+[m			[32m),[m
+[32m+[m			[32marray([m
+[32m+[m				[32m"date" => "2012/12/05",[m
+[32m+[m				[32m"name" => "name2",[m
+[32m+[m				[32m"company" => "Apple",[m
+[32m+[m				[32m"amountPaid" => "0.00",[m
+[32m+[m				[32m"message" => "eh not an error",[m
+[32m+[m				[32m"reportID" => "0002"[m
+[32m+[m			[32m),[m
+[32m+[m			[32marray([m
+[32m+[m				[32m"date" => "2012/12/05",[m
+[32m+[m				[32m"name" => "name2",[m
+[32m+[m				[32m"company" => "Apple",[m
+[32m+[m				[32m"amountPaid" => "0.00",[m
+[32m+[m				[32m"message" => "eh not an error",[m
+[32m+[m				[32m"reportID" => "0002"[m
+[32m+[m			[32m),[m
+[32m+[m			[32marray([m
+[32m+[m				[32m"date" => "2012/12/05",[m
+[32m+[m				[32m"name" => "name2",[m
+[32m+[m				[32m"company" => "Apple",[m
+[32m+[m				[32m"amountPaid" => "0.00",[m
+[32m+[m				[32m"message" => "eh not an error",[m
+[32m+[m				[32m"reportID" => "0002"[m
+[32m+[m			[32m),[m
+[32m+[m			[32marray([m
+[32m+[m				[32m"date" => "2012/12/05",[m
+[32m+[m				[32m"name" => "name2",[m
+[32m+[m				[32m"company" => "Apple",[m
+[32m+[m				[32m"amountPaid" => "0.00",[m
+[32m+[m				[32m"message" => "eh not an error",[m
+[32m+[m				[32m"reportID" => "0002"[m
+[32m+[m			[32m),[m
+[32m+[m			[32marray([m
+[32m+[m				[32m"date" => "2012/12/05",[m
+[32m+[m				[32m"name" => "name2",[m
+[32m+[m				[32m"company" => "Apple",[m
+[32m+[m				[32m"amountPaid" => "0.00",[m
+[32m+[m				[32m"message" => "eh not an error",[m
+[32m+[m				[32m"reportID" => "0002"[m
+[32m+[m			[32m),[m
+[32m+[m			[32marray([m
+[32m+[m				[32m"date" => "2012/12/05",[m
+[32m+[m				[32m"name" => "name2",[m
+[32m+[m				[32m"company" => "Apple",[m
+[32m+[m				[32m"amountPaid" => "0.00",[m
+[32m+[m				[32m"message" => "eh not an error",[m
+[32m+[m				[32m"reportID" => "0002"[m
+[32m+[m			[32m),[m
+ 		);[m
+ [m
+ 		return $template_array;[m
+[1mdiff --git a/_app/_routes/api.php b/_app/_routes/api.php[m
+[1mindex ef4afe3..6b05e64 100644[m
+[1m--- a/_app/_routes/api.php[m
+[1m+++ b/_app/_routes/api.php[m
+[36m@@ -1101,7 +1101,7 @@[m [m$app->get('/api/getReportsFromUsername/:username', function($username) use ($dbh[m
+ [m
+   $args[':username'] = $_GET['username'];[m
+   echo json_encode(getReportsFromUsername($dbh,$args));[m
+[31m-  });[m
+[32m+[m[32m});[m
+ [m
+ $app->get('/api/getReportFromReportID/:reportID', function($reportID) use ($dbh) {[m
+   $args[':reportID'] = $reportID;[m
+[36m@@ -1110,12 +1110,9 @@[m [m$app->get('/api/getReportFromReportID/:reportID', function($reportID) use ($dbh)[m
+   WHERE reportID = :reportID");[m
+   if ($statement->execute($args))[m
+   {[m
+[31m-    $result['report'] = array();[m
+[31m-    while($row = $statement->fetch(PDO::FETCH_ASSOC))[m
+[31m-    {[m
+[31m-      array_push($result['report'],$row);[m
+[31m-    }[m
+[31m-    $result['error'] = 0;[m
+[32m+[m[32m    $row = $statement->fetch(PDO::FETCH_ASSOC);[m
+[32m+[m[32m    $result['error'] = '0';[m
+[32m+[m[32m    $result['report'] = $row;[m
+   }[m
+   else {[m
+     $result['report'] = array();[m
+[1mdiff --git a/_app/_views/_hunter/profile.php b/_app/_views/_hunter/profile.php[m
+[1mindex 7419559..2f36efa 100644[m
+[1m--- a/_app/_views/_hunter/profile.php[m
+[1m+++ b/_app/_views/_hunter/profile.php[m
+[36m@@ -1,4 +1,4 @@[m
+[31m-﻿<html>[m
+[32m+[m[32m<html>[m
+   <head>[m
+       <title>BugBounty Profile</title>[m
+       <link rel="shortcut icon" type="image/x-icon" href="../_images/_logos/bug-hunter-icon.ico" />[m
+[36m@@ -95,64 +95,63 @@[m
+           </form>[m
+         </div>[m
+ <!-- [m
+[31m-        http://codepen.io/lukepeters/pen/bfFur -->[m
+[32m+[m[32m  git add -->[m
+ [m
+[31m-        <div class="col-md-6 tableTop">[m
+[31m-         <h3 class="tableTitle">Recent Bounties<h3>[m
+[31m-           <table class="w3-table-all" style="width:100%">[m
+[32m+[m[32m        <div class="col-md-6 tableTop tableCol">[m
+[32m+[m[32m          <h3 class="tableTitle">Past Bounties</h3>[m
+[32m+[m[32m          <table>[m
+             <tbody>[m
+[31m-              <tr class="tableHeader">[m
+[31m-                <th>Bounty Name</th>[m
+[31m-                <th>Company</th>[m
+[32m+[m[32m              <tr class="rowTable header">[m
+[32m+[m[32m                <th class="cell">Bounty Name</th>[m
+[32m+[m[32m                <th class="cell">Company</th>[m
+               </tr>[m
+               {% for bounty in recentBounties %}[m
+[31m-              <tr class="tableRow">[m
+[31m-                <td><a>{{bounty.name}}</a></td>[m
+[31m-                <td><a>{{bounty.company}}</a></td>[m
+[31m-              </tr>[m
+[32m+[m[32m              <tr class="rowTable">[m
+[32m+[m[32m                <td class="cell"><a href="/_hunter/bounty/{{bounty.id}}">{{bounty.name}}</a></td>[m
+[32m+[m[32m                <td class="cell"><a href="/_hunter/company/{{user.id}}">{{bounty.company}}</a></td>[m
+[32m+[m[32m              </tr>[m[41m [m
+               {% endfor %}[m
+             </tbody>[m
+           </table>[m
+         </div>[m
+ [m
+         <div class="col-md-6 tableBottom">[m
+[31m-         <h3 class="tableTitle">Submitted Reports<h3>[m
+[31m-           <table class="w3-table-all" style="width:100%">[m
+[32m+[m[32m          <h3 class="tableTitle">Submitted Reports</h3>[m
+[32m+[m[32m          <table>[m

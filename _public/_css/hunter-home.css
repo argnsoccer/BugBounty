@@ -1,0 +1,95 @@
+/*table, thead, tbody {
+   border: 1px solid black;
+}*/
+
+/*td, th {
+	text-align: center;
+	height:40px;
+}*/
+
+.pastRow:hover { 
+	background: #FAFAFA; 
+}
+
+  #bountyBoard {
+  margin-top: 10px;
+  height: 200px;
+  margin-bottom: 20px;
+}
+
+.bountyWall {
+  margin-top: 5px;
+  background-image: url("/../_images/_random/wanted_240x308.png");
+  background-size: 166px 200px;
+  background-repeat: no-repeat;
+  background-position: center; 
+  height: 200px;
+}
+
+.bountyName {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.img-circle {
+  padding-top:11px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0px;
+  height: 100px;
+  width: 100px;
+}
+
+#discoverButton {
+	margin-left: auto;
+	margin-right: auto;
+  padding: 10px;
+}
+
+.bottomBox {
+  height: 33%;
+}
+
+.bottomBoxS {
+  height: 34%;
+}
+
+table {
+  margin-bottom: 40px;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  display: block;
+  height: 280px !important;
+  overflow-y: scroll;
+}
+
+.rowTable {
+  background: #f6f6f6;
+  width: 100%;
+}
+
+.rowTable:nth-of-type(odd) {
+  background: #e9e9e9;
+}
+
+.rowTable.header {
+  font-weight: 900;
+  color: #ffffff;
+  background: #ea6153;
+}
+
+.rowTable.green {
+  background: #27ae60;
+}
+
+.rowTable.blue {
+  background: #2980b9;
+}
+
+.cell {
+  padding: 5px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  text-align: center;
+}

@@ -17,10 +17,10 @@ function prepareBountyProPage($dbh, $bountyID) {
 	return $template_array;
 }
 
-$app->get('/_hunter/bountypro/:bountyID', function($bountyID) use ($app, $dbh) {
+$app->get('/_hunter/bounty/:bountyID', function($bountyID) use ($app, $dbh) {
 
 	$template_array = prepareBountyProPage($dbh, $bountyID);
 
-	$app->render('_hunter/bounty_pro.php', $template_array);
+	$app->render('_hunter/bounty.php', $template_array);
 
 });
