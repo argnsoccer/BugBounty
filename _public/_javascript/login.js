@@ -58,7 +58,26 @@ $(document).ready(function ()
           }
           else if (response['error'] == '1')
           {
-            alert("Please try again, username and password combination not recognized!");
+            // alert("Please try again, username and password combination not recognized!");
+
+            $.notify({
+              // options
+              message: "Please try again, username and password combination not recognized!",
+              icon: 'glyphicon glyphicon-remove-circle'
+              },{
+              // settings
+              type: 'danger',
+              z_indez: 1050,
+              delay: 100,
+              placement: {
+                from: "top",
+                align: "right",
+                allow_dismiss: true,
+              }
+            });
+
+            $("#usernameLogin").val('');
+            $("#passLogin").val('');
             return false;
           }
           else if (response['error'] == '2')

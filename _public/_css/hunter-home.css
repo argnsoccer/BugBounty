@@ -60,7 +60,7 @@ table {
   width: 100%;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   display: block;
-  height: 280px !important;
+  max-height: 280px !important;
   overflow-y: scroll;
 }
 

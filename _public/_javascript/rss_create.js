@@ -11,6 +11,7 @@ $(document).ready(function ()
     rssInfo["category"] = $("#rssCreateCategory").val();
     rssInfo["copyright"] = $("#rssCreateCopyright").val();
     rssInfo["description"] = $("#rssCreateDescription").val();
+    rssInfo["url"] = $("#rssCreateWebsite").val();
 
     $.ajax({
       url: '/api/createRSS',

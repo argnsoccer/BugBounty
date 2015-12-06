@@ -42,6 +42,13 @@
                 </div>
             </div>
             <div class="form-group">
+                <label for="InputEmail">Enter Website</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="glyphicon"></span></span>
+                  <input type="text" class="form-control" id="rssCreateWebsite" name="InputEmail" placeholder="Enter Website URL">
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="InputEmail">Enter Copyright</label>
                 <div class="input-group">
                   <span class="input-group-addon"><span class="glyphicon"></span></span>

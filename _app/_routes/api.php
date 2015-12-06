@@ -589,7 +589,7 @@ function createRSS($dbh, $args) {
   $xml = $xml."<rss version=\"2.0\">\n";
   $xml = $xml."\t<channel>\n";
   $xml = $xml."\t\t<title>".$args['title']."</title>\n";
-  $xml = $xml."\t\t<link>".$args['link']."</link>\n";
+  $xml = $xml."\t\t<link>".$args['url']."</link>\n";
 
   $xml = $xml."\t\t<image>\n";
   $xml = $xml."\t\t\t<url>".$args['imageURL']."</url>\n";
@@ -1330,10 +1330,11 @@ $app->post('/api/createRSS', function() use ($dbh) {
   $args['category'] = $_POST['category'];
   $args['copyright'] = $_POST['copyright'];
   $args['description'] = $_POST['description'];
+  $args['url'] = $_POST['url'];
 
   $args['link'] = "_rss/_profiles/_".$args['username'];
-  $args['imageURL'] = "_images/_profiles/_".$args['user']."/profile.png";
-  $args['imageTitle'] = $args['user']." RSS picture";
+  $args['imageURL'] = "_images/_profiles/_".$args['userLogin']."/profile.png";
+  $args['imageTitle'] = $args['user']." RSS picture for ".$args['userLogin'];
 
   $args['language'] = "en-us";
   $args['creationDate'] = date("Y/m/d");

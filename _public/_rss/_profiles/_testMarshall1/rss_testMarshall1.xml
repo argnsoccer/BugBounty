@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <rss version="2.0">
 	<channel>
-		<title>test1</title>
-		<link>_rss/_profiles/_testMarshall1</link>
+		<title>sdafsadf</title>
+		<link>asdfsadf</link>
 		<image>
 			<url>_images/_profiles/_/profile.png</url>
 			<title> RSS picture</title>
 			<link>_rss/_profiles/_testMarshall1/rss_testMarshall1.xml</link>
 		</image>
-		<description>test1</description>
+		<description>asdfadsfasdfas</description>
 		<language>en-us</language>
-		<category/>
-		<copyright>test1</copyright>
-		<lastBuildDate/>
+		<category></category>
+		<copyright>asdfsadfsad</copyright>
+		<lastBuildDate></lastBuildDate>
 		<ttl>340</ttl>
-	<item><title>fdasfd</title><description>sadfsadf</description><pubDate>2015/12/03</pubDate></item><item><title>holy</title><description>batman</description><pubDate>2015/12/03</pubDate></item></channel>
+	</channel>
 </rss>
