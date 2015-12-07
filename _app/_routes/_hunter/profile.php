@@ -103,7 +103,7 @@ function prepareHunterProfile($dbh, $username) {
 			)
 		);
 
-		$template_array['recentReports'] = array(
+		$template_array['recentReports'] = array( //getReportsFromUsename
 			array(
 				"date" => "2012/12/05",
 				"name" => "name1",
