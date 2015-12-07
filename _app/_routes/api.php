@@ -1,5 +1,102 @@
 <?php
 
+/*
+
+API DOCUMENTATION
+
+/api/test
+  Used to see if database is connected correctly
+
+/api/phpInfo
+  Displays php info
+
+/api/getLoggedInUser
+  Returns the logged in user
+
+/api/updateSesstion
+  Updates Session given property and value
+
+/api/deleteSession
+  Deletes current session, logging out user
+
+/api/loginUser - post
+  logs in a user
+
+/api/usernameTaken/:username - get
+  sees if a username is available
+
+/api/emailTaken/:email - get
+  sees if an email is available
+
+/api/signUpUser - post
+  signs up a user
+
+/api/getUserFromUsername/:username - get
+  returns basic info on a user
+
+/api/getUserFromEmail/:email - get
+  returns basic info on a user 
+
+/api/createBounty - post
+  creates a bounty
+
+/api/createReport - post
+  creates a report
+
+/api/updateReport - post
+  updates any of the information in the report
+
+/api/getReportsFromUsername/:username - get
+  gets all reports from a username 
+
+/api/getReportFromReportID/:reportID
+  returns report
+
+/api/getProfilePictureFromUsername/:username - get
+  reutns link to username picture
+
+/api/getActiveBounties/:username - get
+  returns any active bounties a marshal has
+
+/api/getPastBounties/:username - get
+  returns past bounties a username has
+
+/api/getReportsFromBountyID/:bountyID - get
+  returns reports from a bounty ID
+
+/api/getNumberReportsApproved/:username - get
+  returns the number of succesful reports for a hunter
+
+/api/getReportsFromUsernameBountyID/:username/:bountyID - get
+  returns all the reports a username has on a certain bounty
+
+/api/getReportsFromUsernamePaidVsUnpaid
+
+/api/getPreferredBounties -get
+  returns list of 9 preferred bounties
+
+/api/getBountyFromBountyID/:bountyID
+  returns bounty frm bountyID
+
+/api/payReport - post
+
+/api/createRSS - post
+  creates xml file for marshal
+
+/api/addRss - post
+  adds an RSS post to a RSS feed
+
+/api/rssExists
+  checks to see if an rss exists
+
+/api/addSubscription/:companyName
+  adds a subscription for a hunter
+
+/api/updateUserDetails - post
+  updates a user's stuff
+
+*/
+
 if(!isset($_SESSION))
 {
   session_start();

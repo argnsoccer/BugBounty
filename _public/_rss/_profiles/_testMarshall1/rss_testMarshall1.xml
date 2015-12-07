@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <rss version="2.0">
 	<channel>
-		<title>sdafsadf</title>
-		<link>asdfsadf</link>
+		<title>Testy</title>
+		<link>asdfsadfasfsad</link>
 		<image>
 			<url>_images/_profiles/_/profile.png</url>
-			<title> RSS picture</title>
+			<title> RSS picture for </title>
 			<link>_rss/_profiles/_testMarshall1/rss_testMarshall1.xml</link>
 		</image>
-		<description>asdfadsfasdfas</description>
+		<description>adsfsafsadfasdfsadfsadfdsafsad</description>
 		<language>en-us</language>
 		<category></category>
-		<copyright>asdfsadfsad</copyright>
+		<copyright>sdafasdfsadf</copyright>
 		<lastBuildDate></lastBuildDate>
 		<ttl>340</ttl>
 	</channel>

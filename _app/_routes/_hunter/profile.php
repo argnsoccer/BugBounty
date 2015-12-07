@@ -28,7 +28,7 @@ function prepareHunterProfile($dbh, $username) {
 
 		$template_array['error'] = 0; //for time being
 
-		$template_array['recentBounties'] = array(
+		$template_array['recentBounties'] = array( //GET ALL BOUNTIES FROM HUNTER ACCOUNT
 			array(
 				"name" => "name1",
 				"bountyID" => "001",
