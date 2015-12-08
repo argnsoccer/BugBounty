@@ -641,7 +641,9 @@ function getBountyFromBountyID($dbh, $args) {
     );
 
     if ($statement->execute($args)) {
-      $result['bounty'] = $statement->fetch(PDO::FETCH_ASSOC);
+      $result = $statement->fetch(PDO::FETCH_ASSOC);
+      $result['dateCreated'] = substr($result['dateCreated'], 0, -9);
+      $result['dateEnding'] = substr($result['dateEnding'], 0, -9);
       $result['error'] = 0;
     }
     else {
@@ -1332,6 +1334,7 @@ $app->get('/api/getReportsFromUsernameBountyID/:usename/:bountyID', function($us
 
   $args[':username'] = $_GET['username'];
   $args[':bountyID'] = $_GET['bountyID'];
+  
   echo json_encode(getReportsFromUsernameBountyID($dbh,$args));
 
   });

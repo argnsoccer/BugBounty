@@ -11,8 +11,17 @@ function prepareBountyProPage($dbh, $bountyID) {
 		"email" => $_SESSION['email'],
 		"bountyID" => $bountyID
 	);
+
+	$args[":bountyID"] = $bountyID;
+
+	$template_array['bounty'] = getBountyFromBountyID($dbh, $args);
+	$template_array['bounty']['id'] = $bountyID;
+
+	$args[':username'] = $_SESSION['userLogin'];
+
+	// $template_array['submittedReports'] = getReportsFromUsernameBountyID($dbh, $args);
+
 	
-	$template_array['bounties'] = array();  //call for 10 bounties
 
 	return $template_array;
 }
