@@ -392,8 +392,23 @@ function createReport($dbh, $args) {
     WHERE reportID=:reportID");
     if($statement->execute($args2))
     {
-      $result['error'] = '0';
-      $result['message'] = 'Success';
+      $result['report'] = array();
+      $args3[':reportID'] = $reportID;
+      $statement = $dbh->prepare("
+      SELECT * FROM Report WHERE reportID = :reportID");
+      if($statement->execute($args3))
+      {
+        $result['error'] = '0';
+        $result['message'] = 'Success';
+        while($row = $statement->fetch(PDO::FETCH_ASSOC))
+        {
+          array_push($result['report'], $row);
+        }
+      }
+      else {
+        $result['error'] = '3';
+        $result['message'] = $statement->errorInfo();
+      }
     }
     else{
       $result['error'] = '2';
