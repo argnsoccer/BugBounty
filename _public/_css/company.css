@@ -43,7 +43,6 @@ textarea {
     margin-top: 10px;
 }
 
-
 #bountyPicture
 {
     border-color: #5b5b5b;
@@ -55,17 +54,9 @@ textarea {
     display: block;
 }
 
-#bountyButtons {
-  margin: 10px !important;
-}
-
-.buttonCustom {
-  margin-top: 4px;
-}
-
 .profileInfo {
-	border-color: #5b5b5b;
-	border-width: 1px;
+  border-color: #5b5b5b;
+  border-width: 1px;
   border-radius: 10px;
   display: block;
   height: 35px;
@@ -74,15 +65,20 @@ textarea {
   text-align: center;
 }
 
-#bountyDesc {
+#companyDesc {
   min-height: 100px;
 }
+
 
 .messageButton, .detailsButton {
      background:none!important;
      border:none; 
      padding:0!important;
      cursor: pointer;
+}
+
+#bountyButtons {
+  margin: 10px !important;
 }
 
 .btn-file {
@@ -133,17 +129,15 @@ textarea {
   margin: 0 auto;
 }
 
+.tableWrapper {
+  height: 400px !important;
+}
+
 table {
-/*  margin-bottom: 40px;*/
   width: 100%;
 }
 
-.tableWrapper {
-  height: 445px !important;
-}
-
-.rowTable {
-  background: #f6f6f6;
+.rowTable {S
   width: 100%;
 }
 
@@ -154,7 +148,6 @@ table {
 .rowTable.header {
   font-weight: 900;
   color: #ffffff;
-  background: #ea6153;
 }
 
 .rowTable.green {
@@ -170,8 +163,4 @@ table {
   padding-top: 8px;
   padding-bottom: 8px;
   text-align: center;
-}
-
-#bountyButtons > .btn {
-  width: 170px !important;
 }

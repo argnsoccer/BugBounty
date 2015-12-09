@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
   <head>
       <title>BugBounty Profile</title>
@@ -97,62 +98,66 @@
 
         <div class="col-md-6">
           <h3 class="tableTitle">Past Bounties</h3>
-          <table style="overflow-y: scroll">
-            <thead>
-              <tr class="rowTable header">
-                <th class="cell">Bounty Name</th>
-                <th class="cell">Company</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for bounty in recentBounties %}
-              <tr class="rowTable">
-                <td class="cell"><a href="/_hunter/bounty/{{bounty.bountyID}}">{{bounty.name}}</a></td>
-                <td class="cell"><a href="/_hunter/company/{{bounty.accountID}}">{{bounty.company}}</a></td>
-              </tr> 
-              {% endfor %}
-            </tbody>
-          </table>
+          <div class="tableWrapper">
+            <table>
+              <thead>
+                <tr class="rowTable header">
+                  <th class="cell">Bounty Name</th>
+                  <th class="cell">Company</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for bounty in recentBounties %}
+                <tr class="rowTable">
+                  <td class="cell"><a href="/_hunter/bounty/{{bounty.bountyID}}">{{bounty.name}}</a></td>
+                  <td class="cell"><a href="/_hunter/company/{{bounty.company}}">{{bounty.company}}</a></td>
+                </tr> 
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <div class="col-md-6 tableBottom">
           <h3 class="tableTitle">Submitted Reports</h3>
-          <table>
-            <thead>
-              <tr class="rowTable header">
-                <th class="cell">Date Submitted</th>
-                <th class="cell">Bounty Name</th>
-                <th class="cell">Company</th>
-                <th class="cell">Paid</th>
-                <th class="cell">Details</th>
-                <th class="cell">Response</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for report in recentReports %}
-              <tr class="rowTable">
-                <td class="cell">{{report.date}}</td>
-                <td class="cell"><a href="/_hunter/bounty/{{report.bountyID}}">{{report.name}}</td>
-                <td class="cell"><a href="/_hunter/company/{{report.accountID}}">{{report.company}}</a></td>
-                <td class="cell">{{report.amountPaid}}</td>
-                <td class="cell">
-                  <button type="button" class="detailsButton" data-toggle="modal" 
-                  data-target="#detailsModal" data-whatever="@getbootstrap" 
-                  data-ID={{report.reportID}}>
-                    View
-                  </button>
-                </td>
-                <td class="cell">
-                  <button type="button" class="messageButton" data-toggle="modal" 
-                    data-target="#messageModal" data-whatever="@getbootstrap" 
+          <div class="tableWrapper">
+            <table>
+              <thead>
+                <tr class="rowTable header">
+                  <th class="cell">Date Submitted</th>
+                  <th class="cell">Bounty Name</th>
+                  <th class="cell">Company</th>
+                  <th class="cell">Paid</th>
+                  <th class="cell">Details</th>
+                  <th class="cell">Response</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for report in recentReports %}
+                <tr class="rowTable">
+                  <td class="cell">{{report.date}}</td>
+                  <td class="cell"><a href="/_hunter/bounty/{{report.bountyID}}">{{report.name}}</td>
+                  <td class="cell"><a href="/_hunter/company/{{report.company}}">{{report.company}}</a></td>
+                  <td class="cell">{{report.amountPaid}}</td>
+                  <td class="cell">
+                    <button type="button" class="detailsButton" data-toggle="modal" 
+                    data-target="#detailsModal" data-whatever="@getbootstrap" 
                     data-ID={{report.reportID}}>
-                    View
-                  </button>
-                </td>
-              </tr> 
-              {% endfor %}
-            </tbody>
-          </table>
+                      View
+                    </button>
+                  </td>
+                  <td class="cell">
+                    <button type="button" class="messageButton" data-toggle="modal" 
+                      data-target="#messageModal" data-whatever="@getbootstrap" 
+                      data-ID={{report.reportID}}>
+                      View
+                    </button>
+                  </td>
+                </tr> 
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 

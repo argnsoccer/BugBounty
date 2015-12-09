@@ -17,7 +17,7 @@ function prepareHome($dbh){
 		$template_array['trackBounties'] = array(
 			array (
 				'id' => "0001",
-				'company' => 'Google',
+				'company' => 'testMarshall1',
 				'number' => 3,
 				'date' => '11/03/1993',
 				'name' => "Google Needs A Car"),
