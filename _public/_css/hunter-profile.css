@@ -1,4 +1,4 @@
-/*@font-face 
+/*@font-face
 {
   font-family: PT-Sans;
   src: url(../_fonts/PT_Sans-Web-Regular.ttf);
@@ -71,7 +71,7 @@ textarea {
 
 .messageButton, .detailsButton {
      background:none!important;
-     border:none; 
+     border:none;
      padding:0!important;
      cursor: pointer;
 }
@@ -95,6 +95,7 @@ textarea {
 .modalInput {
   text-align: center;
 }
+
 .tableTitle {
   padding-bottom: 5px;
 }

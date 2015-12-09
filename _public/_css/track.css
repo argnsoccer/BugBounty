@@ -1,0 +1,75 @@
+table
+{
+    width: 100%;
+}
+
+thead
+{
+    background-color: #2980b9;
+}
+
+.table-title
+{
+  padding-bottom: 5px;
+}
+
+.tableWrapper
+{
+    max-height: 400px !important;
+}
+
+.cell
+{
+    padding: 5px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+}
+
+.table-row
+{
+    background: #f6f6f6;
+    width: 100%;
+}
+
+#content_area
+{
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+#bounty_picture
+{
+    border-color: #5b5b5b;
+    border-width: 2px;
+    border-style: solid;
+    width: 80%;
+    height: 200px;
+    margin-left: 0;
+    margin-top: 60px;
+    margin-right: auto;
+    display: block;
+}
+
+#info_box
+{
+    border: 2px solid;
+    border-color: #2980b9;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#pay_amount
+{
+    padding-left: 20px;
+}
+
+#dollar_sign
+{
+    width: 25px;
+}
+
+#pay_amount_field
+{
+    width: 70px;
+}
