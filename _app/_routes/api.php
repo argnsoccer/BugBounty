@@ -289,14 +289,14 @@ function signUpUser($dbh, $args) {
 
 function getUserFromUsername($dbh, $args) {
   //Simple Select query which returns username, email, and type
+  $statement = $dbh->prepare(
+  "SELECT username, name, email, accountType, imageLoc, dateCreated
+  FROM Account WHERE username = :username");
 
-  $statement = $dbh->prepare("
-  SELECT username, name, email, accountType, imageLoc, dateCreated FROM Account WHERE username = :username");
   $functionArray = array();
   if($statement->execute($args))
   {
     $row = $statement->fetch(PDO::FETCH_ASSOC);
-
     if(isset($row['username'])) {
       $result['username'] = $row['username'];
       $result['userType'] = strtolower($row['accountType']);
@@ -320,7 +320,6 @@ function getUserFromUsername($dbh, $args) {
     $functionArray['messageDB'] = $statement->errorInfo();
 
   }
-
   return $functionArray;
 }
 
@@ -415,7 +414,7 @@ function createReport($dbh, $args) {
         $functionArray['error'] = '0';
         $functionArray['message'] = 'success';
         $row = $statement->fetch(PDO::FETCH_ASSOC);
-        $functionArray['result'], $row);
+        $functionArray['result'] = $row;
         $functionArray['result']['dateSubmitted'] = substr($result['report']['dateSubmitted'], 0, -9);
       }
       else {
@@ -528,7 +527,6 @@ function getReportsFromUsernamePaidOrUnPaid($dbh,$args)
 }
 
 function getProfilePictureFromUsername($dbh, $args){
-<<<<<<< HEAD
   if($_SESSION['userType'] == 'marshall'){
     $statement = $dbh->prepare("
     SELECT Account.imageLoc FROM Account WHERE username = :username");
@@ -568,7 +566,6 @@ function getMessageOfDay($dbh,$args)
 		$result['messageDB'] = $statement->errorInfo();
 	}
 	return $result;
-=======
   $functionArray = array();
   $statement = $dbh->prepare("
   SELECT Account.imageLoc FROM Account WHERE username = :username");
@@ -587,7 +584,6 @@ function getMessageOfDay($dbh,$args)
   }
   $functionArray['result'] = $result;
   return $functionArray;
->>>>>>> a652dfaa3e65c89b3dfa7f26f23fae1f12bc820f
 }
 
 function getReportsFromBountyID($dbh, $args) {
