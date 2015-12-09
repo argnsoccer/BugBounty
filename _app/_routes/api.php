@@ -104,50 +104,49 @@ if(!isset($_SESSION))
 //Database Accessing Functions go here*************************************************
 
 function loginUser($dbh, $args) {
-
+  $function_array = [];
   global $dbh;
   if(!isset($_SESSION['userLogin'])){
 
     $statement = $dbh->prepare("SELECT username, userID, accountType FROM Account WHERE username = :username AND password = :password");
-    $loginArray = array();
     if($statement->execute($args))
     {
       $row = $statement->fetch(PDO::FETCH_ASSOC);
       if (isset($row['username']))
       {
-        $result["username"] = $row['username'];
-        $result["userType"] = strtolower($row['accountType']);
-        $result['userID'] = $row['userID'];
+        $function_array["result"]["username"] = $row['username'];
+        $function_array["result"]["userType"] = strtolower($row['accountType']);
+        $function_array["result"]['userID'] = $row['userID'];
+        $function_array["error"] = '0';
+        $function_array["message"] = "success";
 
         $_SESSION['userLogin'] = $row['username'];
         $usn[':username'] = $row['username'];
         $_SESSION['userType'] = strtolower($row['accountType']);
         $_SESSION['userID'] = $row['userID'];
-
-        array_push($loginArray['error'],'0');
       }
       else
       {
-        array_push($loginArray['error'],'1');
-        array_push($loginArray['message'],"The username and password combination did not work");
+        $function_array["error"] = '1';
+        $function_array["message"] = 'combination is incorrect';
+        $function_array["result"] = [];
       }
     }
     else
     {
-      array_push($loginArray['error'],'2');
-      array_push($loginArray['messageDB'], $statement->errorInfo());
+      $function_array["error"] = '2';
+      $function_array["result"] = [];
+      $function_array["message"] = 'statement did not execute';
+      $function_array["messageDB"] = $statement->errorInfo();
     }
-    array_push($loginArray['result'], $result);
-    return $loginArray;
+    return $function_array;
   }
   else
   {
-    array_push($loginArray['error'],'3');
-
-    array_push($loginArray['message'], 'user is already logged in');
-    array_push($loginArray['result'], $result);
-
-    return $loginArray;
+    $function_array["error"] = '3';
+    $function_array["result"] = [];
+    $function_array["message"] = 'user is already logged in';
+    return $function_array;
   }
 }
 
