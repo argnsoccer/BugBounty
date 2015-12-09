@@ -54,7 +54,7 @@
                     <label for="InputName"></label>
                     <div class="input-group">
                       <span class="input-group-addon addOnCustom">Bounty Owner</span>
-                      <p class="form-control formControlCustom"><a href="/_hunter/company/{{bounty.companyName}}">{{bounty.companyName}}</a></p>
+                      <p class="form-control formControlCustom"><a href="/_hunter/company/{{bounty.companyUsername}}">{{bounty.companyName}}</a></p>
                     </div>
                 </div>
                 <div class="form-group">
@@ -223,7 +223,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="/../_javascript/_qtip/qtip.js"></script>
-    <script type="text/javascript" src="/../_javascript/_qtip/qtip_hunter_profile.js"></script>
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
     <script type="text/javascript" src="/../_javascript/submit_report.js"></script>
     <script type="text/javascript" src="/../_javascript/display_message.js"></script>

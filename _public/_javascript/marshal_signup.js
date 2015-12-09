@@ -55,56 +55,6 @@ function validateEmail(email) {
   return re.test(email);
 }
 
-$("#signUpUsername").qtip({ // Grab some elements to apply the tooltip to
-    content: {
-        text: 'Please make Username at least 5 characters'
-    },
-    style: {
-      classes: 'qtip-blue'
-    },
-    events: {
-      blur: function(event, api) {
-        // For more information on the API object, check-out the API documentation
-
-        if ($("#signUpUsername").val().length < 5) {
-          api.set('style.classes', 'qtip-red');;
-          api.set('content.text', "Please make Username at least 5 characters");
-        }
-        else {
-          // api.elements.tooltip.toggleClass('qtip-green qtip-cream');
-          api.set('style.classes', 'qtip-green');
-          api.set('content.text', "Username long enough");
-        }
-      }
-    }
-});
-
-
-$("#signUpPassword").qtip({ // Grab some elements to apply the tooltip to
-    content: {
-        text: 'Please make Passwords at least 8 characters'
-    },
-    style: {
-      classes: 'qtip-blue'
-    },
-    events: {
-      blur: function(event, api) {
-        // For more information on the API object, check-out the API documentation
-
-        if ($("#signUpPassword").val().length < 5) {
-          api.set('style.classes', 'qtip-red');;
-          api.set('content.text', "Please make Passwords at least 8 characters");
-        }
-        else {
-          // api.elements.tooltip.toggleClass('qtip-green qtip-cream');
-          api.set('style.classes', 'qtip-green');
-          api.set('content.text', "Username long enough");
-        }
-      }
-    }
-});
-
-
 $(document).ready(function ()
 {
 

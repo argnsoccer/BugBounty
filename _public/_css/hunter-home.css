@@ -60,7 +60,7 @@ table {
 }
 
 .tableWrapper {
-  height: 225px;
+  max-height: 225px;
 }
 
 .rowTable {

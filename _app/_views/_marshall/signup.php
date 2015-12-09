@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -13,8 +14,8 @@
     {{ include ('header_login.php') }}
     <div class="container">
       <div class="row stepRow">
-        <div class="col-12-md ">
-          <span id="stepDisplay">
+        <div class="col-12-md displayContainer">
+          <div id="stepDisplay">
             <span id="step1" class="stepBlock activeStepMarshal">
               <h3 class="headerStep">Step 1</h3>
               <p class="descStep">Basic Details</p>
@@ -27,7 +28,7 @@
               <h3 class="headerStep">Step 3</h3>
               <p class="descStep">Payment Details</p>
             </span>
-          </span>
+          </div>
         </div>
 
       </div>
@@ -75,6 +76,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
     <script type="text/javascript" src="/../_javascript/_qtip/qtip.js"></script>
+        <script type="text/javascript" src="/../_javascript/login.js"></script>
     <script type="text/javascript" src="/../_javascript/marshal_signup.js"></script>
     {{include ('bootstrap_footer.php')}}
   </body>

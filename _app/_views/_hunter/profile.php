@@ -111,8 +111,8 @@
                 {% for bounty in recentBounties %}
                 <tr class="rowTable">
                   <td class="cell">{{bounty.dateEnding}}</td>
-                  <td class="cell"><a href="/_hunter/bounty/{{bounty.company}}/{{bounty.bountyID}}">{{bounty.name}}</a></td>
-                  <td class="cell"><a href="/_hunter/company/{{bounty.company}}">{{bounty.company}}</a></td>
+                  <td class="cell"><a href="/_hunter/bounty/{{bounty.bountyID}}">{{bounty.name}}</a></td>
+                  <td class="cell"><a href="/_hunter/company/{{bounty.companyUsername}}">{{bounty.company}}</a></td>
                 </tr> 
                 {% endfor %}
               </tbody>
@@ -138,8 +138,8 @@
                 {% for report in recentReports %}
                 <tr class="rowTable">
                   <td class="cell">{{report.date}}</td>
-                  <td class="cell"><a href="/_hunter/bounty/{{report.company}}/{{report.bountyID}}">{{report.name}}</td>
-                  <td class="cell"><a href="/_hunter/company/{{report.company}}">{{report.company}}</a></td>
+                  <td class="cell"><a href="/_hunter/bounty/{{report.bountyID}}">{{report.name}}</td>
+                  <td class="cell"><a href="/_hunter/company/{{report.companyUsername}}">{{report.company}}</a></td>
                   <td class="cell">{{report.amountPaid}}</td>
                   <td class="cell">
                     <button type="button" class="detailsButton" data-toggle="modal" 
@@ -281,14 +281,13 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="/../_javascript/_qtip/qtip.js"></script>
-    <script type="text/javascript" src="/../_javascript/_qtip/qtip_hunter_profile.js"></script>
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
     <script type="text/javascript" src="/../_javascript/display_message.js"></script>
     <script type="text/javascript" src="/../_javascript/display_report.js"></script>
     <script type="text/javascript" src="/../_javascript/update_payment.js"></script>
     <script type="text/javascript" src="/../_javascript/update_profile.js"></script> p
     <script type="text/javascript" src="/../_javascript/logout.js"></script>
-    <script type="text/javascript" src="/../_javascript/basic_search.js"></script>
+    <script type="text/javascript" src="/../_javascript/search_basic.js"></script>
     {{include ('bootstrap_footer.php')}}    
   </body>
 </html>

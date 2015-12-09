@@ -108,7 +108,8 @@ table {
 }
 
 .tableWrapper {
-    height: 250px !important;
+    max-height: 250px !important;
+
 }
 
 .rowTable {

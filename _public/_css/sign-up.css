@@ -1,20 +1,19 @@
 .stepRow {
   padding-top: 10px;
 }
-
 #stepDisplay {
   padding: 2px;
-  display: inline-block;
-  margin-right: auto;
-  margin-left: auto;
+/*  display: inline-block;*/
   border-style: inset;
+  width: 710px;
+  margin: 0 auto;
 }
 
 .stepBlock {
   display: inline-block;
   text-align: center;
   border-color: black;
-  padding: 10px;
+  width: 225px;
 }
 
 .headerStep, .descStep {
