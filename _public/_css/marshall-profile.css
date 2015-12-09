@@ -1,9 +1,138 @@
-﻿/*form
+h3 {
+  display:inline;
+}
+
+textarea {
+  display: block;
+  width: 100%;
+}
+
+.row {
+  padding-top: 20px;
+}
+
+
+.addOnCustom {
+  width: 150px !important;
+}
+
+.formControlCustom {
+  width: 100% !important;
+}
+
+#profile_picture
+{
+    border-color: #5b5b5b;
+    border-width: 2px;
+    border-style: solid;
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+}
+
+.profileInfo {
+	border-color: #5b5b5b;
+	border-width: 1px;
+  border-radius: 10px;
+  display: block;
+  height: 35px;
+  margin: 3px;
+  width: 275px;
+  text-align: center;
+}
+
+#submitUpdateProfile {
+  border-width: 1px;
+  border-radius: 10px;
+  display: block;
+  height: 35px;
+  margin: 3px;
+  width: 275px;
+  text-align: center;
+}
+
+.messageButton, .detailsButton {
+     background:none!important;
+     border:none;
+     padding:0!important;
+     cursor: pointer;
+}
+
+.input-group {
+  width: 100%;
+}
+
+.input-group-Modal {
+  padding: 5px;
+}
+
+.formControlCustom {
+  text-align: center;
+}
+
+.modal-footer {
+  height: 40px;
+}
+
+.modalInput {
+  text-align: center;
+}
+.tableTitle {
+  padding-bottom: 5px;
+}
+
+.wrapper {
+  margin: 0 auto;
+}
+
+table {
+  margin-bottom: 40px;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  display: block;
+  height: 200px !important;
+  overflow-y: scroll;
+}
+
+.rowTable {
+  background: #f6f6f6;
+  width: 100%;
+}
+
+.rowTable:nth-of-type(odd) {
+  background: #e9e9e9;
+}
+
+.rowTable.header {
+  font-weight: 900;
+  color: #ffffff;
+  background: #2980b9;
+}
+
+.rowTable.green {
+  background: #27ae60;
+}
+
+.rowTable.red
+{
+	background: #ea6153;
+
+}
+
+.cell {
+  padding: 5px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  text-align: center;
+}
+
+
+/*form
 {
     width: 100%;
 }
 
-#navBar 
+#navBar
 {
   background-color: #0f0f0f;
   box-shadow: 0 2px 8px 0;
@@ -12,7 +141,7 @@
   padding: 10px;
 }
 
-#navBar * 
+#navBar *
 {
   display: inline;
   text-decoration: none;
@@ -72,7 +201,7 @@ li.leftNav > a
     width: 75px;
 }
 
-#logOut 
+#logOut
 {
     display: none;
     float: left;
