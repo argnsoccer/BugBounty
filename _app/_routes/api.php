@@ -35,7 +35,7 @@ API DOCUMENTATION
   returns basic info on a user
 
 /api/getUserFromEmail/:email - get
-  returns basic info on a user 
+  returns basic info on a user
 
 /api/createBounty - post
   creates a bounty
@@ -47,7 +47,7 @@ API DOCUMENTATION
   updates any of the information in the report
 
 /api/getReportsFromUsername/:username - get
-  gets all reports from a username 
+  gets all reports from a username
 
 /api/getReportFromReportID/:reportID
   returns report
@@ -571,18 +571,17 @@ function getPreferredBounties($dbh) {
 
 function getActiveBounties($dbh, $args) {
 
-  $statement = $dbh->prepare("
-    SELECT BountyPool.* FROM Marshall, BountyPool
-    WHERE Marshall.marshallID=BountyPool.bountyMarshallID
-    AND Marshall.marshallID=:userID AND dateCreated < now()"
-  ); //completed version of this will have dateCreated < now() < dateEnding (but our test vars)
+  $statement = $dbh->prepare(
+    "SELECT BountyPool.* FROM Marshall INNER JOIN BountyPool ON Marshall.marshallID = BountyPool.bountyMarshallID INNER JOIN Account ON Marshall.marshallID = Account.userID
+    WHERE Account.username = :username
+    AND BountyPool.dateCreated < now() < BountyPool.dateEnding"
+    );
 
-  if($_SESSION['userType'] == 'marshall')
-  {
     if($statement->execute($args))
     {
       $result['activeBounties'] = array();
-      $result['error'] = 0;
+      $result['error'] = '0';
+      $result['message'] = 'success';
       while($row = $statement->fetch(PDO::FETCH_ASSOC))
       {
        array_push($result['activeBounties'],$row);
@@ -590,15 +589,10 @@ function getActiveBounties($dbh, $args) {
     }
     else
     {
-      $result['error'] = '2';
+      $result['error'] = '1';
       $result['message'] = 'Statement not executed';
 
     }
-  }
-  else{
-    $result['error'] = '1';
-    $result['message'] = 'user is not a Marshall';
-  }
   return $result;
 }
 
@@ -607,8 +601,7 @@ function getPastBounties($dbh, $args) {
   $statement = $dbh->prepare("
   SELECT BountyPool.* FROM Marshall, BountyPool
   WHERE Marshall.marshallID=BountyPool.bountyMarshallID AND Marshall.marshallID=:userID AND now() > dateEnding"); //completed version of this will have dateCreated < now() < dateEnding (but our test vars)
-  if($_SESSION['userType'] == 'marshall')
-  {
+
     if($statement->execute($args))
     {
       $result['pastBounties'] = array();
@@ -624,11 +617,7 @@ function getPastBounties($dbh, $args) {
       $result['message'] = 'Statement not executed';
 
     }
-  }
-  else{
-    $result['error'] = '1';
-    $result['message'] = 'user is not a Marshall';
-  }
+
   return $result;
 }
 
@@ -961,7 +950,7 @@ $app->post('/api/loginUser', function () use ($dbh) {
   echo json_encode($result);
 });
 
-/*Danny Rizzuto 
+/*Danny Rizzuto
 Check to see if username is available
 */
 
@@ -973,7 +962,7 @@ $app->get('/api/usernameTaken/:username', function($username) use ($dbh) {
 
   $statement = $dbh->prepare("
     SELECT username
-    FROM Account 
+    FROM Account
     WHERE username = :username"
   );
 
@@ -997,7 +986,7 @@ $app->get('/api/usernameTaken/:username', function($username) use ($dbh) {
 
 });
 
-/*Danny Rizzuto 
+/*Danny Rizzuto
 Check to see if email is available
 */
 
@@ -1009,7 +998,7 @@ $app->get('/api/emailTaken/:email', function($email) use ($dbh) {
 
   $statement = $dbh->prepare("
     SELECT email
-    FROM Account 
+    FROM Account
     WHERE email = :email"
   );
 
@@ -1254,8 +1243,8 @@ All active bounties with all fields from BountyPool
 complete
 */
 
-$app->get('/api/getActiveBounties/', function($username) use ($dbh) {
-  $args[':userID'] = $_SESSION['userID'];
+$app->get('/api/getActiveBounties/:username', function($username) use ($dbh) {
+  $args[':username'] = $username;
   echo json_encode(getActiveBounties($dbh,$args));
 });
 
@@ -1334,7 +1323,7 @@ $app->get('/api/getReportsFromUsernameBountyID/:usename/:bountyID', function($us
 
   $args[':username'] = $_GET['username'];
   $args[':bountyID'] = $_GET['bountyID'];
-  
+
   echo json_encode(getReportsFromUsernameBountyID($dbh,$args));
 
   });
@@ -1400,8 +1389,8 @@ $app->post('/api/payReport', function() use ($dbh){
   if($statement->execute($args))
   {
     $statement = $dbh->prepare(
-    "INSERT INTO paidReport (reportID, paidAmount, datePaid, message, publish)
-    VALUES (:reportID, :amount, now(), 'This report has been paid to ANONYMOOSE', 0)");
+    "INSERT INTO paidReport (reportID, paidAmount, datePaid, message)
+    VALUES (:reportID, :amount, now(), 'This report has been paid to ANONYMOOSE')");
 
     if($statement->execute($args))
     {
