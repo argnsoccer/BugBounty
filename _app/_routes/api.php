@@ -442,12 +442,19 @@ function getReportsFromUsername($dbh, $args) {
     $result['message'] = 'Success';
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
+      $reportID = $row['reportID'];
       array_push($result['reportArray'],$row);
     }
-    $reportID =
+
+    $args2[':reportID'] = $reportID;
     $statement = $dbh->prepare(
-    "SELECT * FROM paidReports w"
+    "SELECT * FROM paidReports WHERE reportID = :reportID"
     )
+
+    if($statement->execute($args2))
+    {
+      
+    }
   }
   else
   {
@@ -493,13 +500,12 @@ function getProfilePictureFromUsername($dbh, $args){
     if($sth->execute($args))
     {
       $row = $statement->fetch(PDO::FETCH_ASSOC);
-      $result['success'] = 'true';
+      $result['message'] = 'success';
       $result['imagePath'] = $row['imageLoc'];
       $result['error'] = '0';
     }
     else
     {
-      $result['success'] = 'false';
       $result['error'] = '2';
       $result['message'] = 'statement did not execute';
     }
@@ -521,7 +527,7 @@ $statement = $dbh->prepare("
     $result['error'] = 0;
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
-      $row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
+      //$row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
       array_push($result['reportArray'],$row);
     }
   }
@@ -544,11 +550,22 @@ $statement = $dbh->prepare(
   {
     $result['reportArray'] = array();
     $result['error'] = 0;
+    $result['message'] = 'success';
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
-      $row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
+      //$row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
+      //$reportID = $row['reportID'];
       array_push($result['reportArray'],$row);
     }
+  /*  $args2[':reportID'] = $reportID;
+    $statement = $dbh->prepare(
+    "SELECT paidAmount FROM paidReport WHERE reportID = :reportID"
+    );
+
+    if($statement->execute($args2))
+    {
+
+    }*/
   }
   else
   {
@@ -572,10 +589,11 @@ function getPreferredBounties($dbh) {
   {
     $result['bountyArray'] = array();
     $result['error'] = 0;
+    $result['message'] = 'success';
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
-  {
-    array_push($result['bountyArray'],$row);
-  }
+    {
+      array_push($result['bountyArray'],$row);
+    }
   }
   else
   {
