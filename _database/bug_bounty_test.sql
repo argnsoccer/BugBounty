@@ -248,13 +248,13 @@ CREATE TABLE IF NOT EXISTS `MessageOfDay` (
   `messageID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `accountType` varchar(10) NOT NULL,
   `message` mediumtext NOT NULL,
-  `dateMade` datetime DEFAULT NOW(),
+  `dateMade` datetime NOT NULL,
   PRIMARY KEY (`messageID`),
   UNIQUE KEY `messageID_UNIQUE` (`messageID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO MessageOfDay (accountType,message) Values ("Hunter","Good luck hunting");
-INSERT INTO MessageOfDay (accountType,message) Values ("Marshall","Its a great day to make a bounty!");
+INSERT INTO MessageOfDay (accountType,message,dateMade) Values ("Hunter","Good luck hunting",NOW());
+INSERT INTO MessageOfDay (accountType,message,dateMade) Values ("Marshall","Its a great day to make a bounty!",NOW());
 
 --
 -- Dumping data for table `report`
