@@ -392,8 +392,23 @@ function createReport($dbh, $args) {
     WHERE reportID=:reportID");
     if($statement->execute($args2))
     {
-      $result['error'] = '0';
-      $result['message'] = 'Success';
+      $result['report'] = array();
+      $args3[':reportID'] = $reportID;
+      $statement = $dbh->prepare("
+      SELECT * FROM Report WHERE reportID = :reportID");
+      if($statement->execute($args3))
+      {
+        $result['error'] = '0';
+        $result['message'] = 'Success';
+        while($row = $statement->fetch(PDO::FETCH_ASSOC))
+        {
+          array_push($result['report'], $row);
+        }
+      }
+      else {
+        $result['error'] = '3';
+        $result['message'] = $statement->errorInfo();
+      }
     }
     else{
       $result['error'] = '2';
@@ -438,22 +453,27 @@ function getReportsFromUsername($dbh, $args) {
   if($statement->execute($args))
   {
     $result['reportArray'] = array();
-    $result['error'] = 0;
-    $result['message'] = 'Success';
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
       $reportID = $row['reportID'];
       array_push($result['reportArray'],$row);
     }
-
     $args2[':reportID'] = $reportID;
     $statement = $dbh->prepare(
-    "SELECT * FROM paidReports WHERE reportID = :reportID"
+    "SELECT paidAmount FROM paidReport WHERE reportID = :reportID"
     );
 
     if($statement->execute($args2))
     {
+      $row = $statement->fetch(PDO::FETCH_ASSOC);
+      $result['error'] = '0';
+      $result['message'] = 'success';
+      array_push($result['reportArray'], $row);
+    }
+    else {
 
+      $result['error'] = '2';
+      $result['message'] = 'Second statement not executed';
     }
   }
   else
@@ -524,11 +544,28 @@ $statement = $dbh->prepare("
   if($statement->execute($args))
   {
     $result['reportArray'] = array();
-    $result['error'] = 0;
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
       $row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
+      $reportID = $row['reportID'];
       array_push($result['reportArray'],$row);
+    }
+    $args2[':reportID'] = $reportID;
+    $statement = $dbh->prepare(
+    "SELECT paidAmount FROM paidReport WHERE reportID = :reportID"
+    );
+
+    if($statement->execute($args2))
+    {
+      $row = $statement->fetch(PDO::FETCH_ASSOC);
+      $result['error'] = '0';
+      $result['message'] = 'success';
+      array_push($result['reportArray'], $row);
+    }
+    else {
+
+      $result['error'] = '2';
+      $result['message'] = 'Second statement not executed';
     }
   }
   else
@@ -549,8 +586,7 @@ $statement = $dbh->prepare(
   if($statement->execute($args))
   {
     $result['reportArray'] = array();
-    $result['error'] = 0;
-    $result['message'] = 'success';
+
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
       $row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
@@ -564,7 +600,15 @@ $statement = $dbh->prepare(
 
     if($statement->execute($args2))
     {
+      $row = $statement->fetch(PDO::FETCH_ASSOC);
+      $result['error'] = 0;
+      $result['message'] = 'success';
+      array_push($result['reportArray'], $row);
+    }
+    else {
 
+      $result['error'] = '2';
+      $result['message'] = 'Second statement not executed';
     }
   }
   else
