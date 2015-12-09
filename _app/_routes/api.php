@@ -617,6 +617,7 @@ function getPastBounties($dbh, $args) {
       $result['message'] = 'Statement not executed';
 
     }
+
   return $result;
 }
 
@@ -1388,8 +1389,8 @@ $app->post('/api/payReport', function() use ($dbh){
   if($statement->execute($args))
   {
     $statement = $dbh->prepare(
-    "INSERT INTO paidReport (reportID, paidAmount, datePaid, message, publish)
-    VALUES (:reportID, :amount, now(), 'This report has been paid to ANONYMOOSE', 0)");
+    "INSERT INTO paidReport (reportID, paidAmount, datePaid, message)
+    VALUES (:reportID, :amount, now(), 'This report has been paid to ANONYMOOSE')");
 
     if($statement->execute($args))
     {

@@ -175,10 +175,10 @@ CREATE TABLE IF NOT EXISTS `paidReport` (
   `paidAmount` varchar(10) NOT NULL,
   `datePaid` datetime NOT NULL,
   `message` mediumtext NOT NULL,
-  `publish` tinyint(1) NOT NULL,
+  `publish` int(1) NOT NULL,
   PRIMARY KEY (`reportID`),
   UNIQUE KEY `reportID_UNIQUE` (`reportID`),
-  CONSTRAINT `fk_paidReport_Report1` FOREIGN KEY (`reportID`) REFERENCES `Report` (`bountyID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_paidReport_Report1` FOREIGN KEY (`reportID`) REFERENCES `Report` (`reportID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
