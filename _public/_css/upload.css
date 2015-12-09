@@ -1,0 +1,28 @@
+.row
+{
+	padding-top: 20px;
+}
+
+.glyphicon
+{
+	width: 10px;
+}
+
+ #requiredP
+ {
+    padding-left: 10px;
+    display: inline;
+}
+
+.infoBox
+{
+    border: 2px solid;
+    border-color: #2980b9;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#hidden_box
+{
+    visibility: hidden;
+}
