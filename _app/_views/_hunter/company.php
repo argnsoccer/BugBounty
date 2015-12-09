@@ -98,7 +98,7 @@
                 {% for bounty in company.active.activeBounties %}
                 <tr class="rowTable">
                   <td class="cell">{{bounty.dateCreated}}</td>
-                  <td class="cell"><a href="/_hunter/company/{{bounty.companyName}}">{{bounty.bountyName}}</a></td>
+                  <td class="cell"><a href="/_hunter/bounty/{{company.name}}/{{bounty.poolID}}">{{bounty.bountyName}}</a></td>
                   <td class="cell">{{bounty.dateEnding}}</td>
                 </tr> 
                 {% endfor %}

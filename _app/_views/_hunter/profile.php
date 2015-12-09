@@ -111,7 +111,7 @@
                 {% for bounty in recentBounties %}
                 <tr class="rowTable">
                   <td class="cell">{{bounty.dateEnding}}</td>
-                  <td class="cell"><a href="/_hunter/bounty/{{bounty.bountyID}}">{{bounty.name}}</a></td>
+                  <td class="cell"><a href="/_hunter/bounty/{{bounty.company}}/{{bounty.bountyID}}">{{bounty.name}}</a></td>
                   <td class="cell"><a href="/_hunter/company/{{bounty.company}}">{{bounty.company}}</a></td>
                 </tr> 
                 {% endfor %}
@@ -138,7 +138,7 @@
                 {% for report in recentReports %}
                 <tr class="rowTable">
                   <td class="cell">{{report.date}}</td>
-                  <td class="cell"><a href="/_hunter/bounty/{{report.bountyID}}">{{report.name}}</td>
+                  <td class="cell"><a href="/_hunter/bounty/{{report.company}}/{{report.bountyID}}">{{report.name}}</td>
                   <td class="cell"><a href="/_hunter/company/{{report.company}}">{{report.company}}</a></td>
                   <td class="cell">{{report.amountPaid}}</td>
                   <td class="cell">

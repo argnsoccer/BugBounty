@@ -47,7 +47,7 @@ $app->get('/_hunter/company/:companyName', function($companyUsername) use ($app,
 	else {
 		$app->render('_hunter/company.php', $template_array);
 
-		echo print_r($template_array);
+		// echo print_r($template_array);
 	}
 
 });
