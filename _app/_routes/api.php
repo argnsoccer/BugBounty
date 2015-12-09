@@ -453,7 +453,7 @@ function getReportsFromUsername($dbh, $args) {
 
     if($statement->execute($args2))
     {
-      
+
     }
   }
   else
@@ -527,7 +527,7 @@ $statement = $dbh->prepare("
     $result['error'] = 0;
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
-      //$row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
+      $row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
       array_push($result['reportArray'],$row);
     }
   }
@@ -553,11 +553,11 @@ $statement = $dbh->prepare(
     $result['message'] = 'success';
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
-      //$row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
-      //$reportID = $row['reportID'];
+      $row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
+      $reportID = $row['reportID'];
       array_push($result['reportArray'],$row);
     }
-  /*  $args2[':reportID'] = $reportID;
+    $args2[':reportID'] = $reportID;
     $statement = $dbh->prepare(
     "SELECT paidAmount FROM paidReport WHERE reportID = :reportID"
     );
@@ -565,7 +565,7 @@ $statement = $dbh->prepare(
     if($statement->execute($args2))
     {
 
-    }*/
+    }
   }
   else
   {
