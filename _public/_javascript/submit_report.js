@@ -44,8 +44,8 @@ $(document).ready(function () {
     // alert(reportInfo['errorPath']);
 
     if (!isSet(reportInfo['errorName'])
-    	|| !isSet(reportInfo['errorDescription'])
-    	|| !isSet(reportInfo['errorPath']))
+    	|| !isSet(reportInfo['description'])
+    	|| !isSet(reportInfo['pathToError']))
     {
     	return false;
     }
