@@ -392,16 +392,17 @@ function createReport($dbh, $args) {
     if($statement->execute($args2))
     {
       $result['error'] = '0';
+      $result['message'] = 'Success';
     }
     else{
       $result['error'] = '2';
-      $result['message'] = 'Statement 2 not executed';
+      $result['message'] = $statement->errorInfo();
     }
   }
   else
   {
     $result['error'] = '1';
-    $result['message'] = 'Statement not executed';
+    $result['message'] = $statement->errorInfo();
 
   }
   return $result;
