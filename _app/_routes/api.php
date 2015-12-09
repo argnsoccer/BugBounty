@@ -1607,10 +1607,30 @@ $app->post('/api/updateUserDetails',function() use($dbh)
 	}
 	echo json_encode(updateUserDetails($dbh,$change,$_POST));
 });
-
+/*
+Michael Gilbert
+Gets Message of Day For a Hunter
+Errors:
+0: success
+1: No statement executed
+*/
 $app->get('/api/getMODHunter',function() use($dbh)
 {
 	$args = array();
 	$args[':accountType'] = "Hunter";
+	echo json_encode(getMessageOfDay($dbh,$args));
+});
+
+/*
+Michael Gilbert
+Gets Message of Day For a Marshall
+Errors:
+0: success
+1: No statement executed
+*/
+$app->get('/api/getMODMarshall',function() use($dbh)
+{
+	$args = array();
+	$args[':accountType'] = "Marshall";
 	echo json_encode(getMessageOfDay($dbh,$args));
 });
