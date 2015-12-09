@@ -382,9 +382,10 @@ function createReport($dbh, $args) {
   {
 
     $reportID = $dbh->lastInsertId();
-    $args2[":filePath"] = '../_files/'.$args[":bountyID"].'/'.$args[":username"].$reportID;
+
+    mkdir('../_files/'.'_'.$args[":bountyID"].'/_'.$args[":username"]);
+    $args2[":filePath"] = '../_files/'.$args[":bountyID"].'/'.$args[":username"].'/report'.$reportID;
     $args2[":reportID"] = $reportID;
-    mkdir('../_files/'.$args[":bountyID"].'/'.$reportID);
     $statement = $dbh->prepare("
     UPDATE Report
     SET filePath = :filePath
@@ -411,13 +412,14 @@ function createReport($dbh, $args) {
 function updateReport($dbh, $args) {
 
   $statement = $dbh->prepare(
-  "UPDATE report
+  "UPDATE Report
   SET payAmount = :payAmount, username = :username, message = :message
   WHERE reportID = :reportID");
 
   if($statement->execute($args))
   {
     $result['error'] = '0';
+    $result['message'] = 'success';
   }
   else
   {
@@ -430,17 +432,22 @@ function updateReport($dbh, $args) {
 
 function getReportsFromUsername($dbh, $args) {
   $statement = $dbh->prepare(
-  "SELECT * FROM report
+  "SELECT * FROM Report
   WHERE username=:username");
 
   if($statement->execute($args))
   {
     $result['reportArray'] = array();
     $result['error'] = 0;
+    $result['message'] = 'Success';
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
       array_push($result['reportArray'],$row);
     }
+    $reportID =
+    $statement = $dbh->prepare(
+    "SELECT * FROM paidReports w"
+    )
   }
   else
   {
@@ -456,18 +463,19 @@ function getReportsFromUsername($dbh, $args) {
 function getReportsFromUsernamePaidOrUnPaid($dbh,$args)
 {
   $statement = $dbh->prepare("
-  SELECT * FROM report,:auxiliary
-  WHERE report.bountyID=:auxiliary.bountyID
+  SELECT * FROM Report,:auxiliary
+  WHERE Report.bountyID=:auxiliary.bountyID
   AND username:username");
 
   if($statement->execute($args))
   {
     $result['reportArray'] = array();
     $result['error'] = 0;
+    $result['message'] = 'success';
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
-  {
-    array_push($result['reportArray'],$row);
-  }
+    {
+      array_push($result['reportArray'],$row);
+    }
   }
   else
   {
@@ -504,7 +512,7 @@ function getProfilePictureFromUsername($dbh, $args){
 
 function getReportsFromBountyID($dbh, $args) {
 $statement = $dbh->prepare("
-  SELECT * FROM report
+  SELECT * FROM Report
   WHERE bountyID=:bountyID");
 
   if($statement->execute($args))
@@ -512,9 +520,10 @@ $statement = $dbh->prepare("
     $result['reportArray'] = array();
     $result['error'] = 0;
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
-  {
-    array_push($result['reportArray'],$row);
-  }
+    {
+      $row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
+      array_push($result['reportArray'],$row);
+    }
   }
   else
   {
@@ -537,6 +546,7 @@ $statement = $dbh->prepare(
     $result['error'] = 0;
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
+      $row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
       array_push($result['reportArray'],$row);
     }
   }
