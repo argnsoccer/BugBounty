@@ -95,14 +95,16 @@
           </form>
         </div>
 
-        <div class="col-md-6 tableTop tableCol">
+        <div class="col-md-6">
           <h3 class="tableTitle">Past Bounties</h3>
-          <table>
-            <tbody>
+          <table style="overflow-y: scroll">
+            <thead>
               <tr class="rowTable header">
                 <th class="cell">Bounty Name</th>
                 <th class="cell">Company</th>
               </tr>
+            </thead>
+            <tbody>
               {% for bounty in recentBounties %}
               <tr class="rowTable">
                 <td class="cell"><a href="/_hunter/bounty/{{bounty.bountyID}}">{{bounty.name}}</a></td>
@@ -116,7 +118,7 @@
         <div class="col-md-6 tableBottom">
           <h3 class="tableTitle">Submitted Reports</h3>
           <table>
-            <tbody>
+            <thead>
               <tr class="rowTable header">
                 <th class="cell">Date Submitted</th>
                 <th class="cell">Bounty Name</th>
@@ -125,6 +127,8 @@
                 <th class="cell">Details</th>
                 <th class="cell">Response</th>
               </tr>
+            </thead>
+            <tbody>
               {% for report in recentReports %}
               <tr class="rowTable">
                 <td class="cell">{{report.date}}</td>
@@ -272,7 +276,10 @@
     <script type="text/javascript" src="/../_javascript/_qtip/qtip.js"></script>
     <script type="text/javascript" src="/../_javascript/_qtip/qtip_hunter_profile.js"></script>
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
-    <script type="text/javascript" src="/../_javascript/hunter_profile.js"></script>
+    <script type="text/javascript" src="/../_javascript/display_message.js"></script>
+    <script type="text/javascript" src="/../_javascript/display_report.js"></script>
+    <script type="text/javascript" src="/../_javascript/update_payment.js"></script>
+    <script type="text/javascript" src="/../_javascript/update_profile.js"></script> p
     <script type="text/javascript" src="/../_javascript/logout.js"></script>
     <script type="text/javascript" src="/../_javascript/basic_search.js"></script>
     {{include ('bootstrap_footer.php')}}    

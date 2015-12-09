@@ -39,12 +39,12 @@ textarea {
   width: 100% !important;
 }
 
-#profile_picture
+#bountyPicture
 {
     border-color: #5b5b5b;
     border-width: 2px;
     border-style: solid;
-    width: 200px;
+    width: 80%;
     height: 200px;
 }
 
@@ -59,21 +59,39 @@ textarea {
   text-align: center;
 }
 
-#submitUpdateProfile {
-  border-width: 1px;
-  border-radius: 10px;
-  display: block;
-  height: 35px;
-  margin: 3px;
-  width: 275px;
-  text-align: center;
-}
 
 .messageButton, .detailsButton {
      background:none!important;
      border:none; 
      padding:0!important;
      cursor: pointer;
+}
+
+.buttonCustom {
+  display:block !important;
+  margin: 10px !important;
+  text-align: center !important;
+  width: 50%;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
 }
 
 .input-group {
@@ -89,12 +107,13 @@ textarea {
 }
 
 .modal-footer {
-  height: 40px;
+  height: 70px;
 }
 
 .modalInput {
   text-align: center;
 }
+
 .tableTitle {
   padding-bottom: 5px;
 }
@@ -108,7 +127,7 @@ table {
   width: 100%;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   display: block;
-  max-height: 200px !important;
+  height: 400px !important;
   overflow-y: scroll;
 }
 
@@ -141,3 +160,4 @@ table {
   padding-bottom: 8px;
   text-align: center;
 }
+s
