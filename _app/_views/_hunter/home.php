@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -23,9 +22,9 @@
               <div id="bountyBoard">
                 <div class="row">
                   <div class="col-md-4">
-                    <div class="cycle-slideshow bountyWall" 
-                    data-cycle-fx=fade 
-                    data-cycle-timeout=3000 
+                    <div class="cycle-slideshow bountyWall"
+                    data-cycle-fx=fade
+                    data-cycle-timeout=3000
                     data-cycle-caption="#adv-custom-caption"
                     data-cycle-slides="> div"
                     data-cycle-center-horz=true
@@ -58,9 +57,9 @@
                   </div>
 
                   <div class="col-md-4">
-                    <div class="cycle-slideshow bountyWall" 
-                    data-cycle-fx=fade 
-                    data-cycle-timeout=3000 
+                    <div class="cycle-slideshow bountyWall"
+                    data-cycle-fx=fade
+                    data-cycle-timeout=3000
                     data-cycle-caption="#adv-custom-caption"
                     data-cycle-slides="> div"
                     data-cycle-center-horz=true
@@ -93,9 +92,9 @@
                   </div>
 
                   <div class="col-md-4">
-                    <div class="cycle-slideshow bountyWall" 
-                    data-cycle-fx=fade 
-                    data-cycle-timeout=3000 
+                    <div class="cycle-slideshow bountyWall"
+                    data-cycle-fx=fade
+                    data-cycle-timeout=3000
                     data-cycle-caption="#adv-custom-caption"
                     data-cycle-slides="> div"
                     data-cycle-center-horz=true
@@ -151,7 +150,7 @@
                   <td class="cell"><a href="/_hunter/company/{{bounty.company}}">{{bounty.company}}</a></td>
                   <td class="cell">{{bounty.date}}</td>
                   <td class="cell">{{bounty.number}}</td>
-                </tr> 
+                </tr>
                 {% endfor %}
               </tbody>
             </table>
@@ -167,8 +166,8 @@
 
           <script type="text/javascript">
             document.write(
-              '\x3Cscript type="text/javascript" src="' + 
-              ('https:' == document.location.protocol ? 'https://' : 'http://') + 
+              '\x3Cscript type="text/javascript" src="' +
+              ('https:' == document.location.protocol ? 'https://' : 'http://') +
               'feed.mikle.com/js/rssmikle.js">\x3C/script>'
             );
           </script>
@@ -237,7 +236,7 @@
             <h3>New to BugBounty?</h3>
             <p>Bug Bounty is a website where companies pay you for finding bugs in their
               websites.  They post a bounty and you can either come to the site and press
-              the report button in the navigation bar when you find a bug or you can 
+              the report button in the navigation bar when you find a bug or you can
               use our own search bar to find bounties and track them on our site.  Click
               <a href="/why">Why Us</a> in the navigation bar to find out more!  Happy Hunting, get them pesky bugs.
             </p>
@@ -258,7 +257,7 @@
               sfdjklhkjlsadhlkjsadhfkjlsadhkjflhskdljahfkjlashkjlfhdsalkjhfkjlsadhkjfdsjaljfhl
             </p>
           </div>
-  
+
         </div>
       </div>
     </div>

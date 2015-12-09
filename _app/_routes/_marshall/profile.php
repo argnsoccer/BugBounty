@@ -5,14 +5,14 @@ session_set_cookie_params(0);
 
 function prepareMarshallProfile($dbh, $username)
 {
-	// for marshall profile we need 
+	// for marshall profile we need
 	// 	1)  email
 	// 	2) company name
 	// 	3) username
 	// 	4) all bounties currently active for user
 	// 	5) all bounties that have expired
-		
-	if ($username === $_SESSION['userLogin'] 
+
+	if ($username === $_SESSION['userLogin']
 		&& $_SESSION['userType'] === 'marshall')
 	{
 		$template_array['username'] = $username;
@@ -24,6 +24,8 @@ function prepareMarshallProfile($dbh, $username)
 		//call for profile picture
 
 		$template_array["error"] = 0; //for time being
+		$args[':username'] = $username;
+		$template_array['activeBounties'] = getActiveBounties($dbh, $args);
 
 		return $template_array;
 	}
@@ -48,8 +50,9 @@ $app->get('/_marshall/profile/:username', function($username) use ($app, $dbh) {
 		&& $template_array['error'] === 0)
 	{
 			$app->render('_marshall/profile.php', $template_array);
+			echo print_r($template_array);
 	}
-	else 
+	else
 	{
 		if ($template_array['error'] === 1)
 		{
@@ -59,7 +62,7 @@ $app->get('/_marshall/profile/:username', function($username) use ($app, $dbh) {
 		{
 			echo "error - statement was not ran";
 		}
-		else 
+		else
 		{
 			echo "error - no error code returned";
 		}
