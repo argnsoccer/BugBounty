@@ -854,6 +854,8 @@ function rssExists($dbh, $args) {
     WHERE username = :username"
   );
 
+  $function_array = [];
+
   if($statement->execute($args)) {
 
     $row = $statement->fetch(PDO::FETCH_ASSOC);
@@ -861,30 +863,30 @@ function rssExists($dbh, $args) {
     if($row['rssCreated']) {
 
       if(file_exists($row['rssLink'])) {
-        $result['link'] = $row['rssLink'];
-        $result['exists'] = "1";
-        $result['error'] = "0";
-        $message['message'] = "All gucci";
+        $function_array['result']['link'] = $row['link'];
+        $function_array['result']['exists'] = "1";
+        $function_array['error'] = "0";
+        $function_array['message'] = "All gucci";
       }
       else {
-        $result['exists'] = "0";
-        $result['error'] = "1";
-        $message['message'] = "File does not exist";
+        $function_array['result']['exists'] = "0";
+        $function_array['error'] = "1";
+        $function_array['message'] = "File does not exist";
       }
     }
     else {
-      $result['exists'] = "0";
-      $result['error'] = "1";
-      $message['message'] = "File does not exist";
+      $function_array['result']['exists'] = "0";
+      $function_array['error'] = "1";
+      $function_array['message'] = "File does not exist";
     }
 
   }
   else {
-    $result['error'] = "1";
-    $message['message'] = "Statement did not execute";
+    $function_array['error'] = "1";
+    $function_array['message'] = "Statement did not execute";
   }
 
-  return $result;
+  return $function_array;
 }
 
 function addSubscription($dbh, $args) {

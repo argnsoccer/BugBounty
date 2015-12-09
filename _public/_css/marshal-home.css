@@ -79,7 +79,7 @@ table {
 .rowTable.header {
   font-weight: 900;
   color: #ffffff;
-  background: #2980b9;
+  background: #59ABE3;
 
 }
 
@@ -108,4 +108,9 @@ table {
 	position: absolute;
 	right: 15px;
 	top: 15px;
+}
+
+#noBountiesMessage {
+  margin-top: 40px;
+  text-align: center;
 }

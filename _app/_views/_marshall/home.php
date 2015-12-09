@@ -14,36 +14,39 @@
       <div class="container-fluid">
         <div class="row">
 
-          <div class="col-md-8">
+          <div class="col-md-7">
             <div class="box">
               <h3>Post a bounty</h3>
 
           </div>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-5">
             <div class="box">
-              <h3>Track</h3>
-              <p class="description">Quickly jump into past bounties!</p>
+              <h3>My Active Bounties</h3>
+              <p class="description">The bounties hunters are tracking of yours</p>
               <div class="tableWrapper">
                   <table>
                     <tbody>
                       <tr class="rowTable header">
+                        <th class="cell">Date Ending</th>
                         <th class="cell">Bounty Name</th>
                         <th class="cell">Date Created</th>
-                        <th class="cell">Date Ending</th>
                         <th class="cell">Report Count</th>
                       </tr>
-                      {% for bounty in trackBounties %}
+                      {% for bounty in currentBounties %}
                       <tr class="rowTable">
+                        <td class="cell">{{bounty.dateEnding}}</td>
                         <td class="cell"><a href="/_hunter/bounty/{{bounty.id}}">{{bounty.name}}</a></td>
-                        <td class="cell"><a href="/_hunter/company/{{bounty.company}}">{{bounty.company}}</a></td>
-                        <td class="cell">{{bounty.date}}</td>
+                        <td class="cell">{{bounty.dateCreated}}</td>
                         <td class="cell">{{bounty.number}}</td>
                       </tr>
                       {% endfor %}
                     </tbody>
                   </table>
+                  {% if currentBounties|length == 0 %}
+                    <p id="noBountiesMessage">You have no bounties, click <a href="/_marshall/upload">here</a> or on Upload in the Nav Bar to make one!</p>
+                  {% endif %}
               </div>
 
             </div>
@@ -56,7 +59,9 @@
           <div class="col-md-5">
               <div id="newsfeed_header">
                   <h3 class="newsfeed_header">My Newsfeed</h3>
-                  <button type="button" id="add_post_button" class="btn btn-default btn-xs newsfeed_header">Add Post</button>
+                  <button type="button" id="add_post_button" title="Click to add or create an RSS" 
+                    class="btn btn-default btn-xs newsfeed_header" onclick="onAddRSS();">
+                    Add Post</button>
               </div>
 
             <script type="text/javascript">
@@ -89,12 +94,12 @@
                   mcspeed: "20",
                   sort: "Off",
                   rssmikle_title: "on",
-                  rssmikle_title_sentence: "BugBounty News",
+                  rssmikle_title_sentence: "Posts",
                   rssmikle_title_link: "",
-                  rssmikle_title_bgcolor: "#59ABE3",
+                  rssmikle_title_bgcolor: "#E74C3C",
                   rssmikle_title_color: "#FAFAFA",
                   rssmikle_title_bgimage: "",
-                  rssmikle_item_bgcolor: "#E74C3C",
+                  rssmikle_item_bgcolor: "#59ABE3", 
                   rssmikle_item_bgimage: "",
                   rssmikle_item_title_length: "55",
                   rssmikle_item_title_color: "#FAFAFA",
@@ -129,19 +134,18 @@
 
             <div class="col-md-12" class="bottomBox">
               <h3>New to BugBounty?</h3>
-              <p>Bug Bounty is a website where companies pay you for finding bugs in their
-                websites.  They post a bounty and you can either come to the site and press
-                the report button in the navigation bar when you find a bug or you can
-                use our own search bar to find bounties and track them on our site.  Click
-                <a href="/why">Why Us</a> in the navigation bar to find out more!  Happy Hunting, get them pesky bugs.
+              <p>Bug Bounty is a website where you post your websites and allow our bug hunters find 
+                the problems you cannot get your hands on.  When you post a bounty, hunters then have a place 
+                to let you know when they discover something is wrong.  Whehter they are passivly using the internet
+                or hell bent on breaking your site, it allows you to find bugs you couldn't before.  To incentivize 
+                hunters, you can choose to pay them for their hard work. Click
+                <a href="/why">Why Us</a> in the navigation bar to find out more!
               </p>
             </div>
 
             <div class="col-md-12" class="bottomBox">
               <h3>Message of the Day</h3>
-              <p>dfsklajlkshdjkhgsflkdhgkljdfhgkjldhkjfshdakljfhksajdfhkjlasdhksadhkjfhsadkjlfhs
-                sdkjfhskldjhfkjlshadkjfhsakljdfhslkdjfhkldjsahfsklajhfkjlsadhfkjasdhfklsajdhfklj
-                sfdjklhkjlsadhlkjsadhfkjlsadhkjflhskdljahfkjlashkjlfhdsalkjhfkjlsadhkjfdsjaljfhl
+              <p>{{messageOfDay}}
               </p>
             </div>
 
@@ -154,68 +158,20 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
       <script type="text/javascript" src="/../_javascript/_jquery/cycle.js"></script>
       <script type="text/javascript" src="/../_javascript/logout.js"></script>
-      <script type="text/javascript" src="/../_javascript/basic_search.js"></script>
+      <script type="text/javascript" src="/../_javascript/search_basic.js"></script>
       <script type="text/javascript" src="/../_javascript/advanced_search.js"></script>
 
+      <script>
+        function onAddRSS() {
+          if({{rssExists.result.exists}} == 1) {
+            window.location = "/_marshall/rssadd/{{username}}";
+          }
+          else {
+            window.location = "/_marshall/rsscreate/{{username}}";
+          }
+        } 
+      </script>
+
       {{include ('bootstrap_footer.php')}}
-    <!--{{ include ('header_marshall.php') }}
-
-    <div class="container-fluid">
-      <div class="row">
-
-        <div class="col-md-4">
-          <div class="box">
-            <h3>Upload</h3>
-            <p class="description">Upload a new bounty and put those bug hunters to work!  Click below to go to our upload page and get started.</p>
-            <form id="uploadButton" action="/_hunter/upload" class="contentSection">
-              <input type="submit" value="Upload a New Bounty" />
-            </form>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="box">
-            <h3>Track</h3>
-            <p class="description">See what the hunters have been doing with your bounties!  Here are your most recent bounties posted, but go to you profile to see them all.</p>
-            <table id="trackTable" class="contentSection">
-              <tr>
-                <td><a href="https://www.google.com">Google 1</a></td>
-              </tr>
-              <tr>
-                <td><a href="https://www.google.com">Google 2</a></td>
-              </tr>
-              <tr>
-                <td><a href="https://www.google.com">Google 3</a></td>
-              </tr>
-              <tr>
-                <td><a href="https://www.google.com">Google 4</a></td>
-              </tr>
-            </table>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="box">
-            <h3>Pay</h3>
-            <p class="description">They have been working hard, now its time to reward them!  Click below to go to our pay page, where you can submit the approved bugs through vimeo or paypal.</p>
-            <form id="searchForm" class="contentSection">
-              <input type="submit" value="Pay Now!">
-            </form>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type="text/javascript" src="/../_javascript/logout.js"></script>
-
-    {{include ('bootstrap_footer.php')}}-->
   </body>
 </html>
-
-
-
-<!-- <a href="_hunter/profile/{{username}}">Link to Profile Page</a> -->
