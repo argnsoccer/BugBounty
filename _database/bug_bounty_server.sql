@@ -304,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `MessageOfDay` (
   `messageID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `accountType` varchar(10) NOT NULL,
   `message` mediumtext NOT NULL,
-  `date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `dateMade` datetime DEFAULT NOW(),
   PRIMARY KEY (`messageID`),
   UNIQUE KEY `messageID_UNIQUE` (`messageID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
