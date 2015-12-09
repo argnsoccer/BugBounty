@@ -56,15 +56,15 @@
 }
 
 table {
-  margin-bottom: 40px;
   width: 100%;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  max-height: 250px !important;
-  overflow-y: scroll;
-  display: block;
+}
+
+.tableWrapper {
+  height: 225px;
 }
 
 .rowTable {
+  height: 45px;
   background: #f6f6f6;
   width: 100%;
 }
