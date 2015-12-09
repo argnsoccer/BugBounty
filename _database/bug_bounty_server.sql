@@ -300,6 +300,14 @@ CREATE TABLE IF NOT EXISTS `Subscription` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+CREATE TABLE IF NOT EXISTS `MessageOfDay` (
+  `messageID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `accountType` varchar(10) NOT NULL,
+  `message` mediumtext NOT NULL,
+  `date` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`messageID`),
+  UNIQUE KEY `messageID_UNIQUE` (`messageID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 --
 -- Dumping data for table `unpaidreport`
 --
