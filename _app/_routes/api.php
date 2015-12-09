@@ -105,12 +105,11 @@ if(!isset($_SESSION))
 
 function loginUser($dbh, $args) {
 
-  $result['status'] = "complete";
   global $dbh;
   if(!isset($_SESSION['userLogin'])){
 
     $statement = $dbh->prepare("SELECT username, userID, accountType FROM Account WHERE username = :username AND password = :password");
-
+    $loginArray = array();
     if($statement->execute($args))
     {
       $row = $statement->fetch(PDO::FETCH_ASSOC);
@@ -125,28 +124,30 @@ function loginUser($dbh, $args) {
         $_SESSION['userType'] = strtolower($row['accountType']);
         $_SESSION['userID'] = $row['userID'];
 
-        $result['error'] = '0';
+        array_push($loginArray['error'],'0');
       }
       else
       {
-        $result['error'] = '1';
-        $result['message'] = "The username and password combination did not work";
+        array_push($loginArray['error'],'1');
+        array_push($loginArray['message'],"The username and password combination did not work");
       }
     }
     else
     {
-      $result['error'] = '2';
-      $result['message'] = $statement->errorInfo();
+      array_push($loginArray['error'],'2');
+      array_push($loginArray['messageDB'], $statement->errorInfo());
     }
-
-    return $result;
+    array_push($loginArray['result'], $result);
+    return $loginArray;
   }
   else
   {
-    $result['error'] = '3';
-    $result['message'] = 'user is already logged in';
+    array_push($loginArray['error'],'3');
 
-    return $result;
+    array_push($loginArray['message'], 'user is already logged in');
+    array_push($loginArray['result'], $result);
+
+    return $loginArray;
   }
 }
 
