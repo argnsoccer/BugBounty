@@ -58,6 +58,28 @@ $(document).ready(function () {
       type: 'POST',
       success: function(response)
       {
+        var newReport = "<tr class=\"rowTable\">
+                  <td class=\"cell\">{{report.dateSubmitted}}</td>
+                  <td class=\"cell\">{{report.Paid}}</td>
+                  <td class=\"cell\">
+                    <button type=\"button\" class=\"detailsButton\" data-toggle=\"modal\" 
+                    data-target=\"#detailsModal\" data-whatever=\"@getbootstrap\" 
+                    data-ID={{report.reportID}}>
+                      View
+                    </button>
+                  </td>
+                  <td class=\"cell\">
+                    <button type=\"button\" class=\"messageButton\" data-toggle=\"modal\" 
+                      data-target=\"#messageModal\" data-whatever=\"@getbootstrap\" 
+                      data-ID={{report.reportID}}>
+                      View
+                    </button>
+                  </td>
+                </tr>";
+
+
+        $(newReport).insertAfter("#submittedReports");
+
         alert(response.message);
       	$.notify({
           // options

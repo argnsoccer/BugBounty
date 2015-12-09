@@ -100,8 +100,8 @@
                   <th class="cell">Response</th>
                 </tr>
               </thead>
+              <tbody id="submittedReports">
                 {% for report in submittedReports.reportArray %}
-              <tbody>
                 <tr class="rowTable">
                   <td class="cell">{{report.dateSubmitted}}</td>
                   <td class="cell">{{report.Paid}}</td>
