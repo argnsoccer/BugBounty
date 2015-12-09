@@ -299,14 +299,14 @@ function getUserFromUsername($dbh, $args) {
 
     if(isset($row['username'])) {
       $result['username'] = $row['username'];
-    $result['userType'] = strtolower($row['accountType']);
-    $result['email'] = $row['email'];
-    $result['proPic'] = $row['imageLoc'];
-    $functionArray['error'] = '0';
-    $result['name'] = $row['name'];
-    $result['dateJoined'] = substr($row['dateCreated'], 0, -9);
-
-    $functionArray['message'] = 'success';
+      $result['userType'] = strtolower($row['accountType']);
+      $result['email'] = $row['email'];
+      $result['proPic'] = $row['imageLoc'];
+      $functionArray['error'] = '0';
+      $result['name'] = $row['name'];
+      $result['dateJoined'] = substr($row['dateCreated'], 0, -9);
+      $functionArray['result'] = $result;
+      $functionArray['message'] = 'success';
     }
     else {
       $functionArray['error'] = '2';
@@ -320,7 +320,7 @@ function getUserFromUsername($dbh, $args) {
     $functionArray['messageDB'] = $statement->errorInfo();
 
   }
-  $functionArray['result'] = $result;
+
   return $functionArray;
 }
 
