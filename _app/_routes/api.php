@@ -375,7 +375,7 @@ function createBounty($dbh, $args) {
 function createReport($dbh, $args) {
 
   $statement = $dbh->prepare("
-  INSERT INTO report (bountyID, username, description, link, dateSubmitted, pathToError, errorName)
+  INSERT INTO Report (bountyID, username, description, link, dateSubmitted, pathToError, errorName)
   VALUES (:bountyID,:username,:description, :link, NOW(), :pathToError, :errorName)");
 
   if($statement->execute($args))
