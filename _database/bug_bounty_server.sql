@@ -311,7 +311,7 @@ UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 CREATE TABLE IF NOT EXISTS `Transactions` (
-  `transactionID` VARCHAR(8) unsigned NOT NULL,
+  `transactionID` VARCHAR(8) NOT NULL,
   `hunterID` int(10) unsigned NOT NULL,
   `marshallID` int(10) unsigned NOT NULL,
   `amount` int(10) NOT NULL,
@@ -320,10 +320,14 @@ CREATE TABLE IF NOT EXISTS `Transactions` (
   `bountyID` int(10) unsigned NOT NULL,
   PRIMARY KEY (`transactionID`),
   UNIQUE KEY `transactionID_UNIQUE` (`transactionID`),
+  KEY `fk_hunter_Account` (`hunterID`),
+  KEY `fk_marshall_Marshall` (`marshallID`),
+  KEY `fk_reportID_Report` (`reportID`),
+  KEY `fk_bounty_BountyPool` (`bountyID`),
   CONSTRAINT `fk_hunter_Account` FOREIGN KEY (`hunterID`) REFERENCES `Account` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_marshall_Marshall` FOREIGN KEY (`marshallID`) REFERENCES `Marshall` (`marshallID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-  CONSTRAINT `fk_reportID_Report` FOREIGN KEY (`reportID`) REFERENCES `Report` (`reportID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-  CONSTRAINT `fk_bounty_BountyPool` FOREIGN KEY (`bountyID`) REFERENCES `BountyPool` (`bountyID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_marshall_Marshall` FOREIGN KEY (`marshallID`) REFERENCES `Marshall` (`marshallID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_reportID_Report` FOREIGN KEY (`reportID`) REFERENCES `Report` (`reportID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_bounty_BountyPool` FOREIGN KEY (`bountyID`) REFERENCES `BountyPool` (`poolID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
