@@ -517,7 +517,7 @@ function getProfilePictureFromUsername($dbh, $args){
   if($_SESSION['userType'] == 'marshall'){
     $statement = $dbh->prepare("
     SELECT Account.imageLoc FROM Account WHERE username = :username");
-    if($sth->execute($args))
+    if($statement->execute($args))
     {
       $row = $statement->fetch(PDO::FETCH_ASSOC);
       $result['message'] = 'success';
@@ -531,9 +531,28 @@ function getProfilePictureFromUsername($dbh, $args){
     }
 
   }
+}
 
-
-
+function getMessageOfDay($dbh,$args)
+{
+	$statement = $dbh->prepare("
+	SELECT message FROM MessageOfDay
+	WHERE DATE(dateMade) = DATE(NOW())
+	AND accountType = :accountType");
+	if($statement->execute($args))
+	{
+		$row = $statement->fetch(PDO::FETCH_ASSOC);
+		$result["result"]["messageOfDay"] = $row['message'];
+		$result['message'] = "success";
+		$result['error'] = 0;
+	}
+	else
+	{
+		$result['message'] = "Statement not executed";
+		$result['error'] = 1;
+		$result['messageDB'] = $statement->errorInfo();
+	}
+	return $result;
 }
 
 function getReportsFromBountyID($dbh, $args) {
@@ -1587,4 +1606,11 @@ $app->post('/api/updateUserDetails',function() use($dbh)
 		$change[2] = true;//password
 	}
 	echo json_encode(updateUserDetails($dbh,$change,$_POST));
+});
+
+$app->get('/api/getMODHunter',function() use($dbh)
+{
+	$args = array();
+	$args[':accountType'] = "Hunter";
+	echo json_encode(getMessageOfDay($dbh,$args));
 });
