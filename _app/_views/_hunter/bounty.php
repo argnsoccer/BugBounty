@@ -100,9 +100,13 @@
                   <th class="cell">Response</th>
                 </tr>
               </thead>
-              <tbody id="submittedReports">
+              <tbody id="submitedReports">
                 {% for report in submittedReports.reportArray %}
+                {% if report.index!= 0 %}
                 <tr class="rowTable">
+                {% else %}
+                <tr class="rowTable" id="firstValue">
+                {% endif %}
                   <td class="cell">{{report.dateSubmitted}}</td>
                   <td class="cell">{{report.Paid}}</td>
                   <td class="cell">

@@ -95,10 +95,10 @@
                 </tr>
               </thead>
               <tbody>
-                {% for bounty in copmpany.activeBounties %}
+                {% for bounty in company.active.activeBounties %}
                 <tr class="rowTable">
                   <td class="cell">{{bounty.dateCreated}}</td>
-                  <td class="cell"><a href="/_hunter/company/{{bounty.accountID}}">{{bounty.name}}</a></td>
+                  <td class="cell"><a href="/_hunter/company/{{bounty.companyName}}">{{bounty.bountyName}}</a></td>
                   <td class="cell">{{bounty.dateEnding}}</td>
                 </tr> 
                 {% endfor %}

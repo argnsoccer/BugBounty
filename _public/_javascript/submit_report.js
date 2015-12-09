@@ -58,29 +58,11 @@ $(document).ready(function () {
       type: 'POST',
       success: function(response)
       {
-        var newReport = "<tr class=\"rowTable\">
-                  <td class=\"cell\">{{report.dateSubmitted}}</td>
-                  <td class=\"cell\">{{report.Paid}}</td>
-                  <td class=\"cell\">
-                    <button type=\"button\" class=\"detailsButton\" data-toggle=\"modal\" 
-                    data-target=\"#detailsModal\" data-whatever=\"@getbootstrap\" 
-                    data-ID={{report.reportID}}>
-                      View
-                    </button>
-                  </td>
-                  <td class=\"cell\">
-                    <button type=\"button\" class=\"messageButton\" data-toggle=\"modal\" 
-                      data-target=\"#messageModal\" data-whatever=\"@getbootstrap\" 
-                      data-ID={{report.reportID}}>
-                      View
-                    </button>
-                  </td>
-                </tr>";
+        var newReport = "<tr class=\"rowTable\"><td class=\"cell\">" + response.report.dateSubmitted + "</td><td class=\"cell\">" + response.report.paid + "</td><td class=\"cell\"><button type=\"button\" class=\"detailsButton\" data-toggle=\"modal\" data-target=\"#detailsModal\" data-whatever=\"@getbootstrap\" data-ID=" + response.report.reportID + ">View</button></td><td class=\"cell\"><button type=\"button\" class=\"messageButton\" data-toggle=\"modal\" data-target=\"#messageModal\" data-whatever=\"@getbootstrap\" data-ID=" + response.report.reportID + ">View</button></td></tr>";
 
 
-        $(newReport).insertAfter("#submittedReports");
+        $(newReport).insertBefore("#firstValue");
 
-        alert(response.message);
       	$.notify({
           // options
           message: " Report Submitted",

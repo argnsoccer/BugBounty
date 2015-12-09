@@ -400,10 +400,9 @@ function createReport($dbh, $args) {
       {
         $result['error'] = '0';
         $result['message'] = 'Success';
-        while($row = $statement->fetch(PDO::FETCH_ASSOC))
-        {
-          array_push($result['report'], $row);
-        }
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        $result['report'] = $row;
+        $result['report']['dateSubmitted'] = substr($result['report']['dateSubmitted'], 0, -9);
       }
       else {
         $result['error'] = '3';
