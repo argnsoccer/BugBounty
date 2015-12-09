@@ -89,15 +89,17 @@
             <table>
               <thead class="marshalBackground">
                 <tr class="">
+                  <th class="cell">Date Created</th>
                   <th class="cell">Bounty Name</th>
-                  <th class="cell">Company</th>
+                  <th class="cell">Date Ending</th>
                 </tr>
               </thead>
               <tbody>
-                {% for bounty in recentBounties %}
+                {% for bounty in company.active.activeBounties %}
                 <tr class="rowTable">
-                  <td class="cell"><a href="/_hunter/bounty/{{bounty.bountyID}}">{{bounty.name}}</a></td>
-                  <td class="cell"><a href="/_hunter/company/{{bounty.accountID}}">{{bounty.company}}</a></td>
+                  <td class="cell">{{bounty.dateCreated}}</td>
+                  <td class="cell"><a href="/_hunter/bounty/{{company.name}}/{{bounty.poolID}}">{{bounty.bountyName}}</a></td>
+                  <td class="cell">{{bounty.dateEnding}}</td>
                 </tr> 
                 {% endfor %}
               </tbody>

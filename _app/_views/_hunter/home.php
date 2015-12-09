@@ -147,7 +147,7 @@
                   </tr>
                   {% for bounty in trackBounties %}
                   <tr class="rowTable">
-                    <td class="cell"><a href="/_hunter/bounty/{{bounty.id}}">{{bounty.name}}</a></td>
+                    <td class="cell"><a href="/_hunter/bounty/{{bounty.company}}/{{bounty.id}}">{{bounty.name}}</a></td>
                     <td class="cell"><a href="/_hunter/company/{{bounty.company}}">{{bounty.company}}</a></td>
                     <td class="cell">{{bounty.date}}</td>
                     <td class="cell">{{bounty.number}}</td>

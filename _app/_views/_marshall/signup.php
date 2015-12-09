@@ -3,6 +3,7 @@
     <meta charset="utf-8">
     <link rel="shortcut icon" type="image/x-icon" href="../_images/_logos/bug-hunter-icon.ico" />
     <link rel="stylesheet" type="text/css" href="/../_css/header.css">
+    <link rel="stylesheet" type="text/css" href="/../_css/qtip.css">
     <link rel="stylesheet" type="text/css" href="/../_css/default.css">
     <link rel="stylesheet" type="text/css" href="/../_css/sign-up.css">
     <title>Signin Template for Bootstrap</title>
@@ -40,7 +41,7 @@
             <input type="password" id="signUpPassword" class="form-control" placeholder="Choose a Password">
             <input type="password" id="signUpConfirmPassword" class="form-control" placeholder="Confirm your Password">
             <input type="button" class="btn btn-default form-control" value="Company Description" data-toggle="modal" 
-            data-target="#descriptionModal" data-whatever="@getbootstrap" id="descButton" style="display:">
+            data-target="#descriptionModal" data-whatever="@getbootstrap" id="descButton" style="display:none">
 
             <button class="btn btn-lg btn-primary btn-block" id="submitSignUp" type="submit">Continue</button>
             <a href="/_hunter/signup">Not a Marshal?</a>
@@ -72,7 +73,8 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
+    <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
+    <script type="text/javascript" src="/../_javascript/_qtip/qtip.js"></script>
     <script type="text/javascript" src="/../_javascript/marshal_signup.js"></script>
     {{include ('bootstrap_footer.php')}}
   </body>

@@ -15,6 +15,10 @@ function prepareCompanyProfilePage($dbh, $companyUsername) {
 
 	$template_array['company'] = getUserFromUsername($dbh, $args);
 
+	if ($template_array['company']['error'] == 2) {
+		return $template_array;
+	}
+
 	$template_array['company']['name'] = $companyUsername;
 	
 	$template_array['company']['active'] = getActiveBounties($dbh, $args);
@@ -33,8 +37,17 @@ $app->get('/_hunter/company/:companyName', function($companyUsername) use ($app,
 
 	$template_array = prepareCompanyProfilePage($dbh, $companyUsername);
 
-	$app->render('_hunter/company.php', $template_array);
 
-	echo print_r($template_array);
+	if($template_array['company']['error'] == 2) {
+		$template_array["errorMessage"] = "We have no Marshal with that username!";
+		$template_array["errorSolution"] = "Try finding a new company!";
+
+		$app->render('error.php', $template_array);
+	}
+	else {
+		$app->render('_hunter/company.php', $template_array);
+
+		// echo print_r($template_array);
+	}
 
 });

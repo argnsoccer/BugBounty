@@ -291,13 +291,19 @@ function getUserFromUsername($dbh, $args) {
   {
     $row = $statement->fetch(PDO::FETCH_ASSOC);
 
-    $result['username'] = $row['username'];
+    if(isset($row['username'])) {
+      $result['username'] = $row['username'];
     $result['userType'] = strtolower($row['accountType']);
     $result['email'] = $row['email'];
     $result['proPic'] = $row['imageLoc'];
     $result['error'] = '0';
     $result['name'] = $row['name'];
     $result['dateJoined'] = substr($row['dateCreated'], 0, -9);
+    }
+    else {
+      $result['error'] = '2';
+      $result['message'] = "No username";
+    }
   }
   else
   {
@@ -369,33 +375,49 @@ function createBounty($dbh, $args) {
 function createReport($dbh, $args) {
 
   $statement = $dbh->prepare("
-  INSERT INTO report (bountyID, username, description, link, dateSubmitted, pathToError)
-  VALUES (:bountyID,:username,:description, :link, NOW(), :pathToError)");
+  INSERT INTO Report (bountyID, username, description, link, dateSubmitted, pathToError, errorName)
+  VALUES (:bountyID,:username,:description, :link, NOW(), :pathToError, :errorName)");
 
   if($statement->execute($args))
   {
 
     $reportID = $dbh->lastInsertId();
-    $args2[":filePath"] = '../_files/'.$args[":bountyID"].'/'.$args[":username"].$reportID;
+
+    mkdir('../_files/'.'_'.$args[":bountyID"].'/_'.$args[":username"]);
+    $args2[":filePath"] = '../_files/'.$args[":bountyID"].'/'.$args[":username"].'/report'.$reportID;
     $args2[":reportID"] = $reportID;
-    mkdir('../_files/'.$args[":bountyID"].'/'.$reportID);
     $statement = $dbh->prepare("
     UPDATE Report
     SET filePath = :filePath
     WHERE reportID=:reportID");
-    if($statement->execute($arsg))
+    if($statement->execute($args2))
     {
-      $result['error'] = '0';
+      $result['report'] = array();
+      $args3[':reportID'] = $reportID;
+      $statement = $dbh->prepare("
+      SELECT * FROM Report WHERE reportID = :reportID");
+      if($statement->execute($args3))
+      {
+        $result['error'] = '0';
+        $result['message'] = 'Success';
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        $result['report'] = $row;
+        $result['report']['dateSubmitted'] = substr($result['report']['dateSubmitted'], 0, -9);
+      }
+      else {
+        $result['error'] = '3';
+        $result['message'] = $statement->errorInfo();
+      }
     }
     else{
       $result['error'] = '2';
-      $result['message'] = 'Statement 2 not executed';
+      $result['message'] = $statement->errorInfo();
     }
   }
   else
   {
     $result['error'] = '1';
-    $result['message'] = 'Statement not executed';
+    $result['message'] = $statement->errorInfo();
 
   }
   return $result;
@@ -404,13 +426,14 @@ function createReport($dbh, $args) {
 function updateReport($dbh, $args) {
 
   $statement = $dbh->prepare(
-  "UPDATE report
+  "UPDATE Report
   SET payAmount = :payAmount, username = :username, message = :message
   WHERE reportID = :reportID");
 
   if($statement->execute($args))
   {
     $result['error'] = '0';
+    $result['message'] = 'success';
   }
   else
   {
@@ -423,16 +446,33 @@ function updateReport($dbh, $args) {
 
 function getReportsFromUsername($dbh, $args) {
   $statement = $dbh->prepare(
-  "SELECT * FROM report
+  "SELECT * FROM Report
   WHERE username=:username");
 
   if($statement->execute($args))
   {
     $result['reportArray'] = array();
-    $result['error'] = 0;
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
+      $reportID = $row['reportID'];
       array_push($result['reportArray'],$row);
+    }
+    $args2[':reportID'] = $reportID;
+    $statement = $dbh->prepare(
+    "SELECT paidAmount FROM paidReport WHERE reportID = :reportID"
+    );
+
+    if($statement->execute($args2))
+    {
+      $row = $statement->fetch(PDO::FETCH_ASSOC);
+      $result['error'] = '0';
+      $result['message'] = 'success';
+      array_push($result['reportArray'], $row);
+    }
+    else {
+
+      $result['error'] = '2';
+      $result['message'] = 'Second statement not executed';
     }
   }
   else
@@ -449,18 +489,19 @@ function getReportsFromUsername($dbh, $args) {
 function getReportsFromUsernamePaidOrUnPaid($dbh,$args)
 {
   $statement = $dbh->prepare("
-  SELECT * FROM report,:auxiliary
-  WHERE report.bountyID=:auxiliary.bountyID
+  SELECT * FROM Report,:auxiliary
+  WHERE Report.bountyID=:auxiliary.bountyID
   AND username:username");
 
   if($statement->execute($args))
   {
     $result['reportArray'] = array();
     $result['error'] = 0;
+    $result['message'] = 'success';
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
-  {
-    array_push($result['reportArray'],$row);
-  }
+    {
+      array_push($result['reportArray'],$row);
+    }
   }
   else
   {
@@ -478,13 +519,12 @@ function getProfilePictureFromUsername($dbh, $args){
     if($sth->execute($args))
     {
       $row = $statement->fetch(PDO::FETCH_ASSOC);
-      $result['success'] = 'true';
+      $result['message'] = 'success';
       $result['imagePath'] = $row['imageLoc'];
       $result['error'] = '0';
     }
     else
     {
-      $result['success'] = 'false';
       $result['error'] = '2';
       $result['message'] = 'statement did not execute';
     }
@@ -497,17 +537,35 @@ function getProfilePictureFromUsername($dbh, $args){
 
 function getReportsFromBountyID($dbh, $args) {
 $statement = $dbh->prepare("
-  SELECT * FROM report
+  SELECT * FROM Report
   WHERE bountyID=:bountyID");
 
   if($statement->execute($args))
   {
     $result['reportArray'] = array();
-    $result['error'] = 0;
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
-  {
-    array_push($result['reportArray'],$row);
-  }
+    {
+      $row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
+      $reportID = $row['reportID'];
+      array_push($result['reportArray'],$row);
+    }
+    $args2[':reportID'] = $reportID;
+    $statement = $dbh->prepare(
+    "SELECT paidAmount FROM paidReport WHERE reportID = :reportID"
+    );
+
+    if($statement->execute($args2))
+    {
+      $row = $statement->fetch(PDO::FETCH_ASSOC);
+      $result['error'] = '0';
+      $result['message'] = 'success';
+      array_push($result['reportArray'], $row);
+    }
+    else {
+
+      $result['error'] = '2';
+      $result['message'] = 'Second statement not executed';
+    }
   }
   else
   {
@@ -527,10 +585,29 @@ $statement = $dbh->prepare(
   if($statement->execute($args))
   {
     $result['reportArray'] = array();
-    $result['error'] = 0;
+
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
+      $row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
+      $reportID = $row['reportID'];
       array_push($result['reportArray'],$row);
+    }
+    $args2[':reportID'] = $reportID;
+    $statement = $dbh->prepare(
+    "SELECT paidAmount FROM paidReport WHERE reportID = :reportID"
+    );
+
+    if($statement->execute($args2))
+    {
+      $row = $statement->fetch(PDO::FETCH_ASSOC);
+      $result['error'] = 0;
+      $result['message'] = 'success';
+      array_push($result['reportArray'], $row);
+    }
+    else {
+
+      $result['error'] = '2';
+      $result['message'] = 'Second statement not executed';
     }
   }
   else
@@ -555,10 +632,11 @@ function getPreferredBounties($dbh) {
   {
     $result['bountyArray'] = array();
     $result['error'] = 0;
+    $result['message'] = 'success';
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
-  {
-    array_push($result['bountyArray'],$row);
-  }
+    {
+      array_push($result['bountyArray'],$row);
+    }
   }
   else
   {
@@ -1135,6 +1213,7 @@ $app->post('/api/createReport', function() use ($dbh) {
   $args[':description'] = $_POST['description'];
   $args[':link'] = $_POST['link'];
   $args[':pathToError'] = $_POST['pathToError'];
+  $args[':errorName'] = $_POST['errorName'];
 
   $result = createReport($dbh, $args);
 
@@ -1388,11 +1467,16 @@ $app->post('/api/payReport', function() use ($dbh){
 
   if($statement->execute($args))
   {
-    $statement = $dbh->prepare(
-    "INSERT INTO paidReport (reportID, paidAmount, datePaid, message)
-    VALUES (:reportID, :amount, now(), 'This report has been paid to ANONYMOOSE')");
+    $message = 'This report has been paid to ANONYMOOSE';
+    $smt = $dbh->prepare(
+    "INSERT INTO paidReport (reportID, paidAmount, datePaid, message, publish)
+    VALUES (:reportID, :amount, now(), :message, 0)");
+    $reportID=$args[":reportID"];
+    $smt->bindParam(":reportID", $reportID);
+    $smt->bindParam(":amount", $amount);
+    $smt->bindParam(":message", $message);
 
-    if($statement->execute($args))
+    if($smt->execute())
     {
       $result2['error'] = '0';
       $result2['message'] = 'second statement success. Transaction complete.';
