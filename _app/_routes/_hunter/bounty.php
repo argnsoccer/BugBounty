@@ -32,6 +32,6 @@ $app->get('/_hunter/bounty/:bountyID', function($bountyID) use ($app, $dbh) {
 
 	$app->render('_hunter/bounty.php', $template_array);
 
-	// echo print_r($template_array);
+	echo print_r($template_array);
 
 });

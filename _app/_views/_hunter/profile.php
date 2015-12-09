@@ -102,6 +102,7 @@
             <table>
               <thead>
                 <tr class="rowTable header">
+                  <th class="cell">Date Ending</th>
                   <th class="cell">Bounty Name</th>
                   <th class="cell">Company</th>
                 </tr>
@@ -109,6 +110,7 @@
               <tbody>
                 {% for bounty in recentBounties %}
                 <tr class="rowTable">
+                  <td class="cell">{{bounty.dateEnding}}</td>
                   <td class="cell"><a href="/_hunter/bounty/{{bounty.bountyID}}">{{bounty.name}}</a></td>
                   <td class="cell"><a href="/_hunter/company/{{bounty.company}}">{{bounty.company}}</a></td>
                 </tr> 

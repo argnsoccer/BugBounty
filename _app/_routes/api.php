@@ -291,13 +291,19 @@ function getUserFromUsername($dbh, $args) {
   {
     $row = $statement->fetch(PDO::FETCH_ASSOC);
 
-    $result['username'] = $row['username'];
+    if(isset($row['username'])) {
+      $result['username'] = $row['username'];
     $result['userType'] = strtolower($row['accountType']);
     $result['email'] = $row['email'];
     $result['proPic'] = $row['imageLoc'];
     $result['error'] = '0';
     $result['name'] = $row['name'];
     $result['dateJoined'] = substr($row['dateCreated'], 0, -9);
+    }
+    else {
+      $result['error'] = '2';
+      $result['message'] = "No username";
+    }
   }
   else
   {

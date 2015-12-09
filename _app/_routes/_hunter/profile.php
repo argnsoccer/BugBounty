@@ -33,73 +33,85 @@ function prepareHunterProfile($dbh, $username) {
 				"name" => "name1",
 				"bountyID" => "001",
 				"company" => "Microsoft",
-				"accountID" => "001"
+				"accountID" => "001",
+				"dateEnding" => "2015-01-09"
 			),
 			array(
 				"name" => "name2",
 				"bountyID" => "001",
 				"company" => "Apple",
-				"accountID" => "002"
+				"accountID" => "002",
+				"dateEnding" => "2015-01-09"
 			),
 			array(
 				"name" => "name2",
 				"bountyID" => "001",
 				"company" => "Apple",
-				"accountID" => "002"
+				"accountID" => "002",
+				"dateEnding" => "2015-01-09"
 			),
 			array(
 				"name" => "name2",
 				"bountyID" => "001",
 				"company" => "Apple",
-				"accountID" => "002"
+				"accountID" => "002",
+				"dateEnding" => "2015-01-09"
 			),
 			array(
 				"name" => "name2",
 				"bountyID" => "001",
 				"company" => "Apple",
-				"accountID" => "002"
+				"accountID" => "002",
+				"dateEnding" => "2015-01-09"
 			),
 			array(
 				"name" => "name2",
 				"bountyID" => "001",
 				"company" => "Apple",
-				"accountID" => "002"
+				"accountID" => "002",
+				"dateEnding" => "2015-01-09"
 			),
 			array(
 				"name" => "name2",
 				"bountyID" => "001",
 				"company" => "Apple",
-				"accountID" => "002"
+				"accountID" => "002",
+				"dateEnding" => "2015-01-09"
 			),
 			array(
 				"name" => "name2",
 				"bountyID" => "001",
 				"company" => "Apple",
-				"accountID" => "002"
+				"accountID" => "002",
+				"dateEnding" => "2015-01-09"
 			),
 			array(
 				"name" => "name2",
 				"bountyID" => "001",
 				"company" => "Apple",
-				"accountID" => "002"
+				"accountID" => "002",
+				"dateEnding" => "2015-01-09"
 			),
 			array(
 				"name" => "name2",
 				"bountyID" => "001",
 				"company" => "Apple",
-				"accountID" => "002"
+				"accountID" => "002",
+				"dateEnding" => "2015-01-09"
 			),
 			array(
 				"name" => "name2",
 				"bountyID" => "001",
 				"company" => "Apple",
-				"accountID" => "002"
+				"accountID" => "002",
+				"dateEnding" => "2015-01-09"
 			),
 			array(
 				"name" => "name2",
 				"bountyID" => "001",
 				"company" => "Apple",
-				"accountID" => "002"
+				"accountID" => "002",
+				"dateEnding" => "2015-01-09"
 			)
 		);
 

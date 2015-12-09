@@ -30,10 +30,10 @@
                 <div class="col-md-12">
                   <div id="bountyButtons">
                     <button class="btn btn-success btn-lg buttonCustom center-block" type="button" data-toggle="modal" 
-                      data-target="#exampleModal" data-whatever="@getbootstrap">
+                      data-target="#reportModal" data-whatever="@getbootstrap">
                       Submit Report
                     </button>
-                    <a class="btn btn-default btn-md buttonCustom center-block" href="/_hunter/hunt/{{bounty.id}}" target="_blank">Track Bounty</a>
+                    <a class="btn btn-default btn-md buttonCustom center-block" href="{{bounty.bountyLink}}" target="_blank">Track Bounty</a>
                     <button class="btn btn-default btn-sm buttonCustom center-block">Subscribe</button>
                   </div>
                 </div>
@@ -175,7 +175,7 @@
       </div>
 
 
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+      <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -186,15 +186,19 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="recipient-name" class="control-label">Error:</label>
-                <input type="text" class="form-control" id="errorName">
+                <input type="text" class="form-control" id="errorNameForm">
               </div>
               <div class="form-group">
                 <label for="message-text" class="control-label">Description of Error:</label>
-                <textarea class="form-control" id="errorDescription"></textarea>
+                <textarea class="form-control" id="errorDescriptionForm"></textarea>
               </div>
               <div class="form-group">
                 <label for="message-text" class="control-label">Path to Error:</label>
-                <textarea class="form-control" id="errorPath"></textarea>
+                <textarea class="form-control" id="errorPathForm"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="recipient-name" class="control-label">Link of Error:</label>
+                <input type="text" class="form-control" id="errorLinkForm">
               </div>
             </div>
           </form>
@@ -203,7 +207,7 @@
             <span class="btn btn-default btn-file">
               Browse <input type="file" id="fileName">
             </span>
-            <button type="submit" class="btn btn-primary" id="submitReport">Submit</button>
+            <button type="submit" class="btn btn-primary" id="submitReportForm">Submit</button>
           </div>
         </div>
       </div>
@@ -217,10 +221,11 @@
     <script type="text/javascript" src="/../_javascript/_qtip/qtip.js"></script>
     <script type="text/javascript" src="/../_javascript/_qtip/qtip_hunter_profile.js"></script>
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
+    <script type="text/javascript" src="/../_javascript/submit_report.js"></script>
     <script type="text/javascript" src="/../_javascript/display_message.js"></script>
     <script type="text/javascript" src="/../_javascript/display_report.js"></script>
     <script type="text/javascript" src="/../_javascript/logout.js"></script>
-    <script type="text/javascript" src="/../_javascript/basic_search.js"></script>
+    <script type="text/javascript" src="/../_javascript/search_basic.js"></script>
     {{include ('bootstrap_footer.php')}}    
   </body>
 </html>
