@@ -26,6 +26,7 @@ function prepareMarshallProfile($dbh, $username)
 		$template_array["error"] = 0; //for time being
 		$args[':username'] = $username;
 		$template_array['activeBounties'] = getActiveBounties($dbh, $args);
+		$template_array['pastBounties'] = getPastBounties($dbh, $args);
 
 		return $template_array;
 	}

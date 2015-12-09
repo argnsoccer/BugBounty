@@ -55,13 +55,16 @@
   height: 34%;
 }
 
+.tableWrapper
+{
+	height: 220px;
+}
+
 table {
-  margin-bottom: 40px;
+
+
   width: 100%;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  display: block;
-  max-height: 280px !important;
-  overflow-y: scroll;
+
 }
 
 .rowTable {
