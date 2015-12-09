@@ -449,7 +449,7 @@ function getReportsFromUsername($dbh, $args) {
     $args2[':reportID'] = $reportID;
     $statement = $dbh->prepare(
     "SELECT * FROM paidReports WHERE reportID = :reportID"
-    )
+    );
 
     if($statement->execute($args2))
     {
