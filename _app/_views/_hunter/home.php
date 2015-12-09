@@ -15,7 +15,7 @@
     <div class="container-fluid">
       <div class="row">
 
-        <div class="col-md-8">
+        <div class="col-md-7">
           <div class="box">
             <h3>Discover</h3>
             <p class="description">Dicover new bounties now!  Click the link below to get Started or the link in the Navigation Bar!</p>
@@ -132,28 +132,30 @@
           </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-5">
           <div class="box">
             <h3>Track</h3>
             <p class="description">Quickly jump into past bounties!</p>
-            <table>
-              <tbody>
-                <tr class="rowTable header">
-                  <th class="cell">Bounty Name</th>
-                  <th class="cell">Company Name</th>
-                  <th class="cell">Last Activity</th>
-                  <th class="cell">Pending Reports</th>
-                </tr>
-                {% for bounty in trackBounties %}
-                <tr class="rowTable">
-                  <td class="cell"><a href="/_hunter/bounty/{{bounty.id}}">{{bounty.name}}</a></td>
-                  <td class="cell"><a href="/_hunter/company/{{bounty.company}}">{{bounty.company}}</a></td>
-                  <td class="cell">{{bounty.date}}</td>
-                  <td class="cell">{{bounty.number}}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
+            <div class="tableWrapper">
+              <table>
+                <tbody>
+                  <tr class="rowTable header">
+                    <th class="cell">Bounty Name</th>
+                    <th class="cell">Company Name</th>
+                    <th class="cell">Last Activity</th>
+                    <th class="cell">Pending Reports</th>
+                  </tr>
+                  {% for bounty in trackBounties %}
+                  <tr class="rowTable">
+                    <td class="cell"><a href="/_hunter/bounty/{{bounty.id}}">{{bounty.name}}</a></td>
+                    <td class="cell"><a href="/_hunter/company/{{bounty.company}}">{{bounty.company}}</a></td>
+                    <td class="cell">{{bounty.date}}</td>
+                    <td class="cell">{{bounty.number}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
