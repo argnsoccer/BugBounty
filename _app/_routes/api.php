@@ -369,8 +369,8 @@ function createBounty($dbh, $args) {
 function createReport($dbh, $args) {
 
   $statement = $dbh->prepare("
-  INSERT INTO report (bountyID, username, description, link, dateSubmitted, pathToError)
-  VALUES (:bountyID,:username,:description, :link, NOW(), :pathToError)");
+  INSERT INTO report (bountyID, username, description, link, dateSubmitted, pathToError, errorName)
+  VALUES (:bountyID,:username,:description, :link, NOW(), :pathToError, :errorName)");
 
   if($statement->execute($args))
   {
@@ -383,7 +383,7 @@ function createReport($dbh, $args) {
     UPDATE Report
     SET filePath = :filePath
     WHERE reportID=:reportID");
-    if($statement->execute($arsg))
+    if($statement->execute($args2))
     {
       $result['error'] = '0';
     }
@@ -1135,6 +1135,7 @@ $app->post('/api/createReport', function() use ($dbh) {
   $args[':description'] = $_POST['description'];
   $args[':link'] = $_POST['link'];
   $args[':pathToError'] = $_POST['pathToError'];
+  $args[':errorName'] = $_POST['errorName'];
 
   $result = createReport($dbh, $args);
 
@@ -1388,11 +1389,16 @@ $app->post('/api/payReport', function() use ($dbh){
 
   if($statement->execute($args))
   {
-    $statement = $dbh->prepare(
-    "INSERT INTO paidReport (reportID, paidAmount, datePaid, message)
-    VALUES (:reportID, :amount, now(), 'This report has been paid to ANONYMOOSE')");
+    $message = 'This report has been paid to ANONYMOOSE';
+    $smt = $dbh->prepare(
+    "INSERT INTO paidReport (reportID, paidAmount, datePaid, message, publish)
+    VALUES (:reportID, :amount, now(), :message, 0)");
+    $reportID=$args[":reportID"];
+    $smt->bindParam(":reportID", $reportID);
+    $smt->bindParam(":amount", $amount);
+    $smt->bindParam(":message", $message);
 
-    if($statement->execute($args))
+    if($smt->execute())
     {
       $result2['error'] = '0';
       $result2['message'] = 'second statement success. Transaction complete.';
