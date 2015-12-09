@@ -104,49 +104,49 @@ if(!isset($_SESSION))
 //Database Accessing Functions go here*************************************************
 
 function loginUser($dbh, $args) {
-
-  $result['status'] = "complete";
+  $function_array = [];
   global $dbh;
   if(!isset($_SESSION['userLogin'])){
 
     $statement = $dbh->prepare("SELECT username, userID, accountType FROM Account WHERE username = :username AND password = :password");
-
     if($statement->execute($args))
     {
       $row = $statement->fetch(PDO::FETCH_ASSOC);
       if (isset($row['username']))
       {
-        $result["username"] = $row['username'];
-        $result["userType"] = strtolower($row['accountType']);
-        $result['userID'] = $row['userID'];
+        $function_array["result"]["username"] = $row['username'];
+        $function_array["result"]["userType"] = strtolower($row['accountType']);
+        $function_array["result"]['userID'] = $row['userID'];
+        $function_array["error"] = '0';
+        $function_array["message"] = "success";
 
         $_SESSION['userLogin'] = $row['username'];
         $usn[':username'] = $row['username'];
         $_SESSION['userType'] = strtolower($row['accountType']);
         $_SESSION['userID'] = $row['userID'];
-
-        $result['error'] = '0';
       }
       else
       {
-        $result['error'] = '1';
-        $result['message'] = "The username and password combination did not work";
+        $function_array["error"] = '1';
+        $function_array["message"] = 'combination is incorrect';
+        $function_array["result"] = [];
       }
     }
     else
     {
-      $result['error'] = '2';
-      $result['message'] = $statement->errorInfo();
+      $function_array["error"] = '2';
+      $function_array["result"] = [];
+      $function_array["message"] = 'statement did not execute';
+      $function_array["messageDB"] = $statement->errorInfo();
     }
-
-    return $result;
+    return $function_array;
   }
   else
   {
-    $result['error'] = '3';
-    $result['message'] = 'user is already logged in';
-
-    return $result;
+    $function_array["error"] = '3';
+    $function_array["result"] = [];
+    $function_array["message"] = 'user is already logged in';
+    return $function_array;
   }
 }
 
@@ -516,7 +516,7 @@ function getProfilePictureFromUsername($dbh, $args){
   if($_SESSION['userType'] == 'marshall'){
     $statement = $dbh->prepare("
     SELECT Account.imageLoc FROM Account WHERE username = :username");
-    if($sth->execute($args))
+    if($statement->execute($args))
     {
       $row = $statement->fetch(PDO::FETCH_ASSOC);
       $result['message'] = 'success';
@@ -530,9 +530,28 @@ function getProfilePictureFromUsername($dbh, $args){
     }
 
   }
+}
 
-
-
+function getMessageOfDay($dbh,$args)
+{
+	$statement = $dbh->prepare("
+	SELECT message FROM MessageOfDay
+	WHERE DATE(dateMade) = DATE(NOW())
+	AND accountType = :accountType");
+	if($statement->execute($args))
+	{
+		$row = $statement->fetch(PDO::FETCH_ASSOC);
+		$result["result"]["messageOfDay"] = $row['message'];
+		$result['message'] = "success";
+		$result['error'] = 0;
+	}
+	else
+	{
+		$result['message'] = "Statement not executed";
+		$result['error'] = 1;
+		$result['messageDB'] = $statement->errorInfo();
+	}
+	return $result;
 }
 
 function getReportsFromBountyID($dbh, $args) {
@@ -1588,4 +1607,31 @@ $app->post('/api/updateUserDetails',function() use($dbh)
 		$change[2] = true;//password
 	}
 	echo json_encode(updateUserDetails($dbh,$change,$_POST));
+});
+/*
+Michael Gilbert
+Gets Message of Day For a Hunter
+Errors:
+0: success
+1: No statement executed
+*/
+$app->get('/api/getMODHunter',function() use($dbh)
+{
+	$args = array();
+	$args[':accountType'] = "Hunter";
+	echo json_encode(getMessageOfDay($dbh,$args));
+});
+
+/*
+Michael Gilbert
+Gets Message of Day For a Marshall
+Errors:
+0: success
+1: No statement executed
+*/
+$app->get('/api/getMODMarshall',function() use($dbh)
+{
+	$args = array();
+	$args[':accountType'] = "Marshall";
+	echo json_encode(getMessageOfDay($dbh,$args));
 });
