@@ -59,25 +59,26 @@ $(document).ready(function () {
       success: function(response)
       {
         alert(response.message);
-      	// $.notify({
-       //    // options
-       //    message: " Report Submitted",
-       //    icon: 'glyphicon glyphicon-ok'
-       //    },{
-       //    // settings
-       //    type: 'success',
-       //    placement: {
-       //      from: "top",
-       //      align: "right",
-       //      allow_dismiss: true,
-       //    }
-       //  });
+      	$.notify({
+          // options
+          message: " Report Submitted",
+          icon: 'glyphicon glyphicon-ok'
+          },{
+          // settings
+          type: 'success',
+          placement: {
+            from: "top",
+            align: "right",
+            allow_dismiss: true,
+          }
+        });
 
-       //  $("#errorNameForm").val('');
-       //  $("#errorDescriptionForm").val('');
-       //  $("#errorPathForm").val('');
+        $("#errorNameForm").val('');
+        $("#errorDescriptionForm").val('');
+        $("#errorPathForm").val('');
+        $("#errorLinkForm").val('');
 
-       //  $('#reportModal').modal('hide');
+        $('#reportModal').modal('hide');
       },
       error: function(xhr, status, error)
       {

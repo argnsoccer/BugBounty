@@ -100,11 +100,11 @@
                   <th class="cell">Response</th>
                 </tr>
               </thead>
-                {% for report in recentReports %}
+                {% for report in submittedReports.reportArray %}
               <tbody>
                 <tr class="rowTable">
-                  <td class="cell">{{report.date}}</td>
-                  <td class="cell">{{report.amountPaid}}</td>
+                  <td class="cell">{{report.dateSubmitted}}</td>
+                  <td class="cell">{{report.Paid}}</td>
                   <td class="cell">
                     <button type="button" class="detailsButton" data-toggle="modal" 
                     data-target="#detailsModal" data-whatever="@getbootstrap" 
