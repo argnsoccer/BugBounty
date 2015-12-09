@@ -520,7 +520,7 @@ $statement = $dbh->prepare("
 
 function getReportsFromUsernameBountyID($dbh, $args) {
 $statement = $dbh->prepare(
-  "SELECT * FROM report
+  "SELECT * FROM Report
   WHERE bountyID=:bountyID
   AND username=:username");
 
