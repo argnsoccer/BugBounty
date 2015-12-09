@@ -25,24 +25,27 @@
             <div class="box">
               <h3>Track</h3>
               <p class="description">Quickly jump into past bounties!</p>
-              <table>
-                <tbody>
-                  <tr class="rowTable header">
-                    <th class="cell">Bounty Name</th>
-                    <th class="cell">Company Name</th>
-                    <th class="cell">Last Activity</th>
-                    <th class="cell">Pending Reports</th>
-                  </tr>
-                  {% for bounty in trackBounties %}
-                  <tr class="rowTable">
-                    <td class="cell"><a href="/_hunter/bounty/{{bounty.id}}">{{bounty.name}}</a></td>
-                    <td class="cell"><a href="/_hunter/company/{{bounty.company}}">{{bounty.company}}</a></td>
-                    <td class="cell">{{bounty.date}}</td>
-                    <td class="cell">{{bounty.number}}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
+              <div class="tableWrapper">
+                  <table>
+                    <tbody>
+                      <tr class="rowTable header">
+                        <th class="cell">Bounty Name</th>
+                        <th class="cell">Date Created</th>
+                        <th class="cell">Date Ending</th>
+                        <th class="cell">Report Count</th>
+                      </tr>
+                      {% for bounty in trackBounties %}
+                      <tr class="rowTable">
+                        <td class="cell"><a href="/_hunter/bounty/{{bounty.id}}">{{bounty.name}}</a></td>
+                        <td class="cell"><a href="/_hunter/company/{{bounty.company}}">{{bounty.company}}</a></td>
+                        <td class="cell">{{bounty.date}}</td>
+                        <td class="cell">{{bounty.number}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+              </div>
+
             </div>
           </div>
 

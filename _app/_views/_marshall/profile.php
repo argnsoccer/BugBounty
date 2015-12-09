@@ -128,12 +128,11 @@
                 <th class="cell">Details</th>
                 <th class="cell">Response</th>
               </tr>
-              {% for report in recentReports %}
+              {% for bounty in pastBounties %}
               <tr class="rowTable">
                 <td class="cell">{{report.date}}</td>
                 <td class="cell"></td>
                 <td class="cell"><a href="/_hunter/bounty/{{report.bountyID}}">{{report.name}}</td>
-                <td class="cell"><a href="/_hunter/company/{{report.accountID}}">{{report.company}}</a></td>
                 <td class="cell">{{report.amountPaid}}</td>
                 <td class="cell">
                   <button type="button" class="detailsButton" data-toggle="modal"
