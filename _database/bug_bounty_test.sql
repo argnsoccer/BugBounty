@@ -244,6 +244,18 @@ CREATE TABLE IF NOT EXISTS `Report` (
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+CREATE TABLE IF NOT EXISTS `MessageOfDay` (
+  `messageID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `accountType` varchar(10) NOT NULL,
+  `message` mediumtext NOT NULL,
+  `dateMade` datetime NOT NULL,
+  PRIMARY KEY (`messageID`),
+  UNIQUE KEY `messageID_UNIQUE` (`messageID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO MessageOfDay (accountType,message,dateMade) Values ("Hunter","Good luck hunting",NOW());
+INSERT INTO MessageOfDay (accountType,message,dateMade) Values ("Marshall","Its a great day to make a bounty!",NOW());
+
 --
 -- Dumping data for table `report`
 --

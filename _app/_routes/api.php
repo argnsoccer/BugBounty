@@ -528,6 +528,47 @@ function getReportsFromUsernamePaidOrUnPaid($dbh,$args)
 }
 
 function getProfilePictureFromUsername($dbh, $args){
+<<<<<<< HEAD
+  if($_SESSION['userType'] == 'marshall'){
+    $statement = $dbh->prepare("
+    SELECT Account.imageLoc FROM Account WHERE username = :username");
+    if($statement->execute($args))
+    {
+      $row = $statement->fetch(PDO::FETCH_ASSOC);
+      $result['message'] = 'success';
+      $result['imagePath'] = $row['imageLoc'];
+      $result['error'] = '0';
+    }
+    else
+    {
+      $result['error'] = '2';
+      $result['message'] = 'statement did not execute';
+    }
+
+  }
+}
+
+function getMessageOfDay($dbh,$args)
+{
+	$statement = $dbh->prepare("
+	SELECT message FROM MessageOfDay
+	WHERE DATE(dateMade) = DATE(NOW())
+	AND accountType = :accountType");
+	if($statement->execute($args))
+	{
+		$row = $statement->fetch(PDO::FETCH_ASSOC);
+		$result["result"]["messageOfDay"] = $row['message'];
+		$result['message'] = "success";
+		$result['error'] = 0;
+	}
+	else
+	{
+		$result['message'] = "Statement not executed";
+		$result['error'] = 1;
+		$result['messageDB'] = $statement->errorInfo();
+	}
+	return $result;
+=======
   $functionArray = array();
   $statement = $dbh->prepare("
   SELECT Account.imageLoc FROM Account WHERE username = :username");
@@ -546,6 +587,7 @@ function getProfilePictureFromUsername($dbh, $args){
   }
   $functionArray['result'] = $result;
   return $functionArray;
+>>>>>>> a652dfaa3e65c89b3dfa7f26f23fae1f12bc820f
 }
 
 function getReportsFromBountyID($dbh, $args) {
@@ -1586,4 +1628,31 @@ $app->post('/api/updateUserDetails',function() use($dbh)
 		$change[2] = true;//password
 	}
 	echo json_encode(updateUserDetails($dbh,$change,$_POST));
+});
+/*
+Michael Gilbert
+Gets Message of Day For a Hunter
+Errors:
+0: success
+1: No statement executed
+*/
+$app->get('/api/getMODHunter',function() use($dbh)
+{
+	$args = array();
+	$args[':accountType'] = "Hunter";
+	echo json_encode(getMessageOfDay($dbh,$args));
+});
+
+/*
+Michael Gilbert
+Gets Message of Day For a Marshall
+Errors:
+0: success
+1: No statement executed
+*/
+$app->get('/api/getMODMarshall',function() use($dbh)
+{
+	$args = array();
+	$args[':accountType'] = "Marshall";
+	echo json_encode(getMessageOfDay($dbh,$args));
 });
