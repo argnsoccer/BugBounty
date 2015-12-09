@@ -59,9 +59,9 @@ table {
   margin-bottom: 40px;
   width: 100%;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  display: block;
-  max-height: 200px !important;
+  max-height: 250px !important;
   overflow-y: scroll;
+  display: block;
 }
 
 .rowTable {

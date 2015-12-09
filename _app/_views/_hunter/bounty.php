@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
   <head>
       <title>BugBounty Profile</title>
@@ -16,11 +17,27 @@
       <div class="row">
 
         <div class="col-md-7">
-          <div class="row">
+          <div class="row innerRow">
 
             <div class="col-sm-5">
-              <input type="image" id="bountyPicture" src="{{bounty.imageLoc}}" 
-                alt="Bounty Picture" class="marshalBackground"/>
+              <div class="row innerRow picRow">
+                <div class="col-md-12">
+                  <input type="image" id="bountyPicture" src="{{bounty.imageLoc}}" 
+                    alt="Bounty Picture" class="marshalBackground"/>
+                </div>
+              </div>
+              <div class="row innerRow">
+                <div class="col-md-12">
+                  <div id="bountyButtons">
+                    <button class="btn btn-success btn-lg buttonCustom center-block" type="button" data-toggle="modal" 
+                      data-target="#exampleModal" data-whatever="@getbootstrap">
+                      Submit Report
+                    </button>
+                    <a class="btn btn-default btn-md buttonCustom center-block" href="/_hunter/hunt/{{bounty.id}}" target="_blank">Track Bounty</a>
+                    <button class="btn btn-default btn-sm buttonCustom center-block">Subscribe</button>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div class="col-md-7">
@@ -29,8 +46,15 @@
                 <div class="form-group">
                     <label for="InputName"></label>
                     <div class="input-group">
-                      <span class="input-group-addon addOnCustom">Company Name</span>
-                      <p class="form-control formControlCustom">{{bounty.companyName}}</p>
+                      <span class="input-group-addon addOnCustom">Bounty Name</span>
+                      <p class="form-control formControlCustom">{{bounty.bountyName}}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputName"></label>
+                    <div class="input-group">
+                      <span class="input-group-addon addOnCustom">Bounty Owner</span>
+                      <p class="form-control formControlCustom"><a href="/_hunter/company/{{bounty.companyName}}">{{bounty.companyName}}</a></p>
                     </div>
                 </div>
                 <div class="form-group">
@@ -52,23 +76,12 @@
 
           </div>
 
-          <div class="row">
+          <div class="row innerRow">
 
-            <div class="col-md-5">
-              <div id="bountyButtons">
-                <button class="btn btn-default btn-lg buttonCustom" type="button" data-toggle="modal" 
-                  data-target="#exampleModal" data-whatever="@getbootstrap">
-                  Submit Report
-                </button>
-                <a class="btn btn-default buttonCustom" href="/_hunter/hunt/{{bounty.id}}" target="_blank">Track Bounty</a>
-                <button class="btn btn-default btn-sm buttonCustom">Subscribe</button>
-              </div>
-            </div>
-
-            <div class="col-md-7">
+            <div class="col-md-12">
               <div id="boutyDescription">
                 <h3>Bounty Description</h3>
-                <p>{{bounty.fullDescription}}</p>
+                <p class="form-control" id="bountyDesc">{{bounty.fullDescription}}</p>
               </div>
             </div>
           </div>
@@ -77,38 +90,40 @@
 
         <div class="col-md-5 tableBottom">
           <h3 class="tableTitle">Submitted Reports</h3>
-          <table>
-            <thead>
-              <tr class="rowTable header">
-                <th class="cell">Date Submitted</th>
-                <th class="cell">Paid</th>
-                <th class="cell">Details</th>
-                <th class="cell">Response</th>
-              </tr>
-            </thead>
-              {% for report in recentReports %}
-            <tbody>
-              <tr class="rowTable">
-                <td class="cell">{{report.date}}</td>
-                <td class="cell">{{report.amountPaid}}</td>
-                <td class="cell">
-                  <button type="button" class="detailsButton" data-toggle="modal" 
-                  data-target="#detailsModal" data-whatever="@getbootstrap" 
-                  data-ID={{report.reportID}}>
-                    View
-                  </button>
-                </td>
-                <td class="cell">
-                  <button type="button" class="messageButton" data-toggle="modal" 
-                    data-target="#messageModal" data-whatever="@getbootstrap" 
+          <div class="tableWrapper">
+            <table>
+              <thead>
+                <tr class="rowTable header">
+                  <th class="cell">Date Submitted</th>
+                  <th class="cell">Paid</th>
+                  <th class="cell">Details</th>
+                  <th class="cell">Response</th>
+                </tr>
+              </thead>
+                {% for report in recentReports %}
+              <tbody>
+                <tr class="rowTable">
+                  <td class="cell">{{report.date}}</td>
+                  <td class="cell">{{report.amountPaid}}</td>
+                  <td class="cell">
+                    <button type="button" class="detailsButton" data-toggle="modal" 
+                    data-target="#detailsModal" data-whatever="@getbootstrap" 
                     data-ID={{report.reportID}}>
-                    View
-                  </button>
-                </td>
-              </tr> 
-              {% endfor %}
-            </tbody>
-          </table>
+                      View
+                    </button>
+                  </td>
+                  <td class="cell">
+                    <button type="button" class="messageButton" data-toggle="modal" 
+                      data-target="#messageModal" data-whatever="@getbootstrap" 
+                      data-ID={{report.reportID}}>
+                      View
+                    </button>
+                  </td>
+                </tr> 
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
         </div>
 
       </div>

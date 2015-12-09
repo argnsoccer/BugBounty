@@ -19,7 +19,7 @@ function prepareBountyProPage($dbh, $bountyID) {
 
 	$args[':username'] = $_SESSION['userLogin'];
 
-	// $template_array['submittedReports'] = getReportsFromUsernameBountyID($dbh, $args);
+	$template_array['submittedReports'] = getReportsFromUsernameBountyID($dbh, $args);
 
 	
 
@@ -31,5 +31,7 @@ $app->get('/_hunter/bounty/:bountyID', function($bountyID) use ($app, $dbh) {
 	$template_array = prepareBountyProPage($dbh, $bountyID);
 
 	$app->render('_hunter/bounty.php', $template_array);
+
+	// echo print_r($template_array);
 
 });
