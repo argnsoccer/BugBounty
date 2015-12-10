@@ -320,7 +320,45 @@ function signUpUser($dbh, $args) {
   return $functionArray;
 }
 
-function getUserFromUsername($dbh, $args) {
+function getMarshalFromUsername($dbh, $args) {
+  //Simple Select query which returns username, email, and type
+  $statement = $dbh->prepare(
+  "SELECT Account.username, Marshall.company, Account.email, Account.accountType, Account.imageLoc, Account.dateCreated, Account.paymentType, Account.moneyCollected
+  FROM Account, Marshall WHERE Account.userID = Marshall.userID AND Account.username = :username");
+
+  $functionArray = array();
+  if($statement->execute($args))
+  {
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    if(isset($row['username'])) {
+      $result['username'] = $row['username'];
+      $result['userType'] = strtolower($row['accountType']);
+      $result['email'] = $row['email'];
+      $result['proPic'] = $row['imageLoc'];
+      $functionArray['error'] = '0';
+      $result['name'] = $row['name'];
+      $result['dateJoined'] = substr($row['dateCreated'], 0, -9);
+      $result['paymentType'] = $row['paymentType'];
+      $result['moneyCollected'] = $row['moneyCollected'];
+      $functionArray['result'] = $result;
+      $functionArray['message'] = 'success';
+    }
+    else {
+      $functionArray['error'] = '2';
+      $functionArray['message'] = "No username";
+    }
+  }
+  else
+  {
+    $functionArray['error'] = '1';
+    $functionArray['message'] = 'Statement not executed';
+    $functionArray['messageDB'] = $statement->errorInfo();
+
+  }
+  return $functionArray;
+}
+
+function getHunterFromUsername($dbh, $args) {
   //Simple Select query which returns username, email, and type
   $statement = $dbh->prepare(
   "SELECT username, name, email, accountType, imageLoc, dateCreated, paymentType, moneyCollected
@@ -1336,10 +1374,19 @@ Returns
 Incomplete
 */
 
-$app->get('/api/getUserFromUsername/:username', function($username) use ($dbh) {
+$app->get('/api/getHunterFromUsername/:username', function($username) use ($dbh) {
   $args[':username'] = $username;
 
-  $result = getUserFromUsername($dbh, $args);
+  $result = getHunterFromUsername($dbh, $args);
+
+  echo json_encode($result);
+
+});
+
+$app->get('/api/getMarshalFromUsername/:username', function($username) use ($dbh) {
+  $args[':username'] = $username;
+
+  $result = getMarshalFromUsername($dbh, $args);
 
   echo json_encode($result);
 
