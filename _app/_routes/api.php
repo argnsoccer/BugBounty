@@ -333,21 +333,22 @@ function getUserFromUsername($dbh, $args) {
   return $functionArray;
 }
 
-function getUserFromEmail($dbh, $args) {
+/*function getUserFromEmail($dbh, $args) {
    //Simple Select query which returns username, email, and type
 
-  $statement = $dbh->prepare("
-  SELECT username, email, accountType FROM Account WHERE email = :email");
+  $statement = $dbh->prepare(
+  "SELECT username, email, accountType FROM Account WHERE email = :email");
   $functionArray = array();
   if($statement->execute($args))
   {
     $row = $statement->fetch(PDO::FETCH_ASSOC);
 
-    $result['username'] = $row['username'];
+    /*$result['username'] = $row['username'];
     $result['userType'] = strtolower($row['accountType']);
     $result['email'] = $row['email'];
+    $result = $row;
     $functionArray['error'] = '0';
-
+    $functionArray['result'] = $result;
     $functionArray['message'] = 'success';
   }
   else
@@ -356,9 +357,9 @@ function getUserFromEmail($dbh, $args) {
     $functionArray['message'] = 'Statement not executed';
     $functionArray['messageDB'] = $statement->errorInfo();
   }
-  $functionArray['result'] = $result;
+
   return $functionArray;
-}
+}*/
 
 
 function createBounty($dbh, $args) {
@@ -376,7 +377,14 @@ function createBounty($dbh, $args) {
     {
       $functionArray['error'] = '0';
       $functionArray['message'] = 'success';
-      $result = $sth->fetch(PDO::FETCH_ASSOC);
+      $result['dateCreated'] = date("Y-m-d");
+      $result['PayoutPool'] = $_POST['payout'];
+      $result['dateEnding'] = $_POST['endDate'];
+      $result['userID'] = $_SESSION['userID'];
+      $result['link'] = $_POST['link'];
+      $result['fullDesccription'] = $_POST['fullDesc'];
+      $result['bountyName'] = $_POST['bountyName'];
+      $functionArray['result'] = $result;
     }
     else
     {
@@ -384,7 +392,7 @@ function createBounty($dbh, $args) {
       $functionArray['messageDB'] = $sth->errorInfo();
       $functionArray['message'] = 'Statement not executed';
     }
-    $functionArray['result'] = $result;
+
     return $functionArray;
   }
   else {
@@ -415,17 +423,16 @@ function createReport($dbh, $args) {
     WHERE reportID=:reportID");
     if($statement->execute($args2))
     {
-      $result['report'] = array();
       $args3[':reportID'] = $reportID;
-      $statement = $dbh->prepare("
-      SELECT * FROM Report WHERE reportID = :reportID");
+      $statement = $dbh->prepare(
+      "SELECT * FROM Report WHERE reportID = :reportID");
       if($statement->execute($args3))
       {
         $functionArray['error'] = '0';
         $functionArray['message'] = 'success';
         $row = $statement->fetch(PDO::FETCH_ASSOC);
         $functionArray['result'] = $row;
-        $functionArray['result']['dateSubmitted'] = substr($result['report']['dateSubmitted'], 0, -9);
+        $functionArray['result']['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
       }
       else {
         $functionArray['error'] = '3';
@@ -453,20 +460,22 @@ function updateReport($dbh, $args) {
   $functionArray = array();
   $statement = $dbh->prepare(
   "UPDATE Report
-  SET payAmount = :payAmount, username = :username, message = :message
+  SET username = :username, description = :message
   WHERE reportID = :reportID");
 
   if($statement->execute($args))
   {
     $functionArray['error'] = '0';
     $functionArray['message'] = 'success';
-    $result = $statement->fetch(PDO::FETCH_ASSOC);
+    $result['username'] = $_POST['username'];
+    $result['description'] = $_POST['message'];
+    $result['reportID'] = $_POST['reportID'];
     $functionArray['result'] = $result;
   }
   else
   {
     $functionArray['error'] = '1';
-    $functionArray['messageDB'] = $sth->errorInfo();
+    $functionArray['messageDB'] = $statement->errorInfo();
     $functionArray['message'] = 'First statement not executed';
 
   }
@@ -477,35 +486,22 @@ function getReportsFromUsername($dbh, $args) {
   $statement = $dbh->prepare(
   "SELECT * FROM Report
   WHERE username=:username");
+
   $functionArray = array();
   if($statement->execute($args))
   {
-    $row = $statement->fetch(PDO::FETCH_ASSOC);
-    $reportID = $row['reportID'];
-    $functionArray['result'] = $row;
-    $args2[':reportID'] = $reportID;
-    $statement = $dbh->prepare(
-    "SELECT paidAmount FROM paidReport WHERE reportID = :reportID"
-    );
-
-    if($statement->execute($args2))
+    $functionArray['result'] = array();
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
-      $row = $statement->fetch(PDO::FETCH_ASSOC);
-      $functionArray['error'] = '0';
-      $functionArray['message'] = 'success';
-      $functionArray['result'] = $row;
+      array_push($functionArray['result'], $row);
     }
-    else {
-
-      $functionArray['error'] = '2';
-      $functionArray['messageDB'] = $sth->errorInfo();
-      $functionArray['message'] = 'Second statement not executed';
-    }
+    $functionArray['error'] = '0';
+    $functionArray['message'] = 'success';
   }
   else
   {
     $functionArray['error'] = '1';
-    $functionArray['messageDB'] = $sth->errorInfo();
+    $functionArray['messageDB'] = $statement->errorInfo();
     $functionArray['message'] = 'First statement not executed';
 
   }
@@ -1280,19 +1276,7 @@ $app->post('/api/createReport', function() use ($dbh) {
 $app->post('/api/updateReport', function() use ($dbh) {
 
   $args[':reportID'] = $_POST['reportID'];
-  $args[':payAmount'] = $_POST['payAmount']; //pay amount of 0 clearly means the bounty was not accepted
-  $args[':username'] = $_POST['username'];
-  $args[':message'] = $_POST['message'];
-
-  $result = updateReport($dbh, $args);
-
-  echo json_encode($result);
-});
-
-$app->post('/api/updateReport', function() use ($dbh) {
-
-  $args[':reportID'] = $_POST['reportID'];
-  $args[':payAmount'] = $_POST['payAmount']; //pay amount of 0 clearly means the bounty was not accepted
+  //$args[':payAmount'] = $_POST['payAmount']; //pay amount of 0 clearly means the bounty was not accepted
   $args[':username'] = $_POST['username'];
   $args[':message'] = $_POST['message'];
 
@@ -1312,7 +1296,7 @@ $app->post('/api/updateReport', function() use ($dbh) {
 
 $app->get('/api/getReportsFromUsername/:username', function($username) use ($dbh) {
 
-  $args[':username'] = $_GET['username'];
+  $args[':username'] = $username;
   echo json_encode(getReportsFromUsername($dbh,$args));
 });
 
