@@ -1301,7 +1301,7 @@ $app->post('/api/signUpUser', function() use ($dbh) {
   $args[':password'] = $_POST['password'];
   $args[':email'] = strtolower($_POST['email']);
   $args[':accountType'] = strtolower($_POST['accountType']);
-  $args[':paymentType'] = $_POST['paymentType']
+  $args[':paymentType'] = $_POST['paymentType'];
   $result = signUpUser($dbh, $args);
   echo json_encode($result);
 });
