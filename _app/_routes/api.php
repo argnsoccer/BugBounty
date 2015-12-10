@@ -822,6 +822,47 @@ function getBountiesFromUsernameRecentReports($dbh,$args)
   return $functionArray;
 }
 
+function getBountiesFromUsername($dbh,$args)
+{
+  $functionArray = array();
+  $statement = $dbh->prepare(
+  "SELECT BountyPool.* FROM BountyPool, Report WHERE BountyPool.poolID=Report.bountyID AND Report.username = :username
+  ORDER BY dateEnding DESC"
+);
+
+  if($statement->execute($args))
+  {
+    $functionArray['result'] = array();
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+    {
+      $insert = true;
+      foreach ($functionArray['result'] as $iterator)
+      {
+        if($row['poolID'] == $iterator['poolID'])
+        {
+          $insert = false;
+        }
+      }
+      if($insert)
+      {
+        $row['dateCreated'] = substr($row['dateCreated'], 0, -9);
+        $row['dateEnding'] = substr($row['dateEnding'], 0, -9);
+        array_push($functionArray['result'], $row);
+      }
+    }
+    $functionArray['error'] = '0';
+    $functionArray['message'] = 'success';
+
+
+  }
+  else {
+    $functionArray['error'] = '1';
+    $functionArray['message'] = 'Statement does not execute';
+    $functionArray['messageDB'] = $statement->errorInfo();
+  }
+  return $functionArray;
+}
+
 function createRSS($dbh, $args) {
 
   $file_path = $args['link']."/rss_".$args['username'].".xml";
@@ -1702,5 +1743,12 @@ $app->get('/api/getBountiesFromUsernameRecentReports/:username', function($usern
 {
   $args[':username'] = $username;
   echo json_encode(getBountiesFromUsernameRecentReports($dbh,$args));
+
+});
+
+$app->get('/api/getBountiesFromUsername/:username', function($username) use($dbh)
+{
+  $args[':username'] = $username;
+  echo json_encode(getBountiesFromUsername($dbh,$args));
 
 });
