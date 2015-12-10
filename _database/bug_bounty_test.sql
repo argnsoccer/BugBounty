@@ -54,12 +54,12 @@ ENGINE = InnoDB;
 
 LOCK TABLES `Account` WRITE;
 /*!40000 ALTER TABLE `Account` DISABLE KEYS */;
-INSERT INTO `Account` (userID, username, email,password,dateCreated,activated,dateDeactivated,accountType,loggedIn,dateOfLastActivity,imageLoc, name) VALUES
-(1,'testHunter1','testHunter1@me.com','testHunter1','2015-10-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00', '_images/_profiles/_testHunter1/default_profile.png', 'John Smith'),
-(2,'testHunter2','testHunter2@me.com','testHunter2','2015-10-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00', '_images/_profiles/_testHunter2/default_profile.png', 'Mike Jones'),
-(3,'testMarshall1','testMarshall1@me.com','testMarshall1','2015-10-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'John Wayne'),
-(4,'testMarshall2','testMarshall2@me.com','testMarshall2','2015-10-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'Clint Eastwood'),
-(5,'testMarshall3','testMarshall3@me.com','testMarshall3','2015-10-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'Doc Holiday');
+INSERT INTO `Account` (userID, username, email,password,dateCreated,activated,dateDeactivated,accountType,loggedIn,dateOfLastActivity,imageLoc, name, paymentType, moneyCollected) VALUES
+(1,'testHunter1','testHunter1@me.com','testHunter1','2015-10-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00', '_images/_profiles/_testHunter1/default_profile.png', 'John Smith', 'paypal', '0'),
+(2,'testHunter2','testHunter2@me.com','testHunter2','2015-10-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00', '_images/_profiles/_testHunter2/default_profile.png', 'Mike Jones', 'paypal', '0'),
+(3,'testMarshall1','testMarshall1@me.com','testMarshall1','2015-10-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'John Wayne', 'paypal', '0'),
+(4,'testMarshall2','testMarshall2@me.com','testMarshall2','2015-10-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'Clint Eastwood', 'paypal', '0'),
+(5,'testMarshall3','testMarshall3@me.com','testMarshall3','2015-10-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'Doc Holiday', 'paypal', '0');
 /*!40000 ALTER TABLE `Account` ENABLE KEYS */;
 UNLOCK TABLES;
 
