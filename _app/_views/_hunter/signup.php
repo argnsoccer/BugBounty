@@ -51,6 +51,8 @@
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
     <script type="text/javascript" src="/../_javascript/login.js"></script>
     <script type="text/javascript" src="/../_javascript/hunter_signup.js"></script>
+    <script type="text/javascript" src="/../_javascript/search_basic.js"></script>
+    
     {{include ('bootstrap_footer.php')}}
   </body>
 </html>
