@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         loginButton = (Button) findViewById((R.id.main_login));
         loginButton.setOnClickListener(loginHandler);
 
-        asyncCallForLogin("testMarshall1", "testMarshall1");
+        //asyncCallForLogin("testMarshall1", "testMarshall1");
     }
 
     View.OnClickListener loginHandler = new View.OnClickListener() {

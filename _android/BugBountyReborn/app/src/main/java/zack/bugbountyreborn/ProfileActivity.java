@@ -1,5 +1,10 @@
 package zack.bugbountyreborn;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.SparseArray;
+import android.view.Menu;
+import android.widget.ExpandableListView;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -17,7 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,19 +33,29 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import android.content.Intent;
+import android.widget.TextView;
 
 public class ProfileActivity extends AppCompatActivity {
     private static final String PROFILE_TAG = "ProfileActivity";
     private static final int NETWORK_REQUEST = 2;
+    TextView mainTextView1;
+    TextView mainTextView2;
     Toolbar profileToolbar;
     ListView mainListView;
     ArrayAdapter mArrayAdapter;
     ArrayList mBountyList = new ArrayList();
+    SparseArray<Group> groups = new SparseArray<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_main);
+
+        mainTextView1 = (TextView) findViewById(R.id.profile_title_textview1);
+        mainTextView1.setTextColor(ContextCompat.getColor(this, R.color.main_text));
+
+        mainTextView2 = (TextView) findViewById(R.id.profile_title_textview2);
+        mainTextView2.setTextColor(ContextCompat.getColor(this, R.color.main_text));
 
         String username = "";
         Bundle extras = getIntent().getExtras();
@@ -54,12 +68,28 @@ public class ProfileActivity extends AppCompatActivity {
         profileToolbar.setNavigationIcon(R.drawable.tb_marshal);
         profileToolbar.setTitle(getString(R.string.app_name));
 
-        mainListView = (ListView) findViewById(R.id.profile_listview);
+        /*mainListView = (ListView) findViewById(R.id.profile_listview);
         mArrayAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1,
                 mBountyList);
         mainListView.setAdapter(mArrayAdapter);
-        asyncCallForGetBounties(username);
+        asyncCallForGetBounties(username);*/
+
+        createData();
+        ExpandableListView listView = (ExpandableListView) findViewById(R.id.listView);
+        ReportExpandableListAdapter adapter = new ReportExpandableListAdapter(this,
+                groups);
+        listView.setAdapter(adapter);
+    }
+
+    public void createData() {
+        for (int j = 0; j < 5; j++) {
+            Group group = new Group("Test " + j);
+            for (int i = 0; i < 5; i++) {
+                group.children.add("Sub Item" + i);
+            }
+            groups.append(j, group);
+        }
     }
 
     @Override
