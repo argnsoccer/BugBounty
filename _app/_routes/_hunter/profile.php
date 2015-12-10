@@ -24,6 +24,8 @@ function prepareHunterProfile($dbh, $username) {
 
 	$template_array['user']['numReportsApproved'] = sizeof($template_array['reportsApproved']['result']);
 
+	$template_array['pastBounties'] = getBountiesFromUsername($dbh, $args);
+
 	// $template_array['error'] = 0; //for time being
 
 	// $template_array['recentBounties'] = array( //GET ALL BOUNTIES FROM HUNTER ACCOUNT
