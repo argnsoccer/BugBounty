@@ -153,8 +153,10 @@ function loginUser($dbh, $args) {
 function basicSearch($dbh,$args)
 {
 	$statement = $dbh->prepare(
-	"SELECT *,DATE(dateCreated) as dateCreated,DATE(dateEnding) as dateEnding FROM BountyPool
+	"SELECT BountyPool.*,DATE(BountyPool.dateCreated) as dateCreated,DATE(BountyPool.dateEnding) as dateEnding,Marshall.company as companyName,Account.username as companyUsername FROM BountyPool,Marshall,Account
 	WHERE bountyName LIKE :query
+	AND BountyPool.bountyMarshallID=Marshall.marshallID
+	AND Account.userID=Marshall.marshallID
 	LIMIT 5");
 	if($statement->execute($args))
 	{
