@@ -532,18 +532,28 @@ function getProfilePictureFromUsername($dbh, $args){
   }
 }
 
-function getMessageOfDay($dbh,$args)
+function getMessageOfDayHunter($dbh)
 {
+  $args[':hunter'] = "hunter";
 	$statement = $dbh->prepare("
-	SELECT message FROM MessageOfDay
+	SELECT message, accountType FROM MessageOfDay
 	WHERE DATE(dateMade) = DATE(NOW())
-	AND accountType = :accountType");
+	AND accountType = :hunter");
 	if($statement->execute($args))
 	{
-		$row = $statement->fetch(PDO::FETCH_ASSOC);
-		$result["result"]["messageOfDay"] = $row['message'];
-		$result['message'] = "success";
-		$result['error'] = 0;
+    if(!isset($row['message'])) {
+      $result["result"]["message"] = "There is no message today";
+      $result["result"]["accountType"] = "hunter";
+      $result['message'] = "No message today";
+      $result['error'] = 2;
+    }
+    else {
+  		$row = $statement->fetch(PDO::FETCH_ASSOC);
+  		$result["result"]["message"] = $row['message'];
+      $result["result"]["accountType"] = $row['accountType'];
+  		$result['message'] = "success";
+  		$result['error'] = 0;
+    }
 	}
 	else
 	{
@@ -552,6 +562,38 @@ function getMessageOfDay($dbh,$args)
 		$result['messageDB'] = $statement->errorInfo();
 	}
 	return $result;
+}
+
+function getMessageOfDayMarshal($dbh)
+{
+  $args[':marshal'] = "marshal";
+  $statement = $dbh->prepare("
+  SELECT message, accountType FROM MessageOfDay
+  WHERE DATE(dateMade) = DATE(NOW())
+  AND accountType = :marshal");
+  if($statement->execute($args))
+  {
+    if(!isset($row['message'])) {
+      $result["result"]["message"] = "There is no message today";
+      $result["result"]["accountType"] = "marshal";
+      $result['message'] = "No message today";
+      $result['error'] = 2;
+    }
+    else {
+      $row = $statement->fetch(PDO::FETCH_ASSOC);
+      $result["result"]["message"] = $row['message'];
+      $result["result"]["accountType"] = $row['accountType'];
+      $result['message'] = "success";
+      $result['error'] = 0;
+    }
+  }
+  else
+  {
+    $result['message'] = "Statement not executed";
+    $result['error'] = 1;
+    $result['messageDB'] = $statement->errorInfo();
+  }
+  return $result;
 }
 
 function getReportsFromBountyID($dbh, $args) {
@@ -1618,8 +1660,7 @@ Errors:
 $app->get('/api/getMODHunter',function() use($dbh)
 {
 	$args = array();
-	$args[':accountType'] = "Hunter";
-	echo json_encode(getMessageOfDay($dbh,$args));
+	echo json_encode(getMessageOfDayHUnter($dbh));
 });
 
 /*
@@ -1629,9 +1670,8 @@ Errors:
 0: success
 1: No statement executed
 */
-$app->get('/api/getMODMarshall',function() use($dbh)
+$app->get('/api/getMODMarshal',function() use($dbh)
 {
 	$args = array();
-	$args[':accountType'] = "Marshall";
-	echo json_encode(getMessageOfDay($dbh,$args));
+	echo json_encode(getMessageOfDayMarshal($dbh));
 });

@@ -83,14 +83,14 @@
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Bounties Active</span>
-                  <p class="form-control formControlCustom">{{user.numReportsFiled}}</p>
+                  <p class="form-control formControlCustom">{{user.numActive}}</p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Bounties Posted</span>
-                  <p class="form-control formControlCustom">{{user.numReportsApproved}}</p>
+                  <p class="form-control formControlCustom">{{user.numTotal}}</p>
                 </div>
             </div>
           </form>
@@ -98,105 +98,50 @@
 
         <div class="col-md-6 tableTop tableCol">
           <h3 class="tableTitle">Active Bounties</h3>
-          <table>
-            <tbody>
-              <tr class="rowTable header">
-                <th class="cell">Bounty Name</th>
-                <th class="cell">Date Started</th>
-                <th class="cell">Date Ending</th>
-              </tr>
-              {% for bounty in activeBounties %}
-              <tr class="rowTable">
-                <td class="cell"><a href="/_hunter/bounty/{{bounty.bountyID}}">{{bounty.name}}</a></td>
-                <td class="cell"><a href="/_hunter/company/{{bounty.accountID}}">{{bounty.company}}</a></td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+            <div class="tableWrapper">
+              <table>
+                <thead>
+                  <tr class="rowTable header">
+                    <th class="cell">Bounty Name</th>
+                    <th class="cell">Date Ending</th>
+                    <th class="cell">Date Created</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for bounty in activeBounties.activeBounties %}
+                  <tr class="rowTable">
+                    <td class="cell"><a href="/_marshal/track/{{bounty.poolID}}">{{bounty.bountyName}}</td>
+                    <td class="cell">{{bounty.dateEnding}}</td>
+                    <td class="cell">{{bounty.dateCreated}}</td>
+                  </tr> 
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
         </div>
 
-        <div class="col-md-6 tableBottom">
+        <div class="col-md-6 tableTop tableCol">
           <h3 class="tableTitle">Past Bounties</h3>
-          <table>
-            <tbody>
-              <tr class="rowTable header">
-                <th class="cell">Date Submitted</th>
-                <th class="cell">Date Ended</th>
-                <th class="cell">Bounty Name</th>
-                <th class="cell">Paid</th>
-                <th class="cell">Details</th>
-                <th class="cell">Response</th>
-              </tr>
-              {% for bounty in pastBounties %}
-              <tr class="rowTable">
-                <td class="cell">{{report.date}}</td>
-                <td class="cell"></td>
-                <td class="cell"><a href="/_hunter/bounty/{{report.bountyID}}">{{report.name}}</td>
-                <td class="cell">{{report.amountPaid}}</td>
-                <td class="cell">
-                  <button type="button" class="detailsButton" data-toggle="modal"
-                  data-target="#detailsModal" data-whatever="@getbootstrap"
-                  data-ID={{report.reportID}}>
-                    View
-                  </button>
-                </td>
-                <td class="cell">
-                  <button type="button" class="messageButton" data-toggle="modal"
-                    data-target="#messageModal" data-whatever="@getbootstrap"
-                    data-ID={{report.reportID}}>
-                    View
-                  </button>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="exampleModalLabel">Report Details</h4>
-              <div class="modal-body">
-                <div class="form-group">
-                  <label for="recipient-name" class="control-label">Error:</label>
-                  <textarea id="errorReport" readonly>
-                  </textarea>
-                </div>
-                <div class="form-group">
-                  <label for="message-text" class="control-label">Description of Error:</label>
-                  <textarea id="descErrorReport" readonly>
-                  </textarea>
-                </div>
-                <div class="form-group">
-                  <label for="message-text" class="control-label">Path to Error:</label>
-                  <textarea id="pathErrorReport" readonly>
-                  </textarea>
-                </div>
-              </div>
+            <div class="tableWrapper">
+              <table>
+                <thead>
+                  <tr class="rowTable header">
+                    <th class="cell">Bounty Name</th>
+                    <th class="cell">Date Ending</th>
+                    <th class="cell">Date Created</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for bounty in pastBounties.pastBounties %}
+                  <tr class="rowTable">
+                    <td class="cell"><a href="/_marshal/track/{{bounty.poolID}}">{{bounty.bountyName}}</td>
+                    <td class="cell">{{bounty.dateEnding}}</td>
+                    <td class="cell">{{bounty.dateCreated}}</td>
+                  </tr> 
+                  {% endfor %}
+                </tbody>
+              </table>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="exampleModalLabel">Message</h4>
-               <div class="modal-body">
-                <div class="form-group">
-                  <label for="recipient-name" class="control-label">Message:</label>
-                  <textarea id="messageReport" readonly>
-                  </textarea>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -271,115 +216,12 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type="text/javascript" src="/../_javascript/_qtip/qtip.js"></script>
-    <script type="text/javascript" src="/../_javascript/_qtip/qtip_hunter_profile.js"></script>
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
-    <script type="text/javascript" src="/../_javascript/hunter_profile.js"></script>
     <script type="text/javascript" src="/../_javascript/logout.js"></script>
+    <script type="text/javascript" src="/../_javascript/update_profile.js"></script>
+    <script type="text/javascript" src="/../_javascript/update_payment.js"></script>
     <script type="text/javascript" src="/../_javascript/basic_search.js"></script>
-  <!--<div class="container-fluid">
-
-    <div class="row">
-
-      <div class="col-md-4">
-         <div id="picture_upload">
-          <img id="profile_picture" src="/../_images/_profiles/_{{username}}/{{username}}_profile.png" alt="Profile Picture" />
-          <input type="file" name="profilePicture" />
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <table class="bountyTable">
-          <tr class="tableRow">
-            <th>Dummy Company Name</th>
-            <th>Dummy Bounty Name</th>
-            <th>Dummy Report Number</th>
-            <th>Dummy Report Date</th>
-            <th>Dummy Paid Date</th>
-            <th>Dummy Amount Paid</th>
-          </tr>
-        </table>
-      </div>
-
-      <div class="col-md-4">
-        <form id="profileUpdateForm" method="post">
-          <div id="profileInfo">
-            <input type="text" placeholder="{{username}}" id="updateUsername" class="form-contol"/>
-            <input type="email" placeholder="{{email}}" id="updateEmail" />
-            <input type="password" placeholder="Old Password" id="updateOldPassword"/>
-            <input type="password" placeholder="New Password" id="updateNewPassword"/>
-            <input type="password" placeholder="Confirm New Password" id="updateNewPasswordConfirm" />
-            <input type="submit" value="Update" id="submitProfileUpdate" />
-          </div>
-        </form>
-      </div>
-
-    </div>
-
-    <div class="row">
-
-      <div class="col-md-8">
-         <div id="section2A">
-        <table class="headerTable">
-          <tr>
-            <th>Company Name</th>
-            <th>Bounty Name</th>
-            <th>Report Number</th>
-            <th>Report Date</th>
-            <th>Paid Date</th>
-            <th>Amount Paid</th>
-          </tr>
-        </table>
-
-        <table class="paidtable">
-          <tr class="tableRow">
-            <th>Dummy Company Name</th>
-            <th>Dummy Bounty Name</th>
-            <th>Dummy Report Number</th>
-            <th>Dummy Report Date</th>
-            <th>Dummy Paid Date</th>
-            <th>Dummy Amount Paid</th>
-          </tr>
-        </table>
-      </div>
-      </div>
-
-    </div>
-
-    <div class="row">
-
-      <div class="col-md-12">
-        <table class="headerTable">
-          <tr>
-            <th>Company Name</th>
-            <th>Bounty Name</th>
-            <th>Report Number</th>
-            <th>Report Date</th>
-            <th>Paid Date</th>
-            <th>Amount Paid</th>
-          </tr>
-        </table>
-
-        <table class="paidtable">
-          <tr class="tableRow">
-            <th>Dummy Company Name</th>
-            <th>Dummy Bounty Name</th>
-            <th>Dummy Report Number</th>
-            <th>Dummy Report Date</th>
-            <th>Dummy Paid Date</th>
-            <th>Dummy Amount Paid</th>
-          </tr>
-        </table>
-      </div>
-
-    </div>
-
-
-  </div>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script type="text/javascript" src="/../_javascript/update_profile.js"></script>
-  <script type="text/javascript" src="/../_javascript/logout.js"></script>-->
+ 
   {{include ('bootstrap_footer.php')}}
 </body>
 </html>
