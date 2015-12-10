@@ -254,17 +254,17 @@ function signUpUser($dbh, $args) {
   mkdir($args[":imageLoc"]);
 
   if($args[':accountType'] === 'hunter') {
-    copy("_images/_profiles/_default_hunter/profile.png", $args[":imageLoc"]);
+    copy("/_images/_profiles/_default_hunter/profile.png", $args[":imageLoc"]);
   }
   else if ($args[':accountType'] === 'marshal') {
-    copy("_images/_profiles/_default_marshal/profile.png", $args[":imageLoc"]);
+    copy("/_images/_profiles/_default_marshal/profile.png", $args[":imageLoc"]);
   }
   $functionArray = array();
   $statement = $dbh->prepare(
     "INSERT INTO Account
-      (username, email, password, dateCreated, accountType, dateOfLastActivity, imageLoc)
+      (username, email, password, dateCreated, accountType, dateOfLastActivity, imageLoc, paymentType, moneyCollected)
     VALUES
-      (:username, :email, :password, NOW(), :accountType, NOW(), :imageLoc)"
+      (:username, :email, :password, NOW(), :accountType, NOW(), :imageLoc, :paymentType, '0')"
   );
 
   if($statement->execute($args))
@@ -1276,6 +1276,7 @@ $app->post('/api/signUpUser', function() use ($dbh) {
   $args[':password'] = $_POST['password'];
   $args[':email'] = strtolower($_POST['email']);
   $args[':accountType'] = strtolower($_POST['accountType']);
+  $args[':paymentType'] = $_POST['paymentType']
   $result = signUpUser($dbh, $args);
   echo json_encode($result);
 });
