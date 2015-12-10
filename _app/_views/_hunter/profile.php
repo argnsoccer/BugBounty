@@ -112,7 +112,7 @@
                 <tr class="rowTable">
                   <td class="cell">{{bounty.dateEnding}}</td>
                   <td class="cell"><a href="/_hunter/bounty/{{bounty.poolID}}">{{bounty.bountyName}}</a></td>
-                  <td class="cell"><a href="/_hunter/company/{{bounty.companyUsername}}">{{bounty.company}}</a></td>
+                  <td class="cell"><a href="/_hunter/company/{{bounty.ownerUsername}}">{{bounty.ownerName}}</a></td>
                 </tr> 
                 {% endfor %}
               </tbody>
