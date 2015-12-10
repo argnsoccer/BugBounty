@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BugBounty</string>
+    <string name="main_title1">Howdy Partner!</string>
+    <string name="main_title2">Welcome to BugBounty!</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="search_button">Login</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
+</resources>
