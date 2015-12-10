@@ -90,7 +90,7 @@
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Reports Approved</span>
-                  <p class="form-control formControlCustom">{{user.reulst.numReportsApproved}}</p>
+                  <p class="form-control formControlCustom">{{user.numReportsApproved}}</p>
                 </div>
             </div>
           </form>
@@ -108,10 +108,10 @@
                 </tr>
               </thead>
               <tbody>
-                {% for bounty in recentBounties %}
+                {% for bounty in pastBounties.result %}
                 <tr class="rowTable">
                   <td class="cell">{{bounty.dateEnding}}</td>
-                  <td class="cell"><a href="/_hunter/bounty/{{bounty.bountyID}}">{{bounty.name}}</a></td>
+                  <td class="cell"><a href="/_hunter/bounty/{{bounty.poolID}}">{{bounty.bountyName}}</a></td>
                   <td class="cell"><a href="/_hunter/company/{{bounty.companyUsername}}">{{bounty.company}}</a></td>
                 </tr> 
                 {% endfor %}
@@ -135,10 +135,10 @@
                 </tr>
               </thead>
               <tbody>
-                {% for report in recentReports %}
+                {% for report in submittedReports.result %}
                 <tr class="rowTable">
-                  <td class="cell">{{report.date}}</td>
-                  <td class="cell"><a href="/_hunter/bounty/{{report.bountyID}}">{{report.name}}</td>
+                  <td class="cell">{{report.dateSubmitted}}</td>
+                  <td class="cell"><a href="/_hunter/bounty/{{report.poolID}}">{{report.bountyName}}</td>
                   <td class="cell"><a href="/_hunter/company/{{report.companyUsername}}">{{report.company}}</a></td>
                   <td class="cell">{{report.amountPaid}}</td>
                   <td class="cell">
