@@ -51,6 +51,10 @@ function prepareHome($dbh){
 
 		$template_array['rssExists'] = rssExists($dbh, $args);
 
+		$args[':accountType'] = $_SESSION['userType'];
+
+		$template_array["messageOfDay"] = getMessageOfDay($dbh, $args);
+
 		return $template_array;
 	}
 	else 
