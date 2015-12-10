@@ -26,6 +26,8 @@ $(document).ready(function () {
 
   	event.preventDefault();
 
+    $("#basicSearchBody").empty();
+
     var testInfo = {};
 
     testInfo['query'] = $("#searchText").val();
@@ -45,9 +47,8 @@ $(document).ready(function () {
 
       	for (var i =0; i < response.result.bounties.length; ++i) {
       		var bounty = response.result.bounties[i];
-      		console.log(bounty);
-			var element = "<tr class=\"rowTable\"><td class=\"cell\">" + bounty.dateEnding + "</td><td class=\"cell\"><a href=\"/_hunter/bounty/" + bounty.poolID + "\">" +bounty.bountyName + "</a></td><td class=\"cell\"><a href=\"/_hunter/company/" +bounty.companyUsername + "\">" +bounty.companyName + "</a></td></tr>";
-	    	$("#basicSearchBody").append(element);
+          var element = "<tr class=\"rowTable\"><td class=\"cell\">" + bounty.dateEnding + "</td><td class=\"cell\"><a href=\"/_hunter/bounty/" + bounty.poolID + "\">" +bounty.bountyName + "</a></td><td class=\"cell\"><a href=\"/_hunter/company/" +bounty.companyUsername + "\">" +bounty.companyName + "</a></td></tr>";
+	    	  $("#basicSearchBody").append(element);
       	}
 
       	$("#searchText").val('');
