@@ -709,7 +709,6 @@ function getReportsFromBountyID($dbh, $args) {
     $functionArray['result'] = array();
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
-      $row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
       array_push($functionArray['result'], $row);
     }
 
@@ -740,7 +739,6 @@ function getReportsFromUsernameBountyID($dbh, $args) {
     $functionArray['result'] = array();
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
-      $row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
       array_push($functionArray['result'], $row);
     }
 
@@ -848,15 +846,13 @@ function getBountyFromBountyID($dbh, $args) {
   $functioArray = array();
   if ($_SESSION['userLogin']) {
 
-    $statement = $dbh->prepare("
-    SELECT *,DATE(dateCreated) as dateCreated,DATE(dateEnding) as dateEnding FROM BountyPool
+    $statement = $dbh->prepare(
+    "SELECT *,DATE(dateCreated) as dateCreated,DATE(dateEnding) as dateEnding FROM BountyPool
     WHERE poolID = :bountyID"
     );
 
     if ($statement->execute($args)) {
       $result = $statement->fetch(PDO::FETCH_ASSOC);
-      $result['dateCreated'] = substr($result['dateCreated'], 0, -9);
-      $result['dateEnding'] = substr($result['dateEnding'], 0, -9);
       $functionArray['error'] = '0';
       $functionArray['message'] = 'success';
       $functionArray['result'] = $result;
@@ -901,8 +897,6 @@ function getBountiesFromUsernameRecentReports($dbh,$args)
       }
       if($insert)
       {
-        $row['dateCreated'] = substr($row['dateCreated'], 0, -9);
-        $row['dateEnding'] = substr($row['dateEnding'], 0, -9);
         $bountyID = $row['poolID'];
         $args[':bountyID'] = $bountyID;
         $statement2 = $dbh->prepare(
@@ -960,8 +954,6 @@ function getBountiesFromUsername($dbh,$args)
       }
       if($insert)
       {
-        $row['dateCreated'] = substr($row['dateCreated'], 0, -9);
-        $row['dateEnding'] = substr($row['dateEnding'], 0, -9);
         array_push($functionArray['result'], $row);
       }
     }
