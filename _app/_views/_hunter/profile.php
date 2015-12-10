@@ -66,14 +66,14 @@
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Payment Type</span>
-                  <div><p class="form-control formControlCustom">{{user.result.paymnetType}}</p></div>
+                  <div><p class="form-control formControlCustom">{{user.result.paymentType}}</p></div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Money Collected</span>
-                  <p class="form-control formControlCustom">${{user.result.moneyCollected}}</p>
+                  <p class="form-control formControlCustom">$  {{user.result.moneyCollected}}</p>
                 </div>
             </div>
           </form>
@@ -138,7 +138,7 @@
                 {% for report in submittedReports.result %}
                 <tr class="rowTable">
                   <td class="cell">{{report.dateSubmitted}}</td>
-                  <td class="cell"><a href="/_hunter/bounty/{{report.poolID}}">{{report.bountyName}}</td>
+                  <td class="cell"><a href="/_hunter/bounty/{{report.bountyID}}">{{report.bountyName}}</td>
                   <td class="cell"><a href="/_hunter/company/{{report.ownerUsername}}">{{report.ownerName}}</a></td>
                   <td class="cell">{{report.amountPaid}}</td>
                   <td class="cell">
@@ -258,10 +258,6 @@
                   <div class="input-group input-group-Modal">
                     <span class="input-group-addon addOnCustom">Option 1</span>
                     <input type ="text" class="form-control modalInput" id="changePaymentOption1Form">
-                  </div>
-                  <div class="input-group input-group-Modal">
-                    <span class="input-group-addon addOnCustom">Option 2</span>
-                    <input type ="text" class="form-control modalInput" id="changePaymentOption2Form">
                   </div>
                   <div class="input-group input-group-Modal">
                     <span class="input-group-addon addOnCustom">Password</span>

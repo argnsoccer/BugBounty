@@ -1,43 +1,55 @@
-// function isSet(value)
-// {
-//   if (value == null || value == '')
-//   {
-//     alert("Well we can't search for nothing!");
-//     return false;
-//   }
-//   return true;
-// }
+function isSet(value)
+{
+  if (value == null || value == '')
+  {
+	$.notify({
+	  // options
+	  message: "Please include a query for us to search",
+	  icon: 'glyphicon glyphicon-remove-circle'
+	  },{
+	  // settings
+	  type: 'danger',
+	  placement: {
+	    from: "top",
+	    align: "right",
+	    allow_dismiss: true,
+	  }
+	});
+    return false;
+  }
+  return true;
+}
 
-// $(document).ready(function () {
+$(document).ready(function () {
 
-//   $("#submitSearch").click(function(event) {
+  $("#submitSearch").click(function(event) {
 
-//     var testInfo = {};
+  	alert(testInfo['query']);
 
-//     testInfo['mainSearch'] = $("#searchText").val();
+    var testInfo = {};
 
-//     if(!isSet(testInfo['mainSearch'])) {
-//       return false;
-//     }
+    testInfo['query'] = $("#searchText").val();
 
-//     alert(testInfo['mainSearch']);
+    if(!isSet(testInfo['query'])) {
+      return false;
+    }
 
-//     $.ajax({
-//       url: '/api/basicSearch',
-//       data: testInfo,
-//       dataType: 'json',
-//       async: 'false',
-//       type: 'GET',
-//       success: function(response)
-//       {
-
-//       },
-//       error: function(xhr, status, error)
-//       {
-//       var err = eval("(" + xhr.responseText + ")");
-//       //alert("Please Try Again, we had an internal error!");
-//       alert(err.message);
-//       }
-//     });
-//   });
-// });
+    // $.ajax({
+    //   url: '/api/basicSearch',
+    //   data: testInfo,
+    //   dataType: 'json',
+    //   async: 'false',
+    //   type: 'GET',
+    //   success: function(response)
+    //   {
+    //   	alert(response.result);
+    //   },
+    //   error: function(xhr, status, error)
+    //   {
+    //   var err = eval("(" + xhr.responseText + ")");
+    //   //alert("Please Try Again, we had an internal error!");
+    //   alert(err.message);
+    //   }
+    // });
+  });
+});

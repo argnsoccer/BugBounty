@@ -140,16 +140,16 @@
               <table>
                 <tbody>
                   <tr class="rowTable header">
+                    <th class="cell">Date Ending</th>
                     <th class="cell">Bounty Name</th>
                     <th class="cell">Company Name</th>
-                    <th class="cell">Last Activity</th>
                     <th class="cell">Pending Reports</th>
                   </tr>
-                  {% for bounty in trackBounties %}
+                  {% for bounty in trackBounties.result %}
                   <tr class="rowTable">
-                    <td class="cell"><a href="/_hunter/bounty/{{bounty.id}}">{{bounty.name}}</a></td>
-                    <td class="cell"><a href="/_hunter/company/{{bounty.company}}">{{bounty.company}}</a></td>
-                    <td class="cell">{{bounty.date}}</td>
+                    <td class="cell">{{bounty.dateEnding}}</td>
+                    <td class="cell"><a href="/_hunter/bounty/{{bounty.poolID}}">{{bounty.bountyName}}</a></td>
+                    <td class="cell"><a href="/_hunter/company/{{bounty.companyUsername}}">{{bounty.companyName}}</a></td>
                     <td class="cell">{{bounty.number}}</td>
                   </tr>
                   {% endfor %}
@@ -257,7 +257,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="/../_javascript/_jquery/cycle.js"></script>
     <script type="text/javascript" src="/../_javascript/logout.js"></script>
-    <script type="text/javascript" src="/../_javascript/basic_search.js"></script>
+    <script type="text/javascript" src="/../_javascript/search_baisc.js"></script>
     <script type="text/javascript" src="/../_javascript/advanced_search.js"></script>
 
     {{include ('bootstrap_footer.php')}}

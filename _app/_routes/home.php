@@ -16,32 +16,36 @@ function prepareHome($dbh){
 
 		$template_array['messageOfDay'] = getMessageOfDayHunter($dbh);
 
-		$template_array['trackBounties'] = array(  //get correct call
-			array (
-				'id' => "0001",
-				'company' => 'testMarshall1',
-				'number' => 3,
-				'date' => '11/03/1993',
-				'name' => "Google Needs A Car"),
-			array (
-				'id' => "0002",
-				'company' => 'Microsoft',
-				'number' => 3,
-				'date' => '11/03/1993',
-				'name' => "Microsoft Helps the World"),
-			array (
-				'id' => "0003",
-				'company' => 'Apple',
-				'number' => 3,
-				'date' => '11/03/1993',
-				'name' => "Apple wants an orange"),
-			array (
-				'id' => "0004",
-				'company' => 'Yahoo',
-				'number' => 3,
-				'date' => '11/03/1993',
-				'name' => "Yahoo is not very good milk")
-		); //need to be 4 most recent bounties
+		// $template_array['trackBounties'] = array(  //get correct call
+		// 	array (
+		// 		'id' => "0001",
+		// 		'company' => 'testMarshall1',
+		// 		'number' => 3,
+		// 		'date' => '11/03/1993',
+		// 		'name' => "Google Needs A Car"),
+		// 	array (
+		// 		'id' => "0002",
+		// 		'company' => 'Microsoft',
+		// 		'number' => 3,
+		// 		'date' => '11/03/1993',
+		// 		'name' => "Microsoft Helps the World"),
+		// 	array (
+		// 		'id' => "0003",
+		// 		'company' => 'Apple',
+		// 		'number' => 3,
+		// 		'date' => '11/03/1993',
+		// 		'name' => "Apple wants an orange"),
+		// 	array (
+		// 		'id' => "0004",
+		// 		'company' => 'Yahoo',
+		// 		'number' => 3,
+		// 		'date' => '11/03/1993',
+		// 		'name' => "Yahoo is not very good milk")
+		// ); //need to be 4 most recent bounties
+
+		$args[':username'] = $_SESSION['userLogin'];
+
+		$template_array['trackBounties'] = getBountiesFromUsernameRecentReports($dbh, $args);
 
 		return $template_array;
 	}

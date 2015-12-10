@@ -150,7 +150,7 @@ function loginUser($dbh, $args) {
   }
 }
 
-function simpleSearch($dbh,$args)
+function basicSearch($dbh,$args)
 {
 	$statement = $dbh->prepare(
 	"SELECT * FROM BountyPool
@@ -172,6 +172,7 @@ function simpleSearch($dbh,$args)
 		$result["messageDB"] = $statement->errorInfo();
 		$result["error"] = 1;
 	}
+  
 	return $result;
 }
 
@@ -1816,8 +1817,8 @@ $app->get('/api/getBountiesFromUsername/:username', function($username) use($dbh
 
 });
 
-$app->get('/api/simpleSearch/:query', function($query) use($dbh)
+$app->get('/api/basicSearch/:query', function($query) use($dbh)
 {
 	$args[':query'] = '%'.$query.'%';
-	echo json_encode(simpleSearch($dbh,$args));
+	echo json_encode(basicSearch($dbh,$args));
 });
