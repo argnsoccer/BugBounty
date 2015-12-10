@@ -253,8 +253,8 @@ CREATE TABLE IF NOT EXISTS `MessageOfDay` (
   UNIQUE KEY `messageID_UNIQUE` (`messageID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO MessageOfDay (accountType,message,dateMade) Values ("Hunter","Good luck hunting",NOW());
-INSERT INTO MessageOfDay (accountType,message,dateMade) Values ("Marshall","Its a great day to make a bounty!",NOW());
+INSERT INTO MessageOfDay (accountType,message,dateMade) Values ("hunter","Good luck hunting",NOW());
+INSERT INTO MessageOfDay (accountType,message,dateMade) Values ("marshall","Its a great day to make a bounty!",NOW());
 
 --
 -- Dumping data for table `report`

@@ -104,52 +104,49 @@ if(!isset($_SESSION))
 //Database Accessing Functions go here*************************************************
 
 function loginUser($dbh, $args) {
-
+  $function_array = [];
   global $dbh;
   if(!isset($_SESSION['userLogin'])){
 
     $statement = $dbh->prepare("SELECT username, userID, accountType FROM Account WHERE username = :username AND password = :password");
-    $functionArray = array();
     if($statement->execute($args))
     {
       $row = $statement->fetch(PDO::FETCH_ASSOC);
       if (isset($row['username']))
       {
-        $result["username"] = $row['username'];
-        $result["userType"] = strtolower($row['accountType']);
-        $result['userID'] = $row['userID'];
+        $function_array["result"]["username"] = $row['username'];
+        $function_array["result"]["userType"] = strtolower($row['accountType']);
+        $function_array["result"]['userID'] = $row['userID'];
+        $function_array["error"] = '0';
+        $function_array["message"] = "success";
 
         $_SESSION['userLogin'] = $row['username'];
         $usn[':username'] = $row['username'];
         $_SESSION['userType'] = strtolower($row['accountType']);
         $_SESSION['userID'] = $row['userID'];
-
-        $functionArray['error'] ='0';
-
-        $functionArray['message'] = 'success';
       }
       else
       {
-        $functionArray['error'] = '1';
-        $functionArray['message'] = "The username and password combination did not work";
+        $function_array["error"] = '1';
+        $function_array["message"] = 'combination is incorrect';
+        $function_array["result"] = [];
       }
     }
     else
     {
-      $functionArray['error'] ='2';
-      $functionArray['messageDB'] = $statement->errorInfo();
+      $function_array["error"] = '2';
+      $function_array["result"] = [];
+      $function_array["message"] = 'statement did not execute';
+      $function_array["messageDB"] = $statement->errorInfo();
     }
-    $functionArray['result'] = $result;
-    return $functionArray;
+    return $function_array;
   }
   else
   {
-    $functionArray['error'] = '3';
-
-    $functionArray['message'] = 'user is already logged in';
-    $functionArray['result'] = $result;
-
-    return $functionArray;
+    $function_array["error"] = '3';
+    $function_array["result"] = [];
+    $function_array["message"] = 'user is already logged in';
+    return $function_array;
   }
 }
 
@@ -891,6 +888,8 @@ function rssExists($dbh, $args) {
     WHERE username = :username"
   );
 
+  $function_array = [];
+
   if($statement->execute($args)) {
 
     $row = $statement->fetch(PDO::FETCH_ASSOC);
@@ -898,30 +897,30 @@ function rssExists($dbh, $args) {
     if($row['rssCreated']) {
 
       if(file_exists($row['rssLink'])) {
-        $result['link'] = $row['rssLink'];
-        $result['exists'] = "1";
-        $result['error'] = "0";
-        $message['message'] = "All gucci";
+        $function_array['result']['link'] = $row['link'];
+        $function_array['result']['exists'] = "1";
+        $function_array['error'] = "0";
+        $function_array['message'] = "All gucci";
       }
       else {
-        $result['exists'] = "0";
-        $result['error'] = "1";
-        $message['message'] = "File does not exist";
+        $function_array['result']['exists'] = "0";
+        $function_array['error'] = "1";
+        $function_array['message'] = "File does not exist";
       }
     }
     else {
-      $result['exists'] = "0";
-      $result['error'] = "1";
-      $message['message'] = "File does not exist";
+      $function_array['result']['exists'] = "0";
+      $function_array['error'] = "1";
+      $function_array['message'] = "File does not exist";
     }
 
   }
   else {
-    $result['error'] = "1";
-    $message['message'] = "Statement did not execute";
+    $function_array['error'] = "1";
+    $function_array['message'] = "Statement did not execute";
   }
 
-  return $result;
+  return $function_array;
 }
 
 function addSubscription($dbh, $args) {

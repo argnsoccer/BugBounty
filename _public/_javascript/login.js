@@ -41,20 +41,7 @@ $(document).ready(function ()
         {
           if (response['error'] == '0')
           {
-            //alert(response['userType']);
-            if (response['userType'] == "hunter")
-            {
-              window.location.reload(true);
-            }
-            else if (response['userType'] == "marshall"
-              || response['userType'] == "sheriff")
-            {
-              window.location.reload(true);
-            }
-            else
-            {
-              alert("failure");
-            }
+            window.location.reload(true);
           }
           else if (response['error'] == '1')
           {

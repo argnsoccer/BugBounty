@@ -47,6 +47,14 @@ function prepareHome($dbh){
 	{
 		$template_array["username"] = $_SESSION['userLogin'];
 
+		$args[':username'] = $_SESSION['userLogin'];
+
+		$template_array['rssExists'] = rssExists($dbh, $args);
+
+		$args[':accountType'] = $_SESSION['userType'];
+
+		$template_array["messageOfDay"] = getMessageOfDay($dbh, $args);
+
 		return $template_array;
 	}
 	else 
@@ -76,6 +84,8 @@ $app->get('/', function() use ($app, $dbh) {
 			$template_array = prepareHome($dbh);
 
 			$app->render('/_marshall/home.php', $template_array);
+
+					echo print_r($template_array);
 		}
 		else
 		{

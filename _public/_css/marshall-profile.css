@@ -86,12 +86,7 @@ textarea {
 }
 
 table {
-  margin-bottom: 40px;
   width: 100%;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  display: block;
-  height: 200px !important;
-  overflow-y: scroll;
 }
 
 .rowTable {
@@ -106,7 +101,7 @@ table {
 .rowTable.header {
   font-weight: 900;
   color: #ffffff;
-  background: #2980b9;
+  background: #59ABE3;
 }
 
 .rowTable.green {
