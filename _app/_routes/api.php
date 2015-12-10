@@ -150,6 +150,31 @@ function loginUser($dbh, $args) {
   }
 }
 
+function simpleSearch($dbh,$args)
+{
+	$statement = $dbh->prepare(
+	"SELECT * FROM BountyPool
+	WHERE bountyName LIKE :query
+	LIMIT 5");
+	if($statement->execute($args))
+	{
+		$result["result"]["bounties"] = array();
+		while($row = $statement->fetch(PDO::FETCH_ASSOC))
+		{
+			array_push($result["result"]["bounties"],$row);
+		}
+		$result["message"] = "success";
+		$result["error"] = 0;
+	}
+	else
+	{
+		$result["message"] = "Statement not executed";
+		$result["messageDB"] = $statement->errorInfo();
+		$result["error"] = 1;
+	}
+	return $result;
+}
+
 function updateUserDetails($dbh,$change,$inputs)
 {
 	$args = array();
@@ -1786,4 +1811,10 @@ $app->get('/api/getBountiesFromUsername/:username', function($username) use($dbh
   $args[':username'] = $username;
   echo json_encode(getBountiesFromUsername($dbh,$args));
 
+});
+
+$app->get('/api/simpleSearch/:query', function($query) use($dbh)
+{
+	$args[':query'] = '%'.$query.'%';
+	echo json_encode(simpleSearch($dbh,$args));
 });
