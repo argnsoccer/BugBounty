@@ -338,10 +338,11 @@ function getMarshalFromUsername($dbh, $args) {
       $result['email'] = $row['email'];
       $result['proPic'] = $row['imageLoc'];
       $functionArray['error'] = '0';
-      $result['name'] = $row['name'];
       $result['dateJoined'] = substr($row['dateCreated'], 0, -9);
       $result['paymentType'] = $row['paymentType'];
       $result['moneyCollected'] = $row['moneyCollected'];
+      $result['description'] = $row['description'];
+      $result['company'] = $row['company'];
       $functionArray['result'] = $result;
       $functionArray['message'] = 'success';
     }
