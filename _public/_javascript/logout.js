@@ -52,15 +52,15 @@ $(document).ready(function ()
         {
           if (response['error'] == '0')
           {
-            if (response['userType'] == 'hunter')
+            if (response['result']['userType'] == 'hunter')
             {
-              var address = "/_hunter/profile/" + response['username'];
+              var address = "/_hunter/profile/" + response['result']['username'];
               window.location.href = address;
             }
-            else if (response['userType'] == 'marshall' 
-              || response['userType'] == 'sheriff')
+            else if (response['result']['userType'] == 'marshall' 
+              || response['result']['userType'] == 'sheriff')
             {
-              var address = "/_marshall/profile/" + response['username'];
+              var address = "/_marshall/profile/" + response['result']['username'];
               window.location.href = address;
             }
           }
