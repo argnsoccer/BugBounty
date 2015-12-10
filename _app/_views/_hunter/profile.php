@@ -112,7 +112,7 @@
                 <tr class="rowTable">
                   <td class="cell">{{bounty.dateEnding}}</td>
                   <td class="cell"><a href="/_hunter/bounty/{{bounty.poolID}}">{{bounty.bountyName}}</a></td>
-                  <td class="cell"><a href="/_hunter/company/{{bounty.ownerUsername}}">{{bounty.ownerName}}</a></td>
+                  <td class="cell"><a href="/_hunter/company/{{bounty.ownerUsername}}">{{bounty.companyName}}</a></td>
                 </tr> 
                 {% endfor %}
               </tbody>
@@ -139,8 +139,12 @@
                 <tr class="rowTable">
                   <td class="cell">{{report.dateSubmitted}}</td>
                   <td class="cell"><a href="/_hunter/bounty/{{report.bountyID}}">{{report.bountyName}}</td>
-                  <td class="cell"><a href="/_hunter/company/{{report.ownerUsername}}">{{report.ownerName}}</a></td>
-                  <td class="cell">{{report.amountPaid}}</td>
+                  <td class="cell"><a href="/_hunter/company/{{report.ownerUsername}}">{{report.companyName}}</a></td>
+                  {% if report.paidAmount == -1 %}
+                  <td title="Not Approved Yet" class="cell">NA</td>
+                  {% else %}
+                  <td class="cell">$ {{report.paidAmount}}</td>
+                  {% endif %}
                   <td class="cell">
                     <button type="button" class="detailsButton" data-toggle="modal" 
                     data-target="#detailsModal" data-whatever="@getbootstrap" 
