@@ -776,7 +776,7 @@ function getActiveBounties($dbh, $args) {
 function getPastBounties($dbh, $args) {
 
   $statement = $dbh->prepare(
-  "SELECT BountyPool.*, Marshall.company AS ownerName, Account.username AS ownerUsername, FROM Marshall, BountyPool, Account
+  "SELECT BountyPool.*, Marshall.company AS companyName, Account.username AS ownerUsername, FROM Marshall, BountyPool, Account
   WHERE Marshall.marshallID=BountyPool.bountyMarshallID
   AND Marshall.marshallID=:userID
   AND Account.userID = Marshall.userID
