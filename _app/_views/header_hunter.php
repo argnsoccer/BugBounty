@@ -15,7 +15,10 @@
         <div class="form-group">
           <input type="text" id="searchText" class="form-control" placeholder="Search for a Bounty!">
         </div>
-        <button class="btn btn-default" type="submit" id="submitSearch">Submit</button>
+        <button class="btn btn-default" type="submit" id="submitSearchForm" data-toggle="modal" 
+          data-target="#basicSearchModal" data-whatever="@getbootstrap">
+          Submit
+        </button>
       </form>
     </li>
     </ul>

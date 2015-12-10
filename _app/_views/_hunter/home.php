@@ -253,12 +253,41 @@
       </div>
     </div>
 
+    <div class="modal fade" id="basicSearchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="exampleModalLabel">Search Results</h4>
+             <div class="modal-body">
+              <div class="form-group">
+                <div class="tableWrapperSearch">
+                  <table>
+                    <thead>
+                      <tr class="rowTable header" id="basicSearchTableHead">
+                        <th class="cell">Date Ending</th>
+                        <th class="cell">Bounty Name</th>
+                        <th class="cell">Company Name</th>
+                      </tr>
+                    </thead>
+                    <tbody id="basicSearchBody">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="/../_javascript/_jquery/cycle.js"></script>
+    <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
     <script type="text/javascript" src="/../_javascript/logout.js"></script>
-    <script type="text/javascript" src="/../_javascript/search_baisc.js"></script>
-    <script type="text/javascript" src="/../_javascript/advanced_search.js"></script>
+    <script type="text/javascript" src="/../_javascript/search_basic.js"></script>
 
     {{include ('bootstrap_footer.php')}}
   </body>

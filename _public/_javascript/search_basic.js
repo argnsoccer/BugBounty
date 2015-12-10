@@ -2,9 +2,9 @@ function isSet(value)
 {
   if (value == null || value == '')
   {
-	$.notify({
+	  $.notify({
 	  // options
-	  message: "Please include a query for us to search",
+	  message: "Please insert a query",
 	  icon: 'glyphicon glyphicon-remove-circle'
 	  },{
 	  // settings
@@ -14,7 +14,7 @@ function isSet(value)
 	    align: "right",
 	    allow_dismiss: true,
 	  }
-	});
+        });
     return false;
   }
   return true;
@@ -22,9 +22,9 @@ function isSet(value)
 
 $(document).ready(function () {
 
-  $("#submitSearch").click(function(event) {
+  $("#submitSearchForm").click(function(event) {
 
-  	alert(testInfo['query']);
+  	event.preventDefault();
 
     var testInfo = {};
 
@@ -34,22 +34,31 @@ $(document).ready(function () {
       return false;
     }
 
-    // $.ajax({
-    //   url: '/api/basicSearch',
-    //   data: testInfo,
-    //   dataType: 'json',
-    //   async: 'false',
-    //   type: 'GET',
-    //   success: function(response)
-    //   {
-    //   	alert(response.result);
-    //   },
-    //   error: function(xhr, status, error)
-    //   {
-    //   var err = eval("(" + xhr.responseText + ")");
-    //   //alert("Please Try Again, we had an internal error!");
-    //   alert(err.message);
-    //   }
-    // });
+    $.ajax({
+      url: '/api/basicSearch/' + testInfo['query'],
+      data: testInfo,
+      dataType: 'json',
+      async: 'false',
+      type: 'GET',
+      success: function(response)
+      {
+
+      	for (var i =0; i < response.result.bounties.length; ++i) {
+      		var bounty = response.result.bounties[i];
+      		console.log(bounty);
+			var element = "<tr class=\"rowTable\"><td class=\"cell\">" + bounty.dateEnding + "</td><td class=\"cell\"><a href=\"/_hunter/bounty/" + bounty.poolID + "\">" +bounty.bountyName + "</a></td><td class=\"cell\"><a href=\"/_hunter/company/" +bounty.companyUsername + "\">" +bounty.companyName + "</a></td></tr>";
+	    	$("#basicSearchBody").append(element);
+      	}
+
+      	$("#searchText").val('');
+
+      },
+      error: function(xhr, status, error)
+      {
+      var err = eval("(" + xhr.responseText + ")");
+      //alert("Please Try Again, we had an internal error!");
+      alert(err.message);
+      }
+    });
   });
 });
