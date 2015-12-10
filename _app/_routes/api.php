@@ -770,11 +770,11 @@ function getPreferredBounties($dbh) {
   {
 	  $functionArray['result']['bounties'] = array();
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
-	{
-		$functionArray['error'] = '0';
-		$functionArray['message'] = 'success';
-		array_push($functionArray['result']["bounties"],$row);
-	}
+	  {
+		    $functionArray['error'] = '0';
+		    $functionArray['message'] = 'success';
+		    array_push($functionArray['result']["bounties"],$row);
+	  }
   }
   else
   {
