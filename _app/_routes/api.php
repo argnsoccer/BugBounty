@@ -322,7 +322,7 @@ function signUpUser($dbh, $args) {
 function getUserFromUsername($dbh, $args) {
   //Simple Select query which returns username, email, and type
   $statement = $dbh->prepare(
-  "SELECT username, name, email, accountType, imageLoc, dateCreated
+  "SELECT username, name, email, accountType, imageLoc, dateCreated, paymentType, moneyCollected
   FROM Account WHERE username = :username");
 
   $functionArray = array();
@@ -337,6 +337,8 @@ function getUserFromUsername($dbh, $args) {
       $functionArray['error'] = '0';
       $result['name'] = $row['name'];
       $result['dateJoined'] = substr($row['dateCreated'], 0, -9);
+      $result['paymentType'] = $row['paymentType'];
+      $result['moneyCollected'] = $row['moneyCollected'];
       $functionArray['result'] = $result;
       $functionArray['message'] = 'success';
     }
