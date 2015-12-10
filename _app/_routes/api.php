@@ -153,7 +153,7 @@ function loginUser($dbh, $args) {
 function basicSearch($dbh,$args)
 {
 	$statement = $dbh->prepare(
-	"SELECT * FROM BountyPool
+	"SELECT *,DATE(dateCreated) as dateCreated,DATE(dateEnding) as dateEnding FROM BountyPool
 	WHERE bountyName LIKE :query
 	LIMIT 5");
 	if($statement->execute($args))
@@ -323,7 +323,7 @@ function signUpUser($dbh, $args) {
 function getUserFromUsername($dbh, $args) {
   //Simple Select query which returns username, email, and type
   $statement = $dbh->prepare(
-  "SELECT username, name, email, accountType, imageLoc, dateCreated, paymentType, moneyCollected
+  "SELECT username, name, email, accountType, imageLoc, DATE(dateCreated) as dateCreated, paymentType, moneyCollected
   FROM Account WHERE username = :username");
 
   $functionArray = array();
@@ -337,7 +337,7 @@ function getUserFromUsername($dbh, $args) {
       $result['proPic'] = $row['imageLoc'];
       $functionArray['error'] = '0';
       $result['name'] = $row['name'];
-      $result['dateJoined'] = substr($row['dateCreated'], 0, -9);
+      $result['dateJoined'] = $row['dateCreated'];
       $result['paymentType'] = $row['paymentType'];
       $result['moneyCollected'] = $row['moneyCollected'];
       $functionArray['result'] = $result;
@@ -402,9 +402,9 @@ function createBounty($dbh, $args) {
     {
       $functionArray['error'] = '0';
       $functionArray['message'] = 'success';
-      $result['dateCreated'] = date("Y-m-d");
+      $result['dateCreated'] = date("Y-m-d",$_POST['dateCreated']);
       $result['PayoutPool'] = $_POST['payout'];
-      $result['dateEnding'] = $_POST['endDate'];
+      $result['dateEnding'] = date("Y-m-d",$_POST['endDate']);
       $result['userID'] = $_SESSION['userID'];
       $result['link'] = $_POST['link'];
       $result['fullDesccription'] = $_POST['fullDesc'];
@@ -450,14 +450,13 @@ function createReport($dbh, $args) {
     {
       $args3[':reportID'] = $reportID;
       $statement = $dbh->prepare(
-      "SELECT * FROM Report WHERE reportID = :reportID");
+      "SELECT *,DATE(dateSubmitted) as dateSubmitted FROM Report WHERE reportID = :reportID");
       if($statement->execute($args3))
       {
         $functionArray['error'] = '0';
         $functionArray['message'] = 'success';
         $row = $statement->fetch(PDO::FETCH_ASSOC);
         $functionArray['result'] = $row;
-        $functionArray['result']['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
       }
       else {
         $functionArray['error'] = '3';
@@ -534,7 +533,7 @@ function updateReport($dbh, $args) {
 
 function getReportsFromUsername($dbh, $args) {
   $statement = $dbh->prepare(
-  "SELECT Report.*, BountyPool.bountyName, Account.username as ownerUsername, Marshall.company as companyName FROM Report, BountyPool, Account, Marshall
+  "SELECT Report.*, DATE(Report.dateSubmitted) as dateSubmitted,DATE(Report.dateEnding) as dateEnding,BountyPool.bountyName, Account.username as ownerUsername, Marshall.company as companyName FROM Report, BountyPool, Account, Marshall
   WHERE Report.username=:username AND Report.bountyID = BountyPool.poolID AND Marshall.marshallID = BountyPool.bountyMarshallID AND Marshall.marshallID = Account.userID
   ORDER BY dateSubmitted ASC");
 
@@ -664,7 +663,7 @@ function getMessageOfDayMarshal($dbh)
 function getReportsFromBountyID($dbh, $args) {
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT Report.*, BountyPool.bountyName, Account.username as ownerUsername FROM Report, BountyPool, Account
+  "SELECT Report.*, DATE(Report.dateSubmitted) as dateSubmitted,DATE(Report.dateEnding) as dateEnding,BountyPool.bountyName, Account.username as ownerUsername FROM Report, BountyPool, Account
   WHERE Report.bountyID=:bountyID AND Report.bountyID = BountyPool.poolID AND Account.userID = BountyPool.bountyMarshallID");
 
   if($statement->execute($args))
@@ -692,7 +691,7 @@ function getReportsFromBountyID($dbh, $args) {
 function getReportsFromUsernameBountyID($dbh, $args) {
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT Report.*, BountyPool.bountyName, Account.username FROM Report, BountyPool, Account
+  "SELECT Report.*,  DATE(Report.dateSubmitted) as dateSubmitted,DATE(Report.dateEnding) as dateEnding,BountyPool.bountyName, Account.username FROM Report, BountyPool, Account
   WHERE Report.bountyID=:bountyID
   AND Report.username=:username
   AND BountyPool.poolID = Report.bountyID
@@ -725,7 +724,7 @@ function getPreferredBounties($dbh) {
  //Join query to get all preferred bounties
   $functionArray = array();
   $statement = $dbh->prepare("
-    SELECT * FROM BountyPool, PreferredBounties
+    SELECT *, DATE(Report.dateSubmitted) as dateSubmitted,DATE(Report.dateEnding) as dateEnding FROM BountyPool, PreferredBounties
     WHERE BountyPool.poolID=PreferredBounties.bountyID"
    );
 
@@ -752,7 +751,7 @@ function getPreferredBounties($dbh) {
 function getActiveBounties($dbh, $args) {
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT BountyPool.* FROM Marshall INNER JOIN BountyPool ON Marshall.marshallID = BountyPool.bountyMarshallID INNER JOIN Account ON Marshall.marshallID = Account.userID
+  "SELECT BountyPool.*,DATE(BountyPool.dateCreated) as dateCreated,DATE(BountyPool.dateEnding) as dateEnding FROM Marshall INNER JOIN BountyPool ON Marshall.marshallID = BountyPool.bountyMarshallID INNER JOIN Account ON Marshall.marshallID = Account.userID
   WHERE Account.username = :username
   AND BountyPool.dateCreated < now() < BountyPool.dateEnding"
   );
@@ -776,7 +775,7 @@ function getActiveBounties($dbh, $args) {
 function getPastBounties($dbh, $args) {
 
   $statement = $dbh->prepare(
-  "SELECT BountyPool.*, Marshall.company AS ownerName, Account.username AS ownerUsername, FROM Marshall, BountyPool, Account
+  "SELECT BountyPool.*,DATE(BountyPool.dateCreated) as dateCreated,DATE(BountyPool.dateEnding) as dateEnding, Marshall.company AS ownerName, Account.username AS ownerUsername, FROM Marshall, BountyPool, Account
   WHERE Marshall.marshallID=BountyPool.bountyMarshallID
   AND Marshall.marshallID=:userID
   AND Account.userID = Marshall.userID
@@ -807,7 +806,7 @@ function getBountyFromBountyID($dbh, $args) {
   if ($_SESSION['userLogin']) {
 
     $statement = $dbh->prepare("
-    SELECT * FROM BountyPool
+    SELECT *,DATE(dateCreated) as dateCreated,DATE(dateEnding) as dateEnding FROM BountyPool
     WHERE poolID = :bountyID"
     );
 
@@ -837,7 +836,7 @@ function getBountiesFromUsernameRecentReports($dbh,$args)
 {
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT BountyPool.*, Marshall.company FROM Marshall, BountyPool, Report
+  "SELECT BountyPool.*,DATE(BountyPool.dateCreated) as dateCreated,DATE(BountyPool.dateEnding) as dateEnding,Marshall.company FROM Marshall, BountyPool, Report
   WHERE Marshall.marshallID = BountyPool.bountyMarshallID
   AND BountyPool.poolID=Report.bountyID
   AND Report.username = :username
@@ -895,7 +894,7 @@ function getBountiesFromUsername($dbh,$args)
 {
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT BountyPool.*, Account.username AS ownerUsername, Account.name as ownerName FROM BountyPool, Report, Marshall, Account
+  "SELECT BountyPool.*,DATE(BountyPool.dateCreated) as dateCreated,DATE(BountyPool.dateEnding) as dateEnding,Account.username AS ownerUsername, Account.name as ownerName FROM BountyPool, Report, Marshall, Account
   WHERE Marshall.marshallID = BountyPool.bountyMarshallID
   AND Marshall.marshallID = Account.userID
   AND BountyPool.poolID=Report.bountyID
