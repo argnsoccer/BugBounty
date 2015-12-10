@@ -481,7 +481,7 @@ function updateReport($dbh, $args) {
 
 function getReportsFromUsername($dbh, $args) {
   $statement = $dbh->prepare(
-  "SELECT Report.*, BountyPool.bountyName, Account.username as ownerUsername, Account.name as ownerName, FROM Report, BountyPool, Account
+  "SELECT Report.*, BountyPool.bountyName, Account.username as ownerUsername, Account.name as ownerName FROM Report, BountyPool, Account
   WHERE Report.username=:username AND Report.bountyID = BountyPool.poolID AND Account.userID = BountyPool.bountyMarshallID
   ORDER BY dateSubmitted ASC");
 
