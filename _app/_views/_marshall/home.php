@@ -145,7 +145,7 @@
 
             <div class="col-md-12" class="bottomBox">
               <h3>Message of the Day</h3>
-              <p>{{messageOfDay}}
+              <p>{{messageOfDay.message}}
               </p>
             </div>
 

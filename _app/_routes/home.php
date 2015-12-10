@@ -14,7 +14,9 @@ function prepareHome($dbh){
 
 		$template_array['preferredBounties'] = getPreferredBounties($dbh);
 
-		$template_array['trackBounties'] = array(
+		$template_array['messageOfDay'] = getMessageOfDayHunter($dbh);
+
+		$template_array['trackBounties'] = array(  //get correct call
 			array (
 				'id' => "0001",
 				'company' => 'testMarshall1',
@@ -51,9 +53,9 @@ function prepareHome($dbh){
 
 		$template_array['rssExists'] = rssExists($dbh, $args);
 
-		$args[':accountType'] = $_SESSION['userType'];
+		$dummy = getMessageOfDayMarshal($dbh);
 
-		$template_array["messageOfDay"] = getMessageOfDay($dbh, $args);
+		$template_array["messageOfDay"] = getMessageOfDayMarshal($dbh);
 
 		return $template_array;
 	}
@@ -77,6 +79,8 @@ $app->get('/', function() use ($app, $dbh) {
 			$template_array = prepareHome($dbh);
 
 			$app->render('/_hunter/home.php', $template_array);
+
+			echo print_r($template_array);
 		}
 		else if ($_SESSION['userType'] == 'marshall' || $_SESSION['userType'] == 'sheriff')
 		{
@@ -85,7 +89,7 @@ $app->get('/', function() use ($app, $dbh) {
 
 			$app->render('/_marshall/home.php', $template_array);
 
-					echo print_r($template_array);
+			echo print_r($template_array);
 		}
 		else
 		{
@@ -97,5 +101,7 @@ $app->get('/', function() use ($app, $dbh) {
 		$template_array = prepareHome($dbh);
 
 		$app->render('home.php', $template_array);
+
+		echo print_r($template_array);
 	}
 });

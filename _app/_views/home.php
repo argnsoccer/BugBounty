@@ -96,16 +96,16 @@
             data-cycle-center-horz=true
             data-cycle-center-vert=true>
               <div class="bounty">
-                <img class="img-circle" src={{bountyArray[0].imageLoc}}>
-                <h3 class="bountyName">{{bountyArray[0].bountyName}}</h3>
+                <img class="img-circle" src={{result.bounties[0].imageLoc}}>
+                <h3 class="bountyName">{{result.bounties[0].bountyName}}</h3>
               </div>
               <div class="bounty">
-                <img class="img-circle" src={{bountyArray[1].imageLoc}}>
-                <h3 class="bountyName">{{bountyArray[1].bountyName}}</h3>
+                <img class="img-circle" src={{result.bounties[1].imageLoc}}>
+                <h3 class="bountyName">{{result.bounties[1].bountyName}}</h3>
               </div>
               <div class="bounty">
-                <img class="img-circle" src={{bountyArray[2].imageLoc}}>
-                <h3 class="bountyName">{{bountyArray[2].bountyName}}</h3>
+                <img class="img-circle" src={{result.bounties[2].imageLoc}}>
+                <h3 class="bountyName">{{result.bounties[2].bountyName}}</h3>
               </div>
             </div>
 
@@ -116,9 +116,9 @@
             data-cycle-slides="> h3"
             data-cycle-center-horz=true
             data-cycle-center-vert=true>
-                <h3 class="bountyDescription">{{bountyArray[0].lineDescription}}</h3>
-                <h3 class="bountyDescription">{{bountyArray[1].lineDescription}}</h3>
-                <h3 class="bountyDescription">{{bountyArray[2].lineDescription}}</h3>
+                <h3 class="bountyDescription">{{result.bounties[0].lineDescription}}</h3>
+                <h3 class="bountyDescription">{{result.bounties[1].lineDescription}}</h3>
+                <h3 class="bountyDescription">{{result.bounties[2].lineDescription}}</h3>
             </div>
           </div>
 
@@ -131,16 +131,16 @@
             data-cycle-center-horz=true
             data-cycle-center-vert=true>
               <div class="bounty">
-                <img class="img-circle" src={{bountyArray[3].imageLoc}}>
-                <h3 class="bountyName">{{bountyArray[3].bountyName}}</h3>
+                <img class="img-circle" src={{result.bounties[3].imageLoc}}>
+                <h3 class="bountyName">{{result.bounties[3].bountyName}}</h3>
               </div>
               <div class="bounty">
-                <img class="img-circle" src={{bountyArray[4].imageLoc}}>
-                <h3 class="bountyName">{{bountyArray[4].bountyName}}</h3>
+                <img class="img-circle" src={{result.bounties[4].imageLoc}}>
+                <h3 class="bountyName">{{result.bounties[4].bountyName}}</h3>
               </div>
               <div class="bounty">
-                <img class="img-circle" src={{bountyArray[5].imageLoc}}>
-                <h3 class="bountyName">{{bountyArray[5].bountyName}}</h3>
+                <img class="img-circle" src={{result.bounties[5].imageLoc}}>
+                <h3 class="bountyName">{{result.bounties[5].bountyName}}</h3>
               </div>
             </div>
 
@@ -151,9 +151,9 @@
             data-cycle-slides="> h3"
             data-cycle-center-horz=true
             data-cycle-center-vert=true>
-                <h3 class="bountyDescription">{{bountyArray[3].lineDescription}}</h3>
-                <h3 class="bountyDescription">{{bountyArray[4].lineDescription}}</h3>
-                <h3 class="bountyDescription">{{bountyArray[5].lineDescription}}</h3>
+                <h3 class="bountyDescription">{{result.bounties[3].lineDescription}}</h3>
+                <h3 class="bountyDescription">{{result.bounties[4].lineDescription}}</h3>
+                <h3 class="bountyDescription">{{result.bounties[5].lineDescription}}</h3>
             </div>
           </div>
 
@@ -166,16 +166,16 @@
             data-cycle-center-horz=true
             data-cycle-center-vert=true>
               <div class="bounty">
-                <img class="img-circle" src={{bountyArray[6].imageLoc}}>
-                <h3 class="bountyName">{{bountyArray[6].bountyName}}</h3>
+                <img class="img-circle" src={{result.bounties[6].imageLoc}}>
+                <h3 class="bountyName">{{result.bounties[6].bountyName}}</h3>
               </div>
               <div class="bounty">
-                <img class="img-circle" src={{bountyArray[7].imageLoc}}>
-                <h3 class="bountyName">{{bountyArray[7].bountyName}}</h3>
+                <img class="img-circle" src={{result.bounties[7].imageLoc}}>
+                <h3 class="bountyName">{{result.bounties[7].bountyName}}</h3>
               </div>
               <div class="bounty">
-                <img class="img-circle" src={{bountyArray[8].imageLoc}}>
-                <h3 class="bountyName">{{bountyArray[8].bountyName}}</h3>
+                <img class="img-circle" src={{result.bounties[8].imageLoc}}>
+                <h3 class="bountyName">{{result.bounties[8].bountyName}}</h3>
               </div>
             </div>
 
@@ -186,9 +186,9 @@
             data-cycle-slides="> h3"
             data-cycle-center-horz=true
             data-cycle-center-vert=true>
-                <h3 class="bountyDescription">{{bountyArray[6].lineDescription}}</h3>
-                <h3 class="bountyDescription">{{bountyArray[7].lineDescription}}</h3>
-                <h3 class="bountyDescription">{{bountyArray[8].lineDescription}}</h3>
+                <h3 class="bountyDescription">{{result.bounties[6].lineDescription}}</h3>
+                <h3 class="bountyDescription">{{result.bounties[7].lineDescription}}</h3>
+                <h3 class="bountyDescription">{{result.bounties[8].lineDescription}}</h3>
             </div>
           </div>
 

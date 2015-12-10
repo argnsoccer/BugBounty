@@ -15,17 +15,22 @@ function prepareMarshallProfile($dbh, $username)
 	if ($username === $_SESSION['userLogin']
 		&& $_SESSION['userType'] === 'marshall')
 	{
-		$template_array['username'] = $username;
-		$template_array['userType'] = $_SESSION['userType'];
-		$template_array['email'] = $_SESSION['email'];
-
 		//call for current bounties in database
 		//call for past bounties in database
 		//call for profile picture
 
 		$template_array["error"] = 0; //for time being
 		$args[':username'] = $username;
+		$template_array['user'] = getUserFromUsername($dbh, $args);
 		$template_array['activeBounties'] = getActiveBounties($dbh, $args);
+
+		$template_array['user']['numActive'] = 
+			sizeof($template_array['activeBounties']['activeBounties']);
+
+		$template_array['user']['numTotal'] = 
+			sizeof($template_array['activeBounties']['activeBounties']) +
+			sizeof($template_array['pastBounties']['pastBounties']);
+
 		$template_array['pastBounties'] = getPastBounties($dbh, $args);
 
 		return $template_array;

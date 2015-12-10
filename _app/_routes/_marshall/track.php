@@ -3,7 +3,7 @@
 session_start();
 session_set_cookie_params(0);
 
-function prepareTrackPage($dbh, $company, $bountyID)
+function prepareTrackPage($dbh, $bountyID)
 {
 	$template_array['company'] = $company;
 	$args[':bountyID'] = $bountyID;
@@ -39,13 +39,13 @@ function prepareTrackPage($dbh, $company, $bountyID)
 	return $template_array;
 }
 
-$app->get('/_marshall/track', function() use ($app) {
+$app->get('/_marshal/track', function() use ($app) {
 	echo "please include bounty id";
 });
 
-$app->get('/_marshall/track/:company/:bountyID', function($company, $bountyID) use ($app, $dbh)
+$app->get('/_marshal/track/:bountyID', function($bountyID) use ($app, $dbh)
 {
-	$template_array = prepareTrackPage($dbh, $company, $bountyID);
+	$template_array = prepareTrackPage($dbh, $bountyID);
 
 	$template_array['test'] =  "hey";
 	$app->render('_marshall/track.php', $template_array);

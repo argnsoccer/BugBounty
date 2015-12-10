@@ -31,28 +31,28 @@
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Username</span>
-                  <p class="form-control formControlCustom">{{user.username}}</p>
+                  <p class="form-control formControlCustom">{{user.result.username}}</p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Name</span>
-                  <p class="form-control formControlCustom">{{user.name}}</p>
+                  <p class="form-control formControlCustom">{{user.result.name}}</p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Email</span>
-                  <p class="form-control formControlCustom">{{user.email}}</p>
+                  <p class="form-control formControlCustom">{{user.result.email}}</p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Joined</span>
-                  <p class="form-control formControlCustom">{{user.dateJoined}}</p>
+                  <p class="form-control formControlCustom">{{user.result.dateJoined}}</p>
                 </div>
             </div>
           </form>
@@ -66,14 +66,14 @@
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Payment Type</span>
-                  <div><p class="form-control formControlCustom">{{user.paymnetType}}</p></div>
+                  <div><p class="form-control formControlCustom">{{user.result.paymnetType}}</p></div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Money Collected</span>
-                  <p class="form-control formControlCustom">${{user.moneyCollected}}</p>
+                  <p class="form-control formControlCustom">${{user.result.moneyCollected}}</p>
                 </div>
             </div>
           </form>
@@ -90,7 +90,7 @@
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Reports Approved</span>
-                  <p class="form-control formControlCustom">{{user.numReportsApproved}}</p>
+                  <p class="form-control formControlCustom">{{user.reulst.numReportsApproved}}</p>
                 </div>
             </div>
           </form>

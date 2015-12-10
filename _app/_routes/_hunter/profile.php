@@ -11,220 +11,215 @@ function prepareHunterProfile($dbh, $username) {
 	// 	4)  all the reports this user has ever submitted
 	// 		(paid and non-paid) (all info including bountyID)
 		
-	if ($username === $_SESSION['userLogin'] 
-		&& $_SESSION['userType'] === 'hunter')
-	{
-		$args[':username'] = $username;
 
-		$template_array['user'] = getUserFromUsername($dbh, $args);
+	$args[':username'] = $username;
 
-		$dummy_reports = getNumberReportsFiled($dbh, $args);
+	$template_array['user'] = getUserFromUsername($dbh, $args);
 
-		$template_array['user']['numReportsFiled'] = $dummy_reports['numberOfReports'];
+	$template_array['submittedReports'] = getReportsFromUsername($dbh, $args);
 
-		$dummy_reports = getNumberReportsApproved($dbh, $args);
+	$template_array['user']['numReportsFiled'] = sizeof($template_array['submittedReports']['result']);
 
-		$template_array['user']['numReportsApproved'] = $dummy_reports['numberOfReports'];
 
-		$template_array['error'] = 0; //for time being
 
-		$template_array['recentBounties'] = array( //GET ALL BOUNTIES FROM HUNTER ACCOUNT
-			array(
-				"name" => "name1",
-				"bountyID" => "001",
-				"company" => "Microsoft",
-				"accountID" => "001",
-				"dateEnding" => "2015-01-09"
-			),
-			array(
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"dateEnding" => "2015-01-09"
-			),
-			array(
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"dateEnding" => "2015-01-09"
-			),
-			array(
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"dateEnding" => "2015-01-09"
-			),
-			array(
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"dateEnding" => "2015-01-09"
-			),
-			array(
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"dateEnding" => "2015-01-09"
-			),
-			array(
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"dateEnding" => "2015-01-09"
-			),
-			array(
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"dateEnding" => "2015-01-09"
-			),
-			array(
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"dateEnding" => "2015-01-09"
-			),
-			array(
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"dateEnding" => "2015-01-09"
-			),
-			array(
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"dateEnding" => "2015-01-09"
-			),
-			array(
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"dateEnding" => "2015-01-09"
-			)
-		);
+	// $dummy_reports = getNumberReportsApproved($dbh, $args);
 
-		$template_array['recentReports'] = array( //getReportsFromUsename
-			array(
-				"date" => "2012/12/05",
-				"name" => "name1",
-				"bountyID" => "001",
-				"company" => "Microsoft",
-				"accountID" => "001",
-				"amountPaid" => "100.00",
-				"message" => "Great find!",
-				"reportID" => "0001"
-			),
-			array(
-				"date" => "2012/12/05",
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"amountPaid" => "0.00",
-				"message" => "eh not an error",
-				"reportID" => "0002"
-			),
-			array(
-				"date" => "2012/12/05",
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"amountPaid" => "0.00",
-				"message" => "eh not an error",
-				"reportID" => "0002"
-			),
-			array(
-				"date" => "2012/12/05",
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"amountPaid" => "0.00",
-				"message" => "eh not an error",
-				"reportID" => "0002"
-			),
-			array(
-				"date" => "2012/12/05",
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"amountPaid" => "0.00",
-				"message" => "eh not an error",
-				"reportID" => "0002"
-			),
-			array(
-				"date" => "2012/12/05",
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"amountPaid" => "0.00",
-				"message" => "eh not an error",
-				"reportID" => "0002"
-			),
-			array(
-				"date" => "2012/12/05",
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"amountPaid" => "0.00",
-				"message" => "eh not an error",
-				"reportID" => "0002"
-			),
-			array(
-				"date" => "2012/12/05",
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"amountPaid" => "0.00",
-				"message" => "eh not an error",
-				"reportID" => "0002"
-			),
-			array(
-				"date" => "2012/12/05",
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"amountPaid" => "0.00",
-				"message" => "eh not an error",
-				"reportID" => "0002"
-			),
-			array(
-				"date" => "2012/12/05",
-				"name" => "name2",
-				"bountyID" => "001",
-				"company" => "Apple",
-				"accountID" => "002",
-				"amountPaid" => "0.00",
-				"message" => "eh not an error",
-				"reportID" => "0002"
-			),
-		);
+	$template_array['reportsApproved'] = getNumberReportsApproved($dbh, $args);
 
-		return $template_array;
-	}
-	else
-	{
+	// $template_array['error'] = 0; //for time being
 
-	}
-	
+	// $template_array['recentBounties'] = array( //GET ALL BOUNTIES FROM HUNTER ACCOUNT
+	// 	array(
+	// 		"name" => "name1",
+	// 		"bountyID" => "001",
+	// 		"company" => "Microsoft",
+	// 		"accountID" => "001",
+	// 		"dateEnding" => "2015-01-09"
+	// 	),
+	// 	array(
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"dateEnding" => "2015-01-09"
+	// 	),
+	// 	array(
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"dateEnding" => "2015-01-09"
+	// 	),
+	// 	array(
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"dateEnding" => "2015-01-09"
+	// 	),
+	// 	array(
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"dateEnding" => "2015-01-09"
+	// 	),
+	// 	array(
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"dateEnding" => "2015-01-09"
+	// 	),
+	// 	array(
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"dateEnding" => "2015-01-09"
+	// 	),
+	// 	array(
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"dateEnding" => "2015-01-09"
+	// 	),
+	// 	array(
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"dateEnding" => "2015-01-09"
+	// 	),
+	// 	array(
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"dateEnding" => "2015-01-09"
+	// 	),
+	// 	array(
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"dateEnding" => "2015-01-09"
+	// 	),
+	// 	array(
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"dateEnding" => "2015-01-09"
+	// 	)
+	// );
+
+	// $template_array['recentReports'] = array( //getReportsFromUsename
+	// 	array(
+	// 		"date" => "2012/12/05",
+	// 		"name" => "name1",
+	// 		"bountyID" => "001",
+	// 		"company" => "Microsoft",
+	// 		"accountID" => "001",
+	// 		"amountPaid" => "100.00",
+	// 		"message" => "Great find!",
+	// 		"reportID" => "0001"
+	// 	),
+	// 	array(
+	// 		"date" => "2012/12/05",
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"amountPaid" => "0.00",
+	// 		"message" => "eh not an error",
+	// 		"reportID" => "0002"
+	// 	),
+	// 	array(
+	// 		"date" => "2012/12/05",
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"amountPaid" => "0.00",
+	// 		"message" => "eh not an error",
+	// 		"reportID" => "0002"
+	// 	),
+	// 	array(
+	// 		"date" => "2012/12/05",
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"amountPaid" => "0.00",
+	// 		"message" => "eh not an error",
+	// 		"reportID" => "0002"
+	// 	),
+	// 	array(
+	// 		"date" => "2012/12/05",
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"amountPaid" => "0.00",
+	// 		"message" => "eh not an error",
+	// 		"reportID" => "0002"
+	// 	),
+	// 	array(
+	// 		"date" => "2012/12/05",
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"amountPaid" => "0.00",
+	// 		"message" => "eh not an error",
+	// 		"reportID" => "0002"
+	// 	),
+	// 	array(
+	// 		"date" => "2012/12/05",
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"amountPaid" => "0.00",
+	// 		"message" => "eh not an error",
+	// 		"reportID" => "0002"
+	// 	),
+	// 	array(
+	// 		"date" => "2012/12/05",
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"amountPaid" => "0.00",
+	// 		"message" => "eh not an error",
+	// 		"reportID" => "0002"
+	// 	),
+	// 	array(
+	// 		"date" => "2012/12/05",
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"amountPaid" => "0.00",
+	// 		"message" => "eh not an error",
+	// 		"reportID" => "0002"
+	// 	),
+	// 	array(
+	// 		"date" => "2012/12/05",
+	// 		"name" => "name2",
+	// 		"bountyID" => "001",
+	// 		"company" => "Apple",
+	// 		"accountID" => "002",
+	// 		"amountPaid" => "0.00",
+	// 		"message" => "eh not an error",
+	// 		"reportID" => "0002"
+	// 	),
+	// );
+
+	return $template_array;
+
 }
 
 $app->get('/_hunter/profile', function() use ($app) {
@@ -236,26 +231,29 @@ $app->get('/_hunter/profile/:username', function($username) use ($app, $dbh) {
 
 	$template_array = prepareHunterProfile($dbh, $username);
 
-	if (isset($_SESSION['userLogin'])
-		&& isset($template_array['error'])
-		&& $template_array['error'] === 0)
-	{
-			$app->render('_hunter/profile.php', $template_array);
-			// echo print_r($template_array);
-	}
-	else 
-	{
-		if ($template_array['error'] === 1)
-		{
-			echo "error - No username is database with passed username";
-		}
-		else if ($template_array['error'] === 2)
-		{
-			echo "error - statement was not ran";
-		}
-		else 
-		{
-			echo "error - no error code returned";
-		}
-	}
+	$app->render('_hunter/profile.php', $template_array);
+	echo print_r($template_array);
+
+	// if (isset($_SESSION['userLogin'])
+	// 	&& isset($template_array['error'])
+	// 	&& $template_array['error'] === 0)
+	// {
+	// 		$app->render('_hunter/profile.php', $template_array);
+	// 		// echo print_r($template_array);
+	// }
+	// else 
+	// {
+	// 	if ($template_array['error'] === 1)
+	// 	{
+	// 		echo "error - No username is database with passed username";
+	// 	}
+	// 	else if ($template_array['error'] === 2)
+	// 	{
+	// 		echo "error - statement was not ran";
+	// 	}
+	// 	else 
+	// 	{
+	// 		echo "error - no error code returned";
+	// 	}
+	// }
 });
