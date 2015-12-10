@@ -39,6 +39,8 @@ CREATE TABLE IF NOT EXISTS `Account` (
   `rssLink` VARCHAR(100) NULL COMMENT '',
   `rssCreated` TINYINT(1) NOT NULL COMMENT '',
   `name` VARCHAR(40) NOT NULL COMMENT '',
+  `paymentType` VARCHAR(15) NOT NULL COMMENT '',
+  `moneyCollected` VARCHAR(10) NOT NULL COMMENT '',
   PRIMARY KEY (`userID`)  COMMENT '',
   UNIQUE INDEX `username_UNIQUE` (`username` ASC)  COMMENT '',
   UNIQUE INDEX `email_UNIQUE` (`email` ASC)  COMMENT '',
@@ -244,6 +246,7 @@ CREATE TABLE IF NOT EXISTS `Report` (
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
 CREATE TABLE IF NOT EXISTS `MessageOfDay` (
   `messageID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `accountType` varchar(10) NOT NULL,
@@ -253,8 +256,8 @@ CREATE TABLE IF NOT EXISTS `MessageOfDay` (
   UNIQUE KEY `messageID_UNIQUE` (`messageID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO MessageOfDay (accountType,message,dateMade) Values ("hunter","Good luck hunting",NOW());
-INSERT INTO MessageOfDay (accountType,message,dateMade) Values ("marshall","Its a great day to make a bounty!",NOW());
+INSERT INTO MessageOfDay (accountType,message,dateMade) Values ("Hunter","Good luck hunting",NOW());
+INSERT INTO MessageOfDay (accountType,message,dateMade) Values ("Marshall","Its a great day to make a bounty!",NOW());
 
 --
 -- Dumping data for table `report`
