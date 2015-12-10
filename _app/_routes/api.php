@@ -324,7 +324,7 @@ function getMarshalFromUsername($dbh, $args) {
   //Simple Select query which returns username, email, and type
   $statement = $dbh->prepare(
   "SELECT Account.username, Marshall.company, Account.email, Account.accountType, Account.imageLoc, Account.dateCreated, Account.paymentType, Account.moneyCollected
-  FROM Account, Marshall WHERE Account.userID = Marshall.userID AND Account.username = :username");
+  FROM Account, Marshall WHERE Account.userID = Marshall.marshallID AND Account.username = :username");
 
   $functionArray = array();
   if($statement->execute($args))
