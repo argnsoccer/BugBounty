@@ -481,8 +481,8 @@ function updateReport($dbh, $args) {
 
 function getReportsFromUsername($dbh, $args) {
   $statement = $dbh->prepare(
-  "SELECT Report.*, BountyPool.bountyName, Account.username as ownerUsername, Account.name as ownerName, paidReport.* FROM Report, BountyPool, Account, paidReport
-  WHERE Report.username=:username AND Report.bountyID = BountyPool.poolID AND Account.userID = BountyPool.bountyMarshallID AND paidReport.reportID = Report.reportID
+  "SELECT Report.*, BountyPool.bountyName, Account.username as ownerUsername, Account.name as ownerName, FROM Report, BountyPool, Account
+  WHERE Report.username=:username AND Report.bountyID = BountyPool.poolID AND Account.userID = BountyPool.bountyMarshallID
   ORDER BY dateSubmitted ASC");
 
   $functionArray = array();
@@ -752,7 +752,7 @@ function getActiveBounties($dbh, $args) {
 function getPastBounties($dbh, $args) {
 
   $statement = $dbh->prepare(
-  "SELECT BountyPool.*, Account.name, Account.username FROM Marshall, BountyPool, Account
+  "SELECT BountyPool.*, Account.name AS ownerName, Account.username AS ownerUsername FROM Marshall, BountyPool, Account
   WHERE Marshall.marshallID=BountyPool.bountyMarshallID
   AND Marshall.marshallID=:userID
   AND Account.userID = Marshall.userID
