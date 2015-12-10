@@ -169,36 +169,6 @@ LOCK TABLES `Message` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `paidreport`
---
-
-CREATE TABLE IF NOT EXISTS `paidReport` (
-  `reportID` int(10) unsigned NOT NULL,
-  `paidAmount` varchar(10) NOT NULL,
-  `datePaid` datetime NOT NULL,
-  `message` mediumtext NOT NULL,
-  `publish` int(1) NOT NULL,
-  PRIMARY KEY (`reportID`),
-  UNIQUE KEY `reportID_UNIQUE` (`reportID`),
-  CONSTRAINT `fk_paidReport_Report1` FOREIGN KEY (`reportID`) REFERENCES `Report` (`reportID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `paidreport`
---
-
-INSERT INTO paidReport (reportID, paidAmount, message, publish) VALUES (1,1,'message 1', 0);
-INSERT INTO paidReport (reportID, paidAmount, message, publish) VALUES (2,2,'message 2', 0);
-INSERT INTO paidReport (reportID, paidAmount, message, publish) VALUES (3,3,'message 3', 0);
-INSERT INTO paidReport (reportID, paidAmount, message, publish) VALUES (4,4,'message 4', 0);
-
-LOCK TABLES `paidReport` WRITE;
-/*!40000 ALTER TABLE `paidreport` DISABLE KEYS */;
-/*!40000 ALTER TABLE `paidreport` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `preferredbounties`
 --
 
@@ -237,6 +207,9 @@ CREATE TABLE IF NOT EXISTS `Report` (
   `filePath` mediumtext,
   `errorName` varchar(30),
   `reportID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `paidAmount` varchar(10) NOT NULL,
+  `datePaid` datetime NULL,
+  `message` mediumtext NOT NULL,
   PRIMARY KEY (`reportID`),
   UNIQUE KEY `reportID_UNIQUE` (`reportID`),
   KEY `fk_Report_BountyPool2` (`bountyID`),
@@ -265,34 +238,34 @@ INSERT INTO MessageOfDay (accountType,message,dateMade) Values ("Marshall","Its 
 
 LOCK TABLES `Report` WRITE;
 /*!40000 ALTER TABLE `report` DISABLE KEYS */;
-INSERT INTO `Report` (bountyID, username, description, dateSubmitted, filePath, reportID) VALUES
-(1,'testHunter1','This is report Text 1 for bounty 1 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter1/report1.jpg',1),
-(1,'testHunter2','This is report Text 1 for bounty 1 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter2/report1.jpg',2),
-(1,'testHunter2','This is report Text 2 for bounty 1 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter2/report2.jpg',3),
-(2,'testHunter1','This is reportText 1 for bounty 2 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall2/_reports/_testHunter1/report1.jpg',4),
-(2,'testHunter2','This is report Text 1 for bounty 2 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall2/_reports/_testHunter2/report1.jpg',5),
-(2,'testHunter2','This is report Text 2 for bounty 2 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall2/_reports/_testHunter2/report2.jpg',6),
-(3,'testHunter1','This is report Text 1  for bounty 3 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall3/_reports/_testHunter1/report1.jpg',7),
-(3,'testHunter2','This is report Text 1 for bounty 3 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall3/_reports/_testHunter2/report1.jpg',8),
-(3,'testHunter1','This is report Text 2 for bounty 3 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall3/_reports/_testHunter1/report2.jpg',9),
-(4,'testHunter2','This is reportText 1 for bounty 4 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter2/report3.jpg',10),
-(4,'testHunter1','This is report Text 1 for bounty 4 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter1/report2.jpg',11),
-(4,'testHunter1','This is report Text 2 for bounty 4 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter1/report3.jpg',12),
-(5,'testHunter2','This is report Text 1 for bounty 5 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall2/_reports/_testHunter2/report3.jpg',13),
-(5,'testHunter1','This is report Text 1 for bounty 5 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall2/_reports/_testHunter1/report2.jpg',14),
-(5,'testHunter2','This is report Text 2 for bounty 5 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall2/_reports/_testHunter2/report4.jpg',15),
-(6,'testHunter2','This is reportText 1 for bounty 6 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall3/_reports/_testHunter2/report2.jpg',16),
-(6,'testHunter1','This is report Text 1 for bounty 6 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall3/_reports/_testHunter1/report3.jpg',17),
-(6,'testHunter1','This is report Text 2 for bounty 6 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall3/_reports/_testHunter1/report4.jpg',18),
-(7,'testHunter2','This is reportText 1 for bounty 7 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter2/report4.jpg',19),
-(7,'testHunter1','This is report Text 1 for bounty 7 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter1/report4.jpg',20),
-(7,'testHunter2','This is report Text 2 for bounty 7 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter2/report5.jpg',21),
-(8,'testHunter2','This is reportText 1 for bounty 8 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall2/_reports/_testHunter2/report5.jpg',22),
-(8,'testHunter1','This is report Text 1 for bounty 8 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall2/_reports/_testHunter1/report3.jpg',23),
-(8,'testHunter1','This is report Text 2 for bounty 8 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall2/_reports/_testHunter1/report4.jpg',24),
-(9,'testHunter2','This is reportText 1 for bounty 9 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall3/_reports/_testHunter2/report3.jpg',25),
-(9,'testHunter2','This is report Text 2 for bounty 9 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall3/_reports/_testHunter2/report4.jpg',26),
-(9,'testHunter1','This is report Text 1 for bounty 9 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall3/_reports/_testHunter1/report5.jpg',27);
+INSERT INTO `Report` (bountyID, username, description, dateSubmitted, filePath, reportID, paidAmount, datePaid, message) VALUES
+(1,'testHunter1','This is report Text 1 for bounty 1 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter1/report1.jpg',1, '-1', NULL, ''),
+(1,'testHunter2','This is report Text 1 for bounty 1 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter2/report1.jpg',2, '10', '2015-12-10 00::00::00', 'Good jorb!'),
+(1,'testHunter2','This is report Text 2 for bounty 1 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter2/report2.jpg',3, '5', '2015-12-10 00::00::00', 'A jorb well done!'),
+(2,'testHunter1','This is reportText 1 for bounty 2 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall2/_reports/_testHunter1/report1.jpg',4, '100', '2015-3-10 00::00::00', 'Absolutely marvelous, Darling'),
+(2,'testHunter2','This is report Text 1 for bounty 2 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall2/_reports/_testHunter2/report1.jpg',5, '-1', NULL, ''),
+(2,'testHunter2','This is report Text 2 for bounty 2 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall2/_reports/_testHunter2/report2.jpg',6, '-1', NULL, ''),
+(3,'testHunter1','This is report Text 1  for bounty 3 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall3/_reports/_testHunter1/report1.jpg',7, '1', '2014-10-29 00::00::00', 'Paltry Peasant.'),
+(3,'testHunter2','This is report Text 1 for bounty 3 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall3/_reports/_testHunter2/report1.jpg',8, '500', '2015-9-09 00::00::00', 'Ayy lmao'),
+(3,'testHunter1','This is report Text 2 for bounty 3 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall3/_reports/_testHunter1/report2.jpg',9, '-1', NULL, ''),
+(4,'testHunter2','This is reportText 1 for bounty 4 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter2/report3.jpg',10, '500', '2015-9-09 00::00::00', 'Ayy lmao'),
+(4,'testHunter1','This is report Text 1 for bounty 4 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter1/report2.jpg',11, '500', '2015-9-09 00::00::00', 'Ayy lmao'),
+(4,'testHunter1','This is report Text 2 for bounty 4 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter1/report3.jpg',12, '500', '2015-9-09 00::00::00', 'Ayy lmao'),
+(5,'testHunter2','This is report Text 1 for bounty 5 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall2/_reports/_testHunter2/report3.jpg',13, '500', '2015-9-09 00::00::00', 'Ayy lmao'),
+(5,'testHunter1','This is report Text 1 for bounty 5 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall2/_reports/_testHunter1/report2.jpg',14, '500', '2015-9-09 00::00::00', 'Ayy lmao'),
+(5,'testHunter2','This is report Text 2 for bounty 5 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall2/_reports/_testHunter2/report4.jpg',15, '500', '2015-9-09 00::00::00', 'Ayy lmao'),
+(6,'testHunter2','This is reportText 1 for bounty 6 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall3/_reports/_testHunter2/report2.jpg',16, '500', '2015-9-09 00::00::00', 'Ayy lmao'),
+(6,'testHunter1','This is report Text 1 for bounty 6 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall3/_reports/_testHunter1/report3.jpg',17, '-1', NULL, ''),
+(6,'testHunter1','This is report Text 2 for bounty 6 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall3/_reports/_testHunter1/report4.jpg',18, '-1', NULL, ''),
+(7,'testHunter2','This is reportText 1 for bounty 7 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter2/report4.jpg',19, '10', '2015-12-10 00::00::00', 'Good jorb!'),
+(7,'testHunter1','This is report Text 1 for bounty 7 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter1/report4.jpg',20, '10', '2015-12-10 00::00::00', 'Good jorb!'),
+(7,'testHunter2','This is report Text 2 for bounty 7 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall1/_reports/_testHunter2/report5.jpg',21, '-1', NULL, ''),
+(8,'testHunter2','This is reportText 1 for bounty 8 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall2/_reports/_testHunter2/report5.jpg',22, '5', '2015-12-10 00::00::00', 'A jorb well done!'),
+(8,'testHunter1','This is report Text 1 for bounty 8 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall2/_reports/_testHunter1/report3.jpg',23, '-1', NULL, ''),
+(8,'testHunter1','This is report Text 2 for bounty 8 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall2/_reports/_testHunter1/report4.jpg',24, '-1', NULL, ''),
+(9,'testHunter2','This is reportText 1 for bounty 9 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall3/_reports/_testHunter2/report3.jpg',25, '10', '2015-12-10 00::00::00', 'Good jorb!'),
+(9,'testHunter2','This is report Text 2 for bounty 9 by testHunter2','0000-00-00 00:00:00','_images/_bounties/_testMarshall3/_reports/_testHunter2/report4.jpg',26, '-1', NULL, ''),
+(9,'testHunter1','This is report Text 1 for bounty 9 by testHunter1','0000-00-00 00:00:00','_images/_bounties/_testMarshall3/_reports/_testHunter1/report5.jpg',27, '5', '2015-12-10 00::00::00', 'A jorb well done!');
 /*!40000 ALTER TABLE `report` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -300,15 +273,6 @@ UNLOCK TABLES;
 -- Table structure for table `unpaidreport`
 --
 
-CREATE TABLE IF NOT EXISTS `unpaidReport` (
-  `reportID` int(10) unsigned NOT NULL,
-  `dateAssessed` datetime NOT NULL,
-  `message` mediumtext NOT NULL,
-  PRIMARY KEY (`reportID`),
-  UNIQUE KEY `reportID_UNIQUE` (`reportID`),
-  CONSTRAINT `fk_unpaidReport_Report1` FOREIGN KEY (`reportID`) REFERENCES `Report` (`reportID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 CREATE TABLE IF NOT EXISTS `Subscription` (
   `subscriptionID` int(10) unsigned NOT NULL,
@@ -319,16 +283,6 @@ CREATE TABLE IF NOT EXISTS `Subscription` (
   CONSTRAINT `fk_subscription_account` FOREIGN KEY (`userID`) REFERENCES `Account` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `unpaidreport`
---
-
-LOCK TABLES `unpaidReport` WRITE;
-/*!40000 ALTER TABLE `unpaidreport` DISABLE KEYS */;
-/*!40000 ALTER TABLE `unpaidreport` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 
 CREATE TABLE IF NOT EXISTS `Transactions` (

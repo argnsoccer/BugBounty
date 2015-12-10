@@ -172,7 +172,7 @@ function basicSearch($dbh,$args)
 		$result["messageDB"] = $statement->errorInfo();
 		$result["error"] = 1;
 	}
-  
+
 	return $result;
 }
 
@@ -430,9 +430,9 @@ function createBounty($dbh, $args) {
 
 function createReport($dbh, $args) {
   $functionArray = array();
-  $statement = $dbh->prepare("
-  INSERT INTO Report (bountyID, username, description, link, dateSubmitted, pathToError, errorName)
-  VALUES (:bountyID,:username,:description, :link, NOW(), :pathToError, :errorName)");
+  $statement = $dbh->prepare(
+  "INSERT INTO Report (bountyID, username, description, link, dateSubmitted, pathToError, errorName, paidAmount, datePaid, message)
+  VALUES (:bountyID,:username,:description, :link, NOW(), :pathToError, :errorName, '-1', NULL, '')");
 
   if($statement->execute($args))
   {
@@ -481,7 +481,7 @@ function createReport($dbh, $args) {
   return $functionArray;
 }
 
-function updateReport($dbh, $args) {
+/*function updateReport($dbh, $args) {
   $functionArray = array();
   $statement = $dbh->prepare(
   "UPDATE Report
@@ -505,12 +505,37 @@ function updateReport($dbh, $args) {
 
   }
   return $functionArray;
+}*/
+
+function updateReport($dbh, $args) {
+  $functionArray = array();
+  $statement = $dbh->prepare(
+  "UPDATE Report
+  SET paidAmount = :paidAmount, message = :message
+  WHERE reportID = :reportID");
+
+  if($statement->execute($args))
+  {
+    $functionArray['error'] = '0';
+    $functionArray['message'] = 'success';
+    $result['username'] = $_POST['username'];
+    $result['paidAmount'] = $_POST['message'];
+    $functionArray['result'] = $result;
+  }
+  else
+  {
+    $functionArray['error'] = '1';
+    $functionArray['messageDB'] = $statement->errorInfo();
+    $functionArray['message'] = 'First statement not executed';
+
+  }
+  return $functionArray;
 }
 
 function getReportsFromUsername($dbh, $args) {
   $statement = $dbh->prepare(
-  "SELECT Report.*, BountyPool.bountyName, Account.username as ownerUsername, Account.name as ownerName FROM Report, BountyPool, Account
-  WHERE Report.username=:username AND Report.bountyID = BountyPool.poolID AND Account.userID = BountyPool.bountyMarshallID
+  "SELECT Report.*, BountyPool.bountyName, Account.username as ownerUsername, Marshall.company as companyName FROM Report, BountyPool, Account, Marshall
+  WHERE Report.username=:username AND Report.bountyID = BountyPool.poolID AND Marshall.marshallID = BountyPool.bountyMarshallID AND Marshall.marshallID = Account.userID
   ORDER BY dateSubmitted ASC");
 
   $functionArray = array();
@@ -529,34 +554,6 @@ function getReportsFromUsername($dbh, $args) {
     $functionArray['error'] = '1';
     $functionArray['messageDB'] = $statement->errorInfo();
     $functionArray['message'] = 'First statement not executed';
-
-  }
-  return $functionArray;
-}
-
-function getReportsFromUsernamePaidOrUnPaid($dbh,$args,$table)
-{
-  $statement = $dbh->prepare(
-  "SELECT * FROM Report,".$table."
-  WHERE Report.reportID=".$table.".reportID
-  AND Report.username=:username
-  ORDER BY dateSubmitted DESC");
-  $functionArray = array();
-  if($statement->execute($args))
-  {
-    $functionArray['error'] = '0';
-    $functionArray['message'] = 'success';
-	   $functionArray['result']['reports'] = array();
-    while($row = $statement->fetch(PDO::FETCH_ASSOC))
-	{
-		array_push($functionArray['result']['reports'],$row);
-	}
-  }
-  else
-  {
-    $functionArray['error'] = '1';
-    $functionArray['messageDB'] = $statement->errorInfo();
-    $functionArray['message'] = 'Statement not executed';
 
   }
   return $functionArray;
@@ -667,8 +664,8 @@ function getMessageOfDayMarshal($dbh)
 function getReportsFromBountyID($dbh, $args) {
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT Report.*, BountyPool.bountyName, Account.username, paidReport.paidAmount FROM Report, BountyPool, Account, paidReport
-  WHERE Report.bountyID=:bountyID AND Report.bountyID = BountyPool.poolID AND Account.userID = BountyPool.bountyMarshallID AND Report.reportID = paidReport.reportID");
+  "SELECT Report.*, BountyPool.bountyName, Account.username as ownerUsername FROM Report, BountyPool, Account
+  WHERE Report.bountyID=:bountyID AND Report.bountyID = BountyPool.poolID AND Account.userID = BountyPool.bountyMarshallID");
 
   if($statement->execute($args))
   {
@@ -695,12 +692,11 @@ function getReportsFromBountyID($dbh, $args) {
 function getReportsFromUsernameBountyID($dbh, $args) {
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT Report.*, BountyPool.bountyName, Account.username, paidReport.paidAmount FROM Report, BountyPool, Account, paidReport
+  "SELECT Report.*, BountyPool.bountyName, Account.username FROM Report, BountyPool, Account
   WHERE Report.bountyID=:bountyID
   AND Report.username=:username
   AND BountyPool.poolID = Report.bountyID
-  AND Account.userID = BountyPool.bountyMarshallID
-  AND Report.reportID = paidReport.reportID");
+  AND Account.userID = BountyPool.bountyMarshallID");
 
   if($statement->execute($args))
   {
@@ -780,7 +776,7 @@ function getActiveBounties($dbh, $args) {
 function getPastBounties($dbh, $args) {
 
   $statement = $dbh->prepare(
-  "SELECT BountyPool.*, Account.name AS ownerName, Account.username AS ownerUsername FROM Marshall, BountyPool, Account
+  "SELECT BountyPool.*, Marshall.company AS ownerName, Account.username AS ownerUsername, FROM Marshall, BountyPool, Account
   WHERE Marshall.marshallID=BountyPool.bountyMarshallID
   AND Marshall.marshallID=:userID
   AND Account.userID = Marshall.userID
@@ -835,12 +831,16 @@ function getBountyFromBountyID($dbh, $args) {
   }
   return $functionArray;
 }
+//Andre Gras and Mike Wazowski
 
 function getBountiesFromUsernameRecentReports($dbh,$args)
 {
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT BountyPool.* FROM BountyPool, Report WHERE BountyPool.poolID=Report.bountyID AND Report.username = :username
+  "SELECT BountyPool.*, Marshall.company FROM Marshall, BountyPool, Report
+  WHERE Marshall.marshallID = BountyPool.bountyMarshallID
+  AND BountyPool.poolID=Report.bountyID
+  AND Report.username = :username
   ORDER BY Report.dateSubmitted DESC LIMIT 4"
 );
 
@@ -861,17 +861,31 @@ function getBountiesFromUsernameRecentReports($dbh,$args)
       {
         $row['dateCreated'] = substr($row['dateCreated'], 0, -9);
         $row['dateEnding'] = substr($row['dateEnding'], 0, -9);
+        $bountyID = $row['poolID'];
+        $args[':bountyID'] = $bountyID;
+        $statement2 = $dbh->prepare(
+        "SELECT COUNT(reportID) AS reportsPending FROM Report WHERE paidAmount = '-1' AND username = :username AND bountyID = :bountyID");
+
+        if($statement2->execute($args))
+        {
+          $row1= $statement2->fetch(PDO::FETCH_ASSOC);
+          $row['reportsPending'] = $row1['reportsPending'];
+          $functionArray['error'] = '0';
+          $functionArray['message'] = 'success';
+        }
+        else {
+          $functionArray['error'] = '2';
+          $functionArray['message'] = 'Second Statement does not execute';
+          $functionArray['messageDB'] = $statement2->errorInfo();
+        }
         array_push($functionArray['result'], $row);
       }
     }
-    $functionArray['error'] = '0';
-    $functionArray['message'] = 'success';
-
 
   }
   else {
     $functionArray['error'] = '1';
-    $functionArray['message'] = 'Statement does not execute';
+    $functionArray['message'] = ' First Statement does not execute';
     $functionArray['messageDB'] = $statement->errorInfo();
   }
   return $functionArray;
@@ -1656,8 +1670,7 @@ $app->post('/api/payReport', function() use ($dbh){
   {
     $message = 'This report has been paid to ANONYMOOSE';
     $smt = $dbh->prepare(
-    "INSERT INTO paidReport (reportID, paidAmount, datePaid, message, publish)
-    VALUES (:reportID, :amount, now(), :message, 0)");
+    "UPDATE Report SET paidAmount=:amount, datePaid=now(), message=:message WHERE reportID = :reportID");
 
     $reportID=$args[":reportID"];
     $smt->bindParam(":reportID", $reportID);
