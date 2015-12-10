@@ -571,7 +571,7 @@ function updateReport($dbh, $args) {
 
 function getReportsFromUsername($dbh, $args) {
   $statement = $dbh->prepare(
-  "SELECT Report.*, DATE(Report.dateSubmitted) as dateSubmitted,DATE(Report.dateEnding) as dateEnding,BountyPool.bountyName, Account.username as ownerUsername, Marshall.company as companyName FROM Report, BountyPool, Account, Marshall
+  "SELECT Report.*, DATE(Report.dateSubmitted) as dateSubmitted, BountyPool.bountyName, Account.username as ownerUsername, Marshall.company as companyName FROM Report, BountyPool, Account, Marshall
   WHERE Report.username=:username AND Report.bountyID = BountyPool.poolID AND Marshall.marshallID = BountyPool.bountyMarshallID AND Marshall.marshallID = Account.userID
   ORDER BY dateSubmitted ASC");
 
@@ -701,7 +701,7 @@ function getMessageOfDayMarshal($dbh)
 function getReportsFromBountyID($dbh, $args) {
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT Report.*, DATE(Report.dateSubmitted) as dateSubmitted,DATE(Report.dateEnding) as dateEnding,BountyPool.bountyName, Account.username as ownerUsername FROM Report, BountyPool, Account
+  "SELECT Report.*, DATE(Report.dateSubmitted) as dateSubmitted, BountyPool.bountyName, Account.username as ownerUsername FROM Report, BountyPool, Account
   WHERE Report.bountyID=:bountyID AND Report.bountyID = BountyPool.poolID AND Account.userID = BountyPool.bountyMarshallID");
 
   if($statement->execute($args))
@@ -729,7 +729,7 @@ function getReportsFromBountyID($dbh, $args) {
 function getReportsFromUsernameBountyID($dbh, $args) {
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT Report.*,  DATE(Report.dateSubmitted) as dateSubmitted,DATE(Report.dateEnding) as dateEnding,BountyPool.bountyName, Account.username FROM Report, BountyPool, Account
+  "SELECT Report.*,  DATE(Report.dateSubmitted) as dateSubmitted, BountyPool.bountyName, Account.username FROM Report, BountyPool, Account
   WHERE Report.bountyID=:bountyID
   AND Report.username=:username
   AND BountyPool.poolID = Report.bountyID
@@ -1657,13 +1657,6 @@ $app->get('/api/getReportsFromUsernameBountyID/:username/:bountyID', function($u
   echo json_encode(getReportsFromUsernameBountyID($dbh,$args));
 
   });
-
-$app->get('/api/getReportsFromUsernamePaidVsUnpaid/:username/:auxiliary/', function($username,$auxiliary) use ($dbh)
-{
-  $table = $auxiliary;
-  $args[":username"] = $username;
-  echo json_encode(getReportsFromUsernamePaidOrUnPaid($dbh,$args,$table));
-});
 
   /*
   Michael Gilbert
