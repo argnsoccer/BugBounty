@@ -1651,6 +1651,7 @@ $app->post('/api/payReport', function() use ($dbh){
   $nonce = $_POST['payment_method_nonce'];
   $amount = $_POST['amount'];
   $args[":hunterID"] = $_POST['hunterID'];
+  $args2[':hunterID'] = $_POST['hunterID'];
   $args[":marshallID"] = $_POST['marshallID'];
   $args[":reportID"] = $_POST['reportID'];
   $args[":bountyID"] = $_POST['bountyID'];
@@ -1660,6 +1661,7 @@ $app->post('/api/payReport', function() use ($dbh){
   ]);
   $args[':transactionID'] = $sale->transaction->id;
   $args[':amount'] = $amount;
+  $args2[':amount'] = $amount;
   $args[':paymentInfo'] = $sale->transaction->creditCardDetails;
   $functionArray['result']['sale'] = $sale;
   $statement = $dbh->prepare(
@@ -1678,8 +1680,19 @@ $app->post('/api/payReport', function() use ($dbh){
     $smt->bindParam(":message", $message);
     if($smt->execute())
     {
-      $functionArray['error'] = '0';
-      $functionArray['message'] = 'Second statement success. Transaction complete.';
+      $smt2 = $dbh->prepare(
+      "UPDATE Account SET moneyCollected=moneyCollected+:amount WHERE userID = :hunterID");
+
+      if($smt2->execute($args2))
+      {
+        $functionArray['error'] = '0';
+        $functionArray['message'] = 'Third statement success. Transaction complete.';
+      }
+      else {
+        $functionArray['error'] = '3';
+        $functionArray['message'] = 'Third Statement not executed';
+        $functionArray['messageDB'] = $smt2->errorInfo();
+      }
     }
 
     else{
