@@ -4,7 +4,7 @@ $(document).ready(function () {
 
 	  var reportID = $(this).attr("data-ID");
 
-	  alert(reportID);
+	  // alert(reportID);
 
 	   // $('#messageReport').val();
 
