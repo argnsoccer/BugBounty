@@ -481,8 +481,9 @@ function updateReport($dbh, $args) {
 
 function getReportsFromUsername($dbh, $args) {
   $statement = $dbh->prepare(
-  "SELECT * FROM Report
-  WHERE username=:username");
+  "SELECT Report.*, BountyPool.bountyName, Account.username FROM Report, BountyPool, Account
+  WHERE Report.username=:username AND Report.bountyID = BountyPool.poolID AND Account.userID = BountyPool.bountyMarshallID
+  ORDER BY dateSubmitted ASC");
 
   $functionArray = array();
   if($statement->execute($args))
@@ -507,16 +508,17 @@ function getReportsFromUsername($dbh, $args) {
 
 function getReportsFromUsernamePaidOrUnPaid($dbh,$args,$table)
 {
-  $statement = $dbh->prepare("
-  SELECT * FROM Report,".$table."
+  $statement = $dbh->prepare(
+  "SELECT * FROM Report,".$table."
   WHERE Report.reportID=".$table.".reportID
-  AND Report.username=:username");
+  AND Report.username=:username
+  ORDER BY dateSubmitted DESC");
   $functionArray = array();
   if($statement->execute($args))
   {
     $functionArray['error'] = '0';
     $functionArray['message'] = 'success';
-	$functionArray['result']['reports'] = array();
+	   $functionArray['result']['reports'] = array();
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
 	{
 		array_push($functionArray['result']['reports'],$row);
@@ -636,34 +638,21 @@ function getMessageOfDayMarshal($dbh)
 
 function getReportsFromBountyID($dbh, $args) {
   $functionArray = array();
-  $statement = $dbh->prepare("
-  SELECT * FROM Report
-  WHERE bountyID=:bountyID");
+  $statement = $dbh->prepare(
+  "SELECT Report.*, BountyPool.bountyName, Account.username, paidReport.paidAmount FROM Report, BountyPool, Account, paidReport
+  WHERE Report.bountyID=:bountyID AND Report.bountyID = BountyPool.poolID AND Account.userID = BountyPool.bountyMarshallID AND Report.reportID = paidReport.reportID");
 
   if($statement->execute($args))
   {
-    $row = $statement->fetch(PDO::FETCH_ASSOC);
-    $row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
-    $reportID = $row['reportID'];
-    $functionArray['result'] = $row;
-    $args2[':reportID'] = $reportID;
-    $statement = $dbh->prepare(
-    "SELECT paidAmount FROM paidReport WHERE reportID = :reportID"
-    );
-
-    if($statement->execute($args2))
+    $functionArray['result'] = array();
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
-      $row = $statement->fetch(PDO::FETCH_ASSOC);
-      $functionArray['error'] ='0';
-      $functionArray['message'] = 'success';
-      $functionArray['result'] = $row;
+      $row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
+      array_push($functionArray['result'], $row);
     }
-    else {
 
-      $functionArray['error'] = '2';
-      $functionArray['messageDB'] = $sth->errorInfo();
-      $functionArray['message'] = 'Second Statement not executed';
-    }
+    $functionArray['error'] ='0';
+    $functionArray['message'] = 'success';
   }
   else
   {
@@ -678,35 +667,24 @@ function getReportsFromBountyID($dbh, $args) {
 function getReportsFromUsernameBountyID($dbh, $args) {
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT * FROM Report
-  WHERE bountyID=:bountyID
-  AND username=:username");
+  "SELECT Report.*, BountyPool.bountyName, Account.username, paidReport.paidAmount FROM Report, BountyPool, Account, paidReport
+  WHERE Report.bountyID=:bountyID
+  AND Report.username=:username
+  AND BountyPool.poolID = Report.bountyID
+  AND Account.userID = BountyPool.bountyMarshallID
+  AND Report.reportID = paidReport.reportID");
 
   if($statement->execute($args))
   {
-
-    $row = $statement->fetch(PDO::FETCH_ASSOC);
-    $row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
-    $reportID = $row['reportID'];
-    array_push($functionArray['result'], $row);
-    $args2[':reportID'] = $reportID;
-    $statement = $dbh->prepare(
-    "SELECT paidAmount FROM paidReport WHERE reportID = :reportID"
-    );
-
-    if($statement->execute($args2))
+    $functionArray['result'] = array();
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
-      $row = $statement->fetch(PDO::FETCH_ASSOC);
-      $functionArray['error'] = '0';
-      $functionArray['message'] = 'success';
-      $functionArray['result'] = $row;
+      $row['dateSubmitted'] = substr($row['dateSubmitted'], 0, -9);
+      array_push($functionArray['result'], $row);
     }
-    else
-    {
-      $functionArray['error'] = '2';
-      $functionArray['messageDB'] = $sth->errorInfo();
-      $functionArray['message'] = 'Second Statement not executed';
-    }
+
+    $functionArray['error'] = '0';
+    $functionArray['message'] = 'success';
   }
   else
   {
@@ -773,15 +751,22 @@ function getActiveBounties($dbh, $args) {
 
 function getPastBounties($dbh, $args) {
 
-  $statement = $dbh->prepare("
-  SELECT BountyPool.* FROM Marshall, BountyPool
-  WHERE Marshall.marshallID=BountyPool.bountyMarshallID AND Marshall.marshallID=:userID AND now() > dateEnding");
+  $statement = $dbh->prepare(
+  "SELECT BountyPool.*, Account.name, Account.username FROM Marshall, BountyPool, Account
+  WHERE Marshall.marshallID=BountyPool.bountyMarshallID
+  AND Marshall.marshallID=:userID
+  AND Account.userID = Marshall.userID
+  AND now() > dateEnding");
   if($statement->execute($args))
   {
-    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    $functionArray['result'] = array();
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+    {
+      array_push($functionArray['result'], $row);
+    }
     $functionArray['error'] = '0';
     $functionArray['message'] = 'success';
-    $functionArray['result'] = $row;
+
   }
   else
   {
@@ -1428,14 +1413,20 @@ $app->get('/api/getReportFromReportID/:reportID', function($reportID) use ($dbh)
   $args[':reportID'] = $reportID;
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT * FROM Report
-  WHERE reportID = :reportID");
+  "SELECT Report.*, paidReport.*, BountyPool.bountyName FROM Report, paidReport
+  WHERE reportID = :reportID
+  AND Report.reportID = paidReport.reportID
+  AND BountyPool.poolID = Report.bountyID");
   if ($statement->execute($args))
   {
-    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    $functionArray['result'] = array();
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+    {
+      array_push($functionArray['result'], $row);
+    }
     $functionArray['error'] = '0';
     $functionArray['message'] = 'success';
-    $functionArray['result'] = $row;
+
   }
   else {
     $functionArray['error'] = '1';
@@ -1560,10 +1551,10 @@ $app->get('/api/getNumberReportsApproved/:username', function($username) use($db
   complete
   */
 
-$app->get('/api/getReportsFromUsernameBountyID/:usename/:bountyID', function($username, $bountyID) use ($dbh) {
+$app->get('/api/getReportsFromUsernameBountyID/:username/:bountyID', function($username, $bountyID) use ($dbh) {
 
-  $args[':username'] = $_GET['username'];
-  $args[':bountyID'] = $_GET['bountyID'];
+  $args[':username'] = $username;
+  $args[':bountyID'] = $bountyID;
 
   echo json_encode(getReportsFromUsernameBountyID($dbh,$args));
 
