@@ -791,15 +791,20 @@ function getActiveBounties($dbh, $args) {
   $statement = $dbh->prepare(
   "SELECT BountyPool.*,DATE(BountyPool.dateCreated) as dateCreated,DATE(BountyPool.dateEnding) as dateEnding FROM Marshall INNER JOIN BountyPool ON Marshall.marshallID = BountyPool.bountyMarshallID INNER JOIN Account ON Marshall.marshallID = Account.userID
   WHERE Account.username = :username
-  AND BountyPool.dateCreated < now() < BountyPool.dateEnding"
+  AND BountyPool.dateCreated < now() < BountyPool.dateEnding
+  ORDER BY dateEnding ASC"
   );
 
   if($statement->execute($args))
   {
-    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    $functionArray['result'] = array();
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+    {
+      array_push($functionArray['result'], $row);
+    }
     $functionArray['error'] = '0';
     $functionArray['message'] = 'success';
-    $functionArray['result'] = $row;
+
   }
   else
   {
