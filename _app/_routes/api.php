@@ -853,8 +853,12 @@ function getBountiesFromUsername($dbh,$args)
 {
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT BountyPool.* FROM BountyPool, Report WHERE BountyPool.poolID=Report.bountyID AND Report.username = :username
-  ORDER BY dateEnding DESC"
+  "SELECT BountyPool.*, Account.username AS ownerUsername, Account.name as ownerName FROM BountyPool, Report, Marshall, Account
+  WHERE Marshall.marshallID = BountyPool.bountyMarshallID
+  AND Marshall.marshallID = Account.userID
+  AND BountyPool.poolID=Report.bountyID
+  AND Report.username = :username
+  ORDER BY dateEnding ASC"
 );
 
   if($statement->execute($args))
