@@ -432,7 +432,7 @@ function createReport($dbh, $args) {
   $functionArray = array();
   $statement = $dbh->prepare(
   "INSERT INTO Report (bountyID, username, description, link, dateSubmitted, pathToError, errorName, paidAmount, datePaid, message)
-  VALUES (:bountyID,:username,:description, :link, NOW(), :pathToError, :errorName, '-1', NULL, '')");
+  VALUES (:bountyID,:username,:description, :link, NOW(), :pathToError, :errorName, -1, NULL, '')");
 
   if($statement->execute($args))
   {
@@ -518,8 +518,8 @@ function updateReport($dbh, $args) {
   {
     $functionArray['error'] = '0';
     $functionArray['message'] = 'success';
-    $result['username'] = $_POST['username'];
-    $result['paidAmount'] = $_POST['message'];
+    $result['paidAmount'] = $_POST['paidAmount'];
+    $result['message'] = $_POST['message'];
     $functionArray['result'] = $result;
   }
   else
@@ -864,7 +864,7 @@ function getBountiesFromUsernameRecentReports($dbh,$args)
         $bountyID = $row['poolID'];
         $args[':bountyID'] = $bountyID;
         $statement2 = $dbh->prepare(
-        "SELECT COUNT(reportID) AS reportsPending FROM Report WHERE paidAmount = '-1' AND username = :username AND bountyID = :bountyID");
+        "SELECT COUNT(reportID) AS reportsPending FROM Report WHERE paidAmount = -1 AND username = :username AND bountyID = :bountyID");
 
         if($statement2->execute($args))
         {
@@ -1460,9 +1460,8 @@ $app->get('/api/getReportFromReportID/:reportID', function($reportID) use ($dbh)
   $args[':reportID'] = $reportID;
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT Report.*, paidReport.*, BountyPool.bountyName FROM Report, paidReport
+  "SELECT Report.*, BountyPool.bountyName FROM Report
   WHERE reportID = :reportID
-  AND Report.reportID = paidReport.reportID
   AND BountyPool.poolID = Report.bountyID");
   if ($statement->execute($args))
   {
@@ -1563,8 +1562,9 @@ $app->get('/api/getNumberReportsFiled/:username', function($username) use($dbh) 
 function getNumberReportsApproved($dbh, $args){
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT p.reportID FROM paidReport p INNER JOIN Report r ON p.reportID = r.reportID
-  WHERE r.username = :username");
+  "SELECT reportID FROM Report
+  WHERE username = :username
+  AND paidAmount != -1");
 
   if($statement->execute($args))
   {
@@ -1579,7 +1579,7 @@ function getNumberReportsApproved($dbh, $args){
   }
   else {
     $functionArray['error'] = '1';
-    $functionArray['messageDB'] = $sth->errorInfo();
+    $functionArray['messageDB'] = $statement->errorInfo();
     $functionArray['message'] = 'Statement not executed';
   }
   return $functionArray;
