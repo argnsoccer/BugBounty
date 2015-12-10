@@ -847,9 +847,10 @@ function getBountyFromBountyID($dbh, $args) {
   if ($_SESSION['userLogin']) {
 
     $statement = $dbh->prepare(
-    "SELECT *,DATE(BountyPool.dateCreated) as dateCreated,DATE(BountyPool.dateEnding) as dateEnding,Marshall.company as companyName FROM BountyPool,Marshall
+    "SELECT *,DATE(BountyPool.dateCreated) as dateCreated,DATE(BountyPool.dateEnding) as dateEnding,Marshall.company as companyName,Account.username FROM BountyPool,Marshall,Account
     WHERE BountyPool.poolID = :bountyID
-	AND BountyPool.bountyMarshallID=Marshall.marshallID"
+	AND BountyPool.bountyMarshallID=Marshall.marshallID
+	AND Account.userID=Marshall.marshallID"
     );
 
     if ($statement->execute($args)) {
