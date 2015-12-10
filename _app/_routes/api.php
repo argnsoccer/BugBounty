@@ -320,7 +320,45 @@ function signUpUser($dbh, $args) {
   return $functionArray;
 }
 
-function getUserFromUsername($dbh, $args) {
+function getMarshalFromUsername($dbh, $args) {
+  //Simple Select query which returns username, email, and type
+  $statement = $dbh->prepare(
+  "SELECT Account.username, Marshall.company, Account.email, Account.accountType, Account.imageLoc, Account.dateCreated, Account.paymentType, Account.moneyCollected
+  FROM Account, Marshall WHERE Account.userID = Marshall.userID AND Account.username = :username");
+
+  $functionArray = array();
+  if($statement->execute($args))
+  {
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    if(isset($row['username'])) {
+      $result['username'] = $row['username'];
+      $result['userType'] = strtolower($row['accountType']);
+      $result['email'] = $row['email'];
+      $result['proPic'] = $row['imageLoc'];
+      $functionArray['error'] = '0';
+      $result['name'] = $row['name'];
+      $result['dateJoined'] = substr($row['dateCreated'], 0, -9);
+      $result['paymentType'] = $row['paymentType'];
+      $result['moneyCollected'] = $row['moneyCollected'];
+      $functionArray['result'] = $result;
+      $functionArray['message'] = 'success';
+    }
+    else {
+      $functionArray['error'] = '2';
+      $functionArray['message'] = "No username";
+    }
+  }
+  else
+  {
+    $functionArray['error'] = '1';
+    $functionArray['message'] = 'Statement not executed';
+    $functionArray['messageDB'] = $statement->errorInfo();
+
+  }
+  return $functionArray;
+}
+
+function getHunterFromUsername($dbh, $args) {
   //Simple Select query which returns username, email, and type
   $statement = $dbh->prepare(
   "SELECT username, name, email, accountType, imageLoc, DATE(dateCreated) as dateCreated, paymentType, moneyCollected
@@ -775,7 +813,7 @@ function getActiveBounties($dbh, $args) {
 function getPastBounties($dbh, $args) {
 
   $statement = $dbh->prepare(
-  "SELECT BountyPool.*,DATE(BountyPool.dateCreated) as dateCreated,DATE(BountyPool.dateEnding) as dateEnding, Marshall.company AS ownerName, Account.username AS ownerUsername, FROM Marshall, BountyPool, Account
+  "SELECT BountyPool.*,DATE(BountyPool.dateCreated) as dateCreated,DATE(BountyPool.dateEnding) as dateEnding, Marshall.company AS companyName, Account.username AS ownerUsername, FROM Marshall, BountyPool, Account
   WHERE Marshall.marshallID=BountyPool.bountyMarshallID
   AND Marshall.marshallID=:userID
   AND Account.userID = Marshall.userID
@@ -894,7 +932,7 @@ function getBountiesFromUsername($dbh,$args)
 {
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT BountyPool.*,DATE(BountyPool.dateCreated) as dateCreated,DATE(BountyPool.dateEnding) as dateEnding,Account.username AS ownerUsername, Account.name as ownerName FROM BountyPool, Report, Marshall, Account
+  "SELECT BountyPool.*,DATE(BountyPool.dateCreated) as dateCreated,DATE(BountyPool.dateEnding) as dateEnding,Account.username AS ownerUsername, Marshall.company as companyName FROM BountyPool, Report, Marshall, Account
   WHERE Marshall.marshallID = BountyPool.bountyMarshallID
   AND Marshall.marshallID = Account.userID
   AND BountyPool.poolID=Report.bountyID
@@ -1335,10 +1373,19 @@ Returns
 Incomplete
 */
 
-$app->get('/api/getUserFromUsername/:username', function($username) use ($dbh) {
+$app->get('/api/getHunterFromUsername/:username', function($username) use ($dbh) {
   $args[':username'] = $username;
 
-  $result = getUserFromUsername($dbh, $args);
+  $result = getHunterFromUsername($dbh, $args);
+
+  echo json_encode($result);
+
+});
+
+$app->get('/api/getMarshalFromUsername/:username', function($username) use ($dbh) {
+  $args[':username'] = $username;
+
+  $result = getMarshalFromUsername($dbh, $args);
 
   echo json_encode($result);
 
