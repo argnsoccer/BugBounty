@@ -823,6 +823,47 @@ function getBountyFromBountyID($dbh, $args) {
   return $functionArray;
 }
 
+function getBountiesFromUsernameRecentReports($dbh,$args)
+{
+  $functionArray = array();
+  $statement = $dbh->prepare(
+  "SELECT BountyPool.* FROM BountyPool, Report WHERE BountyPool.poolID=Report.bountyID AND Report.username = :username
+  ORDER BY Report.dateSubmitted DESC LIMIT 4"
+);
+
+  if($statement->execute($args))
+  {
+    $functionArray['result'] = array();
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+    {
+      $insert = true;
+      foreach ($functionArray['result'] as $iterator)
+      {
+        if($row['poolID'] == $iterator['poolID'])
+        {
+          $insert = false;
+        }
+      }
+      if($insert)
+      {
+        $row['dateCreated'] = substr($row['dateCreated'], 0, -9);
+        $row['dateEnding'] = substr($row['dateEnding'], 0, -9);
+        array_push($functionArray['result'], $row);
+      }
+    }
+    $functionArray['error'] = '0';
+    $functionArray['message'] = 'success';
+
+
+  }
+  else {
+    $functionArray['error'] = '1';
+    $functionArray['message'] = 'Statement does not execute';
+    $functionArray['messageDB'] = $statement->errorInfo();
+  }
+  return $functionArray;
+}
+
 function createRSS($dbh, $args) {
 
   $file_path = $args['link']."/rss_".$args['username'].".xml";
@@ -1183,6 +1224,7 @@ $app->get('/api/emailTaken/:email', function($email) use ($dbh) {
 
 });
 
+
 /*
 Danny Rizzuto
 Sign Up a user
@@ -1442,15 +1484,19 @@ $app->get('/api/getNumberReportsFiled/:username', function($username) use($dbh) 
 function getNumberReportsApproved($dbh, $args){
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT * FROM paidReport p INNER JOIN Report r ON p.reportID = r.reportID
+  "SELECT p.reportID FROM paidReport p INNER JOIN Report r ON p.reportID = r.reportID
   WHERE r.username = :username");
 
   if($statement->execute($args))
   {
-    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    $functionArray['result'] = array();
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+    {
+      array_push($functionArray['result'], $row);
+    }
     $functionArray['error'] = '0';
     $functionArray['message'] = 'success';
-    $functionArray['result'] = $row;
+
   }
   else {
     $functionArray['error'] = '1';
@@ -1690,4 +1736,11 @@ $app->get('/api/getMODMarshal',function() use($dbh)
 {
 	$args = array();
 	echo json_encode(getMessageOfDayMarshal($dbh));
+});
+
+$app->get('/api/getBountiesFromUsernameRecentReports/:username', function($username) use($dbh)
+{
+  $args[':username'] = $username;
+  echo json_encode(getBountiesFromUsernameRecentReports($dbh,$args));
+
 });
