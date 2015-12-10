@@ -779,7 +779,7 @@ function getPreferredBounties($dbh) {
   else
   {
     $functionArray['error'] = '1';
-    $functionArray['messageDB'] = $sth->errorInfo();
+    $functionArray['messageDB'] = $statement->errorInfo();
     $functionArray['message'] = 'First Statement not executed';
 
   }
