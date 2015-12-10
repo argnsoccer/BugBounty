@@ -139,7 +139,7 @@
                 <tr class="rowTable">
                   <td class="cell">{{report.dateSubmitted}}</td>
                   <td class="cell"><a href="/_hunter/bounty/{{report.poolID}}">{{report.bountyName}}</td>
-                  <td class="cell"><a href="/_hunter/company/{{report.companyUsername}}">{{report.company}}</a></td>
+                  <td class="cell"><a href="/_hunter/company/{{report.ownerUsername}}">{{report.ownerName}}</a></td>
                   <td class="cell">{{report.amountPaid}}</td>
                   <td class="cell">
                     <button type="button" class="detailsButton" data-toggle="modal" 
@@ -285,7 +285,7 @@
       $(document).ready(function(){
         var submittedReports = {{ submittedReports.result }};
 
-        alert(submittedReports);
+        // alert(submittedReports);
       });
     </script>
 

@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 	  alert(reportID);
 
-	   $('#messageReport').val(response.result.report.message);
+	   // $('#messageReport').val();
 
 	  var reportURL = '/api/getReportFromReportID/' + reportID;
 
