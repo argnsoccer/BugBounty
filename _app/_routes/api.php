@@ -895,7 +895,7 @@ function getBountiesFromUsername($dbh,$args)
 {
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT BountyPool.*, Account.username AS ownerUsername, Account.name as ownerName FROM BountyPool, Report, Marshall, Account
+  "SELECT BountyPool.*, Account.username AS ownerUsername, Marshall.company as copmanyName FROM BountyPool, Report, Marshall, Account
   WHERE Marshall.marshallID = BountyPool.bountyMarshallID
   AND Marshall.marshallID = Account.userID
   AND BountyPool.poolID=Report.bountyID
