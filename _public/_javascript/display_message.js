@@ -4,6 +4,10 @@ $(document).ready(function () {
 
 	  var reportID = $(this).attr("data-ID");
 
+	  alert(reportID);
+
+	   $('#messageReport').val(response.result.report.message);
+
 	  var reportURL = '/api/getReportFromReportID/' + reportID;
 
 	  $.ajax({
@@ -12,10 +16,10 @@ $(document).ready(function () {
 	    type: 'GET',
 	    success: function(response)
 	    {
-	      if (response.report.message == null) {
-	        response.report.message = "No message has been posted";
+	      if (response.result.report.message == null) {
+	        response.result.report.message = "No message has been posted";
 	      }
-	      $('#messageReport').val(response.report.message);
+	      $('#messageReport').val(response.result.report.message);
 	    },
 	    error: function(xhr, status, error)
 	    {
