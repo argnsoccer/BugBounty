@@ -512,24 +512,27 @@ function getReportsFromUsername($dbh, $args) {
   return $functionArray;
 }
 
-function getReportsFromUsernamePaidOrUnPaid($dbh,$args)
+function getReportsFromUsernamePaidOrUnPaid($dbh,$args,$table)
 {
   $statement = $dbh->prepare("
-  SELECT * FROM Report,:auxiliary
-  WHERE Report.bountyID=:auxiliary.bountyID
-  AND username:username");
+  SELECT * FROM Report,".$table."
+  WHERE Report.reportID=".$table.".reportID
+  AND Report.username=:username");
   $functionArray = array();
   if($statement->execute($args))
   {
     $functionArray['error'] = '0';
     $functionArray['message'] = 'success';
-    $row = $statement->fetch(PDO::FETCH_ASSOC);
-    $functionArray['result'] = $row;
+	$functionArray['result']['reports'] = array();
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+	{
+		array_push($functionArray['result']['reports'],$row);
+	}
   }
   else
   {
     $functionArray['error'] = '1';
-    $functionArray['messageDB'] = $sth->errorInfo();
+    $functionArray['messageDB'] = $statement->errorInfo();
     $functionArray['message'] = 'Statement not executed';
 
   }
@@ -691,10 +694,13 @@ function getPreferredBounties($dbh) {
 
   if($statement->execute($args))
   {
-    $row = $statement->fetch(PDO::FETCH_ASSOC);
-    $functionArray['error'] = '0';
-    $functionArray['message'] = 'success';
-    $functionArray['result'] = $row;
+	  $functionArray['result']['bounties'] = array();
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+	{
+		$functionArray['error'] = '0';
+		$functionArray['message'] = 'success';
+		array_push($functionArray['result']["bounties"],$row);
+	}
   }
   else
   {
@@ -1451,11 +1457,11 @@ $app->get('/api/getReportsFromUsernameBountyID/:usename/:bountyID', function($us
 
   });
 
-$app->get('/api/getReportsFromUsernamePaidVsUnpaid/:username/:auxiliary/', function($bountyID) use ($dbh)
+$app->get('/api/getReportsFromUsernamePaidVsUnpaid/:username/:auxiliary/', function($username,$auxiliary) use ($dbh)
 {
-  $args[":auxiliary"] = $_GET['auxiliary'];
-  $args[":username"] = $_GET['username'];
-  echo json_encode(getReportsFromUsernamePaidOrUnPaid($dbh,$args));
+  $table = $auxiliary;
+  $args[":username"] = $username;
+  echo json_encode(getReportsFromUsernamePaidOrUnPaid($dbh,$args,$table));
 });
 
   /*
