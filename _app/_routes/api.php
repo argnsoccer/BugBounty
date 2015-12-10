@@ -1442,15 +1442,19 @@ $app->get('/api/getNumberReportsFiled/:username', function($username) use($dbh) 
 function getNumberReportsApproved($dbh, $args){
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT * FROM paidReport p INNER JOIN Report r ON p.reportID = r.reportID
+  "SELECT p.reportID FROM paidReport p INNER JOIN Report r ON p.reportID = r.reportID
   WHERE r.username = :username");
 
   if($statement->execute($args))
   {
-    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    $functionArray['result'] = array();
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+    {
+      array_push($functionArray['result'], $row);
+    }
     $functionArray['error'] = '0';
     $functionArray['message'] = 'success';
-    $functionArray['result'] = $row;
+
   }
   else {
     $functionArray['error'] = '1';
