@@ -157,86 +157,96 @@ function updateUserDetails($dbh,$change,$inputs)
 {
 	$args = array();
 	$args[':userID'] = $_SESSION['userID'];
-	$args[':pass'] = $pass;
+	$args[':pass'] = $inputs['password'];
 	$result['error'] = 0;
-	if($change[0])
+	$statement = $dbh->prepare("
+	SELECT * FROM Account
+	WHERE userID = :userID
+	AND password = :pass");
+	if($statement->execute($args))
 	{
-		$result['error'] = $result['error'] + 1;
-		$statement = $dbh->prepare("
-		SELECT * FROM Account
-		WHERE username = '".$inputs['username']."'");
-		if($statement->execute())
+		if($statement->rowCount() == 1)
 		{
-			if($statement->rowCount() == 0)
+			if($change[0])
 			{
+				$result['error'] = $result['error'] + 1;
+				$statement = $dbh->prepare("
+				SELECT * FROM Account
+				WHERE username = '".$inputs['username']."'");
+				if($statement->execute())
+				{
+					if($statement->rowCount() == 0)
+					{
+						$statement = $dbh->prepare("
+						UPDATE Account
+						SET username = '".$inputs['username']."'
+						WHERE userID = :userID
+						AND password=:pass");
+						if($statement->execute($args))
+						{
+							$result['error'] = $result['error'] - 1;
+							$result['message'] = $result['message']."username change successful ";
+						}
+						else
+						{
+							$result['message'] = $result['message']."username change failed";
+						}
+					}
+					else
+					{
+						$result['message'] = $result['message']."new username is taken ";
+					}
+				}
+			}
+			if($change[1])
+			{
+				$result['error'] = $result['error'] + 1;
+				$statement = $dbh->prepare("
+				SELECT * FROM Account
+				WHERE email = '".$inputs['email']."'");
+				if($statement->execute())
+				{
+					if($statement->rowCount() == 0)
+					{
+						$statement = $dbh->prepare("
+						UPDATE Account
+						SET email= '".$inputs['email']."'
+						WHERE userID = :userID
+						AND password=:pass");
+						if($statement->execute($args))
+						{
+							$result['error'] = $result['error'] - 1;
+							$result['message'] = $result['message']."email change successful ";
+						}
+						else
+						{
+							$result['message'] = $result['message']."email change failed";
+						}
+					}
+					else
+					{
+						$result['message'] = $result['message']."new email is taken ";
+					}
+				}
+			}
+			if($change[2])
+			{
+				$result['error'] = $result['error'] + 1;
 				$statement = $dbh->prepare("
 				UPDATE Account
-				SET username = '".$inputs['username']."'
+				SET password = '".$inputs['new_password']."'
 				WHERE userID = :userID
 				AND password=:pass");
 				if($statement->execute($args))
 				{
 					$result['error'] = $result['error'] - 1;
-					$result['message'] = $result['message']."username change successful ";
+					$result['message'] = $result['message']."password change successful ";
 				}
 				else
 				{
-					$result['message'] = $result['message']."username change failed, possible incorrect password or sql error";
+					$result['message'] = $result['message']."password change failed";
 				}
 			}
-			else
-			{
-				$result['message'] = $result['message']."new username is taken ";
-			}
-		}
-	}
-	if($change[1])
-	{
-		$result['error'] = $result['error'] + 1;
-		$statement = $dbh->prepare("
-		SELECT * FROM Account
-		WHERE email = '".$inputs['email']."'");
-		if($statement->execute())
-		{
-			if($statement->rowCount() == 0)
-			{
-				$statement = $dbh->prepare("
-				UPDATE Account
-				SET email= '".$inputs['email']."'
-				WHERE userID = :userID
-				AND password=:pass");
-				if($statement->execute($args))
-				{
-					$result['error'] = $result['error'] - 1;
-					$result['message'] = $result['message']."email change successful ";
-				}
-				else
-				{
-					$result['message'] = $result['message']."email change failed, possible incorrect password or sql error";
-				}
-			}
-			else
-			{
-				$result['message'] = $result['message']."new email is taken ";
-			}
-		}
-	}
-	if($change[2])
-	{
-		$result['error'] = $result['error'] + 1;
-		$statement = $dbh->prepare("
-		UPDATE Account
-		SET password = '".$inputs['new_password']."'
-		WHERE userID = :userID
-		AND password=:pass");
-		if($statement->execute($args))
-		{
-			$result['error'] = $result['error'] - 1;
-			$result['message'] = $result['message']."password change successful ";
-		}
-		else
-		{
-			$result['message'] = $result['message']."password change failed, possible incorrect password or sql error";
 		}
 	}
 	return $result;
