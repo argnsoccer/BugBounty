@@ -25,9 +25,8 @@ Braintree_Configuration::publicKey('k86rsvssx8f2w564');
 Braintree_Configuration::privateKey('9c4a739428d609d7973f5002a5c67d40');
 
 $dbname = 'bug_bounty_test';
-$user = 'bugUser';
-$pass = '3.00x10^8m/s';
-$host = '52.88.178.244';
+$user = 'root';
+$pass = 'password123';
 
 try {
   $dbh = new PDO("mysql:host=$host;dbname=$dbname", "$user", "$pass");
