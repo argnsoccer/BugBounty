@@ -22,7 +22,7 @@
             <div class="col-sm-5">
               <div class="row innerRow picRow">
                 <div class="col-md-12">
-                  <input type="image" id="bountyPicture" src="{{bounty.imageLoc}}" 
+                  <input type="image" id="bountyPicture" src="{{bounty.result.imageLoc}}" 
                     alt="Bounty Picture" class="marshalBackground"/>
                 </div>
               </div>
@@ -33,7 +33,7 @@
                       data-target="#reportModal" data-whatever="@getbootstrap">
                       Submit Report
                     </button>
-                    <a class="btn btn-default btn-md buttonCustom center-block" href="{{bounty.bountyLink}}" target="_blank">Track Bounty</a>
+                    <a class="btn btn-default btn-md buttonCustom center-block" href="{{bounty.result.bountyLink}}" target="_blank">Track Bounty</a>
                     <button class="btn btn-default btn-sm buttonCustom center-block">Subscribe</button>
                   </div>
                 </div>
@@ -47,28 +47,28 @@
                     <label for="InputName"></label>
                     <div class="input-group">
                       <span class="input-group-addon addOnCustom">Bounty Name</span>
-                      <p class="form-control formControlCustom">{{bounty.bountyName}}</p>
+                      <p class="form-control formControlCustom">{{bounty.result.bountyName}}</p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="InputName"></label>
                     <div class="input-group">
                       <span class="input-group-addon addOnCustom">Bounty Owner</span>
-                      <p class="form-control formControlCustom"><a href="/_hunter/company/{{bounty.companyUsername}}">{{bounty.companyName}}</a></p>
+                      <p class="form-control formControlCustom"><a href="/_hunter/company/{{bounty.result.companyUsername}}">{{bounty.result.companyName}}</a></p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="InputName"></label>
                     <div class="input-group">
                       <span class="input-group-addon addOnCustom">Date Created</span>
-                      <p class="form-control formControlCustom">{{bounty.dateCreated}}</p>
+                      <p class="form-control formControlCustom">{{bounty.result.dateCreated}}</p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="InputName"></label>
                     <div class="input-group">
                       <span class="input-group-addon addOnCustom">Date Ending</span>
-                      <p class="form-control formControlCustom">{{bounty.dateEnding}}</p>
+                      <p class="form-control formControlCustom">{{bounty.result.dateEnding}}</p>
                     </div>
                 </div>
               </form>              
@@ -101,14 +101,18 @@
                 </tr>
               </thead>
               <tbody id="submitedReports">
-                {% for report in submittedReports.reportArray %}
+                {% for report in submittedReports.result %}
                 {% if report.index!= 0 %}
                 <tr class="rowTable">
                 {% else %}
                 <tr class="rowTable" id="firstValue">
                 {% endif %}
                   <td class="cell">{{report.dateSubmitted}}</td>
-                  <td class="cell">{{report.Paid}}</td>
+                  {% if report.paidAmount == -1 %}
+                  <td title="Not Approved Yet" class="cell">NA</td>
+                  {% else %}
+                  <td class="cell">$ {{report.paidAmount}}</td>
+                  {% endif %}
                   <td class="cell">
                     <button type="button" class="detailsButton" data-toggle="modal" 
                     data-target="#detailsModal" data-whatever="@getbootstrap" 
