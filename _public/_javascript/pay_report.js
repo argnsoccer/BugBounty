@@ -71,28 +71,25 @@ $(document).ready(function () {
 
 	$("#payAmountSubmit").click(function(event) { 
 
-		var paymentInfo = [];
+		var paymentInfo = {};
 
-		paymentInfo.paymentMethodNonce = "fake-paypal-one-time-nonce";
-		paymentInfo.amount = $("#payAmountSubmit").attr('data-amount');
-		paymentInfo.reportID = $("#payAmountSubmit").attr('data-reportID');
-		paymentInfo.bountyID = $("#payAmountSubmit").attr('data-bountyID');
-		paymentInfo.hunterUsername = $("#payAmountSubmit").attr('data-hunterUsername');
+		paymentInfo['paymentMethodNonce'] = "fake-paypal-one-time-nonce";
+		paymentInfo['amount'] = $("#payAmountSubmit").attr('data-amount');
+		paymentInfo['reportID'] = $("#payAmountSubmit").attr('data-reportID');
+		paymentInfo['bountyID'] = $("#payAmountSubmit").attr('data-bountyID');
+		paymentInfo['hunterUsername'] = $("#payAmountSubmit").attr('data-hunterUsername');
 
-    $.ajax({
+		console.log(paymentInfo);
+
+		    $.ajax({
       url: '/api/payReport',
-      data: paymentInfo,
-      dataType: 'json',
-      async: 'false',
       type: 'POST',
-      success: function(response)
-      {
-      },
-      error: function(xhr, status, error)
-      {
+      dataType: 'json',
+      data: paymentInfo,
+      async: 'true',
+      success: function(response) {
+        	console.log(response);
       }
     });
-		
 	});
-
 });

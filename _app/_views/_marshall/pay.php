@@ -14,9 +14,12 @@
 
     {{include ('header_marshall.php')}}
 
-    <div class="row">
+    <div class="row mainRow">
       <div class="col-md-2">
-        <h3>Options</h3>
+        <h3 class="text-center">Options</h3>
+        <div id="options">
+
+        </div>
       </div>
       <div class="col-md-10">
         <h3>Submitted Reports</h3>
@@ -37,6 +40,7 @@
               <tr class="rowTable">
                 <td class="cell">{{report.dateSubmitted}}</td>
                 <td class="cell">{{report.errorName}}</td>
+                <td class="cell">{{report.errorName}}</td>
                 <td class="cell">
                   <button type="button" class="displayDetailsModal detailsButton" data-toggle="modal"
                   data-target="#detailsModal" data-whatever="@getbootstrap"
@@ -45,11 +49,19 @@
                   </button>
                 </td>
                 <td class="cell">
+                  {% if report.paid == 0 %}
                   <button type="button" class="messageButton" data-toggle="modal"
-                      data-target="#messageModal" data-whatever="@getbootstrap"
-                      data-ID={{report.reportID}}>
+                    data-target="#editMessageModal" data-whatever="@getbootstrap"
+                    data-ID={{report.reportID}}>
                     Edit
                   </button>
+                  {% else %}
+                  <button type="button" class="messageButton" data-toggle="modal"
+                    data-target="#messageModal" data-whatever="@getbootstrap"
+                    data-ID={{report.reportID}}>
+                    View
+                  </button>
+                  {% endif %}
                 </td>
                 <td class="cell">
                   <div class="input-group payInput">
@@ -90,6 +102,7 @@
 {{include ('_modals/displayDetailsModal.php')}}
 {{include ('_modals/payModal.php')}}
 {{include ('_modals/editMessageModal.php')}}
+{{include ('_modals/messageModal.php')}}
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

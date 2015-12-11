@@ -21,6 +21,11 @@ body {
 	padding: 0px !important;
 }
 
+.mainRow {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
 .tableWrapper {
   margin-bottom: 40px;
   width: 100%;
