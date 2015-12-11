@@ -61,7 +61,8 @@ thead
 
 #pay_amount
 {
-    padding-left: 20px;
+    margin: 0 auto;
+    /*padding-left: 20px;*/
 }
 
 #dollar_sign
