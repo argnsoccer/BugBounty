@@ -324,7 +324,7 @@ function signUpHunter($dbh, $args) {
 
 function signUpMarshal($dbh, $args, $args2) {
   $username = $args[':username'];
-  $args[":imageLoc"] = "_images/_profiles/_".$username;
+  $args[":imageLoc"] = "/_images/_profiles/_".$username.'/profile.png';
   if(!mkdir("_images/_profiles/_".$username, true))
   {
     echo(die('Failed to create profile picture directory'));
@@ -1349,7 +1349,7 @@ $app->get('/api/usernameTaken/:username', function($username) use ($dbh) {
     $row = $statement->fetch(PDO::FETCH_ASSOC);
     if (isset($row['username'])) {
       $functionArray['result']['taken'] = '1';
-      $functionArray['error'] = '2';
+      $functionArray['error'] = '0';
       $functionArray['message'] = 'Username taken';
     }
     else {
