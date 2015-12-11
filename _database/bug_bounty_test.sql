@@ -297,11 +297,11 @@ CREATE TABLE IF NOT EXISTS `Transactions` (
   PRIMARY KEY (`transactionID`),
   UNIQUE KEY `transactionID_UNIQUE` (`transactionID`),
   KEY `fk_hunter_Account` (`hunterUsername`),
-  KEY `fk_marshall_Marshall` (`marshalUsername`),
+  KEY `fk_marshal_Account` (`marshalUsername`),
   KEY `fk_reportID_Report` (`reportID`),
   KEY `fk_bounty_BountyPool` (`bountyID`),
   CONSTRAINT `fk_hunter_Account` FOREIGN KEY (`hunterUsername`) REFERENCES `Account` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_marshall_Marshall` FOREIGN KEY (`marshalUsername`) REFERENCES `Account` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_marshal_Account` FOREIGN KEY (`marshalUsername`) REFERENCES `Account` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_reportID_Report` FOREIGN KEY (`reportID`) REFERENCES `Report` (`reportID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_bounty_BountyPool` FOREIGN KEY (`bountyID`) REFERENCES `BountyPool` (`poolID`) ON DELETE CASCADE ON UPDATE CASCADE
 

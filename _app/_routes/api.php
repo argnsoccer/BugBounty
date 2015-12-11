@@ -1852,6 +1852,7 @@ $app->post('/api/payReport', function() use ($dbh){
     'amount' => $amount,
     'paymentMethodNonce' => $nonce,
   ]);
+
   $args[':transactionID'] = $sale->transaction->id;
   $args[':amount'] = $amount;
   $args2[':amount'] = $amount;
