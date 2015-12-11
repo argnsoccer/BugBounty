@@ -33,8 +33,8 @@
                       data-target="#submitReportModal" data-whatever="@getbootstrap">
                       Submit Report
                     </button>
-                    <a class="btn btn-default btn-md buttonCustom center-block" href="{{bounty.result.bountyLink}}" target="_blank">Track Bounty</a>
-                    <button class="btn btn-default btn-sm buttonCustom center-block">Subscribe</button>
+                    <a class="btn btn-default btn-md buttonCustom center-block" title="Link to Website" href="{{bounty.result.bountyLink}}" target="_blank">Track Bounty</a>
+                    <button class="btn btn-default btn-sm buttonCustom center-block" title="Subscrive to Company RSS">Subscribe</button>
                   </div>
                 </div>
               </div>
