@@ -150,7 +150,7 @@
                     <td class="cell">{{bounty.dateEnding}}</td>
                     <td class="cell"><a href="/_hunter/bounty/{{bounty.poolID}}">{{bounty.bountyName}}</a></td>
                     <td class="cell"><a href="/_hunter/company/{{bounty.companyUsername}}">{{bounty.companyName}}</a></td>
-                    <td class="cell">{{bounty.number}}</td>
+                    <td class="cell">{{bounty.reportsPending}}</td>
                   </tr>
                   {% endfor %}
                 </tbody>
