@@ -65,8 +65,6 @@ $(document).ready(function () {
 
     var userInfo = {}
 
-    alert("here1");
-
     userInfo["username"] = $("#changeUsernameForm").val();
     userInfo["email"] = $("#changeEmailForm").val();
     userInfo["password"] = $("#changePassworldOldForm").val();
@@ -125,10 +123,8 @@ $(document).ready(function () {
     }
     else {
 
-
-      alert("here2");
       $.ajax({
-        url: '/api/updateUserDetails',
+        url: '/api/updateUserDetailsHunter',
         data: userInfo,
         dataType: 'json',
         async: 'false',
@@ -136,10 +132,9 @@ $(document).ready(function () {
         success: function(response)
         {
 
-          alert("here3");
           console.log(userInfo);
           console.log(response);
-          alert("here4");
+
           $.notify({
             // options
             message: "  " + "Profile Info Updated",
@@ -159,15 +154,12 @@ $(document).ready(function () {
           $('#changePassworldNewForm').val('');
           $('#changePassworldConfirmForm').val('');
 
+          var newLink = "/_hunter/profile/" + userInfo.username;
+
           if(userInfo.username == '') {
-
-            var newLink = "/_hunter/profile/" + $('#usernameValue').text();
-            alert(newLink);
-            window.location.href = newLink;
-
+            newLink = "/_hunter/profile/" + $('#usernameValue').text();
           }
-          var newLink = "/_hunter/profile/" + userInfo.username; 
-          alert(newLink);
+
           window.location.href = newLink;
 
 

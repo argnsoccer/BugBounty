@@ -40,7 +40,6 @@
               <tr class="rowTable">
                 <td class="cell">{{report.dateSubmitted}}</td>
                 <td class="cell">{{report.errorName}}</td>
-                <td class="cell">{{report.errorName}}</td>
                 <td class="cell">
                   <button type="button" class="displayDetailsModal detailsButton" data-toggle="modal"
                   data-target="#detailsModal" data-whatever="@getbootstrap"

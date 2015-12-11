@@ -42,26 +42,4 @@ $app->get('/_hunter/profile/:username', function($username) use ($app, $dbh) {
 	$app->render('_hunter/profile.php', $template_array);
 	// echo print_r($template_array);
 
-	// if (isset($_SESSION['userLogin'])
-	// 	&& isset($template_array['error'])
-	// 	&& $template_array['error'] === 0)
-	// {
-	// 		$app->render('_hunter/profile.php', $template_array);
-	// 		// echo print_r($template_array);
-	// }
-	// else 
-	// {
-	// 	if ($template_array['error'] === 1)
-	// 	{
-	// 		echo "error - No username is database with passed username";
-	// 	}
-	// 	else if ($template_array['error'] === 2)
-	// 	{
-	// 		echo "error - statement was not ran";
-	// 	}
-	// 	else 
-	// 	{
-	// 		echo "error - no error code returned";
-	// 	}
-	// }
 });
