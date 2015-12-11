@@ -819,7 +819,7 @@ function getActiveBounties($dbh, $args) {
 function getPastBounties($dbh, $args) {
 
   $statement = $dbh->prepare(
-  "SELECT BountyPool.*,DATE(BountyPool.dateCreated) as dateCreated,DATE(BountyPool.dateEnding) as dateEnding, Marshall.company AS companyName, Account.username AS ownerUsername, FROM Marshall, BountyPool, Account
+  "SELECT BountyPool.*,DATE(BountyPool.dateCreated) as dateCreated,DATE(BountyPool.dateEnding) as dateEnding, Marshall.company AS companyName, Account.username AS ownerUsername FROM Marshall, BountyPool, Account
   WHERE Marshall.marshallID=BountyPool.bountyMarshallID
   AND Marshall.marshallID=Account.userID
   AND Account.username = :username
@@ -838,7 +838,7 @@ function getPastBounties($dbh, $args) {
   else
   {
     $functionArray['error'] = '1';
-    $functionArray['messageDB'] = $sth->errorInfo();
+    $functionArray['messageDB'] = $statement->errorInfo();
     $functionArray['message'] = 'Statement not executed';
   }
 
@@ -1581,7 +1581,7 @@ All past bounties with all fields from BountyPool
 complete
 */
 
-$app->get('/api/getPastBounties/', function($username) use ($dbh) {
+$app->get('/api/getPastBounties/:username', function($username) use ($dbh) {
   $args[':username'] = $username;
   echo json_encode(getPastBounties($dbh,$args));
 });
