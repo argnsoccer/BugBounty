@@ -277,35 +277,35 @@ function updateUserDetails($dbh,$change,$inputs)
 	return $result;
 }
 
-function signUpUser($dbh, $args) {
-  $args[":imageLoc"] = "/_images/_profiles/_".$args[':username']."/profile.png";
-  mkdir($args[":imageLoc"]);
+function signUpHunter($dbh, $args) {
+  $username = $args[':username'];
+  $args[":imageLoc"] = "_images/_profiles/_".$username;
+  if(!mkdir("_images/_profiles/_".$username, true))
+  {
+    echo(die('Failed to create profile picture directory'));
+  }
 
-  if($args[':accountType'] === 'hunter') {
-    copy("/_images/_profiles/_default_hunter/profile.png", $args[":imageLoc"]);
-  }
-  else if ($args[':accountType'] === 'marshal') {
-    copy("/_images/_profiles/_default_marshal/profile.png", $args[":imageLoc"]);
-  }
+  copy("_images/_profiles/_default_hunter/profile.png", "_images/_profiles/_".$username."/profile.png");
+
   $functionArray = array();
   $statement = $dbh->prepare(
     "INSERT INTO Account
-      (username, email, password, dateCreated, accountType, dateOfLastActivity, imageLoc, paymentType, moneyCollected)
+      (username, email, password, dateCreated, accountType, dateOfLastActivity, imageLoc, paymentType, moneyCollected, name)
     VALUES
-      (:username, :email, :password, NOW(), :accountType, NOW(), :imageLoc, :paymentType, '0')"
+      (:username, :email, :password, NOW(), :accountType, NOW(), :imageLoc, :paymentType, '0', :name)"
   );
 
   if($statement->execute($args))
   {
     $row = $statement->fetch(PDO::FETCH_ASSOC);
     $result['username'] = $_POST['username'];
-    $result['userType'] = strtolower($_POST['accountType']);
-    $functionArray['error'] = '0';
+    $result['userType'] = "hunter";
 
     $_SESSION['userLogin'] = $_POST['username'];
-    $_SESSION['userType'] = strtolower($_POST['accountType']);
+    $_SESSION['userType'] = "hunter";
     $_SESSION['userID'] = $row['userID'];
 
+    $functionArray['error'] = '0';
     $functionArray['message'] = 'success';
 
   }
@@ -314,6 +314,75 @@ function signUpUser($dbh, $args) {
     $functionArray['error'] = '1';
     $functionArray['messageDB'] = $statement->errorInfo();
     $functionArray['message'] = 'Statement did not execute';
+
+    //THIS NEEDS TO BE FIXED TO DIFFERENTIATE BETWEEN EMAIL AND USERNAME
+  }
+  $functionArray['result'] = $result;
+
+  return $functionArray;
+}
+
+function signUpMarshal($dbh, $args, $args2) {
+  $username = $args[':username'];
+  $args[":imageLoc"] = "_images/_profiles/_".$username;
+  if(!mkdir("_images/_profiles/_".$username, true))
+  {
+    echo(die('Failed to create profile picture directory'));
+  }
+
+  copy("_images/_profiles/_default_marshal/profile.png", "_images/_profiles/_".$username."/profile.png");
+  $functionArray = array();
+  $statement = $dbh->prepare(
+    "INSERT INTO Account
+      (username, email, password, dateCreated, accountType, dateOfLastActivity, imageLoc, paymentType, moneyCollected, name)
+    VALUES
+      (:username, :email, :password, NOW(), :accountType, NOW(), :imageLoc, :paymentType, '0', :name)"
+  );
+
+  if($statement->execute($args))
+  {
+    $args3['username'] = $_POST['username'];
+    $statement3 = $dbh->prepare(
+    "SELECT userID FROM Account WHERE username=:username");
+    if($statement3->execute($args3))
+    {
+      $row = $statement3->fetch(PDO::FETCH_ASSOC);
+      $_SESSION['userID'] = $row['userID'];
+      $result['username'] = $_POST['username'];
+      $result['userType'] = strtolower($_POST['accountType']);
+
+
+      $_SESSION['userLogin'] = $_POST['username'];
+      $_SESSION['userType'] = 'marshal';
+
+      $args2[':marshalID'] = $row['userID'];
+
+      $statement2 = $dbh->prepare(
+      "INSERT INTO Marshall (marshallID, company, description) VALUES (:marshalID, :companyName, :description)");
+
+      if($statement2->execute($args2))
+      {
+        $functionArray['error'] = '0';
+        $functionArray['message'] = 'success';
+      }
+      else {
+        $functionArray['error'] = '2';
+        $functionArray['messageDB'] = $statement2->errorInfo();
+        $functionArray['message'] = 'Second Statement did not execute';
+      }
+    }
+    else {
+      $functionArray['error'] = '3';
+      $functionArray['messageDB'] = $statement3->errorInfo();
+      $functionArray['message'] = 'Third Statement did not execute';
+    }
+
+  }
+  else
+  {
+    $functionArray['error'] = '1';
+    $functionArray['messageDB'] = $statement->errorInfo();
+    $functionArray['message'] = 'First statement did not execute';
 
     //THIS NEEDS TO BE FIXED TO DIFFERENTIATE BETWEEN EMAIL AND USERNAME
   }
@@ -1352,16 +1421,32 @@ Returns
 Complete
 */
 
-$app->post('/api/signUpUser', function() use ($dbh) {
+$app->post('/api/signUpHunter', function() use ($dbh) {
 
   $args[':username'] = $_POST['username'];
   $args[':password'] = $_POST['password'];
   $args[':email'] = strtolower($_POST['email']);
   $args[':accountType'] = strtolower($_POST['accountType']);
   $args[':paymentType'] = $_POST['paymentType'];
-  $result = signUpUser($dbh, $args);
+  $args[':name'] = $_POST['name'];
+  $result = signUpHunter($dbh, $args);
   echo json_encode($result);
 });
+
+$app->post('/api/signUpMarshal', function() use ($dbh) {
+
+  $args[':username'] = $_POST['username'];
+  $args[':password'] = $_POST['password'];
+  $args[':email'] = strtolower($_POST['email']);
+  $args[':accountType'] = strtolower($_POST['accountType']);
+  $args[':paymentType'] = $_POST['paymentType'];
+  $args[':name'] = $_POST['name'];
+  $args2[':companyName'] = $_POST['companyName'];
+  $args2[':description'] = $_POST['description'];
+  $result = signUpMarshal($dbh, $args, $args2);
+  echo json_encode($result);
+});
+
 
 /*
 Andre Gras
