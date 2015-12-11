@@ -8,8 +8,15 @@
               <form id="reportForm" data-ID={{bounty.id}} data-username={{username}}>
                 <div class="modal-body">
                   <div class="input-group input-group-Modal">
-                    <span class="input-group-addon addOnCustom">Option 1</span>
-                    <input type ="text" class="form-control modalInput" id="changePaymentOption1Form">
+                    <span class="input-group-addon addOnCustom">Payment Type</span>
+
+                    <div class="modalInput" id="changePaymentOption1Form">
+                      <select class="form-control" id="paymentType">
+                        <option style="text-align:center;">paypal</option>
+                      </select>
+                    </div>
+
+
                   </div>
                   <div class="input-group input-group-Modal">
                     <span class="input-group-addon addOnCustom">Password</span>

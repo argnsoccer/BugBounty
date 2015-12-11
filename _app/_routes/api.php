@@ -210,6 +210,7 @@ function updateUserDetails($dbh,$change,$inputs)
 						AND password = :pass");
 						if($statement->execute($args))
 						{
+							$_SESSION['userLogin'] = $inputs['username'];
 							$result['error'] = $result['error'] - 1;
 							$result['message'] = $result['message']."username change successful ";
 						}
