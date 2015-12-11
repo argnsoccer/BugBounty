@@ -145,7 +145,7 @@ function loginUser($dbh, $args) {
   {
     $function_array["error"] = '3';
     $function_array["result"] = [];
-    $function_array["message"] = 'user is already logged in';
+    $function_array["message"] = 'you are already logged in';
     return $function_array;
   }
 }
@@ -202,11 +202,12 @@ function updateUserDetails($dbh,$change,$inputs)
 				{
 					if($statement->rowCount() == 0)
 					{
+						$args[':username'] = $inputs['username'];
 						$statement = $dbh->prepare("
 						UPDATE Account
-						SET username = '".$inputs['username']."'
+						SET username = :username
 						WHERE userID = :userID
-						AND password=:pass");
+						AND password = :pass");
 						if($statement->execute($args))
 						{
 							$result['error'] = $result['error'] - 1;
@@ -215,6 +216,7 @@ function updateUserDetails($dbh,$change,$inputs)
 						else
 						{
 							$result['message'] = $result['message']."username change failed";
+							$result['messageDB'] = $statement->errorInfo();
 						}
 					}
 					else
@@ -246,6 +248,7 @@ function updateUserDetails($dbh,$change,$inputs)
 						else
 						{
 							$result['message'] = $result['message']."email change failed";
+							$result['messageDB'] = $statement->errorInfo();
 						}
 					}
 					else
@@ -270,8 +273,14 @@ function updateUserDetails($dbh,$change,$inputs)
 				else
 				{
 					$result['message'] = $result['message']."password change failed";
+					$result['messageDB'] = $statement->errorInfo();
 				}
 			}
+		}
+		else
+		{
+			$result['error'] = 7;
+			$result['message'] = "Password is incorrect";
 		}
 	}
 	return $result;
