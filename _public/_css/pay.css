@@ -1,57 +1,52 @@
-#bounty_area
-{
-    background-color: #BCBCBC;
-    border-radius: 5px;
-    -webkit-box-shadow: inset 0px 0px 13px 5px rgba(50, 50, 50, 0.9);
-    -moz-box-shadow: inset 0px 0px 13px 5px rgba(50, 50, 50, 0.9);
-    box-shadow: inset 0px 0px 13px 5px rgba(50, 50, 50, 0.9);
-
-    margin-left: 3px;
-    margin-right: 3px;
-
-    padding-left: 2px;
-    padding-top: 2px;
-    padding-right: 2px;
-
-    height: 1400px;
+.payInput {
+  width: 170px;
+  margin: 0 auto;
 }
 
-#bounty_row
-{
-    background-color: #303030;
-    border-radius: 7px;
-    -webkit-box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.64);
-    -mozilla-box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.64);
-    box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.64);
-    margin-top: 2px;
-    margin-right: 0;
-    margin-left: 0;
-    margin-bottom: 2px;
+.payAmountForm {
+  text-align: center;
 }
 
-.bounty-text-item
+.tableWrapper {
+  max-height: 500px;
+}
+
+table {
+  width: 100%;
+}
+
+.rowTable {
+  background: #f6f6f6;
+  width: 100%;
+}
+
+.rowTable:nth-of-type(odd) {
+  background: #e9e9e9;
+}
+
+.rowTable.header {
+  font-weight: 900;
+  color: #ffffff;
+  background: #59ABE3;
+}
+
+.rowTable.green {
+  background: #27ae60;
+}
+
+.rowTable.red
 {
-    color: #FAFAFA;
+    background: #ea6153;
 
 }
 
-#pay_buttons
-{
-    margin-left: 40px;
+.cell {
+  padding: 5px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  text-align: center;
 }
 
-#pay_amount
-{
-    padding-left: 20px;
-}
-
-#dollar_sign
-{
-    width: 25px;
-}
-
-
-#pay_amount_field
-{
-    width: 100px;
+.addOnCustom {
+  width: 10px !important;
 }

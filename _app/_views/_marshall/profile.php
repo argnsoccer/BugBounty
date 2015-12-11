@@ -31,28 +31,35 @@
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Username</span>
-                  <p class="form-control formControlCustom">{{user.username}}</p>
+                  <p class="form-control formControlCustom">{{user.result.username}}</p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Company Name</span>
-                  <p class="form-control formControlCustom">{{user.name}}</p>
+                  <p class="form-control formControlCustom">{{user.result.company}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="InputName"></label>
+                <div class="input-group">
+                  <span class="input-group-addon addOnCustom">Name</span>
+                  <p class="form-control formControlCustom">{{user.result.name}}</p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Email</span>
-                  <p class="form-control formControlCustom">{{user.email}}</p>
+                  <p class="form-control formControlCustom">{{user.result.email}}</p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Joined</span>
-                  <p class="form-control formControlCustom">{{user.dateJoined}}</p>
+                  <p class="form-control formControlCustom">{{user.result.dateJoined}}</p>
                 </div>
             </div>
           </form>
@@ -66,14 +73,7 @@
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Payment Type</span>
-                  <div><p class="form-control formControlCustom">{{user.paymnetType}}</p></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="InputName"></label>
-                <div class="input-group">
-                  <span class="input-group-addon addOnCustom">Money Collected</span>
-                  <p class="form-control formControlCustom">${{user.moneyCollected}}</p>
+                  <div><p class="form-control formControlCustom">{{user.result.paymentType}}</p></div>
                 </div>
             </div>
           </form>
@@ -108,7 +108,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for bounty in activeBounties.activeBounties %}
+                  {% for bounty in activeBounties.result %}
                   <tr class="rowTable">
                     <td class="cell"><a href="/_marshal/track/{{bounty.poolID}}">{{bounty.bountyName}}</td>
                     <td class="cell">{{bounty.dateEnding}}</td>
@@ -127,12 +127,12 @@
                 <thead>
                   <tr class="rowTable header">
                     <th class="cell">Bounty Name</th>
-                    <th class="cell">Date Ending</th>
+                    <th class="cell">Date Ended</th>
                     <th class="cell">Date Created</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for bounty in pastBounties.pastBounties %}
+                  {% for bounty in pastBounties.result %}
                   <tr class="rowTable">
                     <td class="cell"><a href="/_marshal/track/{{bounty.poolID}}">{{bounty.bountyName}}</td>
                     <td class="cell">{{bounty.dateEnding}}</td>

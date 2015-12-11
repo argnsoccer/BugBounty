@@ -33,3 +33,10 @@ body {
 .modal-footer {
 	height: 70px !important;
 }
+
+.messageButton, .detailsButton {
+     background:none!important;
+     border:none;
+     padding:0!important;
+     cursor: pointer;
+}
