@@ -325,8 +325,8 @@ function signUpUser($dbh, $args) {
 function getMarshalFromUsername($dbh, $args) {
   //Simple Select query which returns username, email, and type
   $statement = $dbh->prepare(
-  "SELECT Account.username, Marshall.company, Account.email, Account.accountType, Account.imageLoc, Account.dateCreated, Account.paymentType, Account.moneyCollected
-  FROM Account, Marshall WHERE Account.userID = Marshall.userID AND Account.username = :username");
+  "SELECT Account.username, Marshall.company, Marshall.description, Account.email, Account.accountType, Account.imageLoc, Account.dateCreated, Account.paymentType, Account.moneyCollected
+  FROM Account, Marshall WHERE Account.userID = Marshall.marshallID AND Account.username = :username");
 
   $functionArray = array();
   if($statement->execute($args))
@@ -338,10 +338,11 @@ function getMarshalFromUsername($dbh, $args) {
       $result['email'] = $row['email'];
       $result['proPic'] = $row['imageLoc'];
       $functionArray['error'] = '0';
-      $result['name'] = $row['name'];
       $result['dateJoined'] = substr($row['dateCreated'], 0, -9);
       $result['paymentType'] = $row['paymentType'];
       $result['moneyCollected'] = $row['moneyCollected'];
+      $result['description'] = $row['description'];
+      $result['company'] = $row['company'];
       $functionArray['result'] = $result;
       $functionArray['message'] = 'success';
     }
@@ -820,9 +821,9 @@ function getPastBounties($dbh, $args) {
   $statement = $dbh->prepare(
   "SELECT BountyPool.*,DATE(BountyPool.dateCreated) as dateCreated,DATE(BountyPool.dateEnding) as dateEnding, Marshall.company AS companyName, Account.username AS ownerUsername, FROM Marshall, BountyPool, Account
   WHERE Marshall.marshallID=BountyPool.bountyMarshallID
-  AND Marshall.marshallID=:userID
-  AND Account.userID = Marshall.userID
-  AND now() > dateEnding");
+  AND Marshall.marshallID=Account.userID
+  AND Account.username = :username
+  AND now() > BountyPool.dateEnding");
   if($statement->execute($args))
   {
     $functionArray['result'] = array();
@@ -1581,7 +1582,7 @@ complete
 */
 
 $app->get('/api/getPastBounties/', function($username) use ($dbh) {
-  $args[':userID'] = $_SESSION['userID'];
+  $args[':username'] = $username;
   echo json_encode(getPastBounties($dbh,$args));
 });
 
