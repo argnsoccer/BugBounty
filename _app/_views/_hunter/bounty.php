@@ -81,7 +81,7 @@
             <div class="col-md-12">
               <div id="boutyDescription">
                 <h3>Bounty Description</h3>
-                <p class="form-control" id="bountyDesc">{{bounty.fullDescription}}</p>
+                <p class="form-control" id="bountyDesc">{{bounty.result.fullDescription}}</p>
               </div>
             </div>
           </div>
@@ -136,14 +136,20 @@
 
       </div>
 
-    </div>
 
 {{include ('_modals/detailModal.php')}}
 {{include ('_modals/messageModal.php')}}
 {{include ('_modals/basicSeachModal.php')}}
 
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <script>
+        var submittedReports = {{ submittedReports.result|json_encode|raw }};
+        console.log(submittedReports);
+    </script>
+
     <script type="text/javascript" src="/../_javascript/_qtip/qtip.js"></script>
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
     <script type="text/javascript" src="/../_javascript/submit_report.js"></script>

@@ -179,13 +179,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <script>
-      $(document).ready(function(){
-        var submittedReports = {{ submittedReports.result }};
-
-        // alert(submittedReports);
-      });
+        var submittedReports = {{ submittedReports.result|json_encode|raw }};
+        console.log(submittedReports);
     </script>
-
+    
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
     <script type="text/javascript" src="/../_javascript/display_message.js"></script>
     <script type="text/javascript" src="/../_javascript/display_report.js"></script>
