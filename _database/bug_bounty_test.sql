@@ -288,8 +288,8 @@ CREATE TABLE IF NOT EXISTS `Subscription` (
 
 CREATE TABLE IF NOT EXISTS `Transactions` (
   `transactionID` VARCHAR(8) NOT NULL,
-  `hunterUsername` VARCHAR(20) unsigned NOT NULL,
-  `marshalUsername` VARCHAR(20) unsigned NOT NULL,
+  `hunterUsername` VARCHAR(20) NOT NULL,
+  `marshalUsername` VARCHAR(20) NOT NULL,
   `amount` int(10) NOT NULL,
   `paymentInfo` mediumtext NOT NULL,
   `reportID` int(10) unsigned NOT NULL,
@@ -301,7 +301,7 @@ CREATE TABLE IF NOT EXISTS `Transactions` (
   KEY `fk_reportID_Report` (`reportID`),
   KEY `fk_bounty_BountyPool` (`bountyID`),
   CONSTRAINT `fk_hunter_Account` FOREIGN KEY (`hunterUsername`) REFERENCES `Account` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_marshall_Marshall` FOREIGN KEY (`marshalUsername`) REFERENCES `Account` (`marshalUsername`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_marshall_Marshall` FOREIGN KEY (`marshalUsername`) REFERENCES `Account` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_reportID_Report` FOREIGN KEY (`reportID`) REFERENCES `Report` (`reportID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_bounty_BountyPool` FOREIGN KEY (`bountyID`) REFERENCES `BountyPool` (`poolID`) ON DELETE CASCADE ON UPDATE CASCADE
 
