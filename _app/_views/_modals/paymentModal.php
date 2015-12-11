@@ -11,8 +11,8 @@
                     <span class="input-group-addon addOnCustom">Payment Type</span>
 
                     <div class="modalInput" id="changePaymentOption1Form">
-                      <select class="form-control" id="paymentType">
-                        <option style="text-align:center;">paypal</option>
+                      <select class="form-control paymentOption" id="paymentType">
+                        <option value="paypal">paypal</option>
                       </select>
                     </div>
 

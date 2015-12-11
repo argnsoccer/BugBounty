@@ -1,0 +1,23 @@
+.addOnCustom {
+  width: 150px !important;
+}
+
+.formControlCustom {
+  width: 100% !important;
+}
+
+.input-group {
+  width: 100%;
+}
+
+.input-group-Modal {
+  padding: 5px;
+}
+
+.formControlCustom {
+  text-align: center;
+}
+
+.modalInput {
+  text-align: center;
+}

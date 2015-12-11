@@ -277,9 +277,6 @@ $(document).ready(function ()
       console.log(userInfo);
 
 
-
-
-
     $.ajax({
       url: '/api/signUpHunter',
       type: 'POST',

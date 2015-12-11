@@ -123,18 +123,18 @@ $(document).ready(function () {
     }
     else {
 
-
-
       $.ajax({
-        url: '/api/updateUserDetails',
+        url: '/api/updateUserDetailsHunter',
         data: userInfo,
         dataType: 'json',
         async: 'false',
         type: 'POST',
         success: function(response)
         {
+
           console.log(userInfo);
           console.log(response);
+
           $.notify({
             // options
             message: "  " + "Profile Info Updated",
@@ -154,15 +154,12 @@ $(document).ready(function () {
           $('#changePassworldNewForm').val('');
           $('#changePassworldConfirmForm').val('');
 
+          var newLink = "/_hunter/profile/" + userInfo.username;
+
           if(userInfo.username == '') {
-
-            alert("hi " + $('#usernameValue').text());
-            var newLink = "/_hunter/profile/" + $('#usernameValue').text();
-            alert(newLink);
-            window.location.href = newLink;
-
+            newLink = "/_hunter/profile/" + $('#usernameValue').text();
           }
-          var newLink = "/_hunter/profile/" + userInfo.username; 
+
           window.location.href = newLink;
 
 

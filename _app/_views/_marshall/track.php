@@ -76,15 +76,15 @@
                         <th class="cell">Date Submitted</th>
                         <th class="cell">Report Name</th>
                         <th class="cell">Details</th>
-                        <th class="cell">Pay</th>
-                        <th class="cell">       </th>
+                        <th class="cell">Amount</th>
+                        <th class="cell">Save</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {% for report in reports %}
+                      {% for report in submittedReports.result %}
                       <tr class="table-row">
-                        <td class="cell">{{report.dateCreated}}</td>
-                        <td class="cell">{{report.name}}</td>
+                        <td class="cell">{{report.dateSubmitted}}</td>
+                        <td class="cell">{{report.errorName}}</td>
                         <td class="cell">
                           <button type="button" class="detailsButton" data-toggle="modal"
                           data-target="#detailsModal" data-whatever="@getbootstrap"
@@ -104,7 +104,7 @@
                         </button>-->
                         </td>
                         <td class="cell">
-                            <input class="btn btn-success" type="submit" value="Pay" name="submit" />
+                            <input class="btn btn-success" type="submit" value="Save" name="submit" />
                         </td>
                       </tr>
                       {% endfor %}

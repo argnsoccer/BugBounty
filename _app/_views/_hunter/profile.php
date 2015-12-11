@@ -7,13 +7,18 @@
       <link rel="stylesheet" type="text/css" href="/../_css/default.css">
       <link rel="stylesheet" type="text/css" href="/../_css/hunter-profile.css" />
 
+      <link rel="stylesheet" type="text/css" href="/../_css/_modal/default_modal.css" />
+      <link rel="stylesheet" type="text/css" href="/../_css/_modal/display_details_modal.css" />
+      <link rel="stylesheet" type="text/css" href="/../_css/_modal/payment_modal.css" />
+      <link rel="stylesheet" type="text/css" href="/../_css/_modal/profile_modal.css" />
+      <link rel="stylesheet" type="text/css" href="/../_css/_modal/message_modal.css" />
+
       {{include ('bootstrap_header.php')}}
   </head>
   <body>
 
       {{include ('header_hunter.php')}}
-    <div class="container-fluid">
-      <div class="row">
+      <div class="row mainRow">
         <div class="col-md-2">
           <div id="picture_upload">
             <input type="image" id="profile_picture" src="{{user.result.proPic}}" alt="Profile Picture" class="hunterBackground"/>
@@ -26,7 +31,7 @@
             data-target="#profileChangeModal" data-whatever="@getbootstrap">
                   Edit
           </button>
-          <form id="profileUpdateForm" method="post">
+          <form class="profileUpdateForm" method="post">
             <div class="form-group">
                 <label for="InputName"></label>
                 <div class="input-group">
@@ -61,7 +66,7 @@
             data-target="#paymentChangeModal" data-whatever="@getbootstrap">
                   Edit
           </button>
-           <form id="profileUpdateForm" method="post">
+           <form class="profileUpdateForm" method="post">
             <div class="form-group">
                 <label for="InputName"></label>
                 <div class="input-group">
@@ -173,7 +178,6 @@
 {{include ('_modals/messageModal.php')}}
 {{include ('_modals/basicSeachModal.php')}}
 
-    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 

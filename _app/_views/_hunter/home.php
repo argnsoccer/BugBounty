@@ -7,13 +7,15 @@
       <link rel="stylesheet" type="text/css" href="/../_css/default.css">
       <link rel="stylesheet" type="text/css" href="/../_css/hunter-home.css">
 
+      <link rel="stylesheet" type="text/css" href="/../_css/_modal/default_modal.css">
+      <link rel="stylesheet" type="text/css" href="/../_css/_modal/basic_search_modal.css">
+
       {{include ('bootstrap_header.php')}}
   </head>
   <body>
     {{ include ('header_hunter.php') }}
 
-    <div class="container-fluid">
-      <div class="row">
+      <div class="row mainRow">
 
         <div class="col-md-7">
           <div class="box">
@@ -161,7 +163,7 @@
 
       </div>
 
-      <div class="row">
+      <div class="row mainRow">
 
         <div class="col-md-5">
           <h3>Newsfeed</h3>
@@ -251,7 +253,6 @@
           </div>
         </div>
       </div>
-    </div>
 
 {{include ('_modals/basicSeachModal.php')}}
 

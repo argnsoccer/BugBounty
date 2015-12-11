@@ -50,3 +50,149 @@ table {
 .addOnCustom {
   width: 10px !important;
 }
+
+
+
+/*--------------------------------------*/
+
+#optionContainer {
+
+}
+
+ul#nav {
+    border: 1px solid #454545;
+    display: block;
+/*    height: 400px;*/
+    margin: 0;
+    padding: 15px;
+    padding-bottom: 40px;
+    width: 100%;
+
+    -moz-border-radius: 9px;
+    -ms-border-radius: 9px;
+    -webkit-border-radius: 9px;
+    -o-border-radius: 9px;
+    border-radius: 9px;
+
+    background: -moz-linear-gradient(#f1f7ff, #d9e1ec);
+    background: -ms-linear-gradient(#f1f7ff, #d9e1ec);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f1f7ff), color-stop(100%, #d9e1ec));
+    background: -webkit-linear-gradient(#f1f7ff, #d9e1ec);
+    background: -o-linear-gradient(#f1f7ff, #d9e1ec);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f7ff', endColorstr='#d9e1ec');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f7ff', endColorstr='#d9e1ec')";
+    background: linear-gradient(#f1f7ff, #d9e1ec);
+}
+
+@-moz-keyframes custom_effect {
+    0% {
+        background:rgba(255, 255, 255, 0.0);
+        height: 60px;
+    }
+    33% {
+        background:rgba(255, 255, 255, 0.0);
+        height: 160px;
+    }
+    66% {
+        background:rgba(255, 255, 255, 1.0);
+    }
+    100% {
+        background:rgba(190, 220, 255, 0.8);
+        height: 135px;
+    }
+}
+@-webkit-keyframes custom_effect {
+    0% {
+        background:rgba(255, 255, 255, 0.0);
+        height: 60px;
+    }
+    33% {
+        background:rgba(255, 255, 255, 0.0);
+        height: 160px;
+    }
+    66% {
+        background:rgba(255, 255, 255, 1.0);
+    }
+    100% {
+        background:rgba(190, 220, 255, 0.8);
+        height: 135px;
+    }
+}
+ul#nav li {
+    -moz-border-radius: 9px;
+    -ms-border-radius: 9px;
+    -webkit-border-radius: 9px;
+    -o-border-radius: 9px;
+    border-radius: 9px;
+
+    background-color:transparent;
+    border: 1px solid #454545;
+    display: block;
+    height: 60px;
+    line-height: 30px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+ul#nav li:hover {
+    -moz-animation-name: custom_effect;
+    -moz-animation-duration: 0.4s;
+    -moz-animation-timing-function: ease;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-direction: normal;
+    -moz-animation-delay: 0;
+    -moz-animation-play-state: running;
+    -moz-animation-fill-mode: forwards;
+
+    -webkit-animation-name: custom_effect;
+    -webkit-animation-duration: 0.4s;
+    -webkit-animation-timing-function: ease;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-direction: normal;
+    -webkit-animation-delay: 0;
+    -webkit-animation-play-state: running;
+    -webkit-animation-fill-mode: forwards;
+
+    background:rgba(190, 220, 255, 0.8);
+
+    height: 300px;
+}
+ul#nav p {
+    border-style: none;
+    display: block;
+    border-width: 0;
+    color: #181818;
+    cursor: pointer;
+    float: left;
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 100px;
+    padding-left: 18px;
+    text-align: left;
+    text-decoration: none;
+    text-shadow: 0 1px 1px #FFFFFF;
+    vertical-align: middle;
+
+    -moz-transition: all 0.1s 0.4s;
+    -ms-transition: all 0.1s 0.4s;
+    -o-transition: all 0.1s 0.4s;
+    -webkit-transition: all 0.1s 0.4s;
+    transition: all 0.1s 0.4s;
+}
+ul#nav p:hover {
+    text-decoration: underline;
+}
+ul#nav li p:first-child {
+    display: block;
+    float: none;
+    margin-top: 0;
+}
+ul#nav li:hover p:first-child {
+}
+
+ul#nav li:hover p {
+    margin-top: 0;
+}
+
+.inputBounty {
+  margin-left: 10px;
+}

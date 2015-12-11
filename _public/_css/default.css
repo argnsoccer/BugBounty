@@ -21,6 +21,11 @@ body {
 	padding: 0px !important;
 }
 
+.mainRow {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
 .tableWrapper {
   margin-bottom: 40px;
   width: 100%;
@@ -30,8 +35,35 @@ body {
 /*  YOU NEED TO SET THE HEIGHT*/
 }
 
-.modal-footer {
-	height: 70px !important;
+.rowTable {
+  height: 45px;
+  background: #f6f6f6;
+  width: 100%;
+}
+
+.rowTable:nth-of-type(odd) {
+  background: #e9e9e9;
+}
+
+.rowTable.header {
+  font-weight: 900;
+  color: #ffffff;
+  background: #ea6153;
+}
+
+.rowTable.green {
+  background: #27ae60;
+}
+
+.rowTable.blue {
+  background: #2980b9;
+}
+
+.cell {
+  padding: 5px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  text-align: center;
 }
 
 .messageButton, .detailsButton {
@@ -39,4 +71,8 @@ body {
      border:none;
      padding:0!important;
      cursor: pointer;
+}
+
+.form-group {
+  margin-bottom: 0px !important;
 }

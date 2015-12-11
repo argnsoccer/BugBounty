@@ -188,13 +188,13 @@ function updateUserDetails($dbh,$change,$inputs)
 	SELECT * FROM Account
 	WHERE userID = :userID
 	AND password = :pass");
+	$result['error'] = "00000000";
 	if($statement->execute($args))
 	{
 		if($statement->rowCount() == 1)
 		{
 			if($change[0])
 			{
-				$result['error'] = $result['error'] + 1;
 				$statement = $dbh->prepare("
 				SELECT * FROM Account
 				WHERE username = '".$inputs['username']."'");
@@ -216,12 +216,15 @@ function updateUserDetails($dbh,$change,$inputs)
 						}
 						else
 						{
-							$result['message'] = $result['message']."username change failed";
+							$result['error'][0] = '1';
+							$result['message'] = $result['message']."username change failed ";
 							$result['messageDB'] = $statement->errorInfo();
 						}
 					}
 					else
 					{
+						$result['error'][0] = '1';
+						$result['error'][1] = '1';
 						$result['message'] = $result['message']."new username is taken ";
 					}
 				}
@@ -248,12 +251,15 @@ function updateUserDetails($dbh,$change,$inputs)
 						}
 						else
 						{
-							$result['message'] = $result['message']."email change failed";
+							$result['error'][2] = '1';
+							$result['message'] = $result['message']."email change failed ";
 							$result['messageDB'] = $statement->errorInfo();
 						}
 					}
 					else
 					{
+						$result['error'][2] = '1';
+						$result['error'][3] = '1';
 						$result['message'] = $result['message']."new email is taken ";
 					}
 				}
@@ -273,7 +279,8 @@ function updateUserDetails($dbh,$change,$inputs)
 				}
 				else
 				{
-					$result['message'] = $result['message']."password change failed";
+					$result['error'][4] = '1';
+					$result['message'] = $result['message']."password change failed ";
 					$result['messageDB'] = $statement->errorInfo();
 				}
 			}
@@ -287,10 +294,11 @@ function updateUserDetails($dbh,$change,$inputs)
 				if($statement->execute($args))
 				{
 					$result['error'] = $result['error'] - 1;
-					$result['message'] = $result['message']."company name change successful ";
+					$result['message'] = $result['message']."company name change successful";
 				}
 				else
 				{
+					$result['error'][5] = '1';
 					$result['message'] = $result['message']."company name change failed";
 					$result['messageDB'] = $statement->errorInfo();
 				}
@@ -298,9 +306,15 @@ function updateUserDetails($dbh,$change,$inputs)
 		}
 		else
 		{
-			$result['error'] = 7;
+			$result['error'][6] = "1";
 			$result['message'] = "Password is incorrect";
 		}
+	}
+	else
+	{
+		$result['error'][7] = '1';
+		$result['message'] = "password check statement failed";
+		$result['messageDB'] = $statement->errorInfo();
 	}
 	return $result;
 }
@@ -1078,7 +1092,7 @@ function getReportsFromMarshal($dbh,$args)
 {
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT Report.*, DATE(Report.datePaid) as datePaid, DATE(Report.dateSubmitted) as dateSubmitted FROM Report, Account, Marshall, BountyPool
+  "SELECT Report.*, BountyPool.bountyName, DATE(Report.datePaid) as datePaid, DATE(Report.dateSubmitted) as dateSubmitted FROM Report, Account, Marshall, BountyPool
   WHERE Report.bountyID = BountyPool.poolID
   AND BountyPool.bountyMarshallID = Marshall.marshallID
   AND Marshall.marshallID = Account.userID
@@ -1974,7 +1988,15 @@ Codes:
 4: username and password
 5: email and password
 6: username and email and password
-Errors: Number is equal to number of failed changes
+Errors: Code is in the format "xxxxxxxx" where each x can be either 0 or 1, and the position is increasing left to right ie "[0][1][2][3][4][5][6][7]"
+[0] : username change not completed
+[1] : new username is taken
+[2] : email change not completed
+[3] : new email is taken
+[4] : password change not completed
+[5] : not relevant
+[6] : old password is incorrect
+[7] : password check statement failed
 Message: This will explain the source of the failed changes
 */
 $app->post('/api/updateUserDetailsHunter',function() use($dbh)
@@ -2019,7 +2041,15 @@ Codes:
 12: username and password and company
 13: email and password and company
 14: username and email and password and company
-Errors: Number is equal to number of failed changes
+Errors: Code is in the format "xxxxxxxx" where each x can be either 0 or 1, and the position is increasing left to right ie "[0][1][2][3][4][5][6][7]"
+[0] : username change not completed
+[1] : new username is taken
+[2] : email change not completed
+[3] : new email is taken
+[4] : password change not completed
+[5] : company change not completed
+[6] : old password is incorrect
+[7] : password check statement failed
 Message: This will explain the source of the failed changes
 */
 $app->post('/api/updateUserDetailsMarshall',function() use($dbh)

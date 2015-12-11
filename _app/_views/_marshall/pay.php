@@ -14,9 +14,33 @@
 
     {{include ('header_marshall.php')}}
 
-    <div class="row">
+    <div class="row mainRow">
       <div class="col-md-2">
-        <h3>Options</h3>
+        <h3 class="text-center">Options</h3>
+        <div id="options">
+
+
+ <div id="container">
+
+            <ul id="nav">
+                <li>
+                    <p>Options</p>
+                    <p>Paid Reports<input type="radio" name="bountyOption" value="paid"></p>
+                    <p>Unpaid Reports<input type="radio" name="bountyOption" value="unpaid"></p>
+                    <p>Active Bounties<input type="radio" name="bountyOption" value="acticve"></p>
+                    <p>Past Bounties<input type="radio" name="bountyOption" value=""></p>
+                </li>
+                <li>
+                    <p>Bounties</p>
+                    {% for bounty in bounties %}
+                    <p>{{bounty}}<input class="inputBounty" type="radio" name="bountyOption" value={{bounty}}></p>
+                    {% endfor %}
+                </li>
+              <button class="btn btn-default pull-right">Update</button>
+            </ul>
+</div>
+
+        </div>
       </div>
       <div class="col-md-10">
         <h3>Submitted Reports</h3>
@@ -25,6 +49,7 @@
             <thead>
               <tr class="rowTable header">
                 <th class="cell">Date Submitted</th>
+                <th class="cell">Bounty Name</th>
                 <th class="cell">Report Name</th>
                 <th class="cell">Details</th>
                 <th class="cell">Message</th>
@@ -36,6 +61,7 @@
               {% for report in submittedReports.result %}
               <tr class="rowTable">
                 <td class="cell">{{report.dateSubmitted}}</td>
+                <td class="cell">{{report.bountyName}}</td>
                 <td class="cell">{{report.errorName}}</td>
                 <td class="cell">
                   <button type="button" class="displayDetailsModal detailsButton" data-toggle="modal"
@@ -45,11 +71,19 @@
                   </button>
                 </td>
                 <td class="cell">
+                  {% if report.paid == 0 %}
                   <button type="button" class="messageButton" data-toggle="modal"
-                      data-target="#messageModal" data-whatever="@getbootstrap"
-                      data-ID={{report.reportID}}>
+                    data-target="#editMessageModal" data-whatever="@getbootstrap"
+                    data-ID={{report.reportID}}>
                     Edit
                   </button>
+                  {% else %}
+                  <button type="button" class="messageButton" data-toggle="modal"
+                    data-target="#messageModal" data-whatever="@getbootstrap"
+                    data-ID={{report.reportID}}>
+                    View
+                  </button>
+                  {% endif %}
                 </td>
                 <td class="cell">
                   <div class="input-group payInput">
@@ -90,6 +124,7 @@
 {{include ('_modals/displayDetailsModal.php')}}
 {{include ('_modals/payModal.php')}}
 {{include ('_modals/editMessageModal.php')}}
+{{include ('_modals/messageModal.php')}}
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -101,6 +136,7 @@
     
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
     <script type="text/javascript" src="/_javascript/pay_report.js"></script>
+    <script type="text/javascript" src="/_javascript/pay_options.js"></script>
     <script type="text/javascript" src="/_javascript/logout.js"></script>
     {{include ('bootstrap_footer.php')}}
 
