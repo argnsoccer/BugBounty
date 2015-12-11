@@ -277,6 +277,24 @@ function updateUserDetails($dbh,$change,$inputs)
 					$result['messageDB'] = $statement->errorInfo();
 				}
 			}
+			if($change[3])
+			{
+				$result['error'] = $result['error'] + 1;
+				$statement = $dbh->prepare("
+				UPDATE Marshall
+				SET company = '".$inputs['companyName']."'
+				WHERE marshallID = :userID");
+				if($statement->execute($args))
+				{
+					$result['error'] = $result['error'] - 1;
+					$result['message'] = $result['message']."company name change successful ";
+				}
+				else
+				{
+					$result['message'] = $result['message']."company name change failed";
+					$result['messageDB'] = $statement->errorInfo();
+				}
+			}
 		}
 		else
 		{
@@ -1920,13 +1938,14 @@ Codes:
 Errors: Number is equal to number of failed changes
 Message: This will explain the source of the failed changes
 */
-$app->post('/api/updateUserDetails',function() use($dbh)
+$app->post('/api/updateUserDetailsHunter',function() use($dbh)
 {
 	$changeVal = $_POST['changeCode'];
 	$change = array();
 	$change[0] = false;
 	$change[1] = false;
 	$change[2] = false;
+	$change[3] = false;
 	if($changeVal == 0 | $changeVal == 3 | $changeVal == 4 | $changeVal == 6)
 	{
 		$change[0] = true;//username
@@ -1938,6 +1957,55 @@ $app->post('/api/updateUserDetails',function() use($dbh)
 	if($changeVal == 2 | $changeVal == 4 | $changeVal == 5 | $changeVal == 6)
 	{
 		$change[2] = true;//password
+	}
+	echo json_encode(updateUserDetails($dbh,$change,$_POST));
+});
+/*
+Michael Gilbert
+Updates a marshall's account info
+Change code specifies which info is being changed
+Codes:
+0: username
+1: email
+2: password
+3: company
+4: username and email
+5: username and password
+6: username and company
+7: email and password
+8: email and company
+9: password and company
+10: username and email and password
+11: username and email and company
+12: username and password and company
+13: email and password and company
+14: username and email and password and company
+Errors: Number is equal to number of failed changes
+Message: This will explain the source of the failed changes
+*/
+$app->post('/api/updateUserDetailsMarshall',function() use($dbh)
+{
+	$changeVal = $_POST['changeCode'];
+	$change = array();
+	$change[0] = false;
+	$change[1] = false;
+	$change[2] = false;
+	$change[3] = false;
+	if($changeVal == 0 | $changeVal == 4 | $changeVal == 5 | $changeVal == 6 | $changeVal == 10 | $changeVal == 11 | $changeVal == 12 | $changeVal == 14)
+	{
+		$change[0] = true;//username
+	}
+	if($changeVal == 1 | $changeVal == 4 | $changeVal == 7 | $changeVal == 8 | $changeVal == 10 | $changeVal == 11 | $changeVal == 13 | $changeVal == 14)
+	{
+		$change[1] = true;//email
+	}
+	if($changeVal == 2 | $changeVal == 5 | $changeVal == 7 | $changeVal == 9 | $changeVal == 10 | $changeVal == 12 | $changeVal == 13 | $changeVal == 14)
+	{
+		$change[2] = true;//password
+	}
+	if($changeVal == 3 | $changeVal == 6 | $changeVal == 8 | $changeVal == 9 | $changeVal == 11 | $changeVal == 12 | $changeVal == 13 | $changeVal == 14)
+	{
+		$change[3] = true;//company
 	}
 	echo json_encode(updateUserDetails($dbh,$change,$_POST));
 });
