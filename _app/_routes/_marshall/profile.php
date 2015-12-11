@@ -11,34 +11,24 @@ function prepareMarshallProfile($dbh, $username)
 	// 	3) username
 	// 	4) all bounties currently active for user
 	// 	5) all bounties that have expired
+	//call for current bounties in database
+	//call for past bounties in database
+	//call for profile picture
 
-	if ($username === $_SESSION['userLogin']
-		&& $_SESSION['userType'] === 'marshall')
-	{
-		//call for current bounties in database
-		//call for past bounties in database
-		//call for profile picture
+	$template_array["error"] = 0; //for time being
+	$args[':username'] = $username;
+	$template_array['user'] = getMarshalFromUsername($dbh, $args);
+	$template_array['activeBounties'] = getActiveBounties($dbh, $args);
+	$template_array['pastBounties'] = getPastBounties($dbh, $args);
 
-		$template_array["error"] = 0; //for time being
-		$args[':username'] = $username;
-		$template_array['user'] = getUserFromUsername($dbh, $args);
-		$template_array['activeBounties'] = getActiveBounties($dbh, $args);
+	$template_array['user']['numActive'] = 
+		sizeof($template_array['activeBounties']['result']);
 
-		$template_array['user']['numActive'] = 
-			sizeof($template_array['activeBounties']['activeBounties']);
+	$template_array['user']['numTotal'] = 
+		sizeof($template_array['activeBounties']['result']) +
+		sizeof($template_array['pastBounties']['result']);
 
-		$template_array['user']['numTotal'] = 
-			sizeof($template_array['activeBounties']['activeBounties']) +
-			sizeof($template_array['pastBounties']['pastBounties']);
-
-		$template_array['pastBounties'] = getPastBounties($dbh, $args);
-
-		return $template_array;
-	}
-	else
-	{
-
-	}
+	return $template_array;
 }
 
 $app->get('/_marshall/profile', function() use ($app) {

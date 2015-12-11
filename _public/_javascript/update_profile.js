@@ -154,9 +154,16 @@ $(document).ready(function () {
           $('#changePassworldNewForm').val('');
           $('#changePassworldConfirmForm').val('');
 
+          if(userInfo.username == '') {
 
+            alert("hi " + $('#usernameValue').text());
+            var newLink = "/_hunter/profile/" + $('#usernameValue').text();
+            alert(newLink);
+            window.location.href = newLink;
+
+          }
           var newLink = "/_hunter/profile/" + userInfo.username; 
-          // window.location.href = newLink;
+          window.location.href = newLink;
 
 
         },

@@ -31,7 +31,7 @@
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Username</span>
-                  <p class="form-control formControlCustom">{{user.result.username}}</p>
+                  <p class="form-control formControlCustom" id="usernameValue">{{user.result.username}}</p>
                 </div>
             </div>
             <div class="form-group">
