@@ -6,6 +6,9 @@
     <link rel="stylesheet" type="text/css" href="/../_css/header.css">
     <link rel="stylesheet" type="text/css" href="/../_css/default.css">
     <link rel="stylesheet" type="text/css" href="/../_css/pay.css">
+    <link rel="stylesheet" type="text/css" href="/../_css/options_dropdown.css">
+
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 
       {{include ('bootstrap_header.php')}}
@@ -16,29 +19,55 @@
 
     <div class="row mainRow">
       <div class="col-md-2">
-        <h3 class="text-center">Options</h3>
+        <h3 class="text-center">Table Options</h3>
         <div id="options">
 
 
- <div id="container">
 
-            <ul id="nav">
-                <li>
-                    <p>Options</p>
-                    <p>Paid Reports<input type="radio" name="bountyOption" value="paid"></p>
-                    <p>Unpaid Reports<input type="radio" name="bountyOption" value="unpaid"></p>
-                    <p>Active Bounties<input type="radio" name="bountyOption" value="acticve"></p>
-                    <p>Past Bounties<input type="radio" name="bountyOption" value=""></p>
-                </li>
-                <li>
-                    <p>Bounties</p>
-                    {% for bounty in bounties %}
-                    <p>{{bounty}}<input class="inputBounty" type="radio" name="bountyOption" value={{bounty}}></p>
-                    {% endfor %}
-                </li>
-              <button class="btn btn-default pull-right">Update</button>
-            </ul>
-</div>
+
+
+<form id="optionForm">
+  <ul id="accordion" class="accordion">
+    <li>
+      <div class="link">Options<i class="fa fa-chevron-down"></i></div>
+      <ul class="submenu">
+        <li><p>UnPaid Reports<input type="radio" class="pull-right checkOption"></p></li>
+        <li><p>Paid Reports<input type="radio" class="pull-right checkOption"></p></li>
+        <li><p>Active Bounties<input type="radio" class="pull-right checkOption"></p></li>
+        <li><p>Past Bounties<input type="radio" class="pull-right checkOption"></p></li>
+      </ul>
+    </li>
+    <li>
+      <div class="link">Bounties<i class="fa fa-chevron-down"></i></div>
+      <ul class="submenu">
+        {% for bounty in bounties %}
+        <li><p>{{bounty}}<input type="radio" class="pull-right checkOption"></p></li>
+        {% endfor %}
+      </ul>
+    </li>
+    <li>
+      <div class="link">Messages<i class="fa fa-chevron-down"></i></div>
+      <ul class="submenu">
+        <li><p>No Message<input type="radio" class="pull-right checkOption"></p></li>
+      </ul>
+    </li>
+  </ul>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         </div>
       </div>
@@ -136,6 +165,9 @@
     
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
     <script type="text/javascript" src="/_javascript/pay_report.js"></script>
+
+    <script type="text/javascript" src="/_javascript/options_dropdown.js"></script>
+
     <script type="text/javascript" src="/_javascript/pay_options.js"></script>
     <script type="text/javascript" src="/_javascript/logout.js"></script>
     {{include ('bootstrap_footer.php')}}
