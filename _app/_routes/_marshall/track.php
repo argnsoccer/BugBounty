@@ -8,10 +8,11 @@ function prepareTrackPage($dbh, $bountyID)
 	$template_array['company'] = $company;
 	$args[':bountyID'] = $bountyID;
 	$template_array['bounty'] = getBountyFromBountyID($dbh, $args);
+	$template_array['submittedReports'] = getReportsFromBountyID($dbh, $args);
 	//$template_array['reports'] = getReportsFromBountyID($dbh, $args);
 
 	//Test reports
-	$template_array['reports'] = array(
+	/*$template_array['reports'] = array(
 		array(
 			'dateCreated' => '2015-10-29',
 			'name' => 'Tupac the Eskimo'
@@ -32,7 +33,7 @@ function prepareTrackPage($dbh, $bountyID)
 			'dateCreated' => '2015-10-29',
 			'name' => 'Tupac the Eskimo'
 		)
-	);
+	);*/
 
 	$template_array['numReports'] = sizeof($template_array['reports']);
 
