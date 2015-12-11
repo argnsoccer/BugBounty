@@ -19,6 +19,27 @@
         <h3 class="text-center">Options</h3>
         <div id="options">
 
+
+ <div id="container">
+
+            <ul id="nav">
+                <li>
+                    <p>Options</p>
+                    <p>Paid Reports<input type="radio" name="bountyOption" value="paid"></p>
+                    <p>Unpaid Reports<input type="radio" name="bountyOption" value="unpaid"></p>
+                    <p>Active Bounties<input type="radio" name="bountyOption" value="acticve"></p>
+                    <p>Past Bounties<input type="radio" name="bountyOption" value=""></p>
+                </li>
+                <li>
+                    <p>Bounties</p>
+                    {% for bounty in bounties %}
+                    <p>{{bounty}}<input class="inputBounty" type="radio" name="bountyOption" value={{bounty}}></p>
+                    {% endfor %}
+                </li>
+              <button class="btn btn-default pull-right">Update</button>
+            </ul>
+</div>
+
         </div>
       </div>
       <div class="col-md-10">
@@ -28,6 +49,7 @@
             <thead>
               <tr class="rowTable header">
                 <th class="cell">Date Submitted</th>
+                <th class="cell">Bounty Name</th>
                 <th class="cell">Report Name</th>
                 <th class="cell">Details</th>
                 <th class="cell">Message</th>
@@ -39,6 +61,7 @@
               {% for report in submittedReports.result %}
               <tr class="rowTable">
                 <td class="cell">{{report.dateSubmitted}}</td>
+                <td class="cell">{{report.bountyName}}</td>
                 <td class="cell">{{report.errorName}}</td>
                 <td class="cell">
                   <button type="button" class="displayDetailsModal detailsButton" data-toggle="modal"
@@ -113,6 +136,7 @@
     
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
     <script type="text/javascript" src="/_javascript/pay_report.js"></script>
+    <script type="text/javascript" src="/_javascript/pay_options.js"></script>
     <script type="text/javascript" src="/_javascript/logout.js"></script>
     {{include ('bootstrap_footer.php')}}
 

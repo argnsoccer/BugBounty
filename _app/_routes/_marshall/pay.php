@@ -12,6 +12,16 @@ function preparePayPage($dbh) {
 
 	$template_array['submittedReports'] = getReportsFromMarshal($dbh, $args);
 
+	$template_array['bounties'] = [];
+
+
+	foreach ($template_array['submittedReports']['result'] as $report) {
+
+		if(!in_array($report['bountyName'], $template_array['bounties'] )) {
+			array_push($template_array['bounties'], $report['bountyName']);
+		}
+	}
+
 	return $template_array;
 }
 	//for the Pay Page
