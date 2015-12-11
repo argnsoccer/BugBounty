@@ -259,7 +259,7 @@ function updateUserDetails($dbh,$change,$inputs)
 				$result['error'] = $result['error'] + 1;
 				$statement = $dbh->prepare("
 				UPDATE Account
-				SET password = '".$inputs['new_password']."'
+				SET password = '".$inputs['newPassword']."'
 				WHERE userID = :userID
 				AND password=:pass");
 				if($statement->execute($args))
