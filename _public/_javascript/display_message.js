@@ -3,7 +3,7 @@ $(document).ready(function () {
 
 	$(".messageButton").click(function() { 
 
-	  var reportID = $(this).attr("data-ID");
+		var reportID = $(this).attr("data-ID");
 
 	   // $('#messageReport').val();
 

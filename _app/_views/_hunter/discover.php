@@ -32,16 +32,16 @@
                     data-cycle-center-horz=true
                     data-cycle-center-vert=true>
                       <div class="bounty">
-                        <img class="img-circle" src={{preferredBounties[0].imageLoc}}>
-                        <h3 class="bountyName"><a href="/_hunter/bounty/{{preferredBounties[0].poolID}}">{{preferredBounties[0].bountyName}}</a></h3>
+                        <img class="img-circle" src={{preferredBounties.result.bounties[0].imageLoc}}>
+                        <h3 class="bountyName"><a href="/_hunter/bounty/{{preferredBounties.result.bounties[0].poolID}}">{{preferredBounties.result.bounties.result.bounties[0].bountyName}}</a></h3>
                       </div>
                       <div class="bounty">
-                        <img class="img-circle" src={{preferredBounties[1].imageLoc}}>
-                        <h3 class="bountyName"><a href="/_hunter/bounty/{{preferredBounties[1].poolID}}">{{preferredBounties[1].bountyName}}</a></h3>
+                        <img class="img-circle" src={{preferredBounties.result.bounties[1].imageLoc}}>
+                        <h3 class="bountyName"><a href="/_hunter/bounty/{{preferredBounties.result.bounties[1].poolID}}">{{preferredBounties.result.bounties[1].bountyName}}</a></h3>
                       </div>
                       <div class="bounty">
-                        <img class="img-circle" src={{preferredBounties[2].imageLoc}}>
-                        <h3 class="bountyName"><a href="/_hunter/bounty/{{preferredBounties[2].poolID}}">{{preferredBounties[2].bountyName}}</a></h3>
+                        <img class="img-circle" src={{preferredBounties.result.bounties[2].imageLoc}}>
+                        <h3 class="bountyName"><a href="/_hunter/bounty/{{preferredBounties.result.bounties[2].poolID}}">{{preferredBounties.result.bounties[2].bountyName}}</a></h3>
                       </div>
                     </div>
 
@@ -52,9 +52,9 @@
                     data-cycle-slides="> h3"
                     data-cycle-center-horz=true
                     data-cycle-center-vert=true>
-                        <h3 class="bountyDescription">{{preferredBounties[0].lineDescription}}</h3>
-                        <h3 class="bountyDescription">{{preferredBounties[1].lineDescription}}</h3>
-                        <h3 class="bountyDescription">{{preferredBounties[2].lineDescription}}</h3>
+                        <h3 class="bountyDescription">{{preferredBounties.result.bounties[0].lineDescription}}</h3>
+                        <h3 class="bountyDescription">{{preferredBounties.result.bounties[1].lineDescription}}</h3>
+                        <h3 class="bountyDescription">{{preferredBounties.result.bounties[2].lineDescription}}</h3>
                     </div>
                   </div>
 
@@ -67,16 +67,16 @@
                     data-cycle-center-horz=true
                     data-cycle-center-vert=true>
                       <div class="bounty">
-                        <img class="img-circle" src={{preferredBounties[3].imageLoc}}>
-                        <h3 class="bountyName"><a href="/_hunter/bounty/{{preferredBounties[3].poolID}}">{{preferredBounties[3].bountyName}}</a></h3>
+                        <img class="img-circle" src={{preferredBounties.result.bounties[3].imageLoc}}>
+                        <h3 class="bountyName"><a href="/_hunter/bounty/{{preferredBounties.result.bounties[3].poolID}}">{{preferredBounties.result.bounties[3].bountyName}}</a></h3>
                       </div>
                       <div class="bounty">
-                        <img class="img-circle" src={{preferredBounties[4].imageLoc}}>
-                        <h3 class="bountyName"><a href="/_hunter/bounty/{{preferredBounties[4].poolID}}">{{preferredBounties[4].bountyName}}</a></h3>
+                        <img class="img-circle" src={{preferredBounties.result.bounties[4].imageLoc}}>
+                        <h3 class="bountyName"><a href="/_hunter/bounty/{{preferredBounties.result.bounties[4].poolID}}">{{preferredBounties.result.bounties[4].bountyName}}</a></h3>
                       </div>
                       <div class="bounty">
-                        <img class="img-circle" src={{preferredBounties[5].imageLoc}}>
-                        <h3 class="bountyName"><a href="/_hunter/bounty/{{preferredBounties[5].poolID}}">{{preferredBounties[5].bountyName}}</a></h3>
+                        <img class="img-circle" src={{preferredBounties.result.bounties[5].imageLoc}}>
+                        <h3 class="bountyName"><a href="/_hunter/bounty/{{preferredBounties.result.bounties[5].poolID}}">{{preferredBounties.result.bounties[5].bountyName}}</a></h3>
                       </div>
                     </div>
 
@@ -87,9 +87,9 @@
                     data-cycle-slides="> h3"
                     data-cycle-center-horz=true
                     data-cycle-center-vert=true>
-                        <h3 class="bountyDescription">{{preferredBounties[3].lineDescription}}</h3>
-                        <h3 class="bountyDescription">{{preferredBounties[4].lineDescription}}</h3>
-                        <h3 class="bountyDescription">{{preferredBounties[5].lineDescription}}</h3>
+                        <h3 class="bountyDescription">{{preferredBounties.result.bounties[3].lineDescription}}</h3>
+                        <h3 class="bountyDescription">{{preferredBounties.result.bounties[4].lineDescription}}</h3>
+                        <h3 class="bountyDescription">{{preferredBounties.result.bounties[5].lineDescription}}</h3>
                     </div>
                   </div>
 
@@ -102,16 +102,16 @@
                     data-cycle-center-horz=true
                     data-cycle-center-vert=true>
                       <div class="bounty">
-                        <img class="img-circle" src={{preferredBounties[6].imageLoc}}>
-                        <h3 class="bountyName"><a href="/_hunter/bounty/{{preferredBounties[6].poolID}}">{{preferredBounties[6].bountyName}}</a></h3>
+                        <img class="img-circle" src={{preferredBounties.result.bounties[6].imageLoc}}>
+                        <h3 class="bountyName"><a href="/_hunter/bounty/{{preferredBounties.result.bounties[6].poolID}}">{{preferredBounties.result.bounties[6].bountyName}}</a></h3>
                       </div>
                       <div class="bounty">
-                        <img class="img-circle" src={{preferredBounties[7].imageLoc}}>
-                        <h3 class="bountyName"><a href="/_hunter/bounty/{{preferredBounties[7].poolID}}">{{preferredBounties[7].bountyName}}</a></h3>
+                        <img class="img-circle" src={{preferredBounties.result.bounties[7].imageLoc}}>
+                        <h3 class="bountyName"><a href="/_hunter/bounty/{{preferredBounties.result.bounties[7].poolID}}">{{preferredBounties.result.bounties[7].bountyName}}</a></h3>
                       </div>
                       <div class="bounty">
-                        <img class="img-circle" src={{preferredBounties[8].imageLoc}}>
-                        <h3 class="bountyName"><a href="/_hunter/bounty/{{preferredBounties[8].poolID}}">{{preferredBounties[8].bountyName}}</a></h3>
+                        <img class="img-circle" src={{preferredBounties.result.bounties[8].imageLoc}}>
+                        <h3 class="bountyName"><a href="/_hunter/bounty/{{preferredBounties.result.bounties[8].poolID}}">{{preferredBounties.result.bounties[8].bountyName}}</a></h3>
                       </div>
                     </div>
 
@@ -122,9 +122,9 @@
                     data-cycle-slides="> h3"
                     data-cycle-center-horz=true
                     data-cycle-center-vert=true>
-                        <h3 class="bountyDescription">{{preferredBounties[6].lineDescription}}</h3>
-                        <h3 class="bountyDescription">{{preferredBounties[7].lineDescription}}</h3>
-                        <h3 class="bountyDescription">{{preferredBounties[8].lineDescription}}</h3>
+                        <h3 class="bountyDescription">{{preferredBounties.result.bounties[6].lineDescription}}</h3>
+                        <h3 class="bountyDescription">{{preferredBounties.result.bounties[7].lineDescription}}</h3>
+                        <h3 class="bountyDescription">{{preferredBounties.result.bounties[8].lineDescription}}</h3>
                     </div>
                   </div>
       </div>
@@ -225,8 +225,6 @@
                       <tr class="rowTable header">
                       <th class="cell">Bounty Name</th>
                       <th class="cell">Company Name</th>
-                      <th class="cell">Last Activity</th>
-                      <th class="cell">Pending Reports</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -234,8 +232,6 @@
                       <tr class="rowTable">
                         <td class="cell"><a href="/_hunter/bounty/{{bounty.company}}/{{bounty.id}}">{{bounty.name}}</a></td>
                         <td class="cell"><a href="/_hunter/company/{{bounty.company}}">{{bounty.company}}</a></td>
-                        <td class="cell">{{bounty.date}}</td>
-                        <td class="cell">{{bounty.number}}</td>
                       </tr>
                       {% endfor %}
                     </tbody>
@@ -276,23 +272,20 @@
 
     </div>
 
-
-{{include ('_modals/detailModal.php')}}
-{{include ('_modals/messageModal.php')}}
 {{include ('_modals/basicSeachModal.php')}}
 
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type="text/javascript" src="/../_javascript/_jquery/cycle.js"></script>
-    <script type="text/javascript" src="/../_javascript/logout.js"></script>
-    <script type="text/javascript" src="/../_javascript/search_basic.js"></script>
 
     <script>
       function closeWall() {
         $('#bountyBoard').hide();
         $('#closeButton').hide();
-    }
+      }
     </script> 
+
+    <script type="text/javascript" src="/../_javascript/_jquery/cycle.js"></script>
+    <script type="text/javascript" src="/../_javascript/logout.js"></script>
+    <script type="text/javascript" src="/../_javascript/search_basic.js"></script>
 
     {{include ('bootstrap_footer.php')}}
   </body>
