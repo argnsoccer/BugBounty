@@ -236,6 +236,9 @@
                       {% endfor %}
                     </tbody>
                   </table>
+                  {% if (recommendedBounties is not defined) or (recommendedBounties|length == 0) %}
+                  <p id="noBountiesMessage">There are no recommended bounties :(</p>
+                  {% endif %}
                 </div>
                 <p > Much like the search... a recommendation engine was not build do to the scope of this class</p>
               </div>
@@ -250,10 +253,27 @@
         <div class="row">
           <div class="col-lg-12" class="bottomBox">
             <h3>Recently Posted Bounties</h3>
-            <p>dfsklajlkshdjkhgsflkdhgkljdfhgkjldhkjfshdakljfhksajdfhkjlasdhksadhkjfhsadkjlfhs
-              sdkjfhskldjhfkjlshadkjfhsakljdfhslkdjfhkldjsahfsklajhfkjlsadhfkjasdhfklsajdhfklj
-              sfdjklhkjlsadhlkjsadhfkjlsadhkjflhskdljahfkjlashkjlfhdsalkjhfkjlsadhkjfdsjaljfhl
-            </p>
+                <div class="tableWrapper">
+                  <table>
+                    <thead>
+                      <tr class="rowTable header">
+                      <th class="cell">Bounty Name</th>
+                      <th class="cell">Company Name</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for bounty in recentBounties %}
+                      <tr class="rowTable">
+                        <td class="cell"><a href="/_hunter/bounty/{{bounty.company}}/{{bounty.id}}">{{bounty.name}}</a></td>
+                        <td class="cell"><a href="/_hunter/company/{{bounty.company}}">{{bounty.company}}</a></td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  {% if (recentBounties is not defined) or (recentBounties|length == 0) %}
+                  <p id="noBountiesMessage">There are no recent bounties :(</p>
+                  {% endif %}
+                </div>
           </div>
         </div>
       </div>
@@ -262,7 +282,7 @@
         <div class="row">
           <div class="col-lg-12" class="bottomBox">
             <h3>How to Find Bounties</h3>
-            <p>dfsklajlkshdjkhgsflkdhgkljdfhgkjldhkjfshdakljfhksajdfhkjlasdhksadhkjfhsadkjlfhs
+            <p >dfsklajlkshdjkhgsflkdhgkljdfhgkjldhkjfshdakljfhksajdfhkjlasdhksadhkjfhsadkjlfhs
               sdkjfhskldjhfkjlshadkjfhsakljdfhslkdjfhkldjsahfsklajhfkjlsadhfkjasdhfklsajdhfklj
               sfdjklhkjlsadhlkjsadhfkjlsadhkjflhskdljahfkjlashkjlfhdsalkjhfkjlsadhkjfdsjaljfhl
             </p>
