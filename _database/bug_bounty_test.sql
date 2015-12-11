@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `BountyPool` (
   UNIQUE KEY `poolID_UNIQUE` (`poolID`),
   UNIQUE INDEX `bountyName_UNIQUE` (`bountyName` ASC)  COMMENT '',
   KEY `fk_BountyPool_Marshall1` (`bountyMarshallID`),
-  CONSTRAINT `fk_BountyPool_Marshall1` FOREIGN KEY (`bountyMarshallID`) REFERENCES `Marshall` (`marshallID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_BountyPool_Marshall1` FOREIGN KEY (`bountyMarshallID`) REFERENCES `Marshall` (`marshallID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `Marshall` (
   `company` varchar(25) NOT NULL,
   PRIMARY KEY (`marshallID`),
   UNIQUE KEY `userID_UNIQUE` (`marshallID`),
-  CONSTRAINT `fk_Sheriff_Account` FOREIGN KEY (`marshallID`) REFERENCES `Account` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Sheriff_Account` FOREIGN KEY (`marshallID`) REFERENCES `Account` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -153,9 +153,9 @@ CREATE TABLE IF NOT EXISTS `Message` (
   UNIQUE KEY `recipient_UNIQUE` (`recipient`),
   UNIQUE KEY `sender_UNIQUE` (`sender`),
   UNIQUE KEY `bountyID_UNIQUE` (`bountyID`),
-  CONSTRAINT `fk_Message_Account1` FOREIGN KEY (`sender`) REFERENCES `Account` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Message_Account2` FOREIGN KEY (`recipient`) REFERENCES `Account` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Message_BountyPool1` FOREIGN KEY (`bountyID`) REFERENCES `BountyPool` (`poolID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Message_Account1` FOREIGN KEY (`sender`) REFERENCES `Account` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_Message_Account2` FOREIGN KEY (`recipient`) REFERENCES `Account` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_Message_BountyPool1` FOREIGN KEY (`bountyID`) REFERENCES `BountyPool` (`poolID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -177,7 +177,7 @@ CREATE TABLE IF NOT EXISTS`PreferredBounties` (
   `bountyID` int(10) unsigned NOT NULL,
   PRIMARY KEY (`bountyID`),
   UNIQUE KEY `bountyID_UNIQUE` (`bountyID`),
-  CONSTRAINT `fk_PreferredBounties_BountyPool1` FOREIGN KEY (`bountyID`) REFERENCES `BountyPool` (`poolID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_PreferredBounties_BountyPool1` FOREIGN KEY (`bountyID`) REFERENCES `BountyPool` (`poolID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -214,8 +214,8 @@ CREATE TABLE IF NOT EXISTS `Report` (
   UNIQUE KEY `reportID_UNIQUE` (`reportID`),
   KEY `fk_Report_BountyPool2` (`bountyID`),
   KEY `fk_Report_Account1` (`username`),
-  CONSTRAINT `fk_Report_Account1` FOREIGN KEY (`username`) REFERENCES `Account` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Report_BountyPool2` FOREIGN KEY (`bountyID`) REFERENCES `BountyPool` (`poolID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Report_Account1` FOREIGN KEY (`username`) REFERENCES `Account` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_Report_BountyPool2` FOREIGN KEY (`bountyID`) REFERENCES `BountyPool` (`poolID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -280,7 +280,7 @@ CREATE TABLE IF NOT EXISTS `Subscription` (
   `rssLink` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`subscriptionID`),
   UNIQUE KEY `subscriptionID_UNIQUE` (`subscriptionID`),
-  CONSTRAINT `fk_subscription_account` FOREIGN KEY (`userID`) REFERENCES `Account` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_subscription_account` FOREIGN KEY (`userID`) REFERENCES `Account` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -299,10 +299,10 @@ CREATE TABLE IF NOT EXISTS `Transactions` (
   KEY `fk_marshall_Marshall` (`marshallID`),
   KEY `fk_reportID_Report` (`reportID`),
   KEY `fk_bounty_BountyPool` (`bountyID`),
-  CONSTRAINT `fk_hunter_Account` FOREIGN KEY (`hunterID`) REFERENCES `Account` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_marshall_Marshall` FOREIGN KEY (`marshallID`) REFERENCES `Marshall` (`marshallID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_reportID_Report` FOREIGN KEY (`reportID`) REFERENCES `Report` (`reportID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_bounty_BountyPool` FOREIGN KEY (`bountyID`) REFERENCES `BountyPool` (`poolID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_hunter_Account` FOREIGN KEY (`hunterID`) REFERENCES `Account` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_marshall_Marshall` FOREIGN KEY (`marshallID`) REFERENCES `Marshall` (`marshallID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_reportID_Report` FOREIGN KEY (`reportID`) REFERENCES `Report` (`reportID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_bounty_BountyPool` FOREIGN KEY (`bountyID`) REFERENCES `BountyPool` (`poolID`) ON DELETE CASCADE ON UPDATE CASCADE
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
