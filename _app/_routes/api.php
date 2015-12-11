@@ -422,7 +422,7 @@ function signUpMarshal($dbh, $args, $args2) {
 function getMarshalFromUsername($dbh, $args) {
   //Simple Select query which returns username, email, and type
   $statement = $dbh->prepare(
-  "SELECT Account.username, Marshall.company, Marshall.description, Account.email, Account.accountType, Account.imageLoc, Account.dateCreated, Account.paymentType, Account.moneyCollected
+  "SELECT Account.username, Account.name, Marshall.company, Marshall.description, Account.email, Account.accountType, Account.imageLoc, Account.dateCreated, Account.paymentType, Account.moneyCollected
   FROM Account, Marshall WHERE Account.userID = Marshall.marshallID AND Account.username = :username");
 
   $functionArray = array();
@@ -440,6 +440,7 @@ function getMarshalFromUsername($dbh, $args) {
       $result['moneyCollected'] = $row['moneyCollected'];
       $result['description'] = $row['description'];
       $result['company'] = $row['company'];
+      $result['name'] = $row['name'];
       $functionArray['result'] = $result;
       $functionArray['message'] = 'success';
     }
@@ -1073,6 +1074,38 @@ function getBountiesFromUsername($dbh,$args)
   return $functionArray;
 }
 
+function getReportsFromMarshal($dbh,$args)
+{
+  $functionArray = array();
+  $statement = $dbh->prepare(
+  "SELECT Report.*, DATE(Report.datePaid) as datePaid, DATE(Report.dateSubmitted) as dateSubmitted FROM Report, Account, Marshall, BountyPool
+  WHERE Report.bountyID = BountyPool.poolID
+  AND BountyPool.bountyMarshallID = Marshall.marshallID
+  AND Marshall.marshallID = Account.userID
+  AND Account.username = :username");
+
+  $functionArray['result'] = array();
+  if($statement->execute($args))
+  {
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+    {
+      array_push($functionArray['result'], $row);
+    }
+
+    $functionArray['error'] = '0';
+    $functionArray['message'] = 'success';
+  }
+  else
+  {
+    $functionArray['error'] = '1';
+    $functionArray['messageDB'] = $sth->errorInfo();
+    $functionArray['message'] = 'Statement not executed';
+
+  }
+  return $functionArray;
+
+}
+
 function createRSS($dbh, $args) {
 
   $file_path = $args['link']."/rss_".$args['username'].".xml";
@@ -1477,6 +1510,8 @@ $app->post('/api/signUpMarshal', function() use ($dbh) {
 });
 
 
+
+
 /*
 Andre Gras
 Get the basics of a user from username
@@ -1595,7 +1630,7 @@ $app->post('/api/createReport', function() use ($dbh) {
 $app->post('/api/updateReport', function() use ($dbh) {
 
   $args[':reportID'] = $_POST['reportID'];
-  //$args[':payAmount'] = $_POST['payAmount']; //pay amount of 0 clearly means the bounty was not accepted
+  $args[':paidAmount'] = $_POST['paidAmount']; //pay amount of 0 clearly means the bounty was not accepted
   $args[':username'] = $_POST['username'];
   $args[':message'] = $_POST['message'];
 
@@ -1828,7 +1863,7 @@ $app->post('/api/payReport', function() use ($dbh){
   {
     $message = 'This report has been paid to ANONYMOOSE';
     $smt = $dbh->prepare(
-    "UPDATE Report SET paidAmount=:amount, datePaid=now(), message=:message WHERE reportID = :reportID");
+    "UPDATE Report SET paidAmount=:amount, datePaid=now(), message=:message, paid=true WHERE reportID = :reportID");
 
     $reportID=$args[":reportID"];
     $smt->bindParam(":reportID", $reportID);
@@ -2040,6 +2075,12 @@ $app->get('/api/getBountiesFromUsernameRecentReports/:username', function($usern
   $args[':username'] = $username;
   echo json_encode(getBountiesFromUsernameRecentReports($dbh,$args));
 
+});
+
+$app->get('/api/getReportsFromMarshal/:username', function($username) use($dbh)
+{
+  $args[':username'] = $username;
+  echo json_encode(getReportsFromMarshal($dbh,$args));
 });
 
 $app->get('/api/getBountiesFromUsername/:username', function($username) use($dbh)
