@@ -1082,7 +1082,8 @@ function getReportsFromMarshal($dbh,$args)
   WHERE Report.bountyID = BountyPool.poolID
   AND BountyPool.bountyMarshallID = Marshall.marshallID
   AND Marshall.marshallID = Account.userID
-  AND Account.username = :username");
+  AND Account.username = :username
+  ORDER BY dateSubmitted ASC");
 
   $functionArray['result'] = array();
   if($statement->execute($args))
