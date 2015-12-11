@@ -1834,7 +1834,8 @@ $app->get('/api/getClientToken', function() use ($dbh){
   $clientToken = Braintree_ClientToken::generate([
     "customerId" => $aCustomerId
   ]);
-  echo($clientToken);
+
+  echo json_encode($clientToken);
 });
 
 //Andre Gras
