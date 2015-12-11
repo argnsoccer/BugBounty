@@ -13,7 +13,7 @@ function prepareCompanyProfilePage($dbh, $companyUsername) {
 
 	$args[':username'] = $companyUsername;
 
-	$template_array['company'] = getUserFromUsername($dbh, $args);
+	$template_array['company'] = getMarshalFromUsername($dbh, $args);
 
 	if ($template_array['company']['error'] == 2) {
 		return $template_array;
@@ -25,10 +25,10 @@ function prepareCompanyProfilePage($dbh, $companyUsername) {
 
 	$template_array['company']['inactive'] = getPastBounties($dbh, $args);
 
-	$template_array['company']['numActive'] = sizeof($template_array['company']['active'])-2;
+	$template_array['company']['numActive'] = sizeof($template_array['company']['active']['result']);
 
-	$template_array['company']['numBounties'] = (sizeof($template_array['company']['active'])-2) + 
-		(sizeof($template_array['company']['inactive'])-2);
+	$template_array['company']['numBounties'] = $template_array['company']['numActive'] + 
+		(sizeof($template_array['company']['inactive']['result']));
 
 	return $template_array;
 }
@@ -47,7 +47,7 @@ $app->get('/_hunter/company/:companyName', function($companyUsername) use ($app,
 	else {
 		$app->render('_hunter/company.php', $template_array);
 
-		// echo print_r($template_array);
+		echo print_r($template_array);
 	}
 
 });
