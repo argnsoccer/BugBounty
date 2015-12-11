@@ -16,7 +16,7 @@
       <div class="row">
         <div class="col-md-2">
           <div id="picture_upload">
-            <input type="image" id="profile_picture" src="{{user.proPic}}" alt="Profile Picture" class="hunterBackground"/>
+            <input type="image" id="profile_picture" src="{{user.result.proPic}}" alt="Profile Picture" class="hunterBackground"/>
           </div>
         </div>
 

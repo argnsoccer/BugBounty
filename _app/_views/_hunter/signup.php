@@ -40,6 +40,14 @@
             <input type="email" id="signUpEmail" class="form-control" placeholder="Email address">
             <input type="password" id="signUpPassword" class="form-control" placeholder="Choose a Password">
             <input type="password" id="signUpConfirmPassword" class="form-control" placeholder="Confirm your Password">
+
+            <div class="form-group" id="signUpPaymentType" hidden>
+              <select class="form-control" id="paymentType">
+                <option>paypal</option>
+              </select>
+            </div>
+
+
             <button class="btn btn-lg btn-primary btn-block" id="submitSignUp" type="submit">Continue</button>
             <a href="/_marshal/signup">Not a Hunter?</a>
           </form>
