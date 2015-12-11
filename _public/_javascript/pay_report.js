@@ -96,12 +96,7 @@ $(document).ready(function () {
         	console.log(response);
       }
     });
-<<<<<<< HEAD
 
 	});
 
 });
-=======
-	});
-});
->>>>>>> c2c0dec8669b17e10aa56df68c7b5a7393aba0d2
