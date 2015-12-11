@@ -1853,10 +1853,20 @@ $app->post('/api/payReport', function() use ($dbh){
     'paymentMethodNonce' => $nonce,
   ]);
 
+  $functionArray['args'] = array();
   $args[':transactionID'] = $sale->transaction->id;
+  $functionArray['args']['transactionID'] = $args[':transactionID'];
   $args[':amount'] = $amount;
+  $functionArray['args']['amount'] = $args[':amount'];
   $args2[':amount'] = $amount;
   $args[':paymentInfo'] = $sale->transaction->creditCardDetails;
+  $functionArray['args']['paymentInfo'] = $args[':paymentInfo'];
+  $functionArray['args']['paymentMethodNonce'] = $nonce;
+  $functionArray['args']['reportID'] = $args[':reportID'];
+  $functionArray['args']['bountyID'] = $args[':bountyID'];
+  $functionArray['args']['hunterUsername'] = $args[':hunterUsername'];
+  $functionArray['args']['marhalUsernme'] = $args[':marshalUsername'];
+  
   $functionArray['result']['sale'] = $sale;
   $statement = $dbh->prepare(
   "INSERT INTO Transactions (transactionID, hunterUsername, marshalUsername, amount, paymentInfo, reportID, bountyID)
