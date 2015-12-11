@@ -1841,11 +1841,11 @@ $app->get('/api/getClientToken', function() use ($dbh){
 //Andre Gras
 $app->post('/api/payReport', function() use ($dbh){
   $functionArray = array();
-  $nonce = $_POST['payment_method_nonce'];
+  $nonce = $_POST['paymentMethodNonce'];
   $amount = $_POST['amount'];
-  $args[":hunterID"] = $_POST['hunterID'];
-  $args2[':hunterID'] = $_POST['hunterID'];
-  $args[":marshallID"] = $_POST['marshallID'];
+  $args[":hunterUsername"] = $_POST['hunterUsername'];
+  $args2[':hunterUsername'] = $_POST['hunterUsername'];
+  $args[":marshalUsername"] = $_SESSION['userLogin'];
   $args[":reportID"] = $_POST['reportID'];
   $args[":bountyID"] = $_POST['bountyID'];
   $sale = Braintree_Transaction::sale([
@@ -1858,8 +1858,8 @@ $app->post('/api/payReport', function() use ($dbh){
   $args[':paymentInfo'] = $sale->transaction->creditCardDetails;
   $functionArray['result']['sale'] = $sale;
   $statement = $dbh->prepare(
-  "INSERT INTO Transactions (transactionID, hunterID, marshallID, amount, paymentInfo, reportID, bountyID)
-  VALUES (:transactionID,:hunterID,:marshallID, :amount, :paymentInfo, :reportID, :bountyID)");
+  "INSERT INTO Transactions (transactionID, hunterUsername, marshalUsername, amount, paymentInfo, reportID, bountyID)
+  VALUES (:transactionID, :hunterUsername, :marshalUsername, :amount, :paymentInfo, :reportID, :bountyID)");
 
   if($statement->execute($args))
   {
@@ -1874,7 +1874,7 @@ $app->post('/api/payReport', function() use ($dbh){
     if($smt->execute())
     {
       $smt2 = $dbh->prepare(
-      "UPDATE Account SET moneyCollected=moneyCollected+:amount WHERE userID = :hunterID");
+      "UPDATE Account SET moneyCollected=moneyCollected+:amount WHERE username = :hunterUsername");
 
       if($smt2->execute($args2))
       {
