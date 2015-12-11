@@ -19,11 +19,11 @@
                   <tbody id="basicSearchBody">
                   </tbody>
                 </table>
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" id="submitReportForm">Advanced Search</button>
-                </div>
               </div>
             </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" id="submitReportForm">Advanced Search</button>
           </div>
         </div>
       </div>

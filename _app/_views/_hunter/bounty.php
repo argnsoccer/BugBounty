@@ -7,14 +7,17 @@
       <link rel="stylesheet" type="text/css" href="/../_css/default.css">
       <link rel="stylesheet" type="text/css" href="/../_css/bounty.css" />
 
+      <link rel="stylesheet" type="text/css" href="/../_css/_modal/default_modal.css" />
+      <link rel="stylesheet" type="text/css" href="/../_css/_modal/display_details_modal.css" />
+      <link rel="stylesheet" type="text/css" href="/../_css/_modal/message_modal.css" />
+
       {{include ('bootstrap_header.php')}}
   </head>
   <body>
 
       {{include ('header_hunter.php')}}
 
-    <div class="container-fluid">
-      <div class="row">
+      <div class="row mainRow">
 
         <div class="col-md-7">
           <div class="row innerRow">
@@ -141,8 +144,6 @@
 {{include ('_modals/displayDetailsModal.php')}}
 {{include ('_modals/messageModal.php')}}
 {{include ('_modals/basicSeachModal.php')}}
-
-    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 

@@ -40,7 +40,7 @@ $app->get('/_hunter/profile/:username', function($username) use ($app, $dbh) {
 	$template_array = prepareHunterProfile($dbh, $username);
 
 	$app->render('_hunter/profile.php', $template_array);
-	echo print_r($template_array);
+	// echo print_r($template_array);
 
 	// if (isset($_SESSION['userLogin'])
 	// 	&& isset($template_array['error'])

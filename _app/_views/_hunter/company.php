@@ -13,8 +13,7 @@
 
       {{include ('header_hunter.php')}}
 
-    <div class="container-fluid">
-      <div class="row">
+      <div class="row mainRow">
 
         <div class="col-md-7">
           <div class="row innerRow">
@@ -108,7 +107,6 @@
         </div>
 
       </div>
-    </div>
 
 {{include ('_modals/basicSeachModal.php')}}
 
