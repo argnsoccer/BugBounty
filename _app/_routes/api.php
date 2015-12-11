@@ -1349,12 +1349,13 @@ $app->get('/api/usernameTaken/:username', function($username) use ($dbh) {
     $row = $statement->fetch(PDO::FETCH_ASSOC);
     if (isset($row['username'])) {
       $functionArray['result']['taken'] = '1';
-      $functionArray['error'] = '0';
+      $functionArray['error'] = '2';
+      $functionArray['message'] = 'Username taken';
     }
     else {
       $functionArray['result']['taken'] = '0';
-      $functionArray['error'] = '2';
-      $functionArray['message'] = 'Username not set';
+      $functionArray['error'] = '0';
+      $functionArray['message'] = 'Username not taken';
     }
   }
   else {
