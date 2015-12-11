@@ -403,7 +403,7 @@ function signUpMarshal($dbh, $args, $args2) {
 function getMarshalFromUsername($dbh, $args) {
   //Simple Select query which returns username, email, and type
   $statement = $dbh->prepare(
-  "SELECT Account.username, Marshall.company, Marshall.description, Account.email, Account.accountType, Account.imageLoc, Account.dateCreated, Account.paymentType, Account.moneyCollected
+  "SELECT Account.username, Account.name, Marshall.company, Marshall.description, Account.email, Account.accountType, Account.imageLoc, Account.dateCreated, Account.paymentType, Account.moneyCollected
   FROM Account, Marshall WHERE Account.userID = Marshall.marshallID AND Account.username = :username");
 
   $functionArray = array();
