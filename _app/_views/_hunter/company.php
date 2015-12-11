@@ -29,7 +29,7 @@
               <div class="row innerRow">
                 <div class="col-md-12">
                   <div id="bountyButtons">
-                    <button class="btn btn-default btn-sm center-block buttonCustom" text-center>Subscribe</button>
+                    <button class="btn btn-default btn-sm center-block buttonCustom" title="Subscribe to Company RSS" text-center>Subscribe</button>
                   </div>
                 </div>
               </div>
