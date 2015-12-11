@@ -22,8 +22,8 @@
             <div class="col-sm-5">
               <div class="row innerRow picRow">
                 <div class="col-md-12">
-                  <input type="image" id="bountyPicture" src="{{company.proPic}}" 
-                    alt="Bounty Picture" class="marshalBackground"/>
+                  <input type="image" id="bountyPicture" src="{{company.result.proPic}}" 
+                    alt="Company Picture" class="marshalBackground"/>
                 </div>
               </div>
               <div class="row innerRow">
@@ -42,14 +42,14 @@
                     <label for="InputName"></label>
                     <div class="input-group">
                       <span class="input-group-addon addOnCustom">Company Name</span>
-                      <p class="form-control formControlCustom">{{company.name}}</p>
+                      <p class="form-control formControlCustom">{{company.result.company}}</p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="InputName"></label>
                     <div class="input-group">
                       <span class="input-group-addon addOnCustom">Date Joined</span>
-                      <p class="form-control formControlCustom">{{company.dateJoined}}</p>
+                      <p class="form-control formControlCustom">{{company.result.dateJoined}}</p>
                     </div>
                 </div>
                 <div class="form-group">
@@ -76,7 +76,7 @@
             <div class="col-md-12">
               <div id="boutyDescription">
                 <h3>Company Description</h3>
-                <p class="form-control" id="companyDesc">{{company.fullDescription}}</p>
+                <p class="form-control" id="companyDesc">{{company.result.description}}</p>
               </div>
             </div>
           </div>
@@ -95,10 +95,10 @@
                 </tr>
               </thead>
               <tbody>
-                {% for bounty in company.active.activeBounties %}
+                {% for bounty in company.active.result %}
                 <tr class="rowTable">
                   <td class="cell">{{bounty.dateCreated}}</td>
-                  <td class="cell"><a href="/_hunter/bounty/{{company.name}}/{{bounty.poolID}}">{{bounty.bountyName}}</a></td>
+                  <td class="cell"><a href="/_hunter/bounty/{{bounty.poolID}}">{{bounty.bountyName}}</a></td>
                   <td class="cell">{{bounty.dateEnding}}</td>
                 </tr> 
                 {% endfor %}
