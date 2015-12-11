@@ -71,9 +71,9 @@ $(document).ready(function () {
     userInfo["newPassword"] = $("#changePasswordNewForm").val();
     userInfo["confirmPassword"] = $("#changePasswordConfirmForm").val();
 
-    var code = checkUpdate(userInfo);
+    userInfo.changeCode = checkUpdate(userInfo);
 
-    if (code == -2) {
+    if (userInfo.changeCode == -2) {
 
       $('#changePassworldOldForm').val('');
       $('#changePasswordNewForm').val('');
@@ -81,7 +81,7 @@ $(document).ready(function () {
 
       $.notify({
         // options
-        message: "  " + "Please include your password!",
+        message: "  " + "Please include your old password!",
         icon: 'glyphicon glyphicon-alert'
         },{
         // settings
@@ -97,7 +97,7 @@ $(document).ready(function () {
 
       return false;
     }
-    else if (code == -1) {
+    else if (userInfo.changeCode == -1) {
 
       $('#changePassworldOldForm').val('');
       $('#changePasswordNewForm').val('');
@@ -122,6 +122,66 @@ $(document).ready(function () {
       return false;
     }
     else {
+
+
+
+      $.ajax({
+        url: '/api/updateUserDetails',
+        data: userInfo,
+        dataType: 'json',
+        async: 'false',
+        type: 'POST',
+        success: function(response)
+        {
+          console.log(userInfo);
+          console.log(response);
+          $.notify({
+            // options
+            message: "  " + "Profile Info Updated",
+            icon: 'glyphicon glyphicon-ok'
+            },{
+            // settings
+            type: 'success',
+            placement: {
+              from: "top",
+              align: "right",
+              allow_dismiss: true,
+            }
+          });
+          $('#changeUsernameForm').val('');
+          $('#changeEmailForm').val('');
+          $('#changePassworldOldForm').val('');
+          $('#changePassworldNewForm').val('');
+          $('#changePassworldConfirmForm').val('');
+
+
+          var newLink = "/_hunter/profile/" + userInfo.username; 
+          // window.location.href = newLink;
+
+
+        },
+        error: function(xhr, status, error)
+        {
+        var err = eval("(" + xhr.responseText + ")");
+        //alert("Please Try Again, we had an internal error!");
+        $.notify({
+            // options
+            message: "  " + err + " \nsomething went wrong, please try again",
+            icon: 'glyphicon glyphicon-remove-circle'
+            },{
+            // settings
+            type: 'danger',
+            placement: {
+              from: "top",
+              align: "right",
+              allow_dismiss: true,
+            }
+          });
+        }
+      });
+
+
+
 
       $('#profileChangeModal').modal('hide');
       
