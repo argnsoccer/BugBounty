@@ -422,6 +422,7 @@ function getMarshalFromUsername($dbh, $args) {
       $result['moneyCollected'] = $row['moneyCollected'];
       $result['description'] = $row['description'];
       $result['company'] = $row['company'];
+      $result['name'] = $row['name'];
       $functionArray['result'] = $result;
       $functionArray['message'] = 'success';
     }
