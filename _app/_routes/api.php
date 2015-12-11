@@ -880,8 +880,9 @@ function getBountiesFromUsernameRecentReports($dbh,$args)
 {
   $functionArray = array();
   $statement = $dbh->prepare(
-  "SELECT BountyPool.*,DATE(BountyPool.dateCreated) as dateCreated,DATE(BountyPool.dateEnding) as dateEnding,Marshall.company FROM Marshall, BountyPool, Report
+  "SELECT BountyPool.*,DATE(BountyPool.dateCreated) as dateCreated,DATE(BountyPool.dateEnding) as dateEnding, Marshall.company AS companyName, Account.username AS companyUsername FROM Marshall, BountyPool, Report, Account
   WHERE Marshall.marshallID = BountyPool.bountyMarshallID
+  AND Marhsall.marshallID = Account.userID
   AND BountyPool.poolID=Report.bountyID
   AND Report.username = :username
   ORDER BY Report.dateSubmitted DESC LIMIT 4"
