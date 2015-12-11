@@ -324,7 +324,7 @@ function signUpHunter($dbh, $args) {
 
 function signUpMarshal($dbh, $args, $args2) {
   $username = $args[':username'];
-  $args[":imageLoc"] = "/_images/_profiles/_".$username;
+  $args[":imageLoc"] = "/_images/_profiles/_".$username.'/profile.png';
   if(!mkdir("_images/_profiles/_".$username, true))
   {
     echo(die('Failed to create profile picture directory'));
