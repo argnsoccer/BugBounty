@@ -110,9 +110,6 @@
       </div>
     </div>
 
-
-{{include ('_modals/detailModal.php')}}
-{{include ('_modals/messageModal.php')}}
 {{include ('_modals/basicSeachModal.php')}}
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

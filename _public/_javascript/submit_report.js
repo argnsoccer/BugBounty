@@ -104,7 +104,7 @@ $(document).ready(function () {
         $("#errorPathForm").val('');
         $("#errorLinkForm").val('');
 
-        $('#reportModal').modal('hide');
+        $('#submitReportModal').modal('hide');
       },
       error: function(xhr, status, error)
       {

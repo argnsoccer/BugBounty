@@ -253,8 +253,6 @@
       </div>
     </div>
 
-{{include ('_modals/detailModal.php')}}
-{{include ('_modals/messageModal.php')}}
 {{include ('_modals/basicSeachModal.php')}}
 
 

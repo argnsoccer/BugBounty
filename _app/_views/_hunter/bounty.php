@@ -30,7 +30,7 @@
                 <div class="col-md-12">
                   <div id="bountyButtons">
                     <button class="btn btn-success btn-lg buttonCustom center-block" type="button" data-toggle="modal" 
-                      data-target="#reportModal" data-whatever="@getbootstrap">
+                      data-target="#submitReportModal" data-whatever="@getbootstrap">
                       Submit Report
                     </button>
                     <a class="btn btn-default btn-md buttonCustom center-block" href="{{bounty.result.bountyLink}}" target="_blank">Track Bounty</a>
@@ -115,7 +115,7 @@
                   {% endif %}
                   <td class="cell">
                     <button type="button" class="detailsButton" data-toggle="modal" 
-                    data-target="#detailsModal" data-whatever="@getbootstrap" 
+                    data-target="#displayDetailsModal" data-whatever="@getbootstrap" 
                     data-ID={{report.reportID}}>
                       View
                     </button>
@@ -137,7 +137,8 @@
       </div>
 
 
-{{include ('_modals/detailModal.php')}}
+{{include ('_modals/submitReportModal.php')}}
+{{include ('_modals/displayDetailsModal.php')}}
 {{include ('_modals/messageModal.php')}}
 {{include ('_modals/basicSeachModal.php')}}
 
@@ -147,7 +148,6 @@
 
     <script>
         var submittedReports = {{ submittedReports.result|json_encode|raw }};
-        console.log(submittedReports);
     </script>
 
     <script type="text/javascript" src="/../_javascript/_qtip/qtip.js"></script>

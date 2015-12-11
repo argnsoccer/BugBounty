@@ -29,3 +29,7 @@ body {
   overflow-y: scroll;
 /*  YOU NEED TO SET THE HEIGHT*/
 }
+
+.modal-footer {
+	height: 70px !important;
+}

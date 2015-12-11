@@ -2,39 +2,28 @@ $(document).ready(function () {
 
 	$(".detailsButton").click(function() { 
 
-	var reportID = $(this).attr("data-ID");
+	   // $('#messageReport').val();
 
-	var reportURL = '/api/getReportFromReportID/' + reportID;
+	   var name;
+	   var description;
+	   var path;
+	   var link;
 
-	$.ajax({
-	  url: reportURL,
-	  dataType: 'json',
-	  type: 'GET',
-	  success: function(response)
+	  for (var i = 0; i < submittedReports.length; ++i)
 	  {
-	    $('#errorReport').val(response.report.errorName);
-	    $('#descErrorReport').val(response.report.description);
-	    $('#pathErrorReport').val(response.report.pathToError);
-	  },
-	  error: function(xhr, status, error)
-	  {
-	  var err = eval("(" + xhr.responseText + ")");
-	  //alert("Please Try Again, we had an internal error!");
-	  $.notify({
-	      // options
-	      message: "  " + err + " \nsomething went wrong, please try again",
-	      icon: 'glyphicon glyphicon-remove-circle'
-	      },{
-	      // settings
-	      type: 'danger',
-	      placement: {
-	        from: "top",
-	        align: "right",
-	        allow_dismiss: true,
-	      }
-	    });
+	  	if (submittedReports[i].reportID == $(this).attr('data-ID')){
+	  		name = submittedReports[i].errorName;
+	  		description = submittedReports[i].description;
+	  		path = submittedReports[i].pathToError;
+	  		link = submittedReports[i].link;
+	  	}
 	  }
-	});
+
+	  $('#errorNameDisplay').val(name);
+	  $('#errorDescriptionDisplay').val(description);
+	  $('#errorPathDisplay').val(path);
+	  $('#errorLinkDisplay').val(link);
+
 	});
 
 });
