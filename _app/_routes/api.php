@@ -1578,7 +1578,7 @@ $app->post('/api/createReport', function() use ($dbh) {
 $app->post('/api/updateReport', function() use ($dbh) {
 
   $args[':reportID'] = $_POST['reportID'];
-  //$args[':payAmount'] = $_POST['payAmount']; //pay amount of 0 clearly means the bounty was not accepted
+  $args[':paidAmount'] = $_POST['paidAmount']; //pay amount of 0 clearly means the bounty was not accepted
   $args[':username'] = $_POST['username'];
   $args[':message'] = $_POST['message'];
 
@@ -1811,7 +1811,7 @@ $app->post('/api/payReport', function() use ($dbh){
   {
     $message = 'This report has been paid to ANONYMOOSE';
     $smt = $dbh->prepare(
-    "UPDATE Report SET paidAmount=:amount, datePaid=now(), message=:message WHERE reportID = :reportID");
+    "UPDATE Report SET paidAmount=:amount, datePaid=now(), message=:message, paid=true WHERE reportID = :reportID");
 
     $reportID=$args[":reportID"];
     $smt->bindParam(":reportID", $reportID);
