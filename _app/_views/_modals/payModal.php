@@ -7,11 +7,11 @@
             </div>
               <form id="payPalForm" method="post" action="/checkout">
                 <div class="modal-body">
-                  <div id="payment-form"></div>
+                  <div id="paypal-container"></div>
                 </div>
               </form>
               <div class="modal-footer">
-                <button type="submit" class="btn btn-success" id="payAmountSubmit" 
+                <button type="submit" class="btn btn-success" id="payAmountSubmit"
                   data-amount="" data-reportID="" data-bountyID="" data-hunterUsername="">
                 </button>
               </div>
