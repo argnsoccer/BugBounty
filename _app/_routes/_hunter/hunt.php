@@ -33,17 +33,32 @@ function prepareHuntpage($dbh, $bountyID){
 }
 
 $app->get('/_hunter/hunt', function() use ($app) {
-
+if($_SESSION['accountType'] == 'hunter')
+{
 	echo "please include a bounty ID";
-
+}
+else
+{
+	$template_array['errorMessage'] = "You are not signed in as a hunter";
+	$template_array['errorMessage'] = "Sign in or sign up as a hunter";
+	$app->render('error.php', $template_array);
+}
 });
 
 $app->get('/_hunter/hunt/:bountyID', function($bountyID) use ($app, $dbh) {
-
+if($_SESSION['accountType'] == 'hunter')
+{
 	$template_array = prepareHuntpage($dbh, $bountyID);
 
 	// echo print_r($template_array);
 
 	$app->render('_hunter/hunt.php', $template_array);
+}
+else
+{
+	$template_array['errorMessage'] = "You are not signed in as a hunter";
+	$template_array['errorMessage'] = "Sign in or sign up as a hunter";
+	$app->render('error.php', $template_array);
+}
 
 });

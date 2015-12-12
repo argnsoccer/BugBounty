@@ -27,6 +27,10 @@ function preparePayPage($dbh) {
 	//for the Pay Page
 	// 1)  all reports the user had identified to pay
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 15b1134c349cd2a4cef550bd06996170646ad4ca
 $app->get('/_marshal/pay', function() use ($app, $dbh) {
 if($_SESSION['accountType'] == 'marshal')
 {
@@ -37,8 +41,16 @@ if($_SESSION['accountType'] == 'marshal')
 }
 else
 {
+<<<<<<< HEAD
 	$template_array['errorMessage'] = "You are not signed in as a marshal";
 	$template_array['errorSolution'] = "Sign in or sign up as a marshal";
 	$app->render('error.php',$template_array);
 }
 });
+=======
+	$template_array['errorMessage'] = "You are not signed in as a hunter";
+	$template_array['errorMessage'] = "Sign in or sign up as a hunter";
+	$app->render('error.php', $template_array);
+}
+});
+>>>>>>> 15b1134c349cd2a4cef550bd06996170646ad4ca
