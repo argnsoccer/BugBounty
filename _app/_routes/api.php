@@ -1102,8 +1102,6 @@ function createRSS($dbh, $args) {
   $dirs = array_filter(glob('*'), 'is_dir');
   $result['fffff'] = $dirs;
 
-  $result['heyhey'] = scandir("/");
-
   $file_path = $args['link']."/rss_".$args['username'].".xml";
 
   $xml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n";
