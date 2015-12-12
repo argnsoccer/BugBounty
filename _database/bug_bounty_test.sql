@@ -132,7 +132,7 @@ LOCK TABLES `Marshall` WRITE;
 /*!40000 ALTER TABLE `marshall` DISABLE KEYS */;
 INSERT INTO `Marshall` VALUES
 (3,0,0,0,'This is marshallDescription1','company1', 'http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/_rss/_profiles/_testMarshall1/rss_testMarshall1.xml', 1),
-(4,0,0,0,'This is marshallDescription2','company2', 'http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/_rss/_profiles/_testMarshall1/rss_testMarshall1.xml', 1),
+(4,0,0,0,'This is marshallDescription2','company2', 'http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/_rss/_profiles/_testMarshall2/rss_testMarshall2.xml', 1),
 (5,0,0,0,'This is marshallDescription3','company3', NULL, 0);
 /*!40000 ALTER TABLE `marshall` ENABLE KEYS */;
 UNLOCK TABLES;
