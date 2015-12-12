@@ -1217,7 +1217,7 @@ function rssExists($dbh) {
 
     if($row['rssCreated']) {
 
-      if(file_exists(substr($row['rssLink'], 56, strlen($row['rssLink']) - 56)) {
+      if(file_exists(substr($row['rssLink'], 56, strlen($row['rssLink']) - 56))) {
         $function_array['result']['link'] = $row['link'];
         $function_array['result']['exists'] = "1";
         $function_array['error'] = "0";
