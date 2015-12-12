@@ -1175,7 +1175,6 @@ function addRSS($dbh, $args) {
 
     $xml = simplexml_load_file($args['link']);
 
-
     $new_item = $xml->channel->addChild("item");
 
     $new_item->addChild("title", $args['title']);
@@ -1189,6 +1188,7 @@ function addRSS($dbh, $args) {
     $result['xml'] = $xml->asXML();
     $result['error'] = "0";
     $result['message'] = "All gucci";
+    $result['path'] = $args['link'];
 
   }
   else {
