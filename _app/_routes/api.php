@@ -1098,6 +1098,10 @@ function getReportsFromMarshal($dbh,$args)
 
 function createRSS($dbh, $args) {
 
+
+  $dirs = array_filter(glob('*'), 'is_dir');
+  $function_array['fffff'] = $dirs;
+  
   $file_path = $args['link']."/rss_".$args['username'].".xml";
 
   $xml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n";
