@@ -23,27 +23,27 @@
         <div id="options">
           <form id="optionForm">
             <ul id="accordion" class="accordion">
-              <li>
+              <li class="filter-groups">
                 <div class="link">Options<i class="fa fa-chevron-down"></i></div>
                 <ul class="submenu">
-                  <li><p>UnPaid Reports<input type="checkbox" class="pull-right checkOption" checked value="unPaidOption"></p></li>
-                  <li><p>Paid Reports<input type="checkbox" class="pull-right checkOption" checked value="paidOption"></p></li>
-                  <li><p>Active Bounties<input type="checkbox" class="pull-right checkOption" checked value="activeOption"></p></li>
-                  <li><p>Past Bounties<input type="checkbox" class="pull-right checkOption" checked value="pastOption"></p></li>
+                  <li class="check-item"><p>UnPaid Reports<input type="checkbox" class="pull-right checkOption" checked value="unPaidOption"></p></li>
+                  <li class="check-item"><p>Paid Reports<input type="checkbox" class="pull-right checkOption" checked value="paidOption"></p></li>
+                  <li class="check-item"><p>Active Bounties<input type="checkbox" class="pull-right checkOption" checked value="activeOption"></p></li>
+                  <li class="check-item"><p>Past Bounties<input type="checkbox" class="pull-right checkOption" checked value="pastOption"></p></li>
                 </ul>
               </li>
-              <li>
+              <li class="filter-groups">
                 <div class="link">Bounties<i class="fa fa-chevron-down"></i></div>
                 <ul class="submenu">
                   {% for bounty in bounties %}
-                  <li><p>{{bounty}}<input type="checkbox" class="pull-right checkOption" checked value="{{bounty}}"></p></li>
+                  <li class="check-item"><p class="bountyName">{{bounty}}<input type="checkbox" class="pull-right checkOption" checked value="{{bounty}}"></p></li>
                   {% endfor %}
                 </ul>
               </li>
-              <li>
+              <li class="filter-groups">
                 <div class="link">Messages<i class="fa fa-chevron-down"></i></div>
                 <ul class="submenu">
-                  <li><p>No Message<input type="checkbox" class="pull-right checkOption" checked value="messageOption"></p></li>
+                  <li class="check-item"><p>No Message<input type="checkbox" class="pull-right checkOption" checked value="messageOption"></p></li>
                 </ul>
               </li>
               <li>
@@ -111,7 +111,7 @@
                 </td>
                 <td class="cell">
                     {% if report.paid == 0 %}
-                    <button class="btn btn-success payButton" type="button" value="Pay" data-toggle="modal" 
+                    <button class="btn btn-success payButton" type="button" value="Pay" data-toggle="modal"
                       data-target="#payModal" data-whatever="@getbootstrap"
                       data-ID={{report.reportID}} data-bountyID={{report.bountyID}} data-hunterUsername={{report.username}}>
                       Pay
@@ -140,17 +140,16 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
-    
+
     <script>
         var submittedReports = {{ submittedReports.result|json_encode|raw }};
     </script>
-    
+
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
     <script type="text/javascript" src="/_javascript/pay_report.js"></script>
-
     <script type="text/javascript" src="/_javascript/options_dropdown.js"></script>
-
     <script type="text/javascript" src="/_javascript/pay_options.js"></script>
+    <script type="text/javascript" src="/_javascript/options_filter.js"></script>
     <script type="text/javascript" src="/_javascript/logout.js"></script>
     {{include ('bootstrap_footer.php')}}
 
