@@ -517,44 +517,15 @@ function getHunterFromUsername($dbh, $args) {
   return $functionArray;
 }
 
-/*function getUserFromEmail($dbh, $args) {
-   //Simple Select query which returns username, email, and type
-
-  $statement = $dbh->prepare(
-  "SELECT username, email, accountType FROM Account WHERE email = :email");
-  $functionArray = array();
-  if($statement->execute($args))
-  {
-    $row = $statement->fetch(PDO::FETCH_ASSOC);
-
-    /*$result['username'] = $row['username'];
-    $result['userType'] = strtolower($row['accountType']);
-    $result['email'] = $row['email'];
-    $result = $row;
-    $functionArray['error'] = '0';
-    $functionArray['result'] = $result;
-    $functionArray['message'] = 'success';
-  }
-  else
-  {
-    $functionArray['error'] = '1';
-    $functionArray['message'] = 'Statement not executed';
-    $functionArray['messageDB'] = $statement->errorInfo();
-  }
-
-  return $functionArray;
-}*/
-
-
 function createBounty($dbh, $args) {
     $functionArray = array();
     if($_SESSION['userType'] == 'marshal') {
-
+    $args[':endDate'] = DATE('Y-m-d', $args[':endDate']);
     $sth = $dbh->prepare(
       "INSERT INTO
-        BountyPool (dateCreated, PayoutPool, dateEnding, bountyMarshallID, bountyLink, fullDescription, bountyName)
+        BountyPool (dateCreated, dateEnding, bountyMarshallID, bountyLink, fullDescription, bountyName)
       VALUES
-        (now(),:payout,:endDate,:userID,:link,:fullDesc, :bountyName)"
+        (now(),:endDate,:userID,:link,:fullDesc, :bountyName)"
     );
 
     if($sth->execute($args))
@@ -562,12 +533,14 @@ function createBounty($dbh, $args) {
       $functionArray['error'] = '0';
       $functionArray['message'] = 'success';
       $result['dateCreated'] = date("Y-m-d",$_POST['dateCreated']);
-      $result['PayoutPool'] = $_POST['payout'];
       $result['dateEnding'] = date("Y-m-d",$_POST['endDate']);
       $result['userID'] = $_SESSION['userID'];
+      $args2[':userID'] = $_SESSION['userID'];
       $result['link'] = $_POST['link'];
       $result['fullDesccription'] = $_POST['fullDesc'];
       $result['bountyName'] = $_POST['bountyName'];
+      $bountyID = $dbh->lastInsertId();
+      $result['bountyID'] = $bountyID;
       $functionArray['result'] = $result;
     }
     else
@@ -1634,7 +1607,6 @@ $app->get('/api/getUserFromEmail/:email', function($email) use ($dbh) {
 $app->post('/api/createBounty', function() use ($dbh) {
 
   $args[':bountyName'] = $_POST['name'];
-  $args[':payout'] = $_POST['payout'];
   $args[':link'] = $_POST['link'];
   $args[':endDate'] = $_POST['endDate'];
   $args[':fullDesc'] = $_POST['desc'];
