@@ -68,7 +68,7 @@
 
         <div class="row mainRow">
 
-          <div class="col-md-5">
+          <div class="col-md-4">
               <div id="newsfeed_header">
                   <h3 class="newsfeed_header">My Newsfeed</h3>
                   <button type="button" id="add_post_button" title="Click to add or create an RSS"
@@ -142,7 +142,7 @@
 
           </div>
 
-          <div class="col-md-7">
+          <div class="col-md-8">
 
             <div class="col-md-12" class="bottomBox">
               <h3>New to BugBounty?</h3>
