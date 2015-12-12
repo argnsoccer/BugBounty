@@ -20,7 +20,7 @@ $(function() {
 		if (!e.data.multiple) {
 			$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
 		};
-	}	
+	}
 
 	var accordion = new Accordion($('#accordion'), false);
 });
@@ -42,7 +42,7 @@ function updateTable(optionsInfo) {
 	var rows = $("tbody#bodyReports > tr");
 
 	for (row in rows) {
-		console.log(row);
+		//console.log(row);
 	}
 
 	// console.log(rows);
@@ -51,7 +51,7 @@ function updateTable(optionsInfo) {
 
 $(document).ready(function () {
 
-	$("#optionsSubmitForm").click(function(event) { 
+	$("#optionsSubmitForm").click(function(event) {
 
 		var optionsInfo = [];
 
