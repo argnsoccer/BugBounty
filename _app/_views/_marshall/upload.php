@@ -17,13 +17,10 @@
   </head>
   <body>
 
-    {{include ('header_marshall.php')}}
-
-    <h1>Upload Content</h1>
-
-    {{ include ('header_marshall.php') }}
+    {{include ('header_marshal.php')}}
 
       <div class="row mainRow" >
+            <h1>Upload Content</h1>
         <div class="col-lg-4">
            <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span><p id="requiredP">Required Field</p></strong></div>
            <div class="description">
@@ -38,7 +35,7 @@ The racist tree grew quite lonely. After many solitary weeks it saw a child flyi
 "Fuck off, you goddamn Nazi," said the child.
 The racist tree was upset, because while it was very racist, it did not personally subscribe to Hitler's fascist ideology. The racist tree decided that it would have to give apples to black children, not because it was tolerant, but because otherwise it would face ostracism from white children.
 And so, social progress was made.
-             <a href="https://en.wikipedia.org/wiki/RSS" target="_blank">Wikipedia</a></p>
+</p>
 
             <!--Implement a less janky fix if time allows.-->
             <p id="hidden_box" class="infoBox">BugBounty uses RSS so that hunters can follow marshals they choose.  Hunter's may want to get updates on a certain bounty or be told when a new bounty is posted from a marshal and RSS allows us to do that.  It also allows our content to be posted on a different website.</p>

@@ -23,7 +23,7 @@ function prepareMarshallRSSCreate($dbh, $username)
 	}
 }
 
-$app->get('/_marshall/rsscreate', function() use ($app) {
+$app->get('/_marshal/rsscreate', function() use ($app) {
 	echo "include a username";
 });
 

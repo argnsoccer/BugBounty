@@ -31,12 +31,12 @@ function prepareMarshallProfile($dbh, $username)
 	return $template_array;
 }
 
-$app->get('/_marshall/profile', function() use ($app) {
+$app->get('/_marshal/profile', function() use ($app) {
 	echo "include a username";
 	//$app->render('_profiles/');
 });
 
-$app->get('/_marshall/profile/:username', function($username) use ($app, $dbh) {
+$app->get('/_marshal/profile/:username', function($username) use ($app, $dbh) {
 	//echo $username;
 
 	$template_array = prepareMarshallProfile($dbh, $username);

@@ -35,7 +35,7 @@ function prepareMarshallRSSAdd($dbh, $username)
 	}
 }
 
-$app->get('/_marshall/rssadd', function() use ($app) {
+$app->get('/_marshal/rssadd', function() use ($app) {
 	echo "include a username";
 	//$app->render('_profiles/');
 });

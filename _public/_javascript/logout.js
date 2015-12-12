@@ -58,7 +58,7 @@ $(document).ready(function ()
             else if (response['result']['userType'] == 'marshal' 
               || response['result']['userType'] == 'sheriff')
             {
-              var address = "/_marshall/profile/" + response['result']['username'];
+              var address = "/_marshal/profile/" + response['result']['username'];
               window.location.href = address;
             }
           }
