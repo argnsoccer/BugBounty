@@ -1205,7 +1205,7 @@ function rssExists($dbh) {
   $statement = $dbh->prepare("
     SELECT rssCreated, rssLink
     FROM Marshall
-    WHERE userID = :userID"
+    WHERE marshallID = :userID"
   );
 
   $function_array = [];
