@@ -1,8 +1,3 @@
-$(window).load(function () {
-  $("#descButton").hide();
-  // $('#countriesDropwDown').hide();
-});
-
 function isSet(key, value) {
   if (value === null 
     || value === '') {
@@ -65,6 +60,7 @@ $(document).ready(function ()
 
   $("#submitSignUp").click(function(event)
   {
+
     event.preventDefault();
 
     if (clicks == 0) {
@@ -96,7 +92,7 @@ $(document).ready(function ()
         dataType: 'json',
         success: function(response) {
           if (response.error === '0') {
-            if (response.taken == '1') {
+            if (response.result.taken == '1') {
               $("#signUpUsername").val('');
               $.notify({
                 // options
@@ -115,9 +111,10 @@ $(document).ready(function ()
               return false;
           }
 
-            else if (response.taken == '0') {
+            else if (response.result.taken == '0') {
 
               if (!validateEmail(userInfo.email)) {
+
                  $.notify({
                   // options
                       message: "  " + "Email is invalid!",
@@ -138,6 +135,7 @@ $(document).ready(function ()
                 return false;
               }
 
+
               var emailURL = '/api/emailTaken/' + userInfo.email;
 
               $.ajax({
@@ -146,7 +144,7 @@ $(document).ready(function ()
                 dataType: 'json',
                 success: function(response) {
                   if (response.error === '0') {
-                    if (response.taken == '1') {
+                    if (response.result.taken == '1') {
                       $("#signUpEmail").val('');
                       $.notify({
                         // options
@@ -164,16 +162,15 @@ $(document).ready(function ()
                       });
                       return false;
                   }
-                    else if (response.taken == '0') {
+                    else if (response.result.taken == '0') {
                       
                       $("#signUpUsername").val('');
                       $("#signUpEmail").val('');
                       $("#signUpPassword").val('');
                       $("#signUpConfirmPassword").val('');
 
-                      $("#signUpUsername").attr('placeholder', 'Company Name');
-                      $("#signUpEmail").attr('placeholder', 'Compay Type');
-                      // $("#signUpPassword").attr('placeholder', 'Country');
+                      $("#signUpUsername").attr('placeholder', 'Personal Name');
+                      $("#signUpEmail").attr('placeholder', 'Company Name');
                       $("#descButton").show();
                       $("#signUpPassword").hide();
                       $("#signUpConfirmPassword").hide()
@@ -193,7 +190,6 @@ $(document).ready(function ()
                       });
                       $("#step1").removeClass("activeStepMarshal");
                       $("#step2").addClass("activeStepMarshal");
-
                       clicks = clicks + 1;
                     }
 
@@ -225,34 +221,7 @@ $(document).ready(function ()
     else if (clicks == 1) {
 
       userInfo.name = $("#signUpUsername").val();
-      userInfo.type = $("#signUpEmail").val();
-      userInfo.description = $("#signUpDescription").val();
-
-      if (userInfo.name == '' || userInfo.name == null)
-      {
-
-        $.notify({
-          // options
-          message: "Please fill in a Company Name!",
-          icon: 'glyphicon glyphicon-remove-circle'
-          },{
-          // settings
-          type: 'danger',
-          z_indez: 1050,
-          delay: 100,
-          placement: {
-            from: "top",
-            align: "right",
-            allow_dismiss: true,
-          }
-        });
-
-        return false;
-        
-      }
-
-      userInfo.name = $("#signUpUsername").val();
-      userInfo.type = $("#signUpEmail").val();
+      userInfo.companyName = $("#signUpEmail").val();
       userInfo.description = $("#signUpDescription").val();
 
 
@@ -261,12 +230,13 @@ $(document).ready(function ()
       $("#signUpPassword").val('');
       $("#signUpConfirmPassword").val('');
 
-      $("#signUpUsername").attr('placeholder', 'Payment Type');
-      $("#signUpEmail").attr('placeholder', 'I dont know');
-      $("#signUpPassword").attr('placeholder', 'I dont know');
-      $("#signUpConfirmPassword").attr('placeholder', 'I dont know');
-      $("#signUpConfirmPassword").show();
+      $("#signUpUsername").hide();
+      $("#signUpEmail").hide();
       $("#descButton").hide();
+      $("#signUpPaymentType").show();
+      // $("#signUpPassword").show();
+      // $("#signUpEmail").show();
+      // $("#signUpConfirmPassword").show();
 
       $("#submitSignUp").removeClass("btn-primary");
       $("#submitSignUp").addClass("btn-success");
@@ -294,10 +264,10 @@ $(document).ready(function ()
 
       var payInfo = {};
 
-      payInfo.paymentType = $("#signUpUsername").val();
-      payInfo.option1 = $("#signUpEmail").val();
-      payInfo.option2 = $("#signUpPassword").val();
-      payInfo.option3 = $("#signUpConfirmPassword").val();
+      // payInfo.paymentType = $("#signUpUsername").val();
+      // payInfo.option1 = $("#signUpEmail").val();
+      // payInfo.option2 = $("#signUpPassword").val();
+      payInfo.paymentType = $("#paymentType option:selected").text();
 
       for (var property in payInfo)
       {
@@ -308,50 +278,34 @@ $(document).ready(function ()
       }
 
       userInfo.paymentType = payInfo.paymentType;
-      userInfo.option1 = payInfo.option1;
-      userInfo.option2 = payInfo.option2;
-      userInfo.option3 = payInfo.option3;
+
+      console.log(userInfo);
+
+
+    $.ajax({
+      url: '/api/signUpMarshal',
+      type: 'POST',
+      dataType: 'json',
+      data: userInfo,
+      async: 'true',
+      success: function(response) {
+        console.log(response);
+
+        if (response.error == '0')
+        {
+          window.location.href = "/";
+        }
+        else if (response.error == '1')
+        {
+          alert("Please choose a different username!");
+        }
+      }
+    });
+
 
     }
     else {
       alert("Lost count of clicks: " + clicks);
     }
-
-    // $.ajax({
-    //   url: '/api/signUpUser',
-    //   type: 'POST',
-    //   dataType: 'json',
-    //   data: {
-    //     username: userInfo.username,
-    //     email: userInfo.email,
-    //     password: userInfo.password,
-    //     accountType: userInfo.accountType
-    //   },
-    //   async: 'true',
-    //   success: function(response) {
-    //     if (response.error === '0')
-    //     {
-    //       alert("successfully created account");
-    //       window.location.href = "/billinginfo";
-    //     }
-    //     else if (response.error === '1')
-    //     {
-    //       console.log(response.message);
-    //       alert("Please choose a different username!");
-
-    //     }
-    //     else if (response.error === '2')
-    //     {
-    //       alert("An account already exists for this email!");
-    //       console.log(response.message);
-    //     }
-    //     else
-    //     {
-    //       console.log(response);
-    //       alert(response[':message']);
-    //     }
-    //   }
-    // });
-
   });
 });
