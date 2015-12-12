@@ -21,7 +21,7 @@
             <div class="col-sm-5">
               <div class="row innerRow picRow">
                 <div class="col-md-12">
-                  <input type="image" id="bountyPicture" src="{{company.result.proPic}}" 
+                  <input type="image" id="imagePicture" src="{{company.result.proPic}}" 
                     alt="Company Picture" class="marshalBackground"/>
                 </div>
               </div>

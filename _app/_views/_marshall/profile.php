@@ -36,7 +36,7 @@
                 <label for="InputName"></label>
                 <div class="input-group">
                   <span class="input-group-addon addOnCustom">Username</span>
-                  <p class="form-control formControlCustom">{{user.result.username}}</p>
+                  <p class="form-control formControlCustom" id="usernameValue">{{user.result.username}}</p>
                 </div>
             </div>
             <div class="form-group">
@@ -159,7 +159,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
     <script type="text/javascript" src="/../_javascript/logout.js"></script>
-    <script type="text/javascript" src="/../_javascript/hunter_update_profile.js"></script>
+    <script type="text/javascript" src="/../_javascript/marshal_update_profile.js"></script>
     <script type="text/javascript" src="/../_javascript/update_payment.js"></script>
     <script type="text/javascript" src="/../_javascript/search_basic.js"></script>
 

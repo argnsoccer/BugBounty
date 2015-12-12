@@ -6,17 +6,6 @@ textarea {
   display: block;
   width: 100%;
 }
-
-#profile_picture
-{
-    border-color: #5b5b5b;
-    border-width: 2px;
-    border-style: solid;
-    margin: 0 auto;
-    width: 200px;
-    height: 200px;
-}
-
 .profileInfo {
 	border-color: #5b5b5b;
 	border-width: 1px;

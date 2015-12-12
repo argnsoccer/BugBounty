@@ -19,18 +19,6 @@ textarea {
   width: 100% !important;
 }
 
-
-#bountyPicture
-{
-    border-color: #5b5b5b;
-    border-width: 2px;
-    border-style: solid;
-    width: 80%;
-    height: 200px;
-    margin: 0 auto;
-    display: block;
-}
-
 #bountyButtons {
   margin: 10px !important;
 }

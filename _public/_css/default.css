@@ -77,3 +77,30 @@ body {
 .form-group {
   margin-bottom: 0px !important;
 }
+
+#profile_picture
+{
+    border-color: #5b5b5b;
+    border-width: 2px;
+    border-style: solid;
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+}
+
+#imagePicture {
+
+  border-color: #5b5b5b;
+  border-width: 2px;
+  border-style: solid;
+  width: 220px;
+  height: 200px;
+  margin: 0 auto;
+  display: block;
+
+}
+
+#rssBox {
+  margin: 0 auto;
+  padding: 0 0 0 0;
+}
