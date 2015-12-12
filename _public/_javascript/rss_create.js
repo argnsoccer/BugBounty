@@ -25,7 +25,7 @@ $(document).ready(function ()
 
       if(response.error == 0) {
         console.log(response);
-        window.location = "/_marshal/rssadd/" + response.username;
+        // window.location = "/_marshal/rssadd/" + response.username;
       }
 
       }
