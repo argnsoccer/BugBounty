@@ -211,7 +211,6 @@ function updateUserDetails($dbh,$change,$inputs)
 						if($statement->execute($args))
 						{
 							$_SESSION['userLogin'] = $inputs['username'];
-							$result['error'] = $result['error'] - 1;
 							$result['message'] = $result['message']."username change successful ";
 						}
 						else
@@ -231,7 +230,6 @@ function updateUserDetails($dbh,$change,$inputs)
 			}
 			if($change[1])
 			{
-				$result['error'] = $result['error'] + 1;
 				$statement = $dbh->prepare("
 				SELECT * FROM Account
 				WHERE email = '".$inputs['email']."'");
@@ -246,7 +244,6 @@ function updateUserDetails($dbh,$change,$inputs)
 						AND password=:pass");
 						if($statement->execute($args))
 						{
-							$result['error'] = $result['error'] - 1;
 							$result['message'] = $result['message']."email change successful ";
 						}
 						else
@@ -266,7 +263,6 @@ function updateUserDetails($dbh,$change,$inputs)
 			}
 			if($change[2])
 			{
-				$result['error'] = $result['error'] + 1;
 				$statement = $dbh->prepare("
 				UPDATE Account
 				SET password = '".$inputs['newPassword']."'
@@ -274,7 +270,6 @@ function updateUserDetails($dbh,$change,$inputs)
 				AND password=:pass");
 				if($statement->execute($args))
 				{
-					$result['error'] = $result['error'] - 1;
 					$result['message'] = $result['message']."password change successful ";
 				}
 				else
@@ -286,14 +281,12 @@ function updateUserDetails($dbh,$change,$inputs)
 			}
 			if($change[3])
 			{
-				$result['error'] = $result['error'] + 1;
 				$statement = $dbh->prepare("
 				UPDATE Marshall
 				SET company = '".$inputs['companyName']."'
 				WHERE marshallID = :userID");
 				if($statement->execute($args))
 				{
-					$result['error'] = $result['error'] - 1;
 					$result['message'] = $result['message']."company name change successful";
 				}
 				else
