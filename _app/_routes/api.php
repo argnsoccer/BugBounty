@@ -393,7 +393,7 @@ function signUpMarshal($dbh, $args, $args2) {
       $args2[':marshalID'] = $row['userID'];
 
       $statement2 = $dbh->prepare(
-      "INSERT INTO Marshall (marshallID, company, description) VALUES (:marshalID, :companyName, :description)");
+      "INSERT INTO Marshall (marshallID, company, description, rssLink, rssCreated) VALUES (:marshalID, :companyName, :description, NULL, 0)");
 
       if($statement2->execute($args2))
       {
