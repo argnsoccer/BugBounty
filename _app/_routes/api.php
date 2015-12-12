@@ -1150,6 +1150,7 @@ function createRSS($dbh, $args) {
       addSubscription($dbh, $args2);
       $result['error'] = '0';
       $result['message'] = 'Success';
+      $result['username'] = $_SESSION['userLogin'];
     }
     else
     {
