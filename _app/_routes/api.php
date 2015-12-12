@@ -1276,7 +1276,7 @@ function getRSSSubscription($dbh,$args)
     $functionArray['result'] = array();
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
-      array_push($functionArray['result'] = $row['rssLink']);
+      array_push($functionArray['result'], $row['rssLink']);
     }
     $functionArray['error'] = '0';
     $functionArray['message'] = 'success';
