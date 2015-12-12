@@ -542,7 +542,7 @@ function getHunterFromUsername($dbh, $args) {
 
 function createBounty($dbh, $args) {
     $functionArray = array();
-    if($_SESSION['userType'] == 'marshall') {
+    if($_SESSION['userType'] == 'marshal') {
 
     $sth = $dbh->prepare(
       "INSERT INTO
@@ -633,55 +633,52 @@ function createReport($dbh, $args) {
   return $functionArray;
 }
 
-/*function updateReport($dbh, $args) {
+function updateReport($dbh, $args, $changeCode) {
   $functionArray = array();
-  $statement = $dbh->prepare(
-  "UPDATE Report
-  SET username = :username, description = :message
-  WHERE reportID = :reportID");
-
-  if($statement->execute($args))
+  if($changeCode == 1)
   {
-    $functionArray['error'] = '0';
-    $functionArray['message'] = 'success';
-    $result['username'] = $_POST['username'];
-    $result['description'] = $_POST['message'];
-    $result['reportID'] = $_POST['reportID'];
-    $functionArray['result'] = $result;
+    $statement = $dbh->prepare(
+    "UPDATE Report
+    SET message = :message
+    WHERE reportID = :reportID");
+    if($statement->execute($args))
+    {
+      $functionArray['error'] = '0';
+      $functionArray['message'] = 'success';
+      $result['paidAmount'] = $_POST['paidAmount'];
+      $result['message'] = $_POST['message'];
+      $functionArray['result'] = $result;
+    }
+    else
+    {
+      $functionArray['error'] = '1';
+      $functionArray['messageDB'] = $statement->errorInfo();
+      $functionArray['message'] = 'First statement not executed';
+    }
+    return $functionArray;
   }
-  else
+  else if($changeCode == 2)
   {
-    $functionArray['error'] = '1';
-    $functionArray['messageDB'] = $statement->errorInfo();
-    $functionArray['message'] = 'First statement not executed';
-
+    $statement = $dbh->prepare(
+    "UPDATE Report
+    SET paidAmount = :paidAmount
+    WHERE reportID = :reportID");
+    if($statement->execute($args))
+    {
+      $functionArray['error'] = '0';
+      $functionArray['message'] = 'success';
+      $result['paidAmount'] = $_POST['paidAmount'];
+      $result['message'] = $_POST['message'];
+      $functionArray['result'] = $result;
+    }
+    else
+    {
+      $functionArray['error'] = '1';
+      $functionArray['messageDB'] = $statement->errorInfo();
+      $functionArray['message'] = 'First statement not executed';
+    }
+    return $functionArray;
   }
-  return $functionArray;
-}*/
-
-function updateReport($dbh, $args) {
-  $functionArray = array();
-  $statement = $dbh->prepare(
-  "UPDATE Report
-  SET paidAmount = :paidAmount, message = :message
-  WHERE reportID = :reportID");
-
-  if($statement->execute($args))
-  {
-    $functionArray['error'] = '0';
-    $functionArray['message'] = 'success';
-    $result['paidAmount'] = $_POST['paidAmount'];
-    $result['message'] = $_POST['message'];
-    $functionArray['result'] = $result;
-  }
-  else
-  {
-    $functionArray['error'] = '1';
-    $functionArray['messageDB'] = $statement->errorInfo();
-    $functionArray['message'] = 'First statement not executed';
-
-  }
-  return $functionArray;
 }
 
 function getReportsFromUsername($dbh, $args) {
@@ -1680,12 +1677,18 @@ $app->post('/api/createReport', function() use ($dbh) {
 
 $app->post('/api/updateReport', function() use ($dbh) {
 
-  $args[':reportID'] = $_POST['reportID'];
-  $args[':paidAmount'] = $_POST['paidAmount']; //pay amount of 0 clearly means the bounty was not accepted
-  $args[':username'] = $_POST['username'];
-  $args[':message'] = $_POST['message'];
-
-  $result = updateReport($dbh, $args);
+  $changeCode = $_POST['changeCode'];
+  if($changeCode == 1)
+  {
+    $args[':message'] = $_POST['message'];
+    $args[':reportID'] = $_POST['reportID'];
+  }
+  else if($changeCode == 2)
+  {
+    $args[':paidAmount'] = $_POST['paidAmount'];
+    $args[':reportID'] = $_POST['reportID'];
+  }
+  $result = updateReport($dbh, $args, $changeCode);
 
   echo json_encode($result);
 });
@@ -2153,20 +2156,40 @@ $app->get('/api/getBountiesFromUsernameRecentReports/:username', function($usern
   echo json_encode(getBountiesFromUsernameRecentReports($dbh,$args));
 
 });
-
+/*
+Gets all reports submitted towards bounties made by the marshal
+Errors:
+0: success
+1: statement execution failed
+*/
 $app->get('/api/getReportsFromMarshal/:username', function($username) use($dbh)
 {
   $args[':username'] = $username;
   echo json_encode(getReportsFromMarshal($dbh,$args));
 });
-
+/*
+Inputs:
+Username: username to find results for
+Outputs: an array of all bounties which the user has submitted reports for
+Errors:
+0: success
+1: statements failed
+*/
 $app->get('/api/getBountiesFromUsername/:username', function($username) use($dbh)
 {
   $args[':username'] = $username;
   echo json_encode(getBountiesFromUsername($dbh,$args));
 
 });
-
+/*
+Michael Gilbert
+Inputs:
+Query: A simple string search term
+Outputs: An array of up to 5 bounties whose name includes the search term
+Errors:
+0: success
+1: Statement execution failed
+*/
 $app->get('/api/basicSearch/:query', function($query) use($dbh)
 {
 	$args[':query'] = '%'.$query.'%';

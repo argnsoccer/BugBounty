@@ -22,7 +22,7 @@ $(document).ready(function ()
       success: function(response)
       {
         var username = $("#createForm").attr("data-user");
-        var link = "/_marshall/rssadd/";
+        var link = "/_marshal/rssadd/";
         link = link+username;
         $.notify({
           // options
