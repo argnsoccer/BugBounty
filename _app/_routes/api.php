@@ -1099,7 +1099,7 @@ function getReportsFromMarshal($dbh,$args)
 
 function createRSS($dbh, $args) {
 
-  $file_path = $args['link'].".xml";
+  $file_path = $args['link']."/rss_".$args['username'].".xml";
 
   $xml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n";
   $xml = $xml."<rss version=\"2.0\">\n";
@@ -1136,13 +1136,13 @@ function createRSS($dbh, $args) {
     $rss_file = fopen($file_path, "w");
     fwrite($rss_file, $xml);
 
-    $mysqlArray[':username'] = $args['username'];
+    $mysqlArray[':userID'] = $_SESSION['userID'];
     $mysqlArray[':rssLink'] = "http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/".$file_path;
 
     $statement = $dbh->prepare("
     UPDATE Marshall
     SET rssCreated = 1, rssLink = :rssLink
-    WHERE username = :username");
+    WHERE marshallID = :userID");
 
     if($statement->execute($mysqlArray))
     {
