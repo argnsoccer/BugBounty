@@ -520,7 +520,6 @@ function getHunterFromUsername($dbh, $args) {
 function createBounty($dbh, $args) {
     $functionArray = array();
     if($_SESSION['userType'] == 'marshal') {
-    $args[':endDate'] = DATE('Y-m-d', $args[':endDate']);
     $sth = $dbh->prepare(
       "INSERT INTO
         BountyPool (dateCreated, dateEnding, bountyMarshallID, bountyLink, fullDescription, bountyName)
@@ -533,7 +532,7 @@ function createBounty($dbh, $args) {
       $functionArray['error'] = '0';
       $functionArray['message'] = 'success';
       $result['dateCreated'] = date("Y-m-d",$_POST['dateCreated']);
-      $result['dateEnding'] = date("Y-m-d",$_POST['endDate']);
+      $result['dateEnding'] = $_POST['endDate'];
       $result['userID'] = $_SESSION['userID'];
       $args2[':userID'] = $_SESSION['userID'];
       $result['link'] = $_POST['link'];
@@ -1269,8 +1268,6 @@ function addSubscription($dbh, $args) {
 
 function getRSSSubscription($dbh,$args)
 {
-  $args[':userID'] = $_SESSION['userID'];
-  
   $functionArray = array();
 
   $statement = $dbh->prepare(
