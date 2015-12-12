@@ -1128,8 +1128,24 @@ function createRSS($dbh, $args) {
 
     $result['xmlLink'] = $file_path;
 
-    if (!file_exists($args['link'])) {
+    if (!is_dir('/_rss')) {
+      mkdir('/_rss');
+      $result['_rss'] = 1;
+    }
+    if(!is_dir('/_rss/_profiles'))
+    {
+      mkdir('/_rss/_profiles');
+      $result['_rss'] = 2;
+    }
+    if(!is_dir('/_rss/_profiles/_'.$args['username']))
+    {
+      mkdir('/_rss/_profiles/_'.$args['username']);
+      $result['_rss'] = 3;
+    }
+    if(!file_exists($args['link']))
+    {
       mkdir($args['link'], 0777, true);
+      $result['_rss'] = 4;
     }
 
     $rss_file = fopen($file_path, "w");
@@ -2050,8 +2066,8 @@ $app->post('/api/createRSS', function() use ($dbh) {
   $args['url'] = $_POST['url'];
 
   $args['link'] = "/_rss/_profiles/_".$args['username'];
-  $args['imageURL'] = "_images/_profiles/_".$args['userLogin']."/profile.png";
-  $args['imageTitle'] = $args['user']." RSS picture for ".$args['userLogin'];
+  $args['imageURL'] = "_images/_profiles/_".$args['username']."/profile.png";
+  $args['imageTitle'] = $args['username']." RSS picture for ".$args['username'];
 
   $args['language'] = "en-us";
   $args['creationDate'] = date("Y/m/d");
