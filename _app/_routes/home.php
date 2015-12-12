@@ -38,7 +38,7 @@ function prepareHome($dbh){
 
 		return $template_array;
 	}
-	else 
+	else
 	{
 		$template_array = getPreferredBounties($dbh);
 
@@ -58,10 +58,8 @@ $app->get('/', function() use ($app, $dbh) {
 			$template_array = prepareHome($dbh);
 
 			$app->render('/_hunter/home.php', $template_array);
-
-			echo print_r($template_array);
 		}
-		else if ($_SESSION['userType'] == 'marshal' 
+		else if ($_SESSION['userType'] == 'marshal'
 			|| $_SESSION['userType'] == 'sheriff'
 			|| $_SESSION['userType'] == 'marshal')
 		{
@@ -82,7 +80,5 @@ $app->get('/', function() use ($app, $dbh) {
 		$template_array = prepareHome($dbh);
 
 		$app->render('home.php', $template_array);
-
-		echo print_r($template_array);
 	}
 });
