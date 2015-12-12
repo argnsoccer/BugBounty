@@ -1407,6 +1407,10 @@ $app->post('/api/loginUser', function () use ($dbh) {
 
 /*Danny Rizzuto
 Check to see if username is available
+Error Codes:
+  1 = username taken
+
+Complete
 */
 
 $app->get('/api/usernameTaken/:username', function($username) use ($dbh) {
@@ -1446,6 +1450,10 @@ $app->get('/api/usernameTaken/:username', function($username) use ($dbh) {
 
 /*Danny Rizzuto
 Check to see if email is available
+Error Codes:
+ 1 = Email is taken
+
+Complete
 */
 
 $app->get('/api/emailTaken/:email', function($email) use ($dbh) {
@@ -1485,7 +1493,7 @@ $app->get('/api/emailTaken/:email', function($email) use ($dbh) {
 
 /*
 Danny Rizzuto
-Sign Up a user
+Sign Up a Hunter
 Error Codes:
   0 = user signed up and logged in
   1 = username exists
@@ -1510,6 +1518,21 @@ $app->post('/api/signUpHunter', function() use ($dbh) {
   echo json_encode($result);
 });
 
+/*
+Danny Rizzuto
+Sign Up a Marshal
+Error Codes:
+  0 = user signed up and logged in
+  1 = username exists
+  2 = email exists
+  3 = statement did not execute
+Returns
+  username
+  userType
+
+Complete
+*/
+
 $app->post('/api/signUpMarshal', function() use ($dbh) {
 
   $args[':username'] = $_POST['username'];
@@ -1529,7 +1552,7 @@ $app->post('/api/signUpMarshal', function() use ($dbh) {
 
 /*
 Andre Gras
-Get the basics of a user from username
+Get the basics of a Hunter from username
 Error Codes:
   0 = user returned all good
   1 = username  doesnt exists
@@ -1548,6 +1571,19 @@ $app->get('/api/getHunterFromUsername/:username', function($username) use ($dbh)
   echo json_encode($result);
 
 });
+
+/*
+Andre Gras
+Get the basics of a Marshal from username
+Error Codes:
+  0 = user returned all good
+  1 = username  doesnt exists
+Returns
+  username
+  userType
+
+Incomplete
+*/
 
 $app->get('/api/getMarshalFromUsername/:username', function($username) use ($dbh) {
   $args[':username'] = $username;
