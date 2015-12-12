@@ -39,6 +39,8 @@ CREATE TABLE IF NOT EXISTS `Account` (
   `rssLink` VARCHAR(100) NULL COMMENT '',
   `rssCreated` TINYINT(1) NOT NULL COMMENT '',
   `name` VARCHAR(40) NOT NULL COMMENT '',
+  `paymentType` VARCHAR(15) NOT NULL COMMENT '',
+  `moneyCollected` float(12) NOT NULL COMMENT '',
   PRIMARY KEY (`userID`)  COMMENT '',
   UNIQUE INDEX `username_UNIQUE` (`username` ASC)  COMMENT '',
   UNIQUE INDEX `email_UNIQUE` (`email` ASC)  COMMENT '',
@@ -52,12 +54,12 @@ ENGINE = InnoDB;
 
 LOCK TABLES `Account` WRITE;
 /*!40000 ALTER TABLE `Account` DISABLE KEYS */;
-INSERT INTO `Account` (userID, username, email,password,dateCreated,activated,dateDeactivated,accountType,loggedIn,dateOfLastActivity,imageLoc, name) VALUES
-(1,'SMUHunter1911','SMUHunter1911@gmail.com','SMUHunter1911','2015-11-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00', '_images/_profiles/_testHunter1/default_profile.png', 'Mark Fontenot'),
-(2,'ProHunter7','ProHunter7@gmail.com','ProHunter7','2015-11-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00', '_images/_profiles/_testHunter2/default_profile.png', 'Mike Jones'),
-(3,'ESPNMarshall4','ESPNMarshall4@gmail.com','ESPNMarshall4','2015-11-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'John Wayne'),
-(4,'SMUMarshall1911','SMUMarshall1911@gmail.com','SMUMarshall1911','2015-11-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'Clint Eastwood'),
-(5,'DMNMarshall3','DMNMarshall3@gmail.com','DMNMarshall3','2015-11-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'Doc Holiday');
+INSERT INTO `Account` (userID, username, email,password,dateCreated,activated,dateDeactivated,accountType,loggedIn,dateOfLastActivity,imageLoc, name, paymentType, moneyCollected) VALUES
+(1,'SMUHunter1911','SMUHunter1911@gmail.com','SMUHunter1911','2015-11-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00', '_images/_profiles/_testHunter1/default_profile.png', 'Mark Fontenot', 'paypal', 0),
+(2,'ProHunter7','ProHunter7@gmail.com','ProHunter7','2015-11-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00', '_images/_profiles/_testHunter2/default_profile.png', 'Mike Jones', 'paypal', 0),
+(3,'ESPNMarshall4','ESPNMarshall4@gmail.com','ESPNMarshall4','2015-11-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'John Wayne', 'paypal', 0),
+(4,'SMUMarshall1911','SMUMarshall1911@gmail.com','SMUMarshall1911','2015-11-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'Clint Eastwood', 'paypal', 0),
+(5,'DMNMarshall3','DMNMarshall3@gmail.com','DMNMarshall3','2015-11-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'Doc Holiday', 'paypal', 0);
 /*!40000 ALTER TABLE `Account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,31 +172,31 @@ UNLOCK TABLES;
 -- Table structure for table `paidreport`
 --
 
-CREATE TABLE IF NOT EXISTS `paidReport` (
-  `reportID` int(10) unsigned NOT NULL,
-  `paidAmount` varchar(10) NOT NULL,
-  `datePaid` datetime NOT NULL,
-  `message` mediumtext NOT NULL,
-  `publish` int(1) NOT NULL,
-  PRIMARY KEY (`reportID`),
-  UNIQUE KEY `reportID_UNIQUE` (`reportID`),
-  CONSTRAINT `fk_paidReport_Report1` FOREIGN KEY (`reportID`) REFERENCES `Report` (`reportID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- CREATE TABLE IF NOT EXISTS `paidReport` (
+--   `reportID` int(10) unsigned NOT NULL,
+--   `paidAmount` varchar(10) NOT NULL,
+--   `datePaid` datetime NOT NULL,
+--   `message` mediumtext NOT NULL,
+--   `publish` int(1) NOT NULL,
+--   PRIMARY KEY (`reportID`),
+--   UNIQUE KEY `reportID_UNIQUE` (`reportID`),
+--   CONSTRAINT `fk_paidReport_Report1` FOREIGN KEY (`reportID`) REFERENCES `Report` (`reportID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `paidreport`
---
+-- --
+-- -- Dumping data for table `paidreport`
+-- --
 
-INSERT INTO paidReport (reportID, paidAmount, message, publish) VALUES (5,25,'Thank you!', 0);
-INSERT INTO paidReport (reportID, paidAmount, message, publish) VALUES (25,100,'We need to hire someone like you.', 0);
-INSERT INTO paidReport (reportID, paidAmount, message, publish) VALUES (15,75,'Fantastic', 0);
-INSERT INTO paidReport (reportID, paidAmount, message, publish) VALUES (21,200,'Great work!', 0);
+-- INSERT INTO paidReport (reportID, paidAmount, message, publish) VALUES (5,25,'Thank you!', 0);
+-- INSERT INTO paidReport (reportID, paidAmount, message, publish) VALUES (25,100,'We need to hire someone like you.', 0);
+-- INSERT INTO paidReport (reportID, paidAmount, message, publish) VALUES (15,75,'Fantastic', 0);
+-- INSERT INTO paidReport (reportID, paidAmount, message, publish) VALUES (21,200,'Great work!', 0);
 
-LOCK TABLES `paidReport` WRITE;
-/*!40000 ALTER TABLE `paidreport` DISABLE KEYS */;
-/*!40000 ALTER TABLE `paidreport` ENABLE KEYS */;
-UNLOCK TABLES;
+-- LOCK TABLES `paidReport` WRITE;
+-- /*!40000 ALTER TABLE `paidreport` DISABLE KEYS */;
+-- /*!40000 ALTER TABLE `paidreport` ENABLE KEYS */;
+-- UNLOCK TABLES;
 
 --
 -- Table structure for table `preferredbounties`
@@ -235,12 +237,16 @@ CREATE TABLE IF NOT EXISTS `Report` (
   `filePath` mediumtext,
   `errorName` varchar(30),
   `reportID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `paidAmount` float(12) NOT NULL,
+  `datePaid` datetime NULL,
+  `message` mediumtext NOT NULL,
+  `paid` BOOLEAN NOT NULL,
   PRIMARY KEY (`reportID`),
   UNIQUE KEY `reportID_UNIQUE` (`reportID`),
   KEY `fk_Report_BountyPool2` (`bountyID`),
   KEY `fk_Report_Account1` (`username`),
-  CONSTRAINT `fk_Report_Account1` FOREIGN KEY (`username`) REFERENCES `Account` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Report_BountyPool2` FOREIGN KEY (`bountyID`) REFERENCES `BountyPool` (`poolID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Report_Account1` FOREIGN KEY (`username`) REFERENCES `Account` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_Report_BountyPool2` FOREIGN KEY (`bountyID`) REFERENCES `BountyPool` (`poolID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -262,34 +268,34 @@ INSERT INTO MessageOfDay (accountType,message,dateMade) Values ("marshall","Its 
 
 LOCK TABLES `Report` WRITE;
 /*!40000 ALTER TABLE `report` DISABLE KEYS */;
-INSERT INTO `Report` (bountyID, username, description, dateSubmitted, filePath, reportID) VALUES
-(1,'SMUHunter1911','This website works fine for me.','2015-11-30 20:11:11','_images/_bounties/_testMarshall1/_reports/_testHunter1/report1.jpg',1),
-(1,'ProHunter7','Your videos only seem to work half the time.','2015-11-30 20:22:44','_images/_bounties/_testMarshall1/_reports/_testHunter2/report1.jpg',2),
-(1,'ProHunter7','Ignore my previous report, I disconnected to from the internet while the video was loading.','2015-11-30 20:18:33','_images/_bounties/_testMarshall1/_reports/_testHunter2/report2.jpg',3),
-(2,'SMUHunter1911','Every time I click I donate to SMU.','2015-11-30 20:59:59','_images/_bounties/_testMarshall2/_reports/_testHunter1/report1.jpg',4),
-(2,'ProHunter7','I donated $1000000 by accident.','2015-11-30 21:45:33','_images/_bounties/_testMarshall2/_reports/_testHunter2/report1.jpg',5),
-(2,'ProHunter7','Your website took all my money!','2015-11-30 22:19:23','_images/_bounties/_testMarshall2/_reports/_testHunter2/report2.jpg',6),
-(3,'SMUHunter1911','All the links I see here I saw yesterday on The Daily Campus website.','2015-11-30 18:19:20','_images/_bounties/_testMarshall3/_reports/_testHunter1/report1.jpg',7),
-(3,'ProHunter7','When I click on trending, it gives me what was trending this day last year.','2015-11-30 20:05:33','_images/_bounties/_testMarshall3/_reports/_testHunter2/report1.jpg',8),
-(3,'SMUHunter1911','I can not find any articles from today.','2015-11-30 21:01:13','_images/_bounties/_testMarshall3/_reports/_testHunter1/report2.jpg',9),
-(4,'ProHunter7','Every live score I see is at least five minutes behind.','2015-11-30 20:16:33','_images/_bounties/_testMarshall1/_reports/_testHunter2/report3.jpg',10),
-(4,'SMUHunter1911','The score on the Kansas vs Duke game are flipped!','2015-11-30 20:17:33','_images/_bounties/_testMarshall1/_reports/_testHunter1/report2.jpg',11),
-(4,'SMUHunter1911','It is faster to wait for the newspaper to get a score update.','2015-11-30 20:18:32','_images/_bounties/_testMarshall1/_reports/_testHunter1/report3.jpg',12),
-(5,'ProHunter7','The image loads fine in Google Chrome.','2015-11-30 20:11:23','_images/_bounties/_testMarshall2/_reports/_testHunter2/report3.jpg',13),
-(5,'SMUHunter1911','This is a great image! I love your website!!','2015-11-30 20:48:11','_images/_bounties/_testMarshall2/_reports/_testHunter1/report2.jpg',14),
-(5,'ProHunter7','Okay, the image does not load in Internet Explorer. It is probably their problem, not yours.','2015-11-30 21:34:31','_images/_bounties/_testMarshall2/_reports/_testHunter2/report4.jpg',15),
-(6,'ProHunter7','Not only is this the weather in Fort Worth, it is the weather from yesterday!','2015-11-30 19:12:33','_images/_bounties/_testMarshall3/_reports/_testHunter2/report2.jpg',16),
-(6,'SMUHunter1911','I am currently in Fort Worth, so this works fine for me.','2015-11-30 20:18:33','_images/_bounties/_testMarshall3/_reports/_testHunter1/report3.jpg',17),
-(6,'SMUHunter1911','Now that I am back in Dallas, this is a much larger problem.','2015-11-30 20:38:33','_images/_bounties/_testMarshall3/_reports/_testHunter1/report4.jpg',18),
-(7,'ProHunter7','Why does every team link to the Dallas Cowboys??','2015-11-30 18:28:38','_images/_bounties/_testMarshall1/_reports/_testHunter2/report4.jpg',19),
-(7,'SMUHunter1911','I LOVE THE COWBOYS. DEZ CAUGHT IT.','2015-11-30 20:18:33','_images/_bounties/_testMarshall1/_reports/_testHunter1/report4.jpg',20),
-(7,'ProHunter7','Oh, it seems to link to whomever you currently have as your favorite team.','2015-11-30 21:13:43','_images/_bounties/_testMarshall1/_reports/_testHunter2/report5.jpg',21),
-(8,'ProHunter7','I really think you guys did this one on purpose.','2015-11-30 20:08:23','_images/_bounties/_testMarshall2/_reports/_testHunter2/report5.jpg',22),
-(8,'SMUHunter1911','That is really weird, every click seems to donate more and more.','2015-11-30 20:48:23','_images/_bounties/_testMarshall2/_reports/_testHunter1/report3.jpg',23),
-(8,'SMUHunter1911','I just lost my life savings.','2015-11-30 22:18:33','_images/_bounties/_testMarshall2/_reports/_testHunter1/report4.jpg',24),
-(9,'ProHunter7','The prices seem off by one, probably just indexed wrong.','2015-11-30 20:18:33','_images/_bounties/_testMarshall3/_reports/_testHunter2/report3.jpg',25),
-(9,'ProHunter7','I just bought a 24K gold watch for $5! Great deal!','2015-11-30 20:28:33','_images/_bounties/_testMarshall3/_reports/_testHunter2/report4.jpg',26),
-(9,'SMUHunter1911','The prices also seem to change every time I reload the page.','2015-11-30 23:58:39','_images/_bounties/_testMarshall3/_reports/_testHunter1/report5.jpg',27);
+INSERT INTO `Report` (bountyID, username, description, dateSubmitted, filePath, reportID, paidAmount, datePaid, message, paid, errorName) VALUES
+(1,'SMUHunter1911','This website works fine for me.','2015-11-30 20:11:11','_images/_bounties/_testMarshall1/_reports/_testHunter1/report1.jpg',1, -1, NULL, '', false, 'report1'),
+(1,'ProHunter7','Your videos only seem to work half the time.','2015-11-30 20:22:44','_images/_bounties/_testMarshall1/_reports/_testHunter2/report1.jpg',2, 10, '2015-12-10 00::00::00', 'Great work!', true, 'report2'),
+(1,'ProHunter7','Ignore my previous report, I disconnected to from the internet while the video was loading.','2015-11-30 20:18:33','_images/_bounties/_testMarshall1/_reports/_testHunter2/report2.jpg',3, 5, '2015-12-10 00::00::00', 'Well done!', false, 'report3'),
+(2,'SMUHunter1911','Every time I click I donate to SMU.','2015-11-30 20:59:59','_images/_bounties/_testMarshall2/_reports/_testHunter1/report1.jpg',4, 100, '2015-3-10 00::00::00', 'Fantastic work!', false, 'report4'),
+(2,'ProHunter7','I donated $1000000 by accident.','2015-11-30 21:45:33','_images/_bounties/_testMarshall2/_reports/_testHunter2/report1.jpg',5, -1, NULL, '', false, 'report5'),
+(2,'ProHunter7','Your website took all my money!','2015-11-30 22:19:23','_images/_bounties/_testMarshall2/_reports/_testHunter2/report2.jpg',6, -1, NULL, '', false, 'report6'),
+(3,'SMUHunter1911','All the links I see here I saw yesterday on The Daily Campus website.','2015-11-30 18:19:20','_images/_bounties/_testMarshall3/_reports/_testHunter1/report1.jpg',7, 1, '2014-10-29 00::00::00', 'We were looking for something more.', false, 'report7'),
+(3,'ProHunter7','When I click on trending, it gives me what was trending this day last year.','2015-11-30 20:05:33','_images/_bounties/_testMarshall3/_reports/_testHunter2/report1.jpg',8, 500, '2015-9-09 00::00::00', 'Great find.', false, 'report8'),
+(3,'SMUHunter1911','I can not find any articles from today.','2015-11-30 21:01:13','_images/_bounties/_testMarshall3/_reports/_testHunter1/report2.jpg',9, -1, NULL, '', false, 'report9'),
+(4,'ProHunter7','Every live score I see is at least five minutes behind.','2015-11-30 20:16:33','_images/_bounties/_testMarshall1/_reports/_testHunter2/report3.jpg',10, 500, '2015-9-09 00::00::00', 'You are a master hunter!', false, 'report10'),
+(4,'SMUHunter1911','The score on the Kansas vs Duke game are flipped!','2015-11-30 20:17:33','_images/_bounties/_testMarshall1/_reports/_testHunter1/report2.jpg',11, 500, '2015-9-09 00::00::00', 'We need more hunters like you.', false, 'report11'),
+(4,'SMUHunter1911','It is faster to wait for the newspaper to get a score update.','2015-11-30 20:18:32','_images/_bounties/_testMarshall1/_reports/_testHunter1/report3.jpg',12, 500, '2015-9-09 00::00::00', 'Outstanding job!', false, 'report12'),
+(5,'ProHunter7','The image loads fine in Google Chrome.','2015-11-30 20:11:23','_images/_bounties/_testMarshall2/_reports/_testHunter2/report3.jpg',13, 500, '2015-9-09 00::00::00', 'Great!', false, 'report13'),
+(5,'SMUHunter1911','This is a great image! I love your website!!','2015-11-30 20:48:11','_images/_bounties/_testMarshall2/_reports/_testHunter1/report2.jpg',14, 500, '2015-9-09 00::00::00', 'Amazing!', false, 'report14'),
+(5,'ProHunter7','Okay, the image does not load in Internet Explorer. It is probably their problem, not yours.','2015-11-30 21:34:31','_images/_bounties/_testMarshall2/_reports/_testHunter2/report4.jpg',15, 500, '2015-9-09 00::00::00', 'This is exactly what we needed.', false, 'report15'),
+(6,'ProHunter7','Not only is this the weather in Fort Worth, it is the weather from yesterday!','2015-11-30 19:12:33','_images/_bounties/_testMarshall3/_reports/_testHunter2/report2.jpg',16, 500, '2015-9-09 00::00::00', 'Way to go!', false, 'report16'),
+(6,'SMUHunter1911','I am currently in Fort Worth, so this works fine for me.','2015-11-30 20:18:33','_images/_bounties/_testMarshall3/_reports/_testHunter1/report3.jpg',17, -1, NULL, '', false, 'report17'),
+(6,'SMUHunter1911','Now that I am back in Dallas, this is a much larger problem.','2015-11-30 20:38:33','_images/_bounties/_testMarshall3/_reports/_testHunter1/report4.jpg',18, -1, NULL, '', false, 'report18'),
+(7,'ProHunter7','Why does every team link to the Dallas Cowboys??','2015-11-30 18:28:38','_images/_bounties/_testMarshall1/_reports/_testHunter2/report4.jpg',19, 10, '2015-12-10 00::00::00', 'Well done.', true, 'report19'),
+(7,'SMUHunter1911','I LOVE THE COWBOYS. DEZ CAUGHT IT.','2015-11-30 20:18:33','_images/_bounties/_testMarshall1/_reports/_testHunter1/report4.jpg',20, 10, '2015-12-10 00::00::00', 'Great!', true, 'report20'),
+(7,'ProHunter7','Oh, it seems to link to whomever you currently have as your favorite team.','2015-11-30 21:13:43','_images/_bounties/_testMarshall1/_reports/_testHunter2/report5.jpg',21, -1, NULL, '', false, 'report21'),
+(8,'ProHunter7','I really think you guys did this one on purpose.','2015-11-30 20:08:23','_images/_bounties/_testMarshall2/_reports/_testHunter2/report5.jpg',22, 5, '2015-12-10 00::00::00', 'Thanks for your input.', true, 'report22'),
+(8,'SMUHunter1911','That is really weird, every click seems to donate more and more.','2015-11-30 20:48:23','_images/_bounties/_testMarshall2/_reports/_testHunter1/report3.jpg',23, -1, NULL, '', false, 'report23'),
+(8,'SMUHunter1911','I just lost my life savings.','2015-11-30 22:18:33','_images/_bounties/_testMarshall2/_reports/_testHunter1/report4.jpg',24, -1, NULL, '', false, 'report24'),
+(9,'ProHunter7','The prices seem off by one, probably just indexed wrong.','2015-11-30 20:18:33','_images/_bounties/_testMarshall3/_reports/_testHunter2/report3.jpg',25, 10, '2015-12-10 00::00::00', 'Nice!', false, 'report25'),
+(9,'ProHunter7','I just bought a 24K gold watch for $5! Great deal!','2015-11-30 20:28:33','_images/_bounties/_testMarshall3/_reports/_testHunter2/report4.jpg',26, -1, NULL, '', false, 'report26'),
+(9,'SMUHunter1911','The prices also seem to change every time I reload the page.','2015-11-30 23:58:39','_images/_bounties/_testMarshall3/_reports/_testHunter1/report5.jpg',27, 5, '2015-12-10 00::00::00', 'Thank you!', false, 'report27');
 /*!40000 ALTER TABLE `report` ENABLE KEYS */;
 UNLOCK TABLES;
 

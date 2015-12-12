@@ -1099,7 +1099,7 @@ function getReportsFromMarshal($dbh,$args)
 
 function createRSS($dbh, $args) {
 
-  $file_path = $args['link']."/rss_".$args['username'].".xml";
+  $file_path = $args['link'].".xml";
 
   $xml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n";
   $xml = $xml."<rss version=\"2.0\">\n";
@@ -1136,24 +1136,24 @@ function createRSS($dbh, $args) {
     $rss_file = fopen($file_path, "w");
     fwrite($rss_file, $xml);
 
-    $statement = $dbh->prepare("
-    UPDATE Account
-    SET rssCreated = 1, rssLink = :rssLink
-    WHERE username = :username"
-   );
+    $mysqlArray[':username'] = $args['username'];
+    $mysqlArray[':rssLink'] = "http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/".$file_path;
 
-    $mysqlArray['username'] = $args['username'];
-    $mysqlArray['rssLink'] = "http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/".$file_path;
+    $statement = $dbh->prepare("
+    UPDATE Marshall
+    SET rssCreated = 1, rssLink = :rssLink
+    WHERE username = :username");
 
     if($statement->execute($mysqlArray))
     {
       $result['error'] = '0';
-      $result['message'] = 'All gucci';
+      $result['message'] = 'Success';
     }
     else
     {
       $result['error'] = '1';
       $result['message'] = 'Statement not executed';
+      $result['messageDB'] = $statement->errorInfo();
     }
 
       return $result;
@@ -1240,8 +1240,57 @@ function rssExists($dbh, $args) {
 }
 
 function addSubscription($dbh, $args) {
+  $functionArray = array();
+  if(file_exists($args[':rssLink']))
+  {
+    $statement = $dbh->prepare(
+    "INSERT INTO Subscription (userID, rssLink) VALUES (:userID, :rssLink)");
+
+    if($statement->execute($args))
+    {
+      $functionArray['error'] = '0';
+      $functionArray['message'] = 'success';
+    }
+    else {
+      $functionArray['error'] = '1';
+      $functionArray['message'] = 'Statement did not execute';
+      $functionArray['messageDB'] = $statement->errorInfo();
+    }
+  }
+  else {
+    $functionArray['error'] = '2';
+    $functionArray['message'] = 'RSS Link does not exist';
+  }
+  return $functionArray;
+}
+
+function getRSSSubscription($dbh,$args)
+{
+  $functionArray = array();
+
+  $statement = $dbh->prepare(
+  "SELECT rssLink FROM Subscription WHERE userID = :userID");
+
+  if($statement->execute($args))
+  {
+    $functionArray['result'] = array();
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+    {
+      array_push($functionArray['result'] = $row['rssLink']);
+    }
+    $functionArray['error'] = '0';
+    $functionArray['message'] = 'success';
+  }
+  else {
+    $functionArray['error'] = '1';
+    $functionArray['message'] = 'Statement did not execute';
+    $functionArray['messageDB'] = $statement->errorInfo();
+  }
+  return $functionArray;
 
 }
+
+
 
 //*************************************************************************************
 //Session Accessing Functions go here**************************************************
@@ -1975,9 +2024,9 @@ $app->post('/api/addRSS', function() use ($dbh) {
   $args['title'] = $_POST['title'];
   $args['category'] = $_POST['category'];
   $args['description'] = $_POST['description'];
-  $args['pubDate'] = date('Y/m/d');
+  $args['pubDate'] = date('Y-m-d');
 
-  $args['link'] = "_rss/_profiles/_".$args['user']."/rss_".$args['user'].".xml";
+  $args['link'] = "_rss/_profiles/_".$args['user'].".xml";
 
   echo json_encode(addRSS($dbh, $args));
 
@@ -1991,10 +2040,10 @@ $app->get('/api/rssExists', function() use ($dbh) {
 
 });
 
-$app->get('/api/addSubscription', function($companyName) use ($dbh) {
+$app->post('/api/addSubscription', function() use ($dbh) {
 
-  $args[":username"] = $_SESSION['userLogin'];
-  $args[':bountyID'] = $_GET['$companyName'];
+  $args[":userID"] = $_SESSION['userLogin'];
+  $args[':rssLink'] = $_POST['rssLink'];
 
   echo json_encode(addSubscription($dbh, $args), JSON_UNESCAPED_SLASHES);
 
@@ -2172,4 +2221,11 @@ $app->get('/api/basicSearch/:query', function($query) use($dbh)
 {
 	$args[':query'] = '%'.$query.'%';
 	echo json_encode(basicSearch($dbh,$args));
+});
+
+$app->get('/api/getRSSSubscription/', function() use($dbh)
+{
+  $args[':userID'] = $_SESSION['userID'];
+
+	echo json_encode(getRSSSubscription($dbh,$args));
 });

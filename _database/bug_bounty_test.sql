@@ -36,8 +36,6 @@ CREATE TABLE IF NOT EXISTS `Account` (
   `loggedIn` TINYINT(1) NOT NULL COMMENT '',
   `dateOfLastActivity` DATETIME NOT NULL COMMENT '',
   `imageLoc` mediumtext NULL COMMENT '',
-  `rssLink` VARCHAR(100) NULL COMMENT '',
-  `rssCreated` TINYINT(1) NOT NULL COMMENT '',
   `name` VARCHAR(40) NOT NULL COMMENT '',
   `paymentType` VARCHAR(15) NOT NULL COMMENT '',
   `moneyCollected` float(12) NOT NULL COMMENT '',
@@ -118,6 +116,8 @@ CREATE TABLE IF NOT EXISTS `Marshall` (
   `rankingAvg` int(11) NOT NULL,
   `description` varchar(200) NOT NULL,
   `company` varchar(25) NOT NULL,
+  `rssLink` VARCHAR(100) NULL COMMENT '',
+  `rssCreated` TINYINT(1) NOT NULL COMMENT '',
   PRIMARY KEY (`marshallID`),
   UNIQUE KEY `userID_UNIQUE` (`marshallID`),
   CONSTRAINT `fk_Sheriff_Account` FOREIGN KEY (`marshallID`) REFERENCES `Account` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -131,9 +131,9 @@ CREATE TABLE IF NOT EXISTS `Marshall` (
 LOCK TABLES `Marshall` WRITE;
 /*!40000 ALTER TABLE `marshall` DISABLE KEYS */;
 INSERT INTO `Marshall` VALUES
-(3,0,0,0,'This is marshallDescription1','company1'),
-(4,0,0,0,'This is marshallDescription2','company2'),
-(5,0,0,0,'This is marshallDescription3','company3');
+(3,0,0,0,'This is marshallDescription1','company1', 'http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/_rss/_profiles/_testMarshall1/rss_testMarshall1.xml', 1),
+(4,0,0,0,'This is marshallDescription2','company2', 'http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/_rss/_profiles/_testMarshall1/rss_testMarshall1.xml', 1),
+(5,0,0,0,'This is marshallDescription3','company3', NULL, 0);
 /*!40000 ALTER TABLE `marshall` ENABLE KEYS */;
 UNLOCK TABLES;
 
