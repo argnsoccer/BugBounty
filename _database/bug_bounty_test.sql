@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `Marshall` (
   `rankingAvg` int(11) NOT NULL,
   `description` varchar(200) NOT NULL,
   `company` varchar(25) NOT NULL,
-  `rssLink` VARCHAR(100) NULL COMMENT '',
+  `rssLink` VARCHAR(255) NULL COMMENT '',
   `rssCreated` TINYINT(1) NOT NULL COMMENT '',
   PRIMARY KEY (`marshallID`),
   UNIQUE KEY `userID_UNIQUE` (`marshallID`),
@@ -132,7 +132,7 @@ LOCK TABLES `Marshall` WRITE;
 /*!40000 ALTER TABLE `marshall` DISABLE KEYS */;
 INSERT INTO `Marshall` VALUES
 (3,0,0,0,'This is marshallDescription1','company1', 'http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/_rss/_profiles/_testMarshall1/rss_testMarshall1.xml', 1),
-(4,0,0,0,'This is marshallDescription2','company2', 'http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/_rss/_profiles/_testMarshall1/rss_testMarshall1.xml', 1),
+(4,0,0,0,'This is marshallDescription2','company2', 'http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/_rss/_profiles/_testMarshall2/rss_testMarshall2.xml', 1),
 (5,0,0,0,'This is marshallDescription3','company3', NULL, 0);
 /*!40000 ALTER TABLE `marshall` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -240,33 +240,33 @@ INSERT INTO MessageOfDay (accountType,message,dateMade) Values ("Marshall","Its 
 LOCK TABLES `Report` WRITE;
 /*!40000 ALTER TABLE `report` DISABLE KEYS */;
 INSERT INTO `Report` (bountyID, username, description, dateSubmitted, filePath, reportID, paidAmount, datePaid, message, paid, errorName) VALUES
-(1,'testHunter1','This is report Text 1 for bounty 1 by testHunter1','0000-00-00 00:00:00','/_images/_bounties/_testMarshall1/_reports/_testHunter1/report1.jpg',1, -1, NULL, '', false, 'report1'),
-(1,'testHunter2','This is report Text 1 for bounty 1 by testHunter2','0000-00-00 00:00:00','/_images/_bounties/_testMarshall1/_reports/_testHunter2/report1.jpg',2, 10, '2015-12-10 00::00::00', 'Good jorb!', true, 'report2'),
-(1,'testHunter2','This is report Text 2 for bounty 1 by testHunter2','0000-00-00 00:00:00','/_images/_bounties/_testMarshall1/_reports/_testHunter2/report2.jpg',3, 5, '2015-12-10 00::00::00', 'A jorb well done!', false, 'report3'),
-(2,'testHunter1','This is reportText 1 for bounty 2 by testHunter1','0000-00-00 00:00:00','/_images/_bounties/_testMarshall2/_reports/_testHunter1/report1.jpg',4, 100, '2015-3-10 00::00::00', 'Absolutely marvelous, Darling', false, 'report4'),
-(2,'testHunter2','This is report Text 1 for bounty 2 by testHunter2','0000-00-00 00:00:00','/_images/_bounties/_testMarshall2/_reports/_testHunter2/report1.jpg',5, -1, NULL, '', false, 'report5'),
-(2,'testHunter2','This is report Text 2 for bounty 2 by testHunter2','0000-00-00 00:00:00','/_images/_bounties/_testMarshall2/_reports/_testHunter2/report2.jpg',6, -1, NULL, '', false, 'report6'),
-(3,'testHunter1','This is report Text 1  for bounty 3 by testHunter1','0000-00-00 00:00:00','/_images/_bounties/_testMarshall3/_reports/_testHunter1/report1.jpg',7, 1, '2014-10-29 00::00::00', 'Paltry Peasant.', false, 'report7'),
-(3,'testHunter2','This is report Text 1 for bounty 3 by testHunter2','0000-00-00 00:00:00','/_images/_bounties/_testMarshall3/_reports/_testHunter2/report1.jpg',8, 500, '2015-9-09 00::00::00', 'Ayy lmao', false, 'report8'),
-(3,'testHunter1','This is report Text 2 for bounty 3 by testHunter1','0000-00-00 00:00:00','/_images/_bounties/_testMarshall3/_reports/_testHunter1/report2.jpg',9, -1, NULL, '', false, 'report9'),
-(4,'testHunter2','This is reportText 1 for bounty 4 by testHunter2','0000-00-00 00:00:00','/_images/_bounties/_testMarshall1/_reports/_testHunter2/report3.jpg',10, 500, '2015-9-09 00::00::00', 'Ayy lmao', false, 'report10'),
-(4,'testHunter1','This is report Text 1 for bounty 4 by testHunter1','0000-00-00 00:00:00','/_images/_bounties/_testMarshall1/_reports/_testHunter1/report2.jpg',11, 500, '2015-9-09 00::00::00', 'Ayy lmao', false, 'report11'),
-(4,'testHunter1','This is report Text 2 for bounty 4 by testHunter1','0000-00-00 00:00:00','/_images/_bounties/_testMarshall1/_reports/_testHunter1/report3.jpg',12, 500, '2015-9-09 00::00::00', 'Ayy lmao', false, 'report12'),
-(5,'testHunter2','This is report Text 1 for bounty 5 by testHunter2','0000-00-00 00:00:00','/_images/_bounties/_testMarshall2/_reports/_testHunter2/report3.jpg',13, 500, '2015-9-09 00::00::00', 'Ayy lmao', false, 'report13'),
-(5,'testHunter1','This is report Text 1 for bounty 5 by testHunter1','0000-00-00 00:00:00','/_images/_bounties/_testMarshall2/_reports/_testHunter1/report2.jpg',14, 500, '2015-9-09 00::00::00', 'Ayy lmao', false, 'report14'),
-(5,'testHunter2','This is report Text 2 for bounty 5 by testHunter2','0000-00-00 00:00:00','/_images/_bounties/_testMarshall2/_reports/_testHunter2/report4.jpg',15, 500, '2015-9-09 00::00::00', 'Ayy lmao', false, 'report15'),
-(6,'testHunter2','This is reportText 1 for bounty 6 by testHunter2','0000-00-00 00:00:00','/_images/_bounties/_testMarshall3/_reports/_testHunter2/report2.jpg',16, 500, '2015-9-09 00::00::00', 'Ayy lmao', false, 'report16'),
-(6,'testHunter1','This is report Text 1 for bounty 6 by testHunter1','0000-00-00 00:00:00','/_images/_bounties/_testMarshall3/_reports/_testHunter1/report3.jpg',17, -1, NULL, '', false, 'report17'),
-(6,'testHunter1','This is report Text 2 for bounty 6 by testHunter1','0000-00-00 00:00:00','/_images/_bounties/_testMarshall3/_reports/_testHunter1/report4.jpg',18, -1, NULL, '', false, 'report18'),
-(7,'testHunter2','This is reportText 1 for bounty 7 by testHunter2','0000-00-00 00:00:00','/_images/_bounties/_testMarshall1/_reports/_testHunter2/report4.jpg',19, 10, '2015-12-10 00::00::00', 'Good jorb!', true, 'report19'),
-(7,'testHunter1','This is report Text 1 for bounty 7 by testHunter1','0000-00-00 00:00:00','/_images/_bounties/_testMarshall1/_reports/_testHunter1/report4.jpg',20, 10, '2015-12-10 00::00::00', 'Good jorb!', true, 'report20'),
-(7,'testHunter2','This is report Text 2 for bounty 7 by testHunter2','0000-00-00 00:00:00','/_images/_bounties/_testMarshall1/_reports/_testHunter2/report5.jpg',21, -1, NULL, '', false, 'report21'),
-(8,'testHunter2','This is reportText 1 for bounty 8 by testHunter2','0000-00-00 00:00:00','/_images/_bounties/_testMarshall2/_reports/_testHunter2/report5.jpg',22, 5, '2015-12-10 00::00::00', 'A jorb well done!', true, 'report22'),
-(8,'testHunter1','This is report Text 1 for bounty 8 by testHunter1','0000-00-00 00:00:00','/_images/_bounties/_testMarshall2/_reports/_testHunter1/report3.jpg',23, -1, NULL, '', false, 'report23'),
-(8,'testHunter1','This is report Text 2 for bounty 8 by testHunter2','0000-00-00 00:00:00','/_images/_bounties/_testMarshall2/_reports/_testHunter1/report4.jpg',24, -1, NULL, '', false, 'report24'),
-(9,'testHunter2','This is reportText 1 for bounty 9 by testHunter2','0000-00-00 00:00:00','/_images/_bounties/_testMarshall3/_reports/_testHunter2/report3.jpg',25, 10, '2015-12-10 00::00::00', 'Good jorb!', false, 'report25'),
-(9,'testHunter2','This is report Text 2 for bounty 9 by testHunter2','0000-00-00 00:00:00','/_images/_bounties/_testMarshall3/_reports/_testHunter2/report4.jpg',26, -1, NULL, '', false, 'report26'),
-(9,'testHunter1','This is report Text 1 for bounty 9 by testHunter1','0000-00-00 00:00:00','/_images/_bounties/_testMarshall3/_reports/_testHunter1/report5.jpg',27, 5, '2015-12-10 00::00::00', 'A jorb well done!', false, 'report27');
+(1,'testHunter1','This is report Text 1 for bounty 1 by testHunter1','2015-01-01 00:00:00','/_images/_bounties/_testMarshall1/_reports/_testHunter1/report1.jpg',1, -1, NULL, '', false, 'report1'),
+(1,'testHunter2','This is report Text 1 for bounty 1 by testHunter2','2014-01-01 00:00:00','/_images/_bounties/_testMarshall1/_reports/_testHunter2/report1.jpg',2, 10, '2015-12-10 00::00::00', 'Good jorb!', true, 'report2'),
+(1,'testHunter2','This is report Text 2 for bounty 1 by testHunter2','2015-10-30 00:00:00','/_images/_bounties/_testMarshall1/_reports/_testHunter2/report2.jpg',3, 5, '2015-12-10 00::00::00', 'A jorb well done!', false, 'report3'),
+(2,'testHunter1','This is reportText 1 for bounty 2 by testHunter1','2013-09-09 00:00:00','/_images/_bounties/_testMarshall2/_reports/_testHunter1/report1.jpg',4, 100, '2015-3-10 00::00::00', 'Absolutely marvelous, Darling', false, 'report4'),
+(2,'testHunter2','This is report Text 1 for bounty 2 by testHunter2','2015-09-11 00:00:00','/_images/_bounties/_testMarshall2/_reports/_testHunter2/report1.jpg',5, -1, NULL, '', false, 'report5'),
+(2,'testHunter2','This is report Text 2 for bounty 2 by testHunter2','2015-05-03 00:00:00','/_images/_bounties/_testMarshall2/_reports/_testHunter2/report2.jpg',6, -1, NULL, '', false, 'report6'),
+(3,'testHunter1','This is report Text 1  for bounty 3 by testHunter1','2015-12-10 00:00:00','/_images/_bounties/_testMarshall3/_reports/_testHunter1/report1.jpg',7, 1, '2014-10-29 00::00::00', 'Paltry Peasant.', false, 'report7'),
+(3,'testHunter2','This is report Text 1 for bounty 3 by testHunter2','2020-01-01 00:00:00','/_images/_bounties/_testMarshall3/_reports/_testHunter2/report1.jpg',8, 500, '2015-9-09 00::00::00', 'Ayy lmao', false, 'report8'),
+(3,'testHunter1','This is report Text 2 for bounty 3 by testHunter1','2014-08-11 00:00:00','/_images/_bounties/_testMarshall3/_reports/_testHunter1/report2.jpg',9, -1, NULL, '', false, 'report9'),
+(4,'testHunter2','This is reportText 1 for bounty 4 by testHunter2','2015-04-20 00:00:00','/_images/_bounties/_testMarshall1/_reports/_testHunter2/report3.jpg',10, 500, '2015-9-09 00::00::00', 'Ayy lmao', false, 'report10'),
+(4,'testHunter1','This is report Text 1 for bounty 4 by testHunter1','2015-04-20 00:00:00','/_images/_bounties/_testMarshall1/_reports/_testHunter1/report2.jpg',11, 500, '2015-9-09 00::00::00', 'Ayy lmao', false, 'report11'),
+(4,'testHunter1','This is report Text 2 for bounty 4 by testHunter1','2014-04-20 00:00:00','/_images/_bounties/_testMarshall1/_reports/_testHunter1/report3.jpg',12, 500, '2015-9-09 00::00::00', 'Ayy lmao', false, 'report12'),
+(5,'testHunter2','This is report Text 1 for bounty 5 by testHunter2','2013-04-20 00:00:00','/_images/_bounties/_testMarshall2/_reports/_testHunter2/report3.jpg',13, 500, '2015-9-09 00::00::00', 'Ayy lmao', false, 'report13'),
+(5,'testHunter1','This is report Text 1 for bounty 5 by testHunter1','2012-04-20 00:00:00','/_images/_bounties/_testMarshall2/_reports/_testHunter1/report2.jpg',14, 500, '2015-9-09 00::00::00', 'Ayy lmao', false, 'report14'),
+(5,'testHunter2','This is report Text 2 for bounty 5 by testHunter2','2015-04-22 00:00:00','/_images/_bounties/_testMarshall2/_reports/_testHunter2/report4.jpg',15, 500, '2015-9-09 00::00::00', 'Ayy lmao', false, 'report15'),
+(6,'testHunter2','This is reportText 1 for bounty 6 by testHunter2','2014-10-01 00:00:00','/_images/_bounties/_testMarshall3/_reports/_testHunter2/report2.jpg',16, 500, '2015-9-09 00::00::00', 'Ayy lmao', false, 'report16'),
+(6,'testHunter1','This is report Text 1 for bounty 6 by testHunter1','2015-04-20 00:00:00','/_images/_bounties/_testMarshall3/_reports/_testHunter1/report3.jpg',17, -1, NULL, '', false, 'report17'),
+(6,'testHunter1','This is report Text 2 for bounty 6 by testHunter1','2015-04-20 00:00:00','/_images/_bounties/_testMarshall3/_reports/_testHunter1/report4.jpg',18, -1, NULL, '', false, 'report18'),
+(7,'testHunter2','This is reportText 1 for bounty 7 by testHunter2','2015-04-20 00:00:00','/_images/_bounties/_testMarshall1/_reports/_testHunter2/report4.jpg',19, 10, '2015-12-10 00::00::00', 'Good jorb!', true, 'report19'),
+(7,'testHunter1','This is report Text 1 for bounty 7 by testHunter1','2015-04-20 00:00:00','/_images/_bounties/_testMarshall1/_reports/_testHunter1/report4.jpg',20, 10, '2015-12-10 00::00::00', 'Good jorb!', true, 'report20'),
+(7,'testHunter2','This is report Text 2 for bounty 7 by testHunter2','2015-04-20 00:00:00','/_images/_bounties/_testMarshall1/_reports/_testHunter2/report5.jpg',21, -1, NULL, '', false, 'report21'),
+(8,'testHunter2','This is reportText 1 for bounty 8 by testHunter2','2015-04-20 00:00:00','/_images/_bounties/_testMarshall2/_reports/_testHunter2/report5.jpg',22, 5, '2015-12-10 00::00::00', 'A jorb well done!', true, 'report22'),
+(8,'testHunter1','This is report Text 1 for bounty 8 by testHunter1','2015-04-20 00:00:00','/_images/_bounties/_testMarshall2/_reports/_testHunter1/report3.jpg',23, -1, NULL, '', false, 'report23'),
+(8,'testHunter1','This is report Text 2 for bounty 8 by testHunter2','2015-04-20 00:00:00','/_images/_bounties/_testMarshall2/_reports/_testHunter1/report4.jpg',24, -1, NULL, '', false, 'report24'),
+(9,'testHunter2','This is reportText 1 for bounty 9 by testHunter2','2015-04-20 00:00:00','/_images/_bounties/_testMarshall3/_reports/_testHunter2/report3.jpg',25, 10, '2015-12-10 00::00::00', 'Good jorb!', false, 'report25'),
+(9,'testHunter2','This is report Text 2 for bounty 9 by testHunter2','2015-04-20 00:00:00','/_images/_bounties/_testMarshall3/_reports/_testHunter2/report4.jpg',26, -1, NULL, '', false, 'report26'),
+(9,'testHunter1','This is report Text 1 for bounty 9 by testHunter1','2015-04-20 00:00:00','/_images/_bounties/_testMarshall3/_reports/_testHunter1/report5.jpg',27, 5, '2015-12-10 00::00::00', 'A jorb well done!', false, 'report27');
 /*!40000 ALTER TABLE `report` ENABLE KEYS */;
 UNLOCK TABLES;
 

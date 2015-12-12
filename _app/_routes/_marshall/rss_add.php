@@ -13,7 +13,7 @@ function prepareMarshallRSSAdd($dbh, $username)
 	// 	5) all bounties that have expired
 		
 	if ($username === $_SESSION['userLogin'] 
-		&& $_SESSION['userType'] === 'marshall')
+		&& $_SESSION['userType'] === 'marshal')
 	{
 		$template_array['username'] = $username;
 		$template_array['userType'] = $_SESSION['userType'];
@@ -31,7 +31,11 @@ function prepareMarshallRSSAdd($dbh, $username)
 	}
 	else
 	{
-
+		$template_array['username'] = $username;
+		$template_array['userLogin'] = $_SESSION['userLogin'];
+		$template_array['userType'] = $_SESSION['userType'];
+		$template_array['wtf'] = "hey";
+		return $template_array;
 	}
 }
 
@@ -45,7 +49,7 @@ else
 {
 	$template_array['errorMessage'] = "You are not signed in as a marshal";
 	$template_array['errorSolution'] = "Sign in or sign up as a marshal";
-	$app->render('error.php',$template_array);
+	$app->render('error.php', $template_array);
 }
 });
 
@@ -57,18 +61,13 @@ if($_SESSION['userType'] == 'marshal')
 
 	$template_array = prepareMarshallRSSAdd($dbh, $username);
 
-	if (isset($_SESSION['userLogin'])
-		&& isset($template_array['error'])
-		&& $template_array['error'] === 0
-		&& $template_array['rssExists'])
+	if (isset($_SESSION['userLogin']))
 	{
 		$app->render('_marshall/rss_add.php', $template_array);
 	}
 	else if (!$template_array['rssExists'])
 	{
-		$template_array['sendMessage'] = "1";
-
-		$app->render('_marshall/rss_create.php', $template_array);
+		echo "here";
 	}
 }
 else
