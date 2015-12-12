@@ -35,6 +35,8 @@ $(document).ready(function () {
         $('#rssAddCategory').val('');
         $('#rssAddDescription').val('');
         $("#rssAddSubmit").removeAttr("disabled");
+
+        console.log(response);
       },
       error: function(xhr, status, error)
       {
