@@ -2076,7 +2076,7 @@ Errors: Code is in the format "xxxxxxxx" where each x can be either 0 or 1, and 
 [7] : password check statement failed
 Message: This will explain the source of the failed changes
 */
-$app->post('/api/updateUserDetailsMarshall',function() use($dbh)
+$app->post('/api/updateUserDetailsMarshal',function() use($dbh)
 {
 	$changeVal = $_POST['changeCode'];
 	$change = array();

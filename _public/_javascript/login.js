@@ -41,7 +41,7 @@ $(document).ready(function ()
         {
           if (response['error'] == '0')
           {
-            window.location.reload(true);
+            window.location.href = "/";
           }
           else if (response['error'] == '1')
           {

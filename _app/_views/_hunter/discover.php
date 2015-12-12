@@ -133,7 +133,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row mainRow">
 
         <div class="col-md-4">
           <h3>Newsfeed</h3>
@@ -204,13 +204,11 @@
 
         </div>
 
-        <div class="col-md-7">
+        <div class="col-md-8">
           <div class="row innerRow">
             <div class="col-md-12">
-              <div class="box">
                 <h3>Search For Bounties</h3>
                 <p>Hey... so the search capabilities of this website were not implemented for this class.  A proper search would be demanding to make and require a complex algorithm.
-              </div>
             </div>
 
           </div>
@@ -240,7 +238,7 @@
                   <p id="noBountiesMessage">There are no recommended bounties :(</p>
                   {% endif %}
                 </div>
-                <p > Much like the search... a recommendation engine was not build do to the scope of this class</p>
+                <p > Much like the search... a recommendation engine was not build due to the scope of this class</p>
               </div>
             </div>
 
@@ -261,18 +259,9 @@
                       <th class="cell">Company Name</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      {% for bounty in recentBounties %}
-                      <tr class="rowTable">
-                        <td class="cell"><a href="/_hunter/bounty/{{bounty.company}}/{{bounty.id}}">{{bounty.name}}</a></td>
-                        <td class="cell"><a href="/_hunter/company/{{bounty.company}}">{{bounty.company}}</a></td>
-                      </tr>
-                      {% endfor %}
+                    <tbody id="recentBountiesBody">
                     </tbody>
                   </table>
-                  {% if (recentBounties is not defined) or (recentBounties|length == 0) %}
-                  <p id="noBountiesMessage">There are no recent bounties :(</p>
-                  {% endif %}
                 </div>
           </div>
         </div>
@@ -305,6 +294,7 @@
 
     <script type="text/javascript" src="/../_javascript/_jquery/cycle.js"></script>
     <script type="text/javascript" src="/../_javascript/logout.js"></script>
+    <script type="text/javascript" src="/../_javascript/recent_bounties.js"></script>
     <script type="text/javascript" src="/../_javascript/search_basic.js"></script>
 
     {{include ('bootstrap_footer.php')}}

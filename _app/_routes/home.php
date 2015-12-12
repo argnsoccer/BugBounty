@@ -20,6 +20,8 @@ function prepareHome($dbh){
 
 		$template_array['trackBounties'] = getBountiesFromUsernameRecentReports($dbh, $args);
 
+		// $template_array['subscriptions'] = getRSSSubscriptions($dbh);
+
 		return $template_array;
 	}
 	else if($_SESSION['userType'] === "marshal")

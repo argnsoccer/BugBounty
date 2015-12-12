@@ -27,9 +27,9 @@
                 <div class="link">Options<i class="fa fa-chevron-down"></i></div>
                 <ul class="submenu">
                   <li><p>UnPaid Reports<input type="checkbox" class="pull-right checkOption" checked value="unPaidOption"></p></li>
-                  <li><p>Paid Reports<input type="checkbox" class="pull-right checkOption" checked value="paidOption">></p></li>
-                  <li><p>Active Bounties<input type="checkbox" class="pull-right checkOption" checked value="activeOption">></p></li>
-                  <li><p>Past Bounties<input type="checkbox" class="pull-right checkOption" checked value="pastOption">></p></li>
+                  <li><p>Paid Reports<input type="checkbox" class="pull-right checkOption" checked value="paidOption"></p></li>
+                  <li><p>Active Bounties<input type="checkbox" class="pull-right checkOption" checked value="activeOption"></p></li>
+                  <li><p>Past Bounties<input type="checkbox" class="pull-right checkOption" checked value="pastOption"></p></li>
                 </ul>
               </li>
               <li>
