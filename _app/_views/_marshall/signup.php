@@ -43,6 +43,14 @@
             <input type="button" class="btn btn-default form-control" value="Company Description" data-toggle="modal"
             data-target="#descriptionModal" data-whatever="@getbootstrap" id="descButton" style="display:none">
 
+            <div class="form-group" id="signUpPaymentType" hidden>
+              <select class="form-control" id="paymentType">
+                <option>paypal</option>
+              </select>
+            </div>
+
+
+
             <button class="btn btn-lg btn-primary btn-block" id="submitSignUp" type="submit">Continue</button>
             <a href="/_hunter/signup">Not a Marshal?</a>
           </form>
