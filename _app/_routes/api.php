@@ -1136,7 +1136,7 @@ function createRSS($dbh, $args) {
     fwrite($rss_file, $xml);
 
     $mysqlArray[':userID'] = $_SESSION['userID'];
-    $mysqlArray[':rssLink'] = "http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/".$file_path;
+    $mysqlArray[':rssLink'] = "http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com".$file_path;
 
     $statement = $dbh->prepare("
     UPDATE Marshall
