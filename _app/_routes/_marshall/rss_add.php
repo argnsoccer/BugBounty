@@ -36,11 +36,22 @@ function prepareMarshallRSSAdd($dbh, $username)
 }
 
 $app->get('/_marshall/rssadd', function() use ($app) {
+if($_SESSION['accountType'] == 'marshal')
+{
 	echo "include a username";
 	//$app->render('_profiles/');
+}
+else
+{
+	$template_array['errorMessage'] = "You are not signed in as a hunter";
+	$template_array['errorMessage'] = "Sign in or sign up as a hunter";
+	$app->render('error.php', $template_array);
+}
 });
 
 $app->get('/_marshall/rssadd/:username', function($username) use ($app, $dbh) {
+if($_SESSION['accountType'] == 'marshal')
+{
 	//echo $username;
 
 	$template_array = prepareMarshallRSSAdd($dbh, $username);
@@ -58,4 +69,11 @@ $app->get('/_marshall/rssadd/:username', function($username) use ($app, $dbh) {
 
 		$app->render('_marshall/rss_create.php', $template_array);
 	}
+}
+else
+{
+	$template_array['errorMessage'] = "You are not signed in as a hunter";
+	$template_array['errorMessage'] = "Sign in or sign up as a hunter";
+	$app->render('error.php', $template_array);
+}
 });

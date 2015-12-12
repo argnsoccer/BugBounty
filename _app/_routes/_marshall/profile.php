@@ -32,11 +32,22 @@ function prepareMarshallProfile($dbh, $username)
 }
 
 $app->get('/_marshall/profile', function() use ($app) {
+if($_SESSION['accountType'] == 'marshal')
+{
 	echo "include a username";
 	//$app->render('_profiles/');
+}
+else
+{
+	$template_array['errorMessage'] = "You are not signed in as a hunter";
+	$template_array['errorMessage'] = "Sign in or sign up as a hunter";
+	$app->render('error.php', $template_array);
+}
 });
 
 $app->get('/_marshall/profile/:username', function($username) use ($app, $dbh) {
+if($_SESSION['accountType'] == 'marshal')
+{
 	//echo $username;
 
 	$template_array = prepareMarshallProfile($dbh, $username);
@@ -63,4 +74,11 @@ $app->get('/_marshall/profile/:username', function($username) use ($app, $dbh) {
 			echo "error - no error code returned";
 		}
 	}
+}
+else
+{
+	$template_array['errorMessage'] = "You are not signed in as a hunter";
+	$template_array['errorMessage'] = "Sign in or sign up as a hunter";
+	$app->render('error.php', $template_array);
+}
 });
