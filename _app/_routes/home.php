@@ -70,7 +70,7 @@ $app->get('/', function() use ($app, $dbh) {
 
 			$app->render('/_marshall/home.php', $template_array);
 
-			// echo print_r($template_array);
+			echo print_r($template_array);
 		}
 		else
 		{
