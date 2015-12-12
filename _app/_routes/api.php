@@ -2110,20 +2110,40 @@ $app->get('/api/getBountiesFromUsernameRecentReports/:username', function($usern
   echo json_encode(getBountiesFromUsernameRecentReports($dbh,$args));
 
 });
-
+/*
+Gets all reports submitted towards bounties made by the marshal
+Errors:
+0: success
+1: statement execution failed
+*/
 $app->get('/api/getReportsFromMarshal/:username', function($username) use($dbh)
 {
   $args[':username'] = $username;
   echo json_encode(getReportsFromMarshal($dbh,$args));
 });
-
+/*
+Inputs:
+Username: username to find results for
+Outputs: an array of all bounties which the user has submitted reports for
+Errors:
+0: success
+1: statements failed
+*/
 $app->get('/api/getBountiesFromUsername/:username', function($username) use($dbh)
 {
   $args[':username'] = $username;
   echo json_encode(getBountiesFromUsername($dbh,$args));
 
 });
-
+/*
+Michael Gilbert
+Inputs:
+Query: A simple string search term
+Outputs: An array of up to 5 bounties whose name includes the search term
+Errors:
+0: success
+1: Statement execution failed
+*/
 $app->get('/api/basicSearch/:query', function($query) use($dbh)
 {
 	$args[':query'] = '%'.$query.'%';
