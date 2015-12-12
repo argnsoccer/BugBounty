@@ -28,9 +28,17 @@ function preparePayPage($dbh) {
 	// 1)  all reports the user had identified to pay
 
 $app->get('/_marshal/pay', function() use ($app, $dbh) {
-
+if($_SESSION['accountType'] == 'marshal')
+{
 	$template_array = preparePayPage($dbh);
 	$app->render('_marshall/pay.php', $template_array);
 
 	echo print_r($template_array);
+}
+else
+{
+	$template_array['errorMessage'] = "You are not signed in as a marshal";
+	$template_array['errorSolution'] = "Sign in or sign up as a marshal";
+	$app->render('error.php',$template_array);
+}
 });

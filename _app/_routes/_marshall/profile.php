@@ -32,11 +32,22 @@ function prepareMarshallProfile($dbh, $username)
 }
 
 $app->get('/_marshal/profile', function() use ($app) {
+if($_SESSION['accountType'] == 'marshal')
+{
 	echo "include a username";
 	//$app->render('_profiles/');
+}
+else
+{
+	$template_array['errorMessage'] = "You are not signed in as a marshal";
+	$template_array['errorSolution'] = "Sign in or sign up as a marshal";
+	$app->render('error.php',$template_array);
+}
 });
 
 $app->get('/_marshal/profile/:username', function($username) use ($app, $dbh) {
+if($_SESSION['accountType'] == 'marshal')
+{
 	//echo $username;
 
 	$template_array = prepareMarshallProfile($dbh, $username);
@@ -63,4 +74,11 @@ $app->get('/_marshal/profile/:username', function($username) use ($app, $dbh) {
 			echo "error - no error code returned";
 		}
 	}
+}
+else
+{
+	$template_array['errorMessage'] = "You are not signed in as a marshal";
+	$template_array['errorSolution'] = "Sign in or sign up as a marshal";
+	$app->render('error.php',$template_array);
+}
 });
