@@ -1147,7 +1147,7 @@ function createRSS($dbh, $args) {
     {
       $args2[':userID'] = $_SESSION['userID'];
       $args2[':rssLink'] = $mysqlArray[':rssLink'];
-      addSubscription($dbh, $args2);
+      addMarshalSubscription($dbh, $args2);
       $result['error'] = '0';
       $result['message'] = 'Success';
       $result['username'] = $_SESSION['userLogin'];
@@ -1250,25 +1250,24 @@ function addSubscription($dbh, $args, $args2) {
   $statement2 = $dbh->prepare(
   "SELECT Marshall.rssLink FROM Marshall, Account WHERE Account.username = :marshalUsername AND Account.userID = Marshall.marshallID");
 
-    if($statement2->execute($args2))
+  if($statement2->execute($args2))
+  {
+    $row = $statement2->fetch(PDO::FETCH_ASSOC);
+    $args[':rssLink'] = substr($row['rssLink'], 57, strlen($row['rssLink']) - 56);
+    if(file_exists($args[':rssLink']))
     {
-      $row = $statement2->fetch(PDO::FETCH_ASSOC);
-      $args[':rssLink'] = substr($row['rssLink'], 57, strlen($row['rssLink']) - 56);
-      if(file_exists($args[':rssLink']))
+      $statement = $dbh->prepare(
+      "INSERT INTO Subscription (hunterID, rssLink) VALUES (:userID, :rssLink)");
+      if($statement->execute($args))
       {
-        $statement = $dbh->prepare(
-        "INSERT INTO Subscription (hunterID, rssLink) VALUES (:userID, :rssLink)");
-
-        if($statement->execute($args))
-        {
-          $functionArray['error'] = '0';
-          $functionArray['message'] = 'success';
-        }
-        else {
-          $functionArray['error'] = '1';
-          $functionArray['message'] = 'Statement did not execute';
-          $functionArray['messageDB'] = $statement->errorInfo();
-        }
+        $functionArray['error'] = '0';
+        $functionArray['message'] = 'success';
+      }
+      else {
+        $functionArray['error'] = '1';
+        $functionArray['message'] = 'Statement did not execute';
+        $functionArray['messageDB'] = $statement->errorInfo();
+      }
     }
     else {
       $functionArray['error'] = '3';
@@ -1280,11 +1279,10 @@ function addSubscription($dbh, $args, $args2) {
     $functionArray['message'] = 'Second Statement did not execute';
     $functionArray['messageDB'] = $statement2->errorInfo();
   }
-
   return $functionArray;
 }
 
-function addSubscription($dbh, $args) {
+function addMarshalSubscription($dbh, $args) {
   $functionArray = array();
 
   if(file_exists($args[':rssLink']))
@@ -1306,7 +1304,6 @@ function addSubscription($dbh, $args) {
     $functionArray['error'] = '2';
     $functionArray['message'] = 'RSS Link does not exist';
   }
-
 
   return $functionArray;
 }
