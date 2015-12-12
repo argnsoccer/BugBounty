@@ -57,7 +57,7 @@
                     </tbody>
                   </table>
                   {% if currentBounties|length == 0 %}
-                    <p id="noBountiesMessage">You have no bounties, click <a href="/_marshall/upload">here</a> or on Upload in the Nav Bar to make one!</p>
+                    <p id="noBountiesMessage">You have no bounties, click <a href="/_marshal/upload">here</a> or on Upload in the Nav Bar to make one!</p>
                   {% endif %}
               </div>
 
@@ -176,10 +176,10 @@
       <script>
         function onAddRSS() {
           if({{rssExists.result.exists}} == 1) {
-            window.location = "/_marshall/rssadd/{{username}}";
+            window.location = "/_marshal/rssadd/{{username}}";
           }
           else {
-            window.location = "/_marshall/rsscreate/{{username}}";
+            window.location = "/_marshal/rsscreate/{{username}}";
           }
         }
       </script>
