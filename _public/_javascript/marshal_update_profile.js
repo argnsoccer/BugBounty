@@ -124,7 +124,7 @@ $(document).ready(function () {
     else {
 
       $.ajax({
-        url: '/api/updateUserDetailsHunter',
+        url: '/api/updateUserDetailsMarshal',
         data: userInfo,
         dataType: 'json',
         async: 'false',
@@ -132,8 +132,172 @@ $(document).ready(function () {
         success: function(response)
         {
 
+          $('#changeUsernameForm').val('');
+          $('#changeEmailForm').val('');
+          $('#changePassworldOldForm').val('');
+          $('#changePassworldNewForm').val('');
+          $('#changePassworldConfirmForm').val('');
+
           console.log(userInfo);
           console.log(response);
+
+          if(response.error.charAt(1) == 1) {
+
+            $.notify({
+              // options
+              message: "  " + "Username Taken! Please choose another.",
+              icon: 'glyphicon glyphicon-alert'
+              },{
+              // settings
+              type: 'danger',
+              delay: 100,
+              placement: {
+                from: "top",
+                align: "right",
+                allow_dismiss: true,
+              }
+            });
+
+            return false;
+          }
+          else if(response.error.charAt(3) == 1) {
+
+            $.notify({
+              // options
+              message: "  " + "Email Taken! Please choose another.",
+              icon: 'glyphicon glyphicon-alert'
+              },{
+              // settings
+              type: 'danger',
+              delay: 100,
+              placement: {
+                from: "top",
+                align: "right",
+                allow_dismiss: true,
+              }
+            });
+
+            return false;
+          }
+          else if(response.error.charAt(4) == 1) {
+
+            //we
+            $.notify({
+              // options
+              message: "  " + "Something went wrong, please try again.",
+              icon: 'glyphicon glyphicon-alert'
+              },{
+              // settings
+              type: 'danger',
+              delay: 100,
+              placement: {
+                from: "top",
+                align: "right",
+                allow_dismiss: true,
+              }
+            });
+
+            return false;
+          }
+          else if(response.error.charAt(5) == 1) {
+
+            //we
+            $.notify({
+              // options
+              message: "  " + "Something went wrong, please try again.",
+              icon: 'glyphicon glyphicon-alert'
+              },{
+              // settings
+              type: 'danger',
+              delay: 100,
+              placement: {
+                from: "top",
+                align: "right",
+                allow_dismiss: true,
+              }
+            });
+
+            return false;
+          }
+          else if(response.error.charAt(6) == 1) {
+
+            $.notify({
+              // options
+              message: "  " + "The password you provided was incorrect.",
+              icon: 'glyphicon glyphicon-alert'
+              },{
+              // settings
+              type: 'danger',
+              delay: 100,
+              placement: {
+                from: "top",
+                align: "right",
+                allow_dismiss: true,
+              }
+            });
+
+            return false;
+          }
+          else if(response.error.charAt(7) == 1) {
+
+            //we
+            $.notify({
+              // options
+              message: "  " + "Something went wrong, please try again.",
+              icon: 'glyphicon glyphicon-alert'
+              },{
+              // settings
+              type: 'danger',
+              delay: 100,
+              placement: {
+                from: "top",
+                align: "right",
+                allow_dismiss: true,
+              }
+            });
+
+            return false;
+          }
+          else if(response.error.charAt(0) == 1) {
+
+            $.notify({
+              // options
+              message: "  " + "Something went wrong, please try again.",
+              icon: 'glyphicon glyphicon-alert'
+              },{
+              // settings
+              type: 'danger',
+              delay: 100,
+              placement: {
+                from: "top",
+                align: "right",
+                allow_dismiss: true,
+              }
+            });
+
+            return false;
+          }
+          else if(response.error.charAt(2) == 1) {
+
+            //we
+            $.notify({
+              // options
+              message: "  " + "Something went wrong, please try again.",
+              icon: 'glyphicon glyphicon-alert'
+              },{
+              // settings
+              type: 'danger',
+              delay: 100,
+              placement: {
+                from: "top",
+                align: "right",
+                allow_dismiss: true,
+              }
+            });
+
+            return false;
+          }
+
 
           $.notify({
             // options
@@ -148,16 +312,11 @@ $(document).ready(function () {
               allow_dismiss: true,
             }
           });
-          $('#changeUsernameForm').val('');
-          $('#changeEmailForm').val('');
-          $('#changePassworldOldForm').val('');
-          $('#changePassworldNewForm').val('');
-          $('#changePassworldConfirmForm').val('');
 
-          var newLink = "/_hunter/profile/" + userInfo.username;
+          var newLink = "/_marshal/profile/" + userInfo.username;
 
           if(userInfo.username == '') {
-            newLink = "/_hunter/profile/" + $('#usernameValue').text();
+            newLink = "/_marshal/profile/" + $('#usernameValue').text();
           }
 
           window.location.href = newLink;

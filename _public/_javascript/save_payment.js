@@ -17,7 +17,7 @@ function isNumber(value) {
       align: "right",
       allow_dismiss: true,
     }
-    });
+  });
 
     return false;
 }

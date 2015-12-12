@@ -42,71 +42,57 @@ And so, social progress was made.
            </div>
         </div>
         <div class="col-lg-8">
-          <form role="form" data-user={{username}} id="createForm">
+          <form role="form" data-user={{username}} id="createBountyForm">
             <div class="form-group">
                 <label for="InputName">Enter Bounty Name</label>
                 <div class="input-group">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                  <input type="text" class="form-control" id="rssCreateTitle" placeholder="Bounty Name" required>
+                  <input type="text" class="form-control" id="bountyTitleForm" placeholder="Bounty Name" required>
                 </div>
             </div>
             <div class="form-group">
                 <label>Enter Link</label>
                 <div class="input-group">
-                  <span class="input-group-addon"><span class="glyphicon"></span></span>
-                  <input type="text" class="form-control"  name="rssCreateCategory" placeholder="URL">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                  <input type="text" class="form-control left" id="bountyLinkForm" name="field"  name="rssCreateCategory" placeholder="URL">
                 </div>
             </div>
             <div class="form-group">
                 <label for="InputEmail">Enter End Date</label>
                 <div class="input-group">
                   <span class="input-group-addon"><span class="glyphicon"></span></span>
-                  <input type="text" class="form-control" id="rssCreateWebsite" name="InputEmail" placeholder="MM/DD/YYYY">
+                  <input type="text" class="form-control" id="bountyEndDateForm" name="InputEmail" placeholder="YYYY/MM/DD">
                 </div>
             </div>
             <div class="form-group">
                 <label for="InputMessage">Enter Description</label>
-                </a>
                 <div class="input-group">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                  <textarea  id="rssCreateDescription" class="form-control" rows="5" required></textarea>
+                  <textarea  id="boutyDescriptionForm" class="form-control" rows="5" required></textarea>
                 </div>
             </div>
-            <button type="submit" id="rssCreateSubmit" class="btn btn-primary pull-right">Submit</button>
+            <button type="submit" id="bountyCreateSubmit" class="btn btn-primary pull-right">Submit</button>
           </form>
         </div>
       </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
-    <script type="text/javascript" src="/../_javascript/logout.js"></script>
-    <script type="text/javascript" src="/../_javascript/rss_create.js"></script>
 
-    {% if rssExists == "1" %}
-    <script type="text/javascript">
-      function showMessage() {
-        $.notify({
-          // options
-          message: '  RSS Not Yet Created',
-          icon: 'glyphicon glyphicon-alert'
-          },{
-          // settings
-          type: 'info',
-          placement: {
-            from: "top",
-            align: "right",
-            allow_dismiss: true,
-          }
-        });
-      }
-      window.onload = function {
-        showMessage();
-      }
-    </script>
-    {% endif %}
+    <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
+    <script type="text/javascript" src="/../_javascript/bounty_create.js"></script>
+    <script type="text/javascript" src="/../_javascript/logout.js"></script>
+
+
 
     {{include ('bootstrap_footer.php')}}
 
   </body>
 
 </html>
+
+<!-- <form id="myform">
+<label for="field">Required, URL: </label>
+<input class="left" id="field" name="field">
+<br/>
+<input type="submit" value="Validate!">
+</form> -->

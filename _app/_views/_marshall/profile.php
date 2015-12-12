@@ -159,9 +159,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
     <script type="text/javascript" src="/../_javascript/logout.js"></script>
-    <script type="text/javascript" src="/../_javascript/update_profile.js"></script>
+    <script type="text/javascript" src="/../_javascript/hunter_update_profile.js"></script>
     <script type="text/javascript" src="/../_javascript/update_payment.js"></script>
-    <script type="text/javascript" src="/../_javascript/basic_search.js"></script>
+    <script type="text/javascript" src="/../_javascript/search_basic.js"></script>
 
   {{include ('bootstrap_footer.php')}}
 </body>
