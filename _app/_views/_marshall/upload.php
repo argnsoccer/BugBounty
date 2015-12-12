@@ -68,7 +68,7 @@ And so, social progress was made.
                 <label for="InputMessage">Enter Description</label>
                 <div class="input-group">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                  <textarea  id="boutyDescriptionForm" class="form-control" rows="5" required></textarea>
+                  <textarea  id="bountyDescriptionForm" class="form-control" rows="5" required></textarea>
                 </div>
             </div>
             <button type="submit" id="bountyCreateSubmit" class="btn btn-primary pull-right">Submit</button>
