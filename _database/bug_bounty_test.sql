@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `Marshall` (
   `rankingAvg` int(11) NOT NULL,
   `description` varchar(200) NOT NULL,
   `company` varchar(25) NOT NULL,
-  `rssLink` VARCHAR(100) NULL COMMENT '',
+  `rssLink` VARCHAR(255) NULL COMMENT '',
   `rssCreated` TINYINT(1) NOT NULL COMMENT '',
   PRIMARY KEY (`marshallID`),
   UNIQUE KEY `userID_UNIQUE` (`marshallID`),
