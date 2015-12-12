@@ -1194,6 +1194,7 @@ function addRSS($dbh, $args) {
   else {
     $result['error'] = "1";
     $result['message'] = "RSS File does not Exist";
+    $result['path'] = $args['link'];
   }
 
   return $result;
