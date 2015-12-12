@@ -26,11 +26,11 @@ function prepareHome($dbh){
 	}
 	else if($_SESSION['userType'] === "marshal")
 	{
-		$template_array["username"] = $_SESSION['userLogin'];
 
-		$args[':username'] = $_SESSION['userLogin'];
+		$template_array['username'] = $_SESSION['userLogin'];
 
-		$template_array['rssExists'] = rssExists($dbh, $args);
+		$template_array['rssExists'] = rssExists($dbh);
+		$template_array['subscriptions'] = getRSSSubscription($dbh);
 
 		$dummy = getMessageOfDayMarshal($dbh);
 
