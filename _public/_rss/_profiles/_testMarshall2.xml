@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<rss version="2.0">
+	<channel>
+		<title>title testMarshall2</title>
+		<link>www.google.com</link>
+		<image>
+			<url>_images/_profiles/_/profile.png</url>
+			<title> RSS picture for </title>
+			<link>_rss/_profiles/_testMarshall2.xml</link>
+		</image>
+		<description>description of an RSS</description>
+		<language>en-us</language>
+		<category>Marshal Stufff</category>
+		<copyright>copyright</copyright>
+		<lastBuildDate/>
+		<ttl>340</ttl>
+	<item><title>title testMarshall2</title><description>description of an RSS</description><pubDate>2015-12-12</pubDate></item></channel>
+</rss>
