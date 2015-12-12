@@ -1150,6 +1150,8 @@ function createRSS($dbh, $args) {
 
     $rss_file = fopen($file_path, "w");
     fwrite($rss_file, $xml);
+    $result['rss_file'] = $file_path;
+    fclose($rss_file);
 
     $mysqlArray[':userID'] = $_SESSION['userID'];
     $mysqlArray[':rssLink'] = "http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com".$file_path;
