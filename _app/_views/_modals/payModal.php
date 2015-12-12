@@ -6,9 +6,9 @@
               <h4 class="modal-title" id="exampleModalLabel">Pay</h4>
             </div>
               <form>
-                <div class="modal-body">
+<!--                 <div class="modal-body">
                   <div id="paypal-container"></div>
-                </div>
+                </div> -->
               </form>
               <div class="modal-footer">
                 <button type="submit" class="btn btn-success" id="payAmountSubmit"

@@ -93,6 +93,25 @@ $(document).ready(function () {
       data: paymentInfo,
       async: 'true',
       success: function(response) {
+
+      	$('#payModal').modal('hide');
+
+  		$.notify({
+		  // options
+		  message: "Report paid",
+		  icon: 'glyphicon glyphicon-ok'
+		  },{
+		  // settings
+		  type: 'success',
+		  placement: {
+		    from: "top",
+		    align: "right",
+		    allow_dismiss: true,
+		  }
+	    });
+
+	    window.location.reload(true);
+
         	console.log(response);
       }
     });
