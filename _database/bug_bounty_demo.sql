@@ -39,6 +39,8 @@ CREATE TABLE IF NOT EXISTS `Account` (
   `rssLink` VARCHAR(100) NULL COMMENT '',
   `rssCreated` TINYINT(1) NOT NULL COMMENT '',
   `name` VARCHAR(40) NOT NULL COMMENT '',
+  `paymentType` VARCHAR(15) NOT NULL COMMENT '',
+  `moneyCollected` float(12) NOT NULL COMMENT '',
   PRIMARY KEY (`userID`)  COMMENT '',
   UNIQUE INDEX `username_UNIQUE` (`username` ASC)  COMMENT '',
   UNIQUE INDEX `email_UNIQUE` (`email` ASC)  COMMENT '',
@@ -53,11 +55,11 @@ ENGINE = InnoDB;
 LOCK TABLES `Account` WRITE;
 /*!40000 ALTER TABLE `Account` DISABLE KEYS */;
 INSERT INTO `Account` (userID, username, email,password,dateCreated,activated,dateDeactivated,accountType,loggedIn,dateOfLastActivity,imageLoc, name) VALUES
-(1,'SMUHunter1911','SMUHunter1911@gmail.com','SMUHunter1911','2015-11-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00', '_images/_profiles/_testHunter1/default_profile.png', 'Mark Fontenot'),
-(2,'ProHunter7','ProHunter7@gmail.com','ProHunter7','2015-11-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00', '_images/_profiles/_testHunter2/default_profile.png', 'Mike Jones'),
-(3,'ESPNMarshall4','ESPNMarshall4@gmail.com','ESPNMarshall4','2015-11-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'John Wayne'),
-(4,'SMUMarshall1911','SMUMarshall1911@gmail.com','SMUMarshall1911','2015-11-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'Clint Eastwood'),
-(5,'DMNMarshall3','DMNMarshall3@gmail.com','DMNMarshall3','2015-11-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'Doc Holiday');
+(1,'SMUHunter1911','SMUHunter1911@gmail.com','SMUHunter1911','2015-11-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00', '_images/_profiles/_testHunter1/default_profile.png', 'Mark Fontenot', 'paypal', 0),
+(2,'ProHunter7','ProHunter7@gmail.com','ProHunter7','2015-11-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00', '_images/_profiles/_testHunter2/default_profile.png', 'Mike Jones', 'paypal', 0),
+(3,'ESPNMarshall4','ESPNMarshall4@gmail.com','ESPNMarshall4','2015-11-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'John Wayne', 'paypal', 0),
+(4,'SMUMarshall1911','SMUMarshall1911@gmail.com','SMUMarshall1911','2015-11-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'Clint Eastwood', 'paypal', 0),
+(5,'DMNMarshall3','DMNMarshall3@gmail.com','DMNMarshall3','2015-11-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'Doc Holiday', 'paypal', 0);
 /*!40000 ALTER TABLE `Account` ENABLE KEYS */;
 UNLOCK TABLES;
 
