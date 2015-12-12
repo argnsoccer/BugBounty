@@ -13,52 +13,25 @@ $(document).ready(function ()
     rssInfo["description"] = $("#rssCreateDescription").val();
     rssInfo["url"] = $("#rssCreateWebsite").val();
 
+    console.log(rssInfo);
+
     $.ajax({
       url: '/api/createRSS',
-      data: rssInfo,
-      dataType: 'json',
-      async: 'false',
       type: 'POST',
-      success: function(response)
-      {
-        var username = $("#createForm").attr("data-user");
-        var link = "/_marshal/rssadd/";
-        link = link+username;
-        $.notify({
-          // options
-          message: '  RSS Created',
-          icon: 'glyphicon glyphicon-ok'
-          },{
-          // settings
-          type: 'success',
-          placement: {
-            from: "top",
-            align: "right",
-            allow_dismiss: true,
-          }
-        });
-        window.location.assign(link);
-      },
-      error: function(xhr, status, error)
-      {
-      var err = eval("(" + xhr.responseText + ")");
-      //alert("Please Try Again, we had an internal error!");
-      $("#rssCreateSubmit").removeAttr("disabled");
-      $.notify({
-          // options
-          message: err + " \nsomething went wrong, please try again",
-          icon: 'glyphicon glyphicon-remove-circle'
-          },{
-          // settings
-          type: 'danger',
-          placement: {
-            from: "top",
-            align: "right",
-            allow_dismiss: true,
-          }
-        });
+      dataType: 'json',
+      data: rssInfo,
+      async: 'true',
+      success: function(response) {
+
+      if(response.error == 0) {
+        console.log(response);
+        window.location = "/_marshal/rssadd/" + response.username;
+      }
+
       }
     });
+
+
   });
 
 });

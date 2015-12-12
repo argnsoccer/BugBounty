@@ -7,8 +7,8 @@
 	height:40px;
 }*/
 
-.pastRow:hover { 
-	background: #FAFAFA; 
+.pastRow:hover {
+	background: #FAFAFA;
 }
 
   #bountyBoard {
@@ -22,7 +22,7 @@
   background-image: url("/../_images/_random/wanted_240x308.png");
   background-size: 166px 200px;
   background-repeat: no-repeat;
-  background-position: center; 
+  background-position: center;
   height: 200px;
 }
 
@@ -41,10 +41,11 @@
   width: 100px;
 }
 
-#discoverButton {
+#discoverButton
+{
 	margin-left: auto;
 	margin-right: auto;
-  padding: 10px;
+  	padding: 10px;
 }
 
 .bottomBox {

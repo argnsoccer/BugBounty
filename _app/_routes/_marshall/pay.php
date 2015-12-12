@@ -32,8 +32,6 @@ if($_SESSION['userType'] == 'marshal')
 {
 	$template_array = preparePayPage($dbh);
 	$app->render('_marshall/pay.php', $template_array);
-
-	echo print_r($template_array);
 }
 else
 {
