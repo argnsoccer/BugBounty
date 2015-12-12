@@ -4,7 +4,7 @@ session_start();
 session_set_cookie_params(0);
 
 $app->get('/_marshal/upload', function() use ($app) {
-if($_SESSION['accountType'] == 'marshal')
+if($_SESSION['userType'] == 'marshal')
 {
 	$app->render('_marshall/upload.php');
 }

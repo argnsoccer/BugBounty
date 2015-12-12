@@ -41,7 +41,7 @@ function prepareTrackPage($dbh, $bountyID)
 }
 
 $app->get('/_marshal/track', function() use ($app) {
-if($_SESSION['accountType'] == 'marshal')
+if($_SESSION['userType'] == 'marshal')
 {
 	echo "please include bounty id";
 }
@@ -54,7 +54,7 @@ else
 });
 
 $app->get('/_marshal/track/:bountyID', function($bountyID) use ($app, $dbh){
-if($_SESSION['accountType'] == 'marshal')
+if($_SESSION['userType'] == 'marshal')
 {
 	$template_array = prepareTrackPage($dbh, $bountyID);
 

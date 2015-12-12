@@ -24,7 +24,7 @@ function prepareMarshallRSSCreate($dbh, $username)
 }
 
 $app->get('/_marshal/rsscreate', function() use ($app) {
-if($_SESSION['accountType'] == 'marshal')
+if($_SESSION['userType'] == 'marshal')
 {
 	echo "include a username";
 }
@@ -36,8 +36,8 @@ else
 }
 });
 
-$app->get('/_marshall/rsscreate/:username', function($username) use ($app, $dbh) {
-if($_SESSION['accountType'] == 'marshal')
+$app->get('/_marshal/rsscreate/:username', function($username) use ($app, $dbh) {
+if($_SESSION['userType'] == 'marshal')
 {
 	//echo $username;
 

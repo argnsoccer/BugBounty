@@ -32,7 +32,7 @@ function prepareMarshallProfile($dbh, $username)
 }
 
 $app->get('/_marshal/profile', function() use ($app) {
-if($_SESSION['accountType'] == 'marshal')
+if($_SESSION['userType'] == 'marshal')
 {
 	echo "include a username";
 	//$app->render('_profiles/');
@@ -46,7 +46,7 @@ else
 });
 
 $app->get('/_marshal/profile/:username', function($username) use ($app, $dbh) {
-if($_SESSION['accountType'] == 'marshal')
+if($_SESSION['userType'] == 'marshal')
 {
 	//echo $username;
 
