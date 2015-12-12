@@ -681,25 +681,6 @@ function updateReport($dbh, $args, $changeCode) {
   }
 }
 
-
-  if($statement->execute($args))
-  {
-    $functionArray['error'] = '0';
-    $functionArray['message'] = 'success';
-    $result['paidAmount'] = $_POST['paidAmount'];
-    $result['message'] = $_POST['message'];
-    $functionArray['result'] = $result;
-  }
-  else
-  {
-    $functionArray['error'] = '1';
-    $functionArray['messageDB'] = $statement->errorInfo();
-    $functionArray['message'] = 'First statement not executed';
-
-  }
-  return $functionArray;
-}
-
 function getReportsFromUsername($dbh, $args) {
   $statement = $dbh->prepare(
   "SELECT Report.*, DATE(Report.datePaid) as datePaid, DATE(Report.dateSubmitted) as dateSubmitted, BountyPool.bountyName, Account.username as ownerUsername, Marshall.company as companyName FROM Report, BountyPool, Account, Marshall
