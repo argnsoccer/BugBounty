@@ -60,3 +60,7 @@ table {
 .profileUpdateForm {
   margin-bottom: 15px;
 }
+
+.rowTable.header {
+  background: #59ABE3;
+}

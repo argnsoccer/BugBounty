@@ -1,75 +1,73 @@
-table
-{
-    width: 100%;
+h3 {
+  display:inline;
 }
 
-.rowTable.header
-{
-    background-color: #59ABE3;
+textarea {
+  display: block;
+  width: 100%;
 }
 
-.table-title
-{
-  padding-bottom: 5px;
+/*.picRow {
+    margin-top: 10px;
+}*/
+
+.addOnCustom {
+  width: 150px !important;
 }
 
-.tableWrapper
-{
-    max-height: 400px !important;
+.formControlCustom {
+  width: 100% !important;
 }
 
-.cell
-{
-    padding: 5px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    text-align: center;
-}
 
-.table-row
-{
-    background: #f6f6f6;
-    width: 100%;
-}
-
-#content_area
-{
-    margin-left: 100px;
-    margin-right: 100px;
-}
-
-#bounty_picture
+#bountyPicture
 {
     border-color: #5b5b5b;
     border-width: 2px;
     border-style: solid;
     width: 80%;
     height: 200px;
-    margin-left: 0;
-    margin-top: 60px;
-    margin-right: auto;
+    margin: 0 auto;
     display: block;
 }
 
-#info_box
-{
-    border: 2px solid;
-    border-color:#59ABE3;
-    border-radius: 5px;
-    padding: 10px;
+#bountyButtons {
+  margin: 10px !important;
 }
 
-#pay_amount
-{
-    margin: 0 auto;
+.input-group {
+  width: 100%;
 }
 
-#dollar_sign
-{
-    width: 25px;
+.formControlCustom {
+  text-align: center;
 }
 
-#pay_amount_field
-{
+table {
+  width: 100%;
+}
+
+.tableWrapper {
+  max-height: 445px !important;
+}
+
+.rowTable.header {
+  background: #ea6153;
+}
+
+#bountyButtons > .btn {
+  width: 120px !important;
+}
+
+.saveButton {
     width: 70px;
+}
+
+.payInput {
+  width: 170px;
+  margin: 0 auto;
+}
+
+.payAmountForm {
+  text-align: center;
 }

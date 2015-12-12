@@ -1,11 +1,17 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <title>BugBounty Profile</title>
   <link rel="shortcut icon" type="image/x-icon" href="../_images/_logos/bug-hunter-icon.ico" />
   <link rel="stylesheet" type="text/css" href="/../_css/header.css">
   <link rel="stylesheet" type="text/css" href="/../_css/default.css">
-  <link rel="stylesheet" type="text/css" href="/../_css/marshall-profile.css" />
+      <link rel="stylesheet" type="text/css" href="/../_css/track.css" />
+
+        <link rel="stylesheet" type="text/css" href="/../_css/_modal/default_modal.css" />
+      <link rel="stylesheet" type="text/css" href="/../_css/_modal/display_details_modal.css" />
+      <link rel="stylesheet" type="text/css" href="/../_css/_modal/payment_modal.css" />
+      <link rel="stylesheet" type="text/css" href="/../_css/_modal/profile_modal.css" />
+      <link rel="stylesheet" type="text/css" href="/../_css/_modal/message_modal.css" />
 
   {{include ('bootstrap_header.php')}}
 </head>
@@ -25,7 +31,7 @@
             data-target="#profileChangeModal" data-whatever="@getbootstrap">
                   Edit
           </button>
-          <form id="profileUpdateForm" method="post">
+          <form class="profileUpdateForm" method="post">
             <div class="form-group">
                 <label for="InputName"></label>
                 <div class="input-group">
@@ -62,12 +68,13 @@
                 </div>
             </div>
           </form>
+
           <h3>Payment Information</h3>
           <button type="button" class="btn btn-default btn-xs pull-right" data-toggle="modal"
             data-target="#paymentChangeModal" data-whatever="@getbootstrap">
                   Edit
           </button>
-           <form id="profileUpdateForm" method="post">
+           <form class="profileUpdateForm" method="post">
             <div class="form-group">
                 <label for="InputName"></label>
                 <div class="input-group">
@@ -77,7 +84,7 @@
             </div>
           </form>
           <h3>Bounty Information</h3>
-           <form id="profileUpdateForm" method="post">
+           <form class="profileUpdateForm" method="post">
             <div class="form-group">
                 <label for="InputName"></label>
                 <div class="input-group">
@@ -144,73 +151,9 @@
         </div>
       </div>
 
-      <div class="modal fade changeModal" id="profileChangeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="exampleModalLabel">Change Profile Details</h4>
-              <form id="reportForm" data-ID={{bounty.id}} data-username={{username}}>
-                <div class="modal-body">
-                  <div class="input-group input-group-Modal">
-                    <span class="input-group-addon addOnCustom">Username</span>
-                    <input type ="text" class="form-control modalInput" id="changeUsernameForm">
-                  </div>
-                  <div class="input-group input-group-Modal">
-                    <span class="input-group-addon addOnCustom">Email</span>
-                    <input type ="text" class="form-control modalInput" id="changeEmailForm">
-                  </div>
-                  <div class="input-group input-group-Modal">
-                    <span class="input-group-addon addOnCustom">Old Password</span>
-                    <input type ="password" class="form-control modalInput" id="changePassworldOldForm">
-                  </div>
-                  <div class="input-group input-group-Modal">
-                    <span class="input-group-addon addOnCustom">New Password</span>
-                    <input type ="password" class="form-control modalInput" id="changePasswordNewForm">
-                  </div>
-                  <div class="input-group input-group-Modal">
-                    <span class="input-group-addon addOnCustom">Confirm Password</span>
-                    <input type ="password" class="form-control modalInput" id="changePasswordConfirmForm">
-                  </div>
-                </div>
-              </form>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" id="submitChangeProfile">Submit</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal fade" id="paymentChangeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="exampleModalLabel">Change Payment Details</h4>
-              <form id="reportForm" data-ID={{bounty.id}} data-username={{username}}>
-                <div class="modal-body">
-                  <div class="input-group input-group-Modal">
-                    <span class="input-group-addon addOnCustom">Option 1</span>
-                    <input type ="text" class="form-control modalInput" id="changePaymentOption1Form">
-                  </div>
-                  <div class="input-group input-group-Modal">
-                    <span class="input-group-addon addOnCustom">Option 2</span>
-                    <input type ="text" class="form-control modalInput" id="changePaymentOption2Form">
-                  </div>
-                  <div class="input-group input-group-Modal">
-                    <span class="input-group-addon addOnCustom">Password</span>
-                    <input type ="password" class="form-control modalInput" id="changePaymentPasswordForm">
-                  </div>
-                </div>
-              </form>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" id="submitChangePayment">Submit</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+{{include ('_modals/profileModal.php')}}
+{{include ('_modals/paymentModal.php')}}
+{{include ('_modals/basicSeachModal.php')}}
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

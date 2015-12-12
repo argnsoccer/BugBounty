@@ -11,31 +11,7 @@ function prepareTrackPage($dbh, $bountyID)
 	$template_array['submittedReports'] = getReportsFromBountyID($dbh, $args);
 	//$template_array['reports'] = getReportsFromBountyID($dbh, $args);
 
-	//Test reports
-	/*$template_array['reports'] = array(
-		array(
-			'dateCreated' => '2015-10-29',
-			'name' => 'Tupac the Eskimo'
-		),
-		array(
-			'dateCreated' => '2015-10-29',
-			'name' => 'Tupac the Eskimo'
-		),
-		array(
-			'dateCreated' => '2015-10-29',
-			'name' => 'Tupac the Eskimo'
-		),
-		array(
-			'dateCreated' => '2015-10-29',
-			'name' => 'Tupac the Eskimo'
-		),
-		array(
-			'dateCreated' => '2015-10-29',
-			'name' => 'Tupac the Eskimo'
-		)
-	);*/
-
-	$template_array['numReports'] = sizeof($template_array['reports']);
+	$template_array['numReports'] = sizeof($template_array['submittedReports']['result']);
 
 	return $template_array;
 }

@@ -16,8 +16,8 @@
       {{include ('bootstrap_header.php')}}
   </head>
   <body>
-
       {{include ('header_hunter.php')}}
+      
       <div class="row mainRow">
         <div class="col-md-2">
           <div id="picture_upload">
