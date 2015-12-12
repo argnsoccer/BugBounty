@@ -11,8 +11,8 @@
 
 	{% if username and userType == "hunter" %}
   	{{ include ('header_hunter.php') }}
-	{% elseif  username and userType == "marshall" %}
-  	{{ include ('header_marshall.php') }}
+	{% elseif  username and userType == "marshal" %}
+  	{{ include ('header_marshal.php') }}
 	{% else %}
   	{{ include ('header_login.php') }}
 	{% endif %}

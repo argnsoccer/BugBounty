@@ -3,7 +3,7 @@
 session_start();
 session_set_cookie_params(0);
 
-$app->get('/_marshall/upload', function() use ($app) {
+$app->get('/_marshal/upload', function() use ($app) {
 if($_SESSION['accountType'] == 'marshal')
 {
 	$app->render('_marshall/upload.php');

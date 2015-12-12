@@ -5,8 +5,6 @@ $(document).ready(function ()
 
     userInfo = {}
 
-    //alert("LOGOUT");
-
       event.preventDefault();
 
       $.ajax({
@@ -57,10 +55,10 @@ $(document).ready(function ()
               var address = "/_hunter/profile/" + response['result']['username'];
               window.location.href = address;
             }
-            else if (response['result']['userType'] == 'marshall' 
+            else if (response['result']['userType'] == 'marshal' 
               || response['result']['userType'] == 'sheriff')
             {
-              var address = "/_marshall/profile/" + response['result']['username'];
+              var address = "/_marshal/profile/" + response['result']['username'];
               window.location.href = address;
             }
           }

@@ -22,7 +22,7 @@ function prepareHome($dbh){
 
 		return $template_array;
 	}
-	else if($_SESSION['userType'] === "marshall")
+	else if($_SESSION['userType'] === "marshal")
 	{
 		$template_array["username"] = $_SESSION['userLogin'];
 
@@ -59,7 +59,7 @@ $app->get('/', function() use ($app, $dbh) {
 
 			// echo print_r($template_array);
 		}
-		else if ($_SESSION['userType'] == 'marshall' 
+		else if ($_SESSION['userType'] == 'marshal' 
 			|| $_SESSION['userType'] == 'sheriff'
 			|| $_SESSION['userType'] == 'marshal')
 		{
@@ -68,7 +68,7 @@ $app->get('/', function() use ($app, $dbh) {
 
 			$app->render('/_marshall/home.php', $template_array);
 
-			// echo print_r($template_array);
+			echo print_r($template_array);
 		}
 		else
 		{

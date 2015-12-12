@@ -7,7 +7,7 @@ function prepareMarshallRSSCreate($dbh, $username)
 {
 		
 	if ($username === $_SESSION['userLogin'] 
-		&& $_SESSION['userType'] === 'marshall')
+		&& $_SESSION['userType'] === 'marshal')
 	{
 		$template_array['username'] = $username;
 		$template_array['userType'] = $_SESSION['userType'];
@@ -23,7 +23,7 @@ function prepareMarshallRSSCreate($dbh, $username)
 	}
 }
 
-$app->get('/_marshall/rsscreate', function() use ($app) {
+$app->get('/_marshal/rsscreate', function() use ($app) {
 if($_SESSION['accountType'] == 'marshal')
 {
 	echo "include a username";
@@ -36,7 +36,7 @@ else
 }
 });
 
-$app->get('/_marshall/rsscreate/:username', function($username) use ($app, $dbh) {
+$app->get('/_marshal/rsscreate/:username', function($username) use ($app, $dbh) {
 if($_SESSION['accountType'] == 'marshal')
 {
 	//echo $username;
