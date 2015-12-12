@@ -57,9 +57,9 @@ LOCK TABLES `Account` WRITE;
 INSERT INTO `Account` (userID, username, email,password,dateCreated,activated,dateDeactivated,accountType,loggedIn,dateOfLastActivity,imageLoc, name, paymentType, moneyCollected) VALUES
 (1,'SMUHunter1911','SMUHunter1911@gmail.com','SMUHunter1911','2015-11-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00', '_images/_profiles/_testHunter1/default_profile.png', 'Mark Fontenot', 'paypal', 0),
 (2,'ProHunter7','ProHunter7@gmail.com','ProHunter7','2015-11-29 21:44:18',1,NULL,'hunter',0,'0000-00-00 00:00:00', '_images/_profiles/_testHunter2/default_profile.png', 'Mike Jones', 'paypal', 0),
-(3,'ESPNMarshall4','ESPNMarshall4@gmail.com','ESPNMarshall4','2015-11-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'John Wayne', 'paypal', 0),
-(4,'SMUMarshall1911','SMUMarshall1911@gmail.com','SMUMarshall1911','2015-11-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'Clint Eastwood', 'paypal', 0),
-(5,'DMNMarshall3','DMNMarshall3@gmail.com','DMNMarshall3','2015-11-29 21:44:18',1,NULL,'marshall',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'Doc Holiday', 'paypal', 0);
+(3,'ESPNMarshall4','ESPNMarshall4@gmail.com','ESPNMarshall4','2015-11-29 21:44:18',1,NULL,'marshal',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'John Wayne', 'paypal', 0),
+(4,'SMUMarshall1911','SMUMarshall1911@gmail.com','SMUMarshall1911','2015-11-29 21:44:18',1,NULL,'marshal',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'Clint Eastwood', 'paypal', 0),
+(5,'DMNMarshall3','DMNMarshall3@gmail.com','DMNMarshall3','2015-11-29 21:44:18',1,NULL,'marshal',0,'0000-00-00 00:00:00', '_images/_profiles/_testMarshall1/default_profile.png', 'Doc Holiday', 'paypal', 0);
 /*!40000 ALTER TABLE `Account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,9 +118,11 @@ CREATE TABLE IF NOT EXISTS `Marshall` (
   `rankingAvg` int(11) NOT NULL,
   `description` varchar(200) NOT NULL,
   `company` varchar(25) NOT NULL,
+  `rssLink` VARCHAR(255) NULL COMMENT '',
+  `rssCreated` TINYINT(1) NOT NULL COMMENT '',
   PRIMARY KEY (`marshallID`),
   UNIQUE KEY `userID_UNIQUE` (`marshallID`),
-  CONSTRAINT `fk_Sheriff_Account` FOREIGN KEY (`marshallID`) REFERENCES `Account` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Sheriff_Account` FOREIGN KEY (`marshallID`) REFERENCES `Account` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -130,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `Marshall` (
 
 LOCK TABLES `Marshall` WRITE;
 /*!40000 ALTER TABLE `marshall` DISABLE KEYS */;
-INSERT INTO `Marshall` VALUES
+INSERT INTO `Marshall` (marshallID,rankingTotal,numRankings,rankingAvg,description,company) VALUES
 (3,0,33,4,'This is the official page for all bounties posted by ESPN','ESPN'),
 (4,0,7,5,'SMU is a university located in Dallas, Texas. New bounties posted frequently.','Southern Methodist University'),
 (5,0,15,4,'Official marshall page for the Dallas Morning News.','Dallas Morning News');
@@ -303,15 +305,6 @@ UNLOCK TABLES;
 -- Table structure for table `unpaidreport`
 --
 
-CREATE TABLE IF NOT EXISTS `unpaidReport` (
-  `reportID` int(10) unsigned NOT NULL,
-  `dateAssessed` datetime NOT NULL,
-  `message` mediumtext NOT NULL,
-  PRIMARY KEY (`reportID`),
-  UNIQUE KEY `reportID_UNIQUE` (`reportID`),
-  CONSTRAINT `fk_unpaidReport_Report1` FOREIGN KEY (`reportID`) REFERENCES `Report` (`reportID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 CREATE TABLE IF NOT EXISTS `Subscription` (
   `subscriptionID` int(10) unsigned NOT NULL,
@@ -327,11 +320,6 @@ CREATE TABLE IF NOT EXISTS `Subscription` (
 -- Dumping data for table `unpaidreport`
 --
 
-LOCK TABLES `unpaidReport` WRITE;
-/*!40000 ALTER TABLE `unpaidreport` DISABLE KEYS */;
-/*!40000 ALTER TABLE `unpaidreport` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 
 CREATE TABLE IF NOT EXISTS `Transactions` (

@@ -61,7 +61,7 @@ $app->get('/', function() use ($app, $dbh) {
 		}
 		else if ($_SESSION['userType'] == 'marshal'
 			|| $_SESSION['userType'] == 'sheriff'
-			|| $_SESSION['userType'] == 'marshal')
+			|| $_SESSION['userType'] == 'marshall')
 		{
 
 			$template_array = prepareHome($dbh);
