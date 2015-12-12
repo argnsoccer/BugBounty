@@ -1147,9 +1147,10 @@ function createRSS($dbh, $args) {
     {
       $args2[':userID'] = $_SESSION['userID'];
       $args2[':rssLink'] = $mysqlArray[':rssLink'];
-      addSubscription($args2, $dbh);
+      addSubscription($dbh, $args2);
       $result['error'] = '0';
       $result['message'] = 'Success';
+      $result['username'] = $_SESSION['userLogin'];
     }
     else
     {
@@ -1205,7 +1206,7 @@ function rssExists($dbh) {
   $statement = $dbh->prepare("
     SELECT rssCreated, rssLink
     FROM Marshall
-    WHERE userID = :userID"
+    WHERE marshallID = :userID"
   );
 
   $function_array = [];
