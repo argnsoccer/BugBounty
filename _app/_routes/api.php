@@ -1219,7 +1219,6 @@ function rssExists($dbh) {
       if(file_exists($row['rssLink'])) {
         $function_array['result']['link'] = $row['link'];
         $function_array['result']['exists'] = "1";
-        $function_array['result']['username'] = $_SESSION['userLogin'];
         $function_array['error'] = "0";
         $function_array['message'] = "Success";
       }
