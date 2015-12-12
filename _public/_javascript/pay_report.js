@@ -2,7 +2,7 @@ function isNumber(value) {
 
 	if (!isNaN(value)
 		&& value >= 0) {
-		return true; 
+		return true;
 	}
 
 	$.notify({
@@ -33,10 +33,15 @@ $(document).ready(function () {
 
       	console.log(response);
 
-      	braintree.setup(response, "dropin", {
-		      container: "payment-form",
+      	braintree.setup(response, "custom", {
+		      container: "paypal-container",
+					paypal: {
+						singluUse: false,
+						amount: 189.00,
+						currency: 'USD'
+					}
   		});
-      	
+
       },
       error: function(xhr, status, error)
       {
@@ -44,7 +49,7 @@ $(document).ready(function () {
       }
     });
 
-	$(".payButton").click(function(event) { 
+	$(".payButton").click(function(event) {
 
 		var payInfo = [];
 
@@ -53,7 +58,7 @@ $(document).ready(function () {
 		payInfo.reportID = $(this).attr("data-ID");
 		payInfo.bountyID = $(this).attr("data-bountyID");
 		payInfo.hunterUsername = $(this).attr("data-hunterUsername");
-		
+
 		payInfo.amount = $(".payAmountForm[data-ID=" + $(this).attr("data-ID")+"]").val();
 
 		if (!isNumber(payInfo.amount)) {
@@ -65,11 +70,11 @@ $(document).ready(function () {
 		$("#payAmountSubmit").attr('data-reportID', payInfo.reportID);
 		$("#payAmountSubmit").attr('data-bountyID', payInfo.bountyID);
 		$("#payAmountSubmit").attr('data-hunterUsername', payInfo.hunterUsername);
-		
+
 	});
 
 
-	$("#payAmountSubmit").click(function(event) { 
+	$("#payAmountSubmit").click(function(event) {
 
 		var paymentInfo = {};
 
@@ -91,5 +96,7 @@ $(document).ready(function () {
         	console.log(response);
       }
     });
+
 	});
+
 });
