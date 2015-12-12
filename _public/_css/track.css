@@ -3,9 +3,9 @@ table
     width: 100%;
 }
 
-thead
+.rowTable.header
 {
-    background-color: #2980b9;
+    background-color: #59ABE3;
 }
 
 .table-title
@@ -54,7 +54,7 @@ thead
 #info_box
 {
     border: 2px solid;
-    border-color: #2980b9;
+    border-color:#59ABE3;
     border-radius: 5px;
     padding: 10px;
 }
@@ -62,7 +62,6 @@ thead
 #pay_amount
 {
     margin: 0 auto;
-    /*padding-left: 20px;*/
 }
 
 #dollar_sign

@@ -12,7 +12,6 @@
   </head>
   <body>
     {{ include ('header_login.php') }}
-    <div class="container">
       <div class="row stepRow">
         <div class="col-12-md displayContainer">
           <div id="stepDisplay">
@@ -32,7 +31,7 @@
         </div>
 
       </div>
-      <div class="row">
+      <div class="row mainRow">
         <div class="col-12-md">
 
           <form class="form-signin">
@@ -41,7 +40,7 @@
             <input type="email" id="signUpEmail" class="form-control" placeholder="Email address">
             <input type="password" id="signUpPassword" class="form-control" placeholder="Choose a Password">
             <input type="password" id="signUpConfirmPassword" class="form-control" placeholder="Confirm your Password">
-            <input type="button" class="btn btn-default form-control" value="Company Description" data-toggle="modal" 
+            <input type="button" class="btn btn-default form-control" value="Company Description" data-toggle="modal"
             data-target="#descriptionModal" data-whatever="@getbootstrap" id="descButton" style="display:none">
 
             <button class="btn btn-lg btn-primary btn-block" id="submitSignUp" type="submit">Continue</button>
@@ -50,7 +49,6 @@
 
         </div>
       </div>
-    </div>
 
 
     <div class="modal fade" id="descriptionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">

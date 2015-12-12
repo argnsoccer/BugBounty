@@ -23,8 +23,7 @@
 
     {{ include ('header_marshall.php') }}
 
-    <div class="container">
-      <div class="row" >
+      <div class="row mainRow" >
         <div class="col-lg-4">
            <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span><p id="requiredP">Required Field</p></strong></div>
            <div class="description">
@@ -80,7 +79,6 @@ And so, social progress was made.
           </form>
         </div>
       </div>
-    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>

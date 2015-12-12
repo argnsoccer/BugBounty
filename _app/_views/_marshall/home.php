@@ -11,13 +11,25 @@
   </head>
   <body>
       {{ include ('header_marshall.php') }}
-      <div class="container-fluid">
-        <div class="row">
+        <div class="row mainRow">
 
           <div class="col-md-7">
             <div class="box">
               <h3>Post a bounty</h3>
-
+              <div class="row innerRow image-container">
+                  <div class="col-xs-4">
+                      <img class="step-image" src="/../_images/_icons/marshal-home-post.png" />
+                      <h3 class="step-image-label">1. Post</h3>
+                  </div>
+                  <div class="col-xs-4">
+                      <img class="step-image" src="/../_images/_icons/marshal-home-track.png" />
+                      <h3 class="step-image-label">2. Track</h3>
+                  </div>
+                  <div class="col-xs-4">
+                      <img class="step-image" src="/../_images/_icons/marshal-home-pay.png" />
+                      <h3 class="step-image-label">3. Pay</h3>
+                  </div>
+              </div>
           </div>
           </div>
 
@@ -54,12 +66,12 @@
 
         </div>
 
-        <div class="row">
+        <div class="row mainRow">
 
           <div class="col-md-5">
               <div id="newsfeed_header">
                   <h3 class="newsfeed_header">My Newsfeed</h3>
-                  <button type="button" id="add_post_button" title="Click to add or create an RSS" 
+                  <button type="button" id="add_post_button" title="Click to add or create an RSS"
                     class="btn btn-default btn-xs newsfeed_header" onclick="onAddRSS();">
                     Add Post</button>
               </div>
@@ -99,7 +111,7 @@
                   rssmikle_title_bgcolor: "#E74C3C",
                   rssmikle_title_color: "#FAFAFA",
                   rssmikle_title_bgimage: "",
-                  rssmikle_item_bgcolor: "#59ABE3", 
+                  rssmikle_item_bgcolor: "#59ABE3",
                   rssmikle_item_bgimage: "",
                   rssmikle_item_title_length: "55",
                   rssmikle_item_title_color: "#FAFAFA",
@@ -134,10 +146,10 @@
 
             <div class="col-md-12" class="bottomBox">
               <h3>New to BugBounty?</h3>
-              <p>Bug Bounty is a website where you post your websites and allow our bug hunters find 
-                the problems you cannot get your hands on.  When you post a bounty, hunters then have a place 
+              <p>Bug Bounty is a website where you post your websites and allow our bug hunters find
+                the problems you cannot get your hands on.  When you post a bounty, hunters then have a place
                 to let you know when they discover something is wrong.  Whehter they are passivly using the internet
-                or hell bent on breaking your site, it allows you to find bugs you couldn't before.  To incentivize 
+                or hell bent on breaking your site, it allows you to find bugs you couldn't before.  To incentivize
                 hunters, you can choose to pay them for their hard work. Click
                 <a href="/why">Why Us</a> in the navigation bar to find out more!
               </p>
@@ -151,7 +163,7 @@
 
           </div>
         </div>
-      </div>
+
 
 
 
@@ -169,7 +181,7 @@
           else {
             window.location = "/_marshall/rsscreate/{{username}}";
           }
-        } 
+        }
       </script>
 
       {{include ('bootstrap_footer.php')}}
