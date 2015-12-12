@@ -392,7 +392,7 @@ function signUpMarshal($dbh, $args, $args2) {
       $_SESSION['userID'] = $row['userID'];
       $result['username'] = $_POST['username'];
       $result['userType'] = strtolower($_POST['accountType']);
-
+      $args3[':username'] = $_POST['username'];
 
       $_SESSION['userLogin'] = $_POST['username'];
       $_SESSION['userType'] = 'marshal';
@@ -411,6 +411,19 @@ function signUpMarshal($dbh, $args, $args2) {
         $functionArray['error'] = '2';
         $functionArray['messageDB'] = $statement2->errorInfo();
         $functionArray['message'] = 'Second Statement did not execute';
+        $statement3 = $dbh->prepare(
+        "DELETE FROM Account WHERE username = :username");
+
+        if($statement3->execute($args3))
+        {
+          $result['message'] = 'Deleted Initial account because Second statement did not execute';
+        }
+        else {
+          $functionArray['error'] = '3';
+          $functionArray['messageDB'] = $statement3->errorInfo();
+          $funcionArray['message'] = 'Third statement did not execute';
+        }
+
       }
     }
     else {
