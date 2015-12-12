@@ -1203,8 +1203,8 @@ function rssExists($dbh, $args) {
 
   $statement = $dbh->prepare("
     SELECT rssCreated, rssLink
-    FROM Account
-    WHERE username = :username"
+    FROM Marshall
+    WHERE userID = :userID"
   );
 
   $function_array = [];
@@ -1219,7 +1219,7 @@ function rssExists($dbh, $args) {
         $function_array['result']['link'] = $row['link'];
         $function_array['result']['exists'] = "1";
         $function_array['error'] = "0";
-        $function_array['message'] = "All gucci";
+        $function_array['message'] = "Success";
       }
       else {
         $function_array['result']['exists'] = "0";
@@ -2037,7 +2037,7 @@ $app->post('/api/addRSS', function() use ($dbh) {
 
 $app->get('/api/rssExists', function() use ($dbh) {
 
-  $args[":username"] = $_SESSION['userLogin'];
+  $args[":userID"] = $_SESSION['userID'];
 
   echo json_encode(rssExists($dbh, $args), JSON_UNESCAPED_SLASHES);
 
