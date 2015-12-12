@@ -2071,7 +2071,7 @@ $app->post('/api/addRSS', function() use ($dbh) {
   $args['description'] = $_POST['description'];
   $args['pubDate'] = date('Y-m-d');
 
-  $args['link'] = "_rss/_profiles/_".$args['user'].".xml";
+  $args['link'] = "_rss/_profiles/_".$args['user']."/rss_".$args['user'].".xml";
 
   echo json_encode(addRSS($dbh, $args));
 
