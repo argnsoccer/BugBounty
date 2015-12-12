@@ -1852,6 +1852,10 @@ $app->get('/api/getClientToken', function() use ($dbh){
   echo json_encode($clientToken);
 });
 
+$app->post('/api/createCreditCardPayment', function () use($dbh){
+
+});
+
 //Andre Gras
 $app->post('/api/payReport', function() use ($dbh){
   $functionArray = array();
@@ -1865,6 +1869,9 @@ $app->post('/api/payReport', function() use ($dbh){
   $sale = Braintree_Transaction::sale([
     'amount' => $amount,
     'paymentMethodNonce' => $nonce,
+    'customer' => [
+      'firstName' => $_POST['marshalUsername']
+    ]
   ]);
 
   $args[':transactionID'] = $sale->transaction->id;
