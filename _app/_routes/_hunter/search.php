@@ -13,7 +13,7 @@ function prepareSearchHunterPage($dbh) {
 }
 
 $app->get('/_hunter/search', function() use ($app, $dbh) {
-if($_SESSION['accountType'] == 'hunter')
+if($_SESSION['userType'] == 'hunter')
 {
 	$template_array = prepareSearchHunterPage($dbh);
 

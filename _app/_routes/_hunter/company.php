@@ -34,7 +34,7 @@ function prepareCompanyProfilePage($dbh, $companyUsername) {
 }
 
 $app->get('/_hunter/company/:companyName', function($companyUsername) use ($app, $dbh) {
-if($_SESSION['accountType'] == 'hunter')
+if($_SESSION['userType'] == 'hunter')
 {
 	$template_array = prepareCompanyProfilePage($dbh, $companyUsername);
 

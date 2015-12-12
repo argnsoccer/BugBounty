@@ -23,7 +23,7 @@ function prepareReportPage($dbh, $bountyID) {
 }
 
 $app->get('/_hunter/report', function() use ($app, $dbh) {
-if($_SESSION['accountType'] == 'hunter')
+if($_SESSION['userType'] == 'hunter')
 {
 	echo "please include a bounty ID";
 }
@@ -36,7 +36,7 @@ else
 });
 
 $app->get('/_hunter/report/:bountyID', function($bountyID) use ($app, $dbh) {
-if($_SESSION['accountType'] == 'hunter')
+if($_SESSION['userType'] == 'hunter')
 {
 	$template_array = prepareReportPage($dbh, $bountyID);
 

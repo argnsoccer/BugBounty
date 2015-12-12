@@ -15,7 +15,7 @@ function prepareDiscoverPage($dbh) {
 }
 
 $app->get('/_hunter/discover', function() use ($app, $dbh) {
-if($_SESSION['accountType'] == 'hunter')
+if($_SESSION['userType'] == 'hunter')
 {
 	$template_array = prepareDiscoverPage($dbh);
 

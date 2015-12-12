@@ -31,7 +31,7 @@ function prepareHunterProfile($dbh, $username) {
 }
 
 $app->get('/_hunter/profile', function() use ($app) {
-if($_SESSION['accountType'] == 'hunter')
+if($_SESSION['userType'] == 'hunter')
 {
 	echo "include a username";
 	//$app->render('_profiles/');
@@ -45,7 +45,7 @@ else
 });
 
 $app->get('/_hunter/profile/:username', function($username) use ($app, $dbh) {
-if($_SESSION['accountType'] == 'hunter')
+if($_SESSION['userType'] == 'hunter')
 {
 	$template_array = prepareHunterProfile($dbh, $username);
 

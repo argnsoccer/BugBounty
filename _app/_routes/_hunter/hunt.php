@@ -33,7 +33,7 @@ function prepareHuntpage($dbh, $bountyID){
 }
 
 $app->get('/_hunter/hunt', function() use ($app) {
-if($_SESSION['accountType'] == 'hunter')
+if($_SESSION['userType'] == 'hunter')
 {
 	echo "please include a bounty ID";
 }
@@ -46,7 +46,7 @@ else
 });
 
 $app->get('/_hunter/hunt/:bountyID', function($bountyID) use ($app, $dbh) {
-if($_SESSION['accountType'] == 'hunter')
+if($_SESSION['userType'] == 'hunter')
 {
 	$template_array = prepareHuntpage($dbh, $bountyID);
 
