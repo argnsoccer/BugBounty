@@ -28,20 +28,18 @@ function prepareBountyProPage($dbh, $bountyID) {
 
 $app->get('/_hunter/bounty/:bountyID', function($bountyID) use ($app, $dbh) {
 
-	if($_SESSION['accountType'] == 'hunter') {
-		$template_array = prepareBountyProPage($dbh, $bountyID);
+if($_SESSION['userType'] == 'hunter')
+{
+	$template_array = prepareBountyProPage($dbh, $bountyID);
 
 		$app->render('_hunter/bounty.php', $template_array);
 
 	// echo print_r($template_array);
-
-	}
-	else {
-
-	$template_array["errorMessage"] = "You are not signed in as a hunter!";
-	$template_array["errorSolution"] = "Sign is with your hunter account or create a hunter account!";
-
-		$app->render('error.php', $template_array);
-	}
-
+}
+else
+{
+	$template_array['errorMessage'] = "You are not signed in as a hunter";
+	$template_array['errorSolution'] = "Sign in or sign up as a hunter";
+	$app->render('error.php', $template_array);
+}
 });

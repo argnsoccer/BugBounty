@@ -15,10 +15,18 @@ function prepareDiscoverPage($dbh) {
 }
 
 $app->get('/_hunter/discover', function() use ($app, $dbh) {
-
+if($_SESSION['userType'] == 'hunter')
+{
 	$template_array = prepareDiscoverPage($dbh);
 
 	$app->render('_hunter/discover.php', $template_array);
 	echo print_r($template_array);
+}
+else
+{
+	$template_array['errorMessage'] = "You are not signed in as a hunter";
+	$template_array['errorSolution'] = "Sign in or sign up as a hunter";
+	$app->render('error.php', $template_array);
+}
 
 });

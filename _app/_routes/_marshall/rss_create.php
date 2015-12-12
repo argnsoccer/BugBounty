@@ -24,10 +24,21 @@ function prepareMarshallRSSCreate($dbh, $username)
 }
 
 $app->get('/_marshal/rsscreate', function() use ($app) {
+if($_SESSION['userType'] == 'marshal')
+{
 	echo "include a username";
+}
+else
+{
+	$template_array['errorMessage'] = "You are not signed in as a marshal";
+	$template_array['errorSolution'] = "Sign in or sign up as a marshal";
+	$app->render('error.php',$template_array);
+}
 });
 
-$app->get('/_marshall/rsscreate/:username', function($username) use ($app, $dbh) {
+$app->get('/_marshal/rsscreate/:username', function($username) use ($app, $dbh) {
+if($_SESSION['userType'] == 'marshal')
+{
 	//echo $username;
 
 	$template_array = prepareMarshallRSSCreate($dbh, $username);
@@ -40,6 +51,13 @@ $app->get('/_marshall/rsscreate/:username', function($username) use ($app, $dbh)
 	}
 	else 
 	{
-		echo "Not singed in correctly";
+		echo "Not signed in correctly";
 	}
+}
+else
+{
+	$template_array['errorMessage'] = "You are not signed in as a marshal";
+	$template_array['errorSolution'] = "Sign in or sign up as a marshal";
+	$app->render('error.php',$template_array);
+}
 });

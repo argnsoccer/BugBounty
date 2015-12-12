@@ -31,15 +31,31 @@ function prepareHunterProfile($dbh, $username) {
 }
 
 $app->get('/_hunter/profile', function() use ($app) {
+if($_SESSION['userType'] == 'hunter')
+{
 	echo "include a username";
 	//$app->render('_profiles/');
+}
+else
+{
+	$template_array['errorMessage'] = "You are not signed in as a hunter";
+	$template_array['errorSolution'] = "Sign in or sign up as a hunter";
+	$app->render('error.php', $template_array);
+}
 });
 
 $app->get('/_hunter/profile/:username', function($username) use ($app, $dbh) {
-
+if($_SESSION['userType'] == 'hunter')
+{
 	$template_array = prepareHunterProfile($dbh, $username);
 
 	$app->render('_hunter/profile.php', $template_array);
 	// echo print_r($template_array);
-
+}
+else
+{
+	$template_array['errorMessage'] = "You are not signed in as a hunter";
+	$template_array['errorSolution'] = "Sign in or sign up as a hunter";
+	$app->render('error.php', $template_array);
+}
 });
