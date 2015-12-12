@@ -20,7 +20,6 @@ if($_SESSION['userType'] == 'hunter')
 	$template_array = prepareDiscoverPage($dbh);
 
 	$app->render('_hunter/discover.php', $template_array);
-	echo print_r($template_array);
 }
 else
 {

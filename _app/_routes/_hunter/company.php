@@ -20,14 +20,14 @@ function prepareCompanyProfilePage($dbh, $companyUsername) {
 	}
 
 	$template_array['company']['name'] = $companyUsername;
-	
+
 	$template_array['company']['active'] = getActiveBounties($dbh, $args);
 
 	$template_array['company']['inactive'] = getPastBounties($dbh, $args);
 
 	$template_array['company']['numActive'] = sizeof($template_array['company']['active']['result']);
 
-	$template_array['company']['numBounties'] = $template_array['company']['numActive'] + 
+	$template_array['company']['numBounties'] = $template_array['company']['numActive'] +
 		(sizeof($template_array['company']['inactive']['result']));
 
 	return $template_array;
@@ -47,8 +47,6 @@ if($_SESSION['userType'] == 'hunter')
 	}
 	else {
 		$app->render('_hunter/company.php', $template_array);
-
-		echo print_r($template_array);
 	}
 }
 else
