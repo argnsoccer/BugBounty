@@ -1198,7 +1198,7 @@ function addRSS($dbh, $args) {
   return $result;
 }
 
-function rssExists($dbh, $args) {
+function rssExists($dbh) {
 
   $args[":userID"] = $_SESSION['userID'];
 
@@ -2039,9 +2039,7 @@ $app->post('/api/addRSS', function() use ($dbh) {
 
 $app->get('/api/rssExists', function() use ($dbh) {
 
-  $args[":userID"] = $_SESSION['userID'];
-
-  echo json_encode(rssExists($dbh, $args), JSON_UNESCAPED_SLASHES);
+  echo json_encode(rssExists($dbh), JSON_UNESCAPED_SLASHES);
 
 });
 
