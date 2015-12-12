@@ -3,6 +3,8 @@ $(document).ready(function ()
 
   $("#rssCreateSubmit").click(function(event) {
 
+    alert('here--');
+
     $("#rssCreateSubmit").attr("disabled", true);
 
     var rssInfo = {}
