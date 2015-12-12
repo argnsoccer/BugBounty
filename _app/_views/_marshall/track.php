@@ -16,12 +16,11 @@
   </head>
   <body>
     {{ include ('header_marshall.php') }}
-    <div id="content_area">
-        <div class="row">
+        <div class="row mainRow">
             <div class="col-sm-6">
                 <div class="row innerRow">
                     <div class="col-sm-4">
-                        <input type="image" id="bounty_picture" class="marshalBackground" src="{{bounty.imageLoc}}" alt="Bounty Picture" />
+                        <input type="image" id="bounty_picture" class="marshalBackground" src="{{bounty.result.imageLoc}}" alt="Bounty Picture" />
                     </div>
                     <div class="col-sm-8">
                         <h3>Bounty Information</h3>
@@ -34,21 +33,21 @@
                               <label for="InputName"></label>
                               <div class="input-group">
                                 <span class="input-group-addon addOnCustom">Bounty Name</span>
-                                <p class="form-control formControlCustom">{{bounty.bountyName}}</p>
+                                <p class="form-control formControlCustom">{{bounty.result.bountyName}}</p>
                               </div>
                           </div>
                           <div class="form-group">
                               <label for="InputName"></label>
                               <div class="input-group">
                                 <span class="input-group-addon addOnCustom">Date Ending</span>
-                                <p class="form-control formControlCustom">{{bounty.dateEnding}}</p>
+                                <p class="form-control formControlCustom">{{bounty.result.dateEnding}}</p>
                               </div>
                           </div>
                           <div class="form-group">
                               <label for="InputName"></label>
                               <div class="input-group">
                                 <span class="input-group-addon addOnCustom">Date Created</span>
-                                <p class="form-control formControlCustom">{{bounty.dateCreated}}</p>
+                                <p class="form-control formControlCustom">{{bounty.result.dateCreated}}</p>
                               </div>
                           </div>
                           <div class="form-group">
@@ -63,7 +62,7 @@
                 </div>
                 <div class="row innerRow">
                     <div id="info_box">
-
+                        {{bounty.result.fullDescription}}
                     </div>
                 </div>
             </div>
@@ -113,7 +112,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
 
 

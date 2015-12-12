@@ -7,17 +7,38 @@
 	height:40px;
 }*/
 
-.pastRow:hover {
+.pastRow:hover
+{
 	background: #FAFAFA;
 }
 
-  #bountyBoard {
+.step-image
+{
+	background-color: #59ABE3;
+	border-radius: 10px;
+	width: 200px;
+	height: auto;
+}
+
+.step-image-label
+{
+	margin-top: 0;
+}
+
+.image-container
+{
+	text-align: center;
+}
+
+#bountyBoard
+{
   margin-top: 10px;
   height: 200px;
   margin-bottom: 20px;
 }
 
-.bountyWall {
+.bountyWall
+{
   margin-top: 5px;
   background-image: url("/../_images/_random/wanted_240x308.png");
   background-size: 166px 200px;
@@ -26,12 +47,14 @@
   height: 200px;
 }
 
-.bountyName {
+.bountyName
+{
   margin: 0 auto;
   text-align: center;
 }
 
-.img-circle {
+.img-circle
+{
   padding-top:11px;
   display: block;
   margin-left: auto;
@@ -41,17 +64,20 @@
   width: 100px;
 }
 
-#discoverButton {
+#discoverButton
+{
 	margin-left: auto;
 	margin-right: auto;
-  padding: 10px;
+  	padding: 10px;
 }
 
-.bottomBox {
+.bottomBox
+{
   height: 33%;
 }
 
-.bottomBoxS {
+.bottomBoxS
+{
   height: 34%;
 }
 
@@ -60,38 +86,42 @@
 	height: 220px;
 }
 
-table {
-
-
+table
+{
   width: 100%;
-
 }
 
-.rowTable {
+.rowTable
+{
   background: #f6f6f6;
   width: 100%;
 }
 
-.rowTable:nth-of-type(odd) {
+.rowTable:nth-of-type(odd)
+{
   background: #e9e9e9;
 }
 
-.rowTable.header {
+.rowTable.header
+{
   font-weight: 900;
   color: #ffffff;
   background: #59ABE3;
 
 }
 
-.rowTable.green {
+.rowTable.green
+{
   background: #27ae60;
 }
 
-.rowTable.red {
+.rowTable.red
+{
   background: #ea6153;
 }
 
-.cell {
+.cell
+{
   padding: 5px;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -110,7 +140,8 @@ table {
 	top: 15px;
 }
 
-#noBountiesMessage {
+#noBountiesMessage
+{
   margin-top: 40px;
   text-align: center;
 }

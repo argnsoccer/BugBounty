@@ -12,8 +12,7 @@
 <body>
     {{include ('header_marshall.php')}}
 
-    <div class="container-fluid">
-      <div class="row">
+      <div class="row mainRow">
         <div class="col-md-2">
           <div id="picture_upload">
             <input type="image" id="profile_picture" src="{{user.result.proPic}}" alt="Profile Picture" class="marshalBackground img-responsive"/>
@@ -113,7 +112,7 @@
                     <td class="cell"><a href="/_marshal/track/{{bounty.poolID}}">{{bounty.bountyName}}</td>
                     <td class="cell">{{bounty.dateEnding}}</td>
                     <td class="cell">{{bounty.dateCreated}}</td>
-                  </tr> 
+                  </tr>
                   {% endfor %}
                 </tbody>
               </table>
@@ -137,7 +136,7 @@
                     <td class="cell"><a href="/_marshal/track/{{bounty.poolID}}">{{bounty.bountyName}}</td>
                     <td class="cell">{{bounty.dateEnding}}</td>
                     <td class="cell">{{bounty.dateCreated}}</td>
-                  </tr> 
+                  </tr>
                   {% endfor %}
                 </tbody>
               </table>
@@ -213,7 +212,6 @@
         </div>
       </div>
 
-    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
@@ -221,7 +219,7 @@
     <script type="text/javascript" src="/../_javascript/update_profile.js"></script>
     <script type="text/javascript" src="/../_javascript/update_payment.js"></script>
     <script type="text/javascript" src="/../_javascript/basic_search.js"></script>
- 
+
   {{include ('bootstrap_footer.php')}}
 </body>
 </html>
