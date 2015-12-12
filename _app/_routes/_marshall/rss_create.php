@@ -7,7 +7,7 @@ function prepareMarshallRSSCreate($dbh, $username)
 {
 		
 	if ($username === $_SESSION['userLogin'] 
-		&& $_SESSION['userType'] === 'marshall')
+		&& $_SESSION['userType'] === 'marshal')
 	{
 		$template_array['username'] = $username;
 		$template_array['userType'] = $_SESSION['userType'];
