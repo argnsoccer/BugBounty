@@ -1146,6 +1146,9 @@ function createRSS($dbh, $args) {
 
     if($statement->execute($mysqlArray))
     {
+      $args2[':userID'] = $_SESSION['userID'];
+      $args2[':rssLink'] = $mysqlArray[':rssLink'];
+      addSubscription($args2, $dbh);
       $result['error'] = '0';
       $result['message'] = 'Success';
     }
