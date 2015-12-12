@@ -1870,7 +1870,7 @@ $app->post('/api/payReport', function() use ($dbh){
   $args[':transactionID'] = $sale->transaction->id;
   $args[':amount'] = $amount;
   $args2[':amount'] = $amount;
-  $args[':paymentInfo'] = $sale->transaction->creditCardDetails;
+  $args[':paymentInfo'] = $nonce;
 
   $functionArray['result']['sale'] = $sale;
   $statement = $dbh->prepare(
