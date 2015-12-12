@@ -655,6 +655,7 @@ function updateReport($dbh, $args, $changeCode) {
       $functionArray['messageDB'] = $statement->errorInfo();
       $functionArray['message'] = 'First statement not executed';
     }
+    return $functionArray;
   }
   else if($changeCode == 2)
   {
@@ -676,8 +677,8 @@ function updateReport($dbh, $args, $changeCode) {
       $functionArray['messageDB'] = $statement->errorInfo();
       $functionArray['message'] = 'First statement not executed';
     }
+    return $functionArray;
   }
-  return $functionArray;
 }
 
 
