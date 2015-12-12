@@ -17,18 +17,34 @@
             <div class="box">
               <h3>Post a bounty</h3>
               <div class="row innerRow image-container">
-                  <div class="col-xs-4">
-                      <img class="step-image" src="/../_images/_icons/marshal-home-post.png" />
-                      <h3 class="step-image-label">1. Post</h3>
+                  <div class="col-xs-4 card effect__hover">
+                      <div class="card__front">
+                          <img class="step-image" src="/../_images/_icons/marshal-home-post.png" />
+                          <h3 class="step-image-label">1. Post</h3>
+                      </div>
+                      <div class="card__back">
+                          <p class="step-desc">Post a bounty for your website so hunters can search it for bugs.</p>
+                      </div>
                   </div>
-                  <div class="col-xs-4">
-                      <img class="step-image" src="/../_images/_icons/marshal-home-track.png" />
-                      <h3 class="step-image-label">2. Track</h3>
+                  <div class="col-xs-4 card effect__hover">
+                      <div class="card__front">
+                          <img class="step-image" src="/../_images/_icons/marshal-home-track.png" />
+                          <h3 class="step-image-label">2. Track</h3>
+                      </div>
+                      <div class="card__back">
+                          <p class="step-desc">Track your bounties to see if hunters have found bugs in them.</p>
+                      </div>
                   </div>
-                  <div class="col-xs-4">
-                      <img class="step-image" src="/../_images/_icons/marshal-home-pay.png" />
-                      <h3 class="step-image-label">3. Pay</h3>
+                  <div class="col-xs-4 card effect__hover">
+                      <div class="card__front">
+                          <img class="step-image" src="/../_images/_icons/marshal-home-pay.png" />
+                          <h3 class="step-image-label">3. Pay</h3>
+                      </div>
+                      <div class="card__back">
+                          <p class="step-desc">Pay hunters for the bugs they've found.</p>
+                      </div>
                   </div>
+
               </div>
           </div>
           </div>
