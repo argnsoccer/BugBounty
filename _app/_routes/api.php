@@ -1284,8 +1284,9 @@ function addSubscription($dbh, $args, $args2) {
   return $functionArray;
 }
 
-function getRSSSubscription($dbh,$args)
+function getRSSSubscription($dbh)
 {
+  $args[':userID'] = $_SESSION['userID'];
   $functionArray = array();
 
   $statement = $dbh->prepare(
@@ -2244,7 +2245,6 @@ $app->get('/api/basicSearch/:query', function($query) use($dbh)
 
 $app->get('/api/getRSSSubscription/', function() use($dbh)
 {
-  $args[':userID'] = $_SESSION['userID'];
 
-	echo json_encode(getRSSSubscription($dbh,$args));
+	echo json_encode(getRSSSubscription($dbh));
 });
