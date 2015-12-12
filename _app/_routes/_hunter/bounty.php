@@ -28,7 +28,7 @@ function prepareBountyProPage($dbh, $bountyID) {
 
 $app->get('/_hunter/bounty/:bountyID', function($bountyID) use ($app, $dbh) {
 
-if($_SESSION['accountType'] == 'hunter')
+if($_SESSION['userType'] == 'hunter')
 {
 	$template_array = prepareBountyProPage($dbh, $bountyID);
 
