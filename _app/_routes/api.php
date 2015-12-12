@@ -1136,7 +1136,7 @@ function createRSS($dbh, $args) {
     fwrite($rss_file, $xml);
 
     $mysqlArray[':userID'] = $_SESSION['userID'];
-    $mysqlArray[':rssLink'] = "http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/".$file_path;
+    $mysqlArray[':rssLink'] = "http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com".$file_path;
 
     $statement = $dbh->prepare("
     UPDATE Marshall
@@ -1175,7 +1175,6 @@ function addRSS($dbh, $args) {
 
     $xml = simplexml_load_file($args['link']);
 
-
     $new_item = $xml->channel->addChild("item");
 
     $new_item->addChild("title", $args['title']);
@@ -1189,11 +1188,13 @@ function addRSS($dbh, $args) {
     $result['xml'] = $xml->asXML();
     $result['error'] = "0";
     $result['message'] = "All gucci";
+    $result['path'] = $args['link'];
 
   }
   else {
     $result['error'] = "1";
     $result['message'] = "RSS File does not Exist";
+    $result['path'] = $args['link'];
   }
 
   return $result;
@@ -1216,7 +1217,7 @@ function rssExists($dbh) {
     $row = $statement->fetch(PDO::FETCH_ASSOC);
 
     if($row['rssCreated']) {
-      if(file_exists(substr($row['rssLink'], 57, strlen($row['rssLink']) - 56))) {
+      if(file_exists(substr($row['rssLink'], 56, strlen($row['rssLink']) - 56))) {
         $function_array['result']['link'] = $row['link'];
         $function_array['result']['exists'] = "1";
         $function_array['error'] = "0";
@@ -2048,7 +2049,7 @@ $app->post('/api/createRSS', function() use ($dbh) {
   $args['description'] = $_POST['description'];
   $args['url'] = $_POST['url'];
 
-  $args['link'] = "_rss/_profiles/_".$args['username'];
+  $args['link'] = "/_rss/_profiles/_".$args['username'];
   $args['imageURL'] = "_images/_profiles/_".$args['userLogin']."/profile.png";
   $args['imageTitle'] = $args['user']." RSS picture for ".$args['userLogin'];
 
@@ -2071,7 +2072,7 @@ $app->post('/api/addRSS', function() use ($dbh) {
   $args['description'] = $_POST['description'];
   $args['pubDate'] = date('Y-m-d');
 
-  $args['link'] = "_rss/_profiles/_".$args['user']."/rss_".$args['user'].".xml";
+  $args['link'] = "/_rss/_profiles/_".$args['user']."/rss_".$args['user'].".xml";
 
   echo json_encode(addRSS($dbh, $args));
 

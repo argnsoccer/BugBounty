@@ -10,9 +10,9 @@
 		</image>
 		<description>asdfsadasdfasdfasd</description>
 		<language>en-us</language>
-		<category></category>
-		<copyright>sdafasdf</copyright>
-		<lastBuildDate></lastBuildDate>
+		<category/>
+		<copyright>sadfasdf</copyright>
+		<lastBuildDate/>
 		<ttl>340</ttl>
-	</channel>
+	<item><title>title testMarshall2</title><description>description of an RSS</description><pubDate>2015-12-12</pubDate></item></channel>
 </rss>
