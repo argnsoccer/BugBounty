@@ -1200,6 +1200,8 @@ function addRSS($dbh, $args) {
 
 function rssExists($dbh, $args) {
 
+  $args[":userID"] = $_SESSION['userID'];
+
   $statement = $dbh->prepare("
     SELECT rssCreated, rssLink
     FROM Marshall
@@ -2223,7 +2225,8 @@ Errors:
 $app->get('/api/basicSearch/:query', function($query) use($dbh)
 {
 	$args[':query'] = '%'.$query.'%';
-	echo json_encode(basicSearch($dbh,$args));
+
+
 });
 
 $app->get('/api/getRSSSubscription/', function() use($dbh)
