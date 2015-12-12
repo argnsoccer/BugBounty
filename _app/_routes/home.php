@@ -59,7 +59,7 @@ $app->get('/', function() use ($app, $dbh) {
 
 			$app->render('/_hunter/home.php', $template_array);
 
-			// echo print_r($template_array);
+			echo print_r($template_array);
 		}
 		else if ($_SESSION['userType'] == 'marshal' 
 			|| $_SESSION['userType'] == 'sheriff'
@@ -83,6 +83,6 @@ $app->get('/', function() use ($app, $dbh) {
 
 		$app->render('home.php', $template_array);
 
-		// echo print_r($template_array);
+		echo print_r($template_array);
 	}
 });
