@@ -1244,28 +1244,43 @@ function rssExists($dbh) {
   return $function_array;
 }
 
-function addSubscription($dbh, $args) {
+function addSubscription($dbh, $args, $args2) {
   $functionArray = array();
-  if(file_exists($args[':rssLink']))
-  {
-    $statement = $dbh->prepare(
-    "INSERT INTO Subscription (userID, rssLink) VALUES (:userID, :rssLink)");
 
-    if($statement->execute($args))
+    $statement2 = $dbh->prepare(
+    "SELECT Marshall.rssLink FROM Marshall, Account WHERE Account.username = :marshalUsername AND Account.userID = Marshall.marshallID");
+
+    if($statement2->execute($args2))
     {
-      $functionArray['error'] = '0';
-      $functionArray['message'] = 'success';
+      $row = $statement2->fetch(PDO::FETCH_ASSOC);
+      $args[':rssLink'] = substr($row['rssLink'], 57, strlen($row['rssLink']) - 56);
+      if(file_exists($args[':rssLink']))
+      {
+        $statement = $dbh->prepare(
+        "INSERT INTO Subscription (hunterID, rssLink) VALUES (:userID, :rssLink)");
+
+        if($statement->execute($args))
+        {
+          $functionArray['error'] = '0';
+          $functionArray['message'] = 'success';
+        }
+        else {
+          $functionArray['error'] = '1';
+          $functionArray['message'] = 'Statement did not execute';
+          $functionArray['messageDB'] = $statement->errorInfo();
+        }
     }
     else {
-      $functionArray['error'] = '1';
-      $functionArray['message'] = 'Statement did not execute';
-      $functionArray['messageDB'] = $statement->errorInfo();
+      $functionArray['error'] = '3';
+      $functionArray['message'] = 'RSS Link does not exist';
     }
   }
   else {
     $functionArray['error'] = '2';
-    $functionArray['message'] = 'RSS Link does not exist';
+    $functionArray['message'] = 'Second Statement did not execute';
+    $functionArray['messageDB'] = $statement2->errorInfo();
   }
+
   return $functionArray;
 }
 
@@ -2045,10 +2060,10 @@ $app->get('/api/rssExists', function() use ($dbh) {
 
 $app->post('/api/addSubscription', function() use ($dbh) {
 
-  $args[":userID"] = $_SESSION['userLogin'];
-  $args[':rssLink'] = $_POST['rssLink'];
+  $args[":userID"] = $_SESSION['userID'];
+  $args2[':marshalUsername'] = $_POST['marshalUsername'];
 
-  echo json_encode(addSubscription($dbh, $args), JSON_UNESCAPED_SLASHES);
+  echo json_encode(addSubscription($dbh, $args, $args2), JSON_UNESCAPED_SLASHES);
 
 });
 
