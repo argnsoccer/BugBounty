@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     try {
                         Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
                         i.putExtra("username", m_data);
-                        Thread.sleep(2000);
+                        Thread.sleep(500);
                         startActivity(i);
                         finish();
                     } catch (InterruptedException e) {

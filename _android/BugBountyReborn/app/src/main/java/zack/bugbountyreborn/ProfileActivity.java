@@ -72,19 +72,33 @@ public class ProfileActivity extends AppCompatActivity {
         mArrayAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1,
                 mBountyList);
-        mainListView.setAdapter(mArrayAdapter);
-        asyncCallForGetBounties(username);*/
+        mainListView.setAdapter(mArrayAdapter); */
 
-        createData();
+        //createData();
         ExpandableListView listView = (ExpandableListView) findViewById(R.id.listView);
         ReportExpandableListAdapter adapter = new ReportExpandableListAdapter(this,
                 groups);
         listView.setAdapter(adapter);
+
+        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                Log.d(PROFILE_TAG, "got the click");
+                if (!parent.isGroupExpanded(groupPosition))
+                    ((ExpandableListView) parent).collapseGroup(groupPosition);
+                else
+                    ((ExpandableListView) parent).expandGroup(groupPosition, true);
+                return false;
+            }
+        });
+
+        asyncCallForGetBounties(username);
     }
 
     public void createData() {
         for (int j = 0; j < 5; j++) {
-            Group group = new Group("Test " + j);
+            Group group = new Group("Test " + j, "something");
             for (int i = 0; i < 5; i++) {
                 group.children.add("Sub Item" + i);
             }
@@ -189,7 +203,7 @@ public class ProfileActivity extends AppCompatActivity {
                         public void run() {
                             try {
                                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                                Thread.sleep(2000);
+                                Thread.sleep(500);
                                 startActivity(i);
                                 finish();
                             } catch (InterruptedException e) {
@@ -273,16 +287,112 @@ public class ProfileActivity extends AppCompatActivity {
                     }.start();*/
                 }
 
+                JSONArray bountyItems = bountiesResult.getJSONArray("result");
+
+                for (int i = 0; i < bountyItems.length(); i++) {
+                    try {
+                        JSONObject bounty = bountyItems.getJSONObject(i);
+                        String bountyName = bounty.getString("bountyName");
+                        String dateCreated = bounty.getString("dateCreated");
+                        String dateEnding = bounty.getString("dateEnding");
+                        Log.d(BOUNTIES_TAG, "bounty name is: " + bountyName);
+                        Log.d(BOUNTIES_TAG, "date created is: " + dateCreated);
+                        Log.d(BOUNTIES_TAG, "date ending is: " + dateEnding);
+
+                        Group group = new Group(bountyName, "Date Created: " + dateCreated);
+                        for (int j = 0; j < 5; j++) {
+                            group.children.add("Sub Item" + j);
+                        }
+                        groups.append(i, group);
+
+                        //mBountyList.add(bountyName);
+                        //mArrayAdapter.notifyDataSetChanged();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            } catch (JSONException e) {
+                Log.d(BOUNTIES_TAG, "could not convert string to json");
+                e.printStackTrace();
+            }
+
+            Log.d(BOUNTIES_TAG, "I got: " + result);
+        }
+
+        private String queryServerForBounties(String passedURL) throws IOException {
+            InputStream iStream = null;
+
+            try {
+                URL url = new URL(passedURL);
+                HttpURLConnection connHandler = (HttpURLConnection) url.openConnection();
+                connHandler.setReadTimeout(10000); // milliseconds
+                connHandler.setConnectTimeout((15000)); // milliseconds
+                connHandler.setRequestMethod("GET");
+                connHandler.setDoInput(true);
+
+                connHandler.connect(); // start the query
+                int response = connHandler.getResponseCode();
+                Log.d(BOUNTIES_TAG, "successfully got a response");
+                iStream = connHandler.getInputStream();
+
+                BufferedReader streamReader = new BufferedReader(new InputStreamReader(iStream, "UTF-8"));
+                StringBuilder responseStrBuilder = new StringBuilder();
+
+                String inputStr;
+                while ((inputStr = streamReader.readLine()) != null)
+                    responseStrBuilder.append(inputStr);
+                return responseStrBuilder.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return "";
+        }
+    }
+
+    public class GetReportsTask extends AsyncTask<String, Void, String> {
+        private static final String BOUNTIES_TAG = "BountiesTask";
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                return queryServerForBounties(params[0]);
+            } catch (IOException e) {
+                return "unable to retrieve data from the BugBounty server";
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            try {
+                JSONObject bountiesResult = new JSONObject(result);
+                Log.d(BOUNTIES_TAG, bountiesResult.getString("error"));
+                if (!bountiesResult.getString("error").equals("0")) {
+                    Snackbar.make(findViewById(android.R.id.content), "can't load bounties", Snackbar.LENGTH_LONG)
+                            .setAction("Dismiss", new View.OnClickListener() { @Override public void onClick(View v) {} })
+                            .setActionTextColor(ContextCompat.getColor(ProfileActivity.this, R.color.colorAccent))
+                            .show();
+                } else {
+                    /*new Thread() {
+                        public void run() {
+                            try {
+                                Intent i = new Intent(ProfileActivity.this, MainActivity.class);
+                                Thread.sleep(2000);
+                                startActivity(i);
+                                finish();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }.start();*/
+                }
+
                 JSONArray bountyItems = bountiesResult.getJSONArray("activeBounties");
 
                 for (int i = 0; i < bountyItems.length(); i++) {
                     try {
                         JSONObject bounty = bountyItems.getJSONObject(i);
                         String bountyName = bounty.getString("bountyName");
-                        //String title = bookInfo.getString("title");
-                        //JSONArray authors = bookInfo.getJSONArray("authors");
-                        //String author = authors.getString(0);
-
                         Log.d(BOUNTIES_TAG, "bounty name is: " + bountyName);
                         mBountyList.add(bountyName);
                         mArrayAdapter.notifyDataSetChanged();

@@ -1,18 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CheckedTextView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/textView1"
-    android:layout_width="wrap_content"
-    android:layout_height="?android:attr/listPreferredItemHeight"
-    android:layout_marginLeft="8dp"
-    android:drawableRight="@drawable/tb_marshal"
-    android:gravity="start"
-    android:paddingLeft="32dp"
-    android:paddingTop="8dp"
-    android:text="Test"
-    android:textSize="14sp"
-    android:textAlignment="textStart"
-    android:layout_gravity="left"
-    android:textStyle="bold">
-</CheckedTextView>
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="0dp"
+    android:orientation="horizontal"
+    tools:context=".MainActivity" >
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="0dp"
+        tools:context=".MainActivity" >
+        <CheckedTextView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="2dp"
+            android:gravity="left"
+            android:paddingLeft="32dp"
+            android:paddingTop="8dp"
+            android:text="Test"
+            android:textSize="14sp"
+            android:textAlignment="textStart"
+            android:layout_gravity="left"
+            android:textStyle="bold"
+            android:includeFontPadding="false"
+            android:focusable="false">
+        </CheckedTextView>
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:gravity="left"
+            android:paddingLeft="32dp"
+            android:layout_marginTop="2dp"
+            android:text="Test"
+            android:textSize="12sp"
+            android:textAlignment="textStart"
+            android:layout_gravity="left"
+            android:textStyle="bold"
+            android:includeFontPadding="false" >
+        </TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:gravity="right" >
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:src="@drawable/tb_marshal" />
+    </LinearLayout>
+</LinearLayout>
