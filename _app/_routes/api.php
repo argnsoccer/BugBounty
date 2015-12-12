@@ -1247,8 +1247,8 @@ function rssExists($dbh) {
 function addSubscription($dbh, $args, $args2) {
   $functionArray = array();
 
-    $statement2 = $dbh->prepare(
-    "SELECT Marshall.rssLink FROM Marshall, Account WHERE Account.username = :marshalUsername AND Account.userID = Marshall.marshallID");
+  $statement2 = $dbh->prepare(
+  "SELECT Marshall.rssLink FROM Marshall, Account WHERE Account.username = :marshalUsername AND Account.userID = Marshall.marshallID");
 
     if($statement2->execute($args2))
     {
@@ -1280,6 +1280,33 @@ function addSubscription($dbh, $args, $args2) {
     $functionArray['message'] = 'Second Statement did not execute';
     $functionArray['messageDB'] = $statement2->errorInfo();
   }
+
+  return $functionArray;
+}
+
+function addSubscription($dbh, $args) {
+  $functionArray = array();
+
+  if(file_exists($args[':rssLink']))
+  {
+    $statement = $dbh->prepare(
+    "INSERT INTO Subscription (hunterID, rssLink) VALUES (:userID, :rssLink)");
+    if($statement->execute($args))
+    {
+      $functionArray['error'] = '0';
+      $functionArray['message'] = 'success';
+    }
+    else {
+      $functionArray['error'] = '1';
+      $functionArray['message'] = 'Statement did not execute';
+      $functionArray['messageDB'] = $statement->errorInfo();
+    }
+  }
+  else {
+    $functionArray['error'] = '2';
+    $functionArray['message'] = 'RSS Link does not exist';
+  }
+
 
   return $functionArray;
 }
