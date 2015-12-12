@@ -34,16 +34,19 @@ import java.net.URL;
 import java.util.ArrayList;
 import android.content.Intent;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ProfileActivity extends AppCompatActivity {
     private static final String PROFILE_TAG = "ProfileActivity";
     private static final int NETWORK_REQUEST = 2;
+    String username;
     TextView mainTextView1;
     TextView mainTextView2;
     Toolbar profileToolbar;
     ListView mainListView;
     ArrayAdapter mArrayAdapter;
-    ArrayList mBountyList = new ArrayList();
+    ReportExpandableListAdapter adapter;
+    ArrayList<String> mBountyInfoList = new ArrayList();
     SparseArray<Group> groups = new SparseArray<>();
 
     @Override
@@ -57,7 +60,6 @@ public class ProfileActivity extends AppCompatActivity {
         mainTextView2 = (TextView) findViewById(R.id.profile_title_textview2);
         mainTextView2.setTextColor(ContextCompat.getColor(this, R.color.main_text));
 
-        String username = "";
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             username = extras.getString("username");
@@ -68,16 +70,9 @@ public class ProfileActivity extends AppCompatActivity {
         profileToolbar.setNavigationIcon(R.drawable.tb_marshal);
         profileToolbar.setTitle(getString(R.string.app_name));
 
-        /*mainListView = (ListView) findViewById(R.id.profile_listview);
-        mArrayAdapter = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1,
-                mBountyList);
-        mainListView.setAdapter(mArrayAdapter); */
-
         //createData();
         ExpandableListView listView = (ExpandableListView) findViewById(R.id.listView);
-        ReportExpandableListAdapter adapter = new ReportExpandableListAdapter(this,
-                groups);
+        adapter = new ReportExpandableListAdapter(this, groups, username);
         listView.setAdapter(adapter);
 
         listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -93,7 +88,15 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        asyncCallForGetBounties(username);
+        /*listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                Log.d(PROFILE_TAG, "child " + childPosition + " clicked");
+                return true;
+            }
+        });*/
+
+        asyncCallForGetBountiesAndReports(username);
     }
 
     public void createData() {
@@ -158,7 +161,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    public void asyncCallForGetBounties(String username) {
+    public void asyncCallForGetBountiesAndReports(String username) {
         if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_NETWORK_STATE)) {
             Log.d(PROFILE_TAG, "do not have permission to access network state");
@@ -170,7 +173,14 @@ public class ProfileActivity extends AppCompatActivity {
             ConnectivityManager connectMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo ntwkInfo = connectMgr.getActiveNetworkInfo();
             if (ntwkInfo != null && ntwkInfo.isConnected()) {
-                new GetBountiesTask().execute("http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/api/getActiveBounties/" + username);
+                GetBountiesTask bounties = new GetBountiesTask();
+                mBountyInfoList.add("http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/api/getActiveBounties/" + username);
+                mBountyInfoList.add("http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/api/getReportsFromBountyID/");
+                bounties.execute(mBountyInfoList);
+                /*for (String item : mBountyIdList) {
+                    Log.d(PROFILE_TAG, "something" + item + " ");
+                }
+                Log.d(PROFILE_TAG, "shit is fucked yo");*/
             }
             else {}
         }
@@ -250,21 +260,25 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    public class GetBountiesTask extends AsyncTask<String, Void, String> {
+    public class GetBountiesTask extends AsyncTask<ArrayList<String>, Void, ArrayList<String>> {
         private static final String BOUNTIES_TAG = "BountiesTask";
 
         @Override
-        protected String doInBackground(String... params) {
+        protected ArrayList<String> doInBackground(ArrayList<String>... params) {
             try {
-                return queryServerForBounties(params[0]);
+                String getBountiesUrl = params[0].get(0);
+                String getReportsUrl = params[0].get(1);
+                return queryServerForBountiesAndReports(getBountiesUrl, getReportsUrl);
             } catch (IOException e) {
-                return "unable to retrieve data from the BugBounty server";
+                ArrayList<String> error = new ArrayList<>();
+                error.add("something went wrong");
+                return error;
             }
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            try {
+        protected void onPostExecute(ArrayList<String> result) {
+            /* try {
                 JSONObject bountiesResult = new JSONObject(result);
                 Log.d(BOUNTIES_TAG, bountiesResult.getString("error"));
                 if (!bountiesResult.getString("error").equals("0")) {
@@ -272,20 +286,7 @@ public class ProfileActivity extends AppCompatActivity {
                             .setAction("Dismiss", new View.OnClickListener() { @Override public void onClick(View v) {} })
                             .setActionTextColor(ContextCompat.getColor(ProfileActivity.this, R.color.colorAccent))
                             .show();
-                } else {
-                    /*new Thread() {
-                        public void run() {
-                            try {
-                                Intent i = new Intent(ProfileActivity.this, MainActivity.class);
-                                Thread.sleep(2000);
-                                startActivity(i);
-                                finish();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }.start();*/
-                }
+                } else {}
 
                 JSONArray bountyItems = bountiesResult.getJSONArray("result");
 
@@ -300,13 +301,10 @@ public class ProfileActivity extends AppCompatActivity {
                         Log.d(BOUNTIES_TAG, "date ending is: " + dateEnding);
 
                         Group group = new Group(bountyName, "Date Created: " + dateCreated);
-                        for (int j = 0; j < 5; j++) {
-                            group.children.add("Sub Item" + j);
-                        }
                         groups.append(i, group);
+                        Log.d(BOUNTIES_TAG, "poolID is: " + bounty.getString("poolID"));
+                        mBountyIdList.add(bounty.getString("poolID"));
 
-                        //mBountyList.add(bountyName);
-                        //mArrayAdapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -317,14 +315,17 @@ public class ProfileActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            Log.d(BOUNTIES_TAG, "I got: " + result);
+            Log.d(BOUNTIES_TAG, "I got: " + result); */
         }
 
-        private String queryServerForBounties(String passedURL) throws IOException {
+        private ArrayList<String> queryServerForBountiesAndReports(String passedURL1, String passedURL2) throws IOException {
+            ArrayList<String> resultJson = new ArrayList<>();
+            ArrayList<String> reportJson = new ArrayList<>();
+            ArrayList<String> bountyIds = new ArrayList<>();
             InputStream iStream = null;
 
             try {
-                URL url = new URL(passedURL);
+                URL url = new URL(passedURL1);
                 HttpURLConnection connHandler = (HttpURLConnection) url.openConnection();
                 connHandler.setReadTimeout(10000); // milliseconds
                 connHandler.setConnectTimeout((15000)); // milliseconds
@@ -342,100 +343,132 @@ public class ProfileActivity extends AppCompatActivity {
                 String inputStr;
                 while ((inputStr = streamReader.readLine()) != null)
                     responseStrBuilder.append(inputStr);
-                return responseStrBuilder.toString();
+                resultJson.add(responseStrBuilder.toString());
+                Log.d(BOUNTIES_TAG, "bounty json is: " + responseStrBuilder.toString());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return "";
+
+            try {
+                JSONObject bountyInfo = new JSONObject(resultJson.get(0));
+                JSONArray bountyItems = bountyInfo.getJSONArray("result");
+
+                for (int i = 0; i < bountyItems.length(); i++) {
+                    JSONObject bounty = bountyItems.getJSONObject(i);
+                    bountyIds.add(bounty.getString("poolID"));
+                }
+
+                for (int i = 0; i < bountyIds.size(); ++i) {
+                    try {
+                        URL url = new URL(passedURL2 + bountyIds.get(i));
+                        HttpURLConnection connHandler = (HttpURLConnection) url.openConnection();
+                        connHandler.setReadTimeout(10000); // milliseconds
+                        connHandler.setConnectTimeout((15000)); // milliseconds
+                        connHandler.setRequestMethod("GET");
+                        connHandler.setDoInput(true);
+
+                        connHandler.connect(); // start the query
+                        int response = connHandler.getResponseCode();
+                        Log.d(BOUNTIES_TAG, "successfully got a response");
+                        iStream = connHandler.getInputStream();
+
+                        BufferedReader streamReader = new BufferedReader(new InputStreamReader(iStream, "UTF-8"));
+                        StringBuilder responseStrBuilder = new StringBuilder();
+
+                        String inputStr;
+                        while ((inputStr = streamReader.readLine()) != null)
+                            responseStrBuilder.append(inputStr);
+                        reportJson.add(responseStrBuilder.toString());
+                        Log.d(BOUNTIES_TAG, "report json is: " + responseStrBuilder.toString());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                adapter.setReportInfo(reportJson);
+
+                Log.d(BOUNTIES_TAG, "bounty items length is: " + bountyItems.length());
+
+                for (int i = 0; i < bountyItems.length(); i++) {
+                    JSONObject bounty = bountyItems.getJSONObject(i);
+                    String bountyName = bounty.getString("bountyName");
+                    String dateCreated = bounty.getString("dateCreated");
+                    String dateEnding = bounty.getString("dateEnding");
+                    Log.d(BOUNTIES_TAG, "bounty name is: " + bountyName);
+                    Log.d(BOUNTIES_TAG, "date created is: " + dateCreated);
+                    Log.d(BOUNTIES_TAG, "date ending is: " + dateEnding);
+
+                    Group group = new Group(bountyName, "Date Created: " + dateCreated);
+
+                    JSONObject reportInfo = new JSONObject(reportJson.get(i));
+                    JSONArray reportItems = reportInfo.getJSONArray("result");
+                    for (int k = 0; k < reportItems.length(); k++) {
+                        JSONObject report = reportItems.getJSONObject(k);
+                        String reportId = report.getString("reportID");
+                        group.children.add("ReportID: " + reportId);
+                    }
+                    groups.append(i, group);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return reportJson;
         }
     }
 
-    public class GetReportsTask extends AsyncTask<String, Void, String> {
-        private static final String BOUNTIES_TAG = "BountiesTask";
+    public class GetReportsTask extends AsyncTask<ArrayList<String>, Void, ArrayList<String>> {
+        private static final String REPORTS_TAG = "ReportsTask";
 
         @Override
-        protected String doInBackground(String... params) {
+        protected ArrayList<String> doInBackground(ArrayList<String>... params) {
             try {
-                return queryServerForBounties(params[0]);
+                Log.d(REPORTS_TAG, "running reports async task");
+                return queryServerForReports(params[0]);
             } catch (IOException e) {
-                return "unable to retrieve data from the BugBounty server";
+                return new ArrayList<>();
             }
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            try {
-                JSONObject bountiesResult = new JSONObject(result);
-                Log.d(BOUNTIES_TAG, bountiesResult.getString("error"));
-                if (!bountiesResult.getString("error").equals("0")) {
-                    Snackbar.make(findViewById(android.R.id.content), "can't load bounties", Snackbar.LENGTH_LONG)
-                            .setAction("Dismiss", new View.OnClickListener() { @Override public void onClick(View v) {} })
-                            .setActionTextColor(ContextCompat.getColor(ProfileActivity.this, R.color.colorAccent))
-                            .show();
-                } else {
-                    /*new Thread() {
-                        public void run() {
-                            try {
-                                Intent i = new Intent(ProfileActivity.this, MainActivity.class);
-                                Thread.sleep(2000);
-                                startActivity(i);
-                                finish();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }.start();*/
-                }
-
-                JSONArray bountyItems = bountiesResult.getJSONArray("activeBounties");
-
-                for (int i = 0; i < bountyItems.length(); i++) {
-                    try {
-                        JSONObject bounty = bountyItems.getJSONObject(i);
-                        String bountyName = bounty.getString("bountyName");
-                        Log.d(BOUNTIES_TAG, "bounty name is: " + bountyName);
-                        mBountyList.add(bountyName);
-                        mArrayAdapter.notifyDataSetChanged();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            } catch (JSONException e) {
-                Log.d(BOUNTIES_TAG, "could not convert string to json");
-                e.printStackTrace();
+        protected void onPostExecute(ArrayList<String> result) {
+            for (int i = 0; i < result.size(); ++i) {
+                Log.d(REPORTS_TAG, "result is: " + result.get(i));
             }
-
-            Log.d(BOUNTIES_TAG, "I got: " + result);
         }
 
-        private String queryServerForBounties(String passedURL) throws IOException {
+        private ArrayList<String> queryServerForReports(ArrayList<String> ids) throws IOException {
+            ArrayList<String> reportJson = new ArrayList<>();
             InputStream iStream = null;
+            String serverRoot = ids.get(0);
+            ids.remove(0);
 
             try {
-                URL url = new URL(passedURL);
-                HttpURLConnection connHandler = (HttpURLConnection) url.openConnection();
-                connHandler.setReadTimeout(10000); // milliseconds
-                connHandler.setConnectTimeout((15000)); // milliseconds
-                connHandler.setRequestMethod("GET");
-                connHandler.setDoInput(true);
+                for (int i = 0; i < ids.size(); ++i) {
+                    URL url = new URL(serverRoot + ids.get(i));
+                    HttpURLConnection connHandler = (HttpURLConnection) url.openConnection();
+                    connHandler.setReadTimeout(10000); // milliseconds
+                    connHandler.setConnectTimeout((15000)); // milliseconds
+                    connHandler.setRequestMethod("GET");
+                    connHandler.setDoInput(true);
 
-                connHandler.connect(); // start the query
-                int response = connHandler.getResponseCode();
-                Log.d(BOUNTIES_TAG, "successfully got a response");
-                iStream = connHandler.getInputStream();
+                    connHandler.connect(); // start the query
+                    int response = connHandler.getResponseCode();
+                    Log.d(REPORTS_TAG, "successfully got a response");
+                    iStream = connHandler.getInputStream();
 
-                BufferedReader streamReader = new BufferedReader(new InputStreamReader(iStream, "UTF-8"));
-                StringBuilder responseStrBuilder = new StringBuilder();
+                    BufferedReader streamReader = new BufferedReader(new InputStreamReader(iStream, "UTF-8"));
+                    StringBuilder responseStrBuilder = new StringBuilder();
 
-                String inputStr;
-                while ((inputStr = streamReader.readLine()) != null)
-                    responseStrBuilder.append(inputStr);
-                return responseStrBuilder.toString();
+                    String inputStr;
+                    while ((inputStr = streamReader.readLine()) != null)
+                        responseStrBuilder.append(inputStr);
+                    reportJson.add(responseStrBuilder.toString());
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return "";
+            return reportJson;
         }
     }
 }

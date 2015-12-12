@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         loginButton = (Button) findViewById((R.id.main_login));
         loginButton.setOnClickListener(loginHandler);
 
-        //asyncCallForLogin("testMarshall1", "testMarshall1");
+        asyncCallForLogin("testMarshall2", "testMarshall2");
     }
 
     View.OnClickListener loginHandler = new View.OnClickListener() {
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void afterTextChanged(Editable text) {
                 if (text.length() == 0) {
-                    floatingUsernameLabel.setError("password can't be blank");
+                    //floatingUsernameLabel.setError("password can't be blank");
                     floatingUsernameLabel.setErrorEnabled(true);
                 } else {
                     floatingUsernameLabel.setErrorEnabled(false);
@@ -250,13 +250,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Animation shake = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shake);
                     findViewById(R.id.main_bug_img).startAnimation(shake);
 
+                    EditText userText = (EditText) findViewById(R.id.main_username);
+                    userText.setText("");
+                    EditText passText = (EditText) findViewById(R.id.main_password);
+                    passText.setText("");
+
                     Snackbar.make(findViewById(android.R.id.content), "combination is incorrect", Snackbar.LENGTH_LONG)
                             .setAction("Dismiss", new View.OnClickListener() { @Override public void onClick(View v) {} })
                             .setActionTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorAccent))
                             .show();
-                } else if (!loginResult.getJSONObject("result").getString("userType").equals("marshall")) {
+                } else if (!loginResult.getJSONObject("result").getString("userType").equals("marshal")) {
                     Animation shake = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shake);
                     findViewById(R.id.main_bug_img).startAnimation(shake);
+
+                    EditText userText = (EditText) findViewById(R.id.main_username);
+                    userText.setText("");
+                    EditText passText = (EditText) findViewById(R.id.main_password);
+                    passText.setText("");
 
                     Snackbar.make(findViewById(android.R.id.content), "hunters can't login yet", Snackbar.LENGTH_LONG)
                             .setAction("Dismiss", new View.OnClickListener() { @Override public void onClick(View v) {} })

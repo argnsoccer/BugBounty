@@ -24,6 +24,11 @@
             android:name="zack.bugbountyreborn.ProfileActivity"
             android:parentActivityName="zack.bugbountyreborn.MainActivity" >>
         </activity>
+        <activity
+            android:label="@string/app_name"
+            android:name="zack.bugbountyreborn.ReportActivity"
+            android:parentActivityName="zack.bugbountyreborn.ProfileActivity" >>
+        </activity>
     </application>
 
 </manifest>

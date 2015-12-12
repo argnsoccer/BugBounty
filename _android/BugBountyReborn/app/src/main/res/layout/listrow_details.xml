@@ -6,14 +6,12 @@
     android:clickable="true"
     android:orientation="vertical"
     android:paddingLeft="40dp"
-    tools:context=".MainActivity" >
+    tools:context=".ProfileActivity" >
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/tb_marshal"
-        android:drawablePadding="5dp"
         android:gravity="center_vertical"
         android:text="@string/main_title1"
         android:textSize="14sp"
@@ -21,7 +19,7 @@
     </TextView>
 
     <View
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="@android:color/black" />
 

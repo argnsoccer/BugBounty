@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- this code is adapted from a response found here http://stackoverflow.com/questions/9448732/shaking-wobble-view-animation-in-android -->
 <set
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:interpolator="@android:anim/linear_interpolator"

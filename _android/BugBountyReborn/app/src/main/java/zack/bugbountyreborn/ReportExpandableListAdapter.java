@@ -1,6 +1,7 @@
 package zack.bugbountyreborn;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,16 +13,27 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.util.ArrayList;
+
 public class ReportExpandableListAdapter extends BaseExpandableListAdapter {
+    private static final String ADAPTER_TAG = "ReportAdapter";
 
     private final SparseArray<Group> groups;
+    public ArrayList<String> reportInfo;
+    public String username;
     public LayoutInflater inflater;
     public Activity activity;
 
-    public ReportExpandableListAdapter(Activity act, SparseArray<Group> groups) {
+    public ReportExpandableListAdapter(Activity act, SparseArray<Group> groups, String username) {
         activity = act;
         this.groups = groups;
+        this.username = username;
         inflater = act.getLayoutInflater();
+    }
+
+    public void setReportInfo(ArrayList<String> info) {
+        reportInfo = new ArrayList<String>(info);
     }
 
     @Override
@@ -49,6 +61,22 @@ public class ReportExpandableListAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 Toast.makeText(activity, children,
                         Toast.LENGTH_SHORT).show();
+
+                new Thread() {
+                    public void run() {
+                        try {
+                            Intent i = new Intent(activity, ReportActivity.class);
+                            i.putExtra("username", username);
+                            i.putExtra("reportInfo", reportInfo);
+                            i.putExtra("reportClicked", children);
+                            Thread.sleep(500);
+                            activity.startActivity(i);
+                            activity.finish();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
             }
         });
         return convertView;
@@ -105,6 +133,6 @@ public class ReportExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 }
