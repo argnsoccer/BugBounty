@@ -1269,6 +1269,8 @@ function addSubscription($dbh, $args) {
 
 function getRSSSubscription($dbh,$args)
 {
+  $args[':userID'] = $_SESSION['userID'];
+  
   $functionArray = array();
 
   $statement = $dbh->prepare(

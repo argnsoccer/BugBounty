@@ -176,12 +176,14 @@
               'feed.mikle.com/js/rssmikle.js">\x3C/script>'
             );
 
-            var subscriptions = {{ subscription.result|json_encode|raw }};
+            var subscriptions = {{ subscriptions.result|json_encode|raw }};
+
+            console.log(subscriptions);
           </script>
 
           <script type="text/javascript" src="/../_javascript/rss_display_hunter.js"></script>
 
-          <div style="font-size:10px; text-align:center; width:350px;">
+          <div style="font-size:10px; text-align:center; width:350px;" id="rssBox">
             <a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a><!--Please display the above link in your web page according to Terms of Service.-->
           </div><!-- end feedwind code -->
 
