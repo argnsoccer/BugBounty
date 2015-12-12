@@ -542,7 +542,7 @@ function getHunterFromUsername($dbh, $args) {
 
 function createBounty($dbh, $args) {
     $functionArray = array();
-    if($_SESSION['userType'] == 'marshall') {
+    if($_SESSION['userType'] == 'marshal') {
 
     $sth = $dbh->prepare(
       "INSERT INTO
