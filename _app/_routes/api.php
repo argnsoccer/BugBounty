@@ -1128,23 +1128,23 @@ function createRSS($dbh, $args) {
 
     $result['xmlLink'] = $file_path;
 
-    if (!is_dir('/_rss')) {
-      mkdir('/_rss');
+    if (!is_dir('_rss')) {
+      mkdir('_rss');
       $result['_rss'] = 1;
     }
-    if(!is_dir('/_rss/_profiles'))
+    if(!is_dir('_rss/_profiles'))
     {
-      mkdir('/_rss/_profiles');
+      mkdir('_rss/_profiles');
       $result['_rss'] = 2;
     }
-    if(!is_dir('/_rss/_profiles/_'.$args['username']))
+    if(!is_dir($args['link']))
     {
-      mkdir('/_rss/_profiles/_'.$args['username']);
+      mkdir($args['link']);
       $result['_rss'] = 3;
     }
-    if(!file_exists($args['link']))
+    if(!file_exists($file_path))
     {
-      mkdir($args['link'], 0777, true);
+      mkdir($file_path, 0777, true);
       $result['_rss'] = 4;
     }
 
@@ -1235,7 +1235,7 @@ function rssExists($dbh) {
     $row = $statement->fetch(PDO::FETCH_ASSOC);
 
     if($row['rssCreated']) {
-      if(file_exists(substr($row['rssLink'], 56, strlen($row['rssLink']) - 56))) {
+      if(file_exists(substr($row['rssLink'], 57, strlen($row['rssLink']) - 56))) {
         $function_array['result']['link'] = $row['link'];
         $function_array['result']['exists'] = "1";
         $function_array['error'] = "0";
@@ -2067,7 +2067,7 @@ $app->post('/api/createRSS', function() use ($dbh) {
   $args['description'] = $_POST['description'];
   $args['url'] = $_POST['url'];
 
-  $args['link'] = "/_rss/_profiles/_".$args['username'];
+  $args['link'] = "_rss/_profiles/_".$args['username'];
   $args['imageURL'] = "_images/_profiles/_".$args['username']."/profile.png";
   $args['imageTitle'] = $args['username']." RSS picture for ".$args['username'];
 
@@ -2090,7 +2090,7 @@ $app->post('/api/addRSS', function() use ($dbh) {
   $args['description'] = $_POST['description'];
   $args['pubDate'] = date('Y-m-d');
 
-  $args['link'] = "/_rss/_profiles/_".$args['user']."/rss_".$args['user'].".xml";
+  $args['link'] = "_rss/_profiles/_".$args['user']."/rss_".$args['user'].".xml";
 
   echo json_encode(addRSS($dbh, $args));
 
