@@ -21,54 +21,36 @@
       <div class="col-md-2">
         <h3 class="text-center">Table Options</h3>
         <div id="options">
-
-
-
-
-
-<form id="optionForm">
-  <ul id="accordion" class="accordion">
-    <li>
-      <div class="link">Options<i class="fa fa-chevron-down"></i></div>
-      <ul class="submenu">
-        <li><p>UnPaid Reports<input type="radio" class="pull-right checkOption"></p></li>
-        <li><p>Paid Reports<input type="radio" class="pull-right checkOption"></p></li>
-        <li><p>Active Bounties<input type="radio" class="pull-right checkOption"></p></li>
-        <li><p>Past Bounties<input type="radio" class="pull-right checkOption"></p></li>
-      </ul>
-    </li>
-    <li>
-      <div class="link">Bounties<i class="fa fa-chevron-down"></i></div>
-      <ul class="submenu">
-        {% for bounty in bounties %}
-        <li><p>{{bounty}}<input type="radio" class="pull-right checkOption"></p></li>
-        {% endfor %}
-      </ul>
-    </li>
-    <li>
-      <div class="link">Messages<i class="fa fa-chevron-down"></i></div>
-      <ul class="submenu">
-        <li><p>No Message<input type="radio" class="pull-right checkOption"></p></li>
-      </ul>
-    </li>
-  </ul>
-</form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          <form id="optionForm">
+            <ul id="accordion" class="accordion">
+              <li>
+                <div class="link">Options<i class="fa fa-chevron-down"></i></div>
+                <ul class="submenu">
+                  <li><p>UnPaid Reports<input type="checkbox" class="pull-right checkOption" checked value="unPaidOption"></p></li>
+                  <li><p>Paid Reports<input type="checkbox" class="pull-right checkOption" checked value="paidOption">></p></li>
+                  <li><p>Active Bounties<input type="checkbox" class="pull-right checkOption" checked value="activeOption">></p></li>
+                  <li><p>Past Bounties<input type="checkbox" class="pull-right checkOption" checked value="pastOption">></p></li>
+                </ul>
+              </li>
+              <li>
+                <div class="link">Bounties<i class="fa fa-chevron-down"></i></div>
+                <ul class="submenu">
+                  {% for bounty in bounties %}
+                  <li><p>{{bounty}}<input type="checkbox" class="pull-right checkOption" checked value="{{bounty}}"></p></li>
+                  {% endfor %}
+                </ul>
+              </li>
+              <li>
+                <div class="link">Messages<i class="fa fa-chevron-down"></i></div>
+                <ul class="submenu">
+                  <li><p>No Message<input type="checkbox" class="pull-right checkOption" checked value="messageOption"></p></li>
+                </ul>
+              </li>
+              <li>
+                <button class="btn btn-default pull-right" id="optionsSubmitForm">Update</button>
+              </li>
+            </ul>
+          </form>
         </div>
       </div>
       <div class="col-md-10">
@@ -86,7 +68,7 @@
                 <th class="cell">Pay</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="bodyReports">
               {% for report in submittedReports.result %}
               <tr class="rowTable">
                 <td class="cell">{{report.dateSubmitted}}</td>
