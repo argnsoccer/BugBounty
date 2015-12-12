@@ -28,7 +28,7 @@ function preparePayPage($dbh) {
 	// 1)  all reports the user had identified to pay
 
 $app->get('/_marshal/pay', function() use ($app, $dbh) {
-if($_SESSION['accountType'] == 'marshal')
+if($_SESSION['userType'] == 'marshal')
 {
 	$template_array = preparePayPage($dbh);
 	$app->render('_marshall/pay.php', $template_array);
