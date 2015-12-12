@@ -20,7 +20,7 @@ function prepareHome($dbh){
 
 		$template_array['trackBounties'] = getBountiesFromUsernameRecentReports($dbh, $args);
 
-		// $template_array['subscriptions'] = getRSSSubscriptions($dbh);
+		$template_array['subscriptions'] = getRSSSubscription($dbh);
 
 		return $template_array;
 	}
@@ -70,7 +70,7 @@ $app->get('/', function() use ($app, $dbh) {
 
 			$app->render('/_marshall/home.php', $template_array);
 
-			echo print_r($template_array);
+			// echo print_r($template_array);
 		}
 		else
 		{
