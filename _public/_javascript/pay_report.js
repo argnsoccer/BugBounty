@@ -37,7 +37,7 @@ $(document).ready(function () {
 		      container: "paypal-container",
 					paypal: {
 						singluUse: false,
-						amount: 189.00,
+						amount: 10.00,
 						currency: 'USD'
 					}
   		});
