@@ -231,15 +231,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public loginRunnable(String data) { this.m_data = data; }
                 public void setData(String data) { this.m_data = data; }
                 public void run() {
-                    try {
+                    //try {
                         Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
                         i.putExtra("username", m_data);
-                        Thread.sleep(500);
+                        //Thread.sleep(500);
                         startActivity(i);
                         finish();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    //} catch (InterruptedException e) {
+                    //    e.printStackTrace();
+                    //}
                 }
             }
 

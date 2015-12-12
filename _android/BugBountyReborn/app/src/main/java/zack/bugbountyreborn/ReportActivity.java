@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,6 +40,13 @@ public class ReportActivity extends AppCompatActivity {
     String reportClicked;
     Toolbar reportToolbar;
     ArrayList<String> reportInfo;
+    TextView reportInfoView;
+    TextView reportIdView;
+    TextView reportHunterView;
+    TextView reportDescriptionView;
+    TextView reportSubmittedView;
+    TextView reportAmountView;
+    TextView reportMessageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +64,78 @@ public class ReportActivity extends AppCompatActivity {
             reportInfo = extras.getStringArrayList("reportInfo");
         }
 
-        Log.d(REPORT_TAG, "" + reportClicked);
+        Log.d(REPORT_TAG, "report clicked is: " + reportClicked);
+        Log.d(REPORT_TAG, "reportInfo is: " + reportInfo);
+        int stringPortion = reportClicked.lastIndexOf(" ");
+        String reportId = reportClicked.substring(++stringPortion);
+        ArrayList<String> textViewInfo = buildTextViews(reportId, reportInfo);
+
+        for (int i = 0; i < textViewInfo.size(); ++i) {
+            Log.d(REPORT_TAG, textViewInfo.get(i));
+        }
+
+        reportInfoView = (TextView) findViewById(R.id.report_information);
+        reportInfoView.setTextColor(ContextCompat.getColor(this, R.color.main_text));
+
+        reportIdView = (TextView) findViewById(R.id.report_id);
+        reportIdView.setText("Report ID: " + textViewInfo.get(0));
+        reportIdView.setTextColor(ContextCompat.getColor(this, R.color.main_text));
+
+        reportHunterView = (TextView) findViewById(R.id.report_hunter);
+        reportHunterView.setText("Reported By: " + textViewInfo.get(1));
+        reportHunterView.setTextColor(ContextCompat.getColor(this, R.color.main_text));
+
+        reportDescriptionView = (TextView) findViewById(R.id.report_description);
+        reportDescriptionView.setText("Report Description: " + textViewInfo.get(2));
+        reportDescriptionView.setTextColor(ContextCompat.getColor(this, R.color.main_text));
+
+        reportSubmittedView = (TextView) findViewById(R.id.report_dateSubmitted);
+        reportSubmittedView.setText("Date Submitted: " + textViewInfo.get(3));
+        reportSubmittedView.setTextColor(ContextCompat.getColor(this, R.color.main_text));
+
+        reportAmountView = (TextView) findViewById(R.id.report_amount);
+
+        if (textViewInfo.get(4).equals("-1")) {
+            reportAmountView.setText("Amount Paid: Bounty has not yet been paid");
+        } else {
+            reportAmountView.setText("Amount Paid: $" + textViewInfo.get(4));
+        }
+
+        reportAmountView.setTextColor(ContextCompat.getColor(this, R.color.main_text));
+
+        reportMessageView = (TextView) findViewById(R.id.report_message);
+        reportMessageView.setText("Report Message: " + textViewInfo.get(5));
+        reportMessageView.setTextColor(ContextCompat.getColor(this, R.color.main_text));
+    }
+
+    public ArrayList<String> buildTextViews(String reportId, ArrayList<String> reportJsonArray) {
+        ArrayList<String> reportText = new ArrayList<String>();
+        Log.d(REPORT_TAG, "in buildTextViews");
+        Log.d(REPORT_TAG, reportId);
+        for (int j = 0; j < reportJsonArray.size(); ++j) {
+            try {
+                JSONObject reportObj = new JSONObject(reportJsonArray.get(j));
+                JSONArray reportItems = reportObj.getJSONArray("result");
+
+                for (int i = 0; i < reportItems.length(); i++) {
+                    JSONObject report = reportItems.getJSONObject(i);
+                    if (report.getString("reportID").equals(reportId)) {
+                        Log.d(REPORT_TAG, "specific report info is: " + report.toString());
+                        reportText.add(report.getString("reportID"));
+                        reportText.add(report.getString("username"));
+                        reportText.add(report.getString("description"));
+                        reportText.add(report.getString("dateSubmitted"));
+                        reportText.add(report.getString("paidAmount"));
+                        reportText.add(report.getString("message"));
+                    }
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return reportText;
     }
 
     @Override

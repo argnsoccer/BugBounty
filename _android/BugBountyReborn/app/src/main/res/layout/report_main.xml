@@ -20,60 +20,74 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    <TextView
-        android:id="@+id/report_information"
-        android:text="Report Information"
-        android:textSize="@dimen/main_title_font_size"
+    <LinearLayout
+        android:id="@+id/profile_linearlayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center_horizontal"
-        android:gravity="center" />
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/profile_activity_horizontal_margin"
+        android:paddingRight="@dimen/profile_activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        android:scrollbars="vertical">
 
-    <TextView
-        android:id="@+id/report_id"
-        android:textSize="@dimen/main_title_font_size"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center_horizontal"
-        android:gravity="center" />
+        <TextView
+            android:id="@+id/report_information"
+            android:text="Report Information"
+            android:textSize="@dimen/main_title_font_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:gravity="center" />
 
-    <TextView
-        android:id="@+id/report_description"
-        android:textSize="@dimen/main_title_font_size"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center_horizontal"
-        android:gravity="center" />
+        <TextView
+            android:id="@+id/report_id"
+            android:textSize="@dimen/main_title_font_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center" />
 
-    <TextView
-        android:id="@+id/report_hunter"
-        android:textSize="@dimen/main_title_font_size"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center_horizontal"
-        android:gravity="center" />
+        <TextView
+            android:id="@+id/report_hunter"
+            android:textSize="@dimen/main_title_font_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:gravity="center" />
 
-    <TextView
-        android:id="@+id/report_datePaid"
-        android:textSize="@dimen/main_title_font_size"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center_horizontal"
-        android:gravity="center" />
+        <TextView
+            android:id="@+id/report_description"
+            android:textSize="@dimen/main_title_font_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:gravity="center" />
 
-    <TextView
-        android:id="@+id/report_amount"
-        android:textSize="@dimen/main_title_font_size"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center_horizontal"
-        android:gravity="center" />
+        <TextView
+            android:id="@+id/report_dateSubmitted"
+            android:textSize="@dimen/main_title_font_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:gravity="center" />
 
-    <TextView
-        android:id="@+id/report_message"
-        android:textSize="@dimen/main_title_font_size"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center_horizontal"
-        android:gravity="center" />
+        <TextView
+            android:id="@+id/report_amount"
+            android:textSize="@dimen/main_title_font_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/report_message"
+            android:textSize="@dimen/main_title_font_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:gravity="center" />
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

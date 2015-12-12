@@ -2,6 +2,7 @@ package zack.bugbountyreborn;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,8 @@ public class ReportExpandableListAdapter extends BaseExpandableListAdapter {
         reportInfo = new ArrayList<String>(info);
     }
 
+    public ArrayList<String> getReportInfo() { return reportInfo; }
+
     @Override
     public Object getChild(int groupPosition, int childPosition) {
         return groups.get(groupPosition).children.get(childPosition);
@@ -47,7 +50,7 @@ public class ReportExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, final int childPosition,
+    public View getChildView(final int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
         final String children = (String) getChild(groupPosition, childPosition);
         TextView text = null;
@@ -61,20 +64,25 @@ public class ReportExpandableListAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 Toast.makeText(activity, children,
                         Toast.LENGTH_SHORT).show();
+                final String child = (String) getChild(groupPosition, childPosition);
+                Log.d(ADAPTER_TAG, "child is: " + child);
+                for (int i = 0; i < reportInfo.size(); ++i) {
+                    Log.d(ADAPTER_TAG, "report info is: " + reportInfo.get(i));
+                }
 
                 new Thread() {
                     public void run() {
-                        try {
+                        //try {
                             Intent i = new Intent(activity, ReportActivity.class);
                             i.putExtra("username", username);
                             i.putExtra("reportInfo", reportInfo);
-                            i.putExtra("reportClicked", children);
-                            Thread.sleep(500);
+                            i.putExtra("reportClicked", child);
+                         //   Thread.sleep(500);
                             activity.startActivity(i);
                             activity.finish();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        //} catch (InterruptedException e) {
+                        //    e.printStackTrace();
+                        //}
                     }
                 }.start();
             }

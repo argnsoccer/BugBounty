@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.Menu;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -43,7 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
     TextView mainTextView1;
     TextView mainTextView2;
     Toolbar profileToolbar;
-    ListView mainListView;
+    ExpandableListView listView;
     ArrayAdapter mArrayAdapter;
     ReportExpandableListAdapter adapter;
     ArrayList<String> mBountyInfoList = new ArrayList();
@@ -71,7 +72,7 @@ public class ProfileActivity extends AppCompatActivity {
         profileToolbar.setTitle(getString(R.string.app_name));
 
         //createData();
-        ExpandableListView listView = (ExpandableListView) findViewById(R.id.listView);
+        listView = (ExpandableListView) findViewById(R.id.listView);
         adapter = new ReportExpandableListAdapter(this, groups, username);
         listView.setAdapter(adapter);
 
@@ -173,6 +174,8 @@ public class ProfileActivity extends AppCompatActivity {
             ConnectivityManager connectMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo ntwkInfo = connectMgr.getActiveNetworkInfo();
             if (ntwkInfo != null && ntwkInfo.isConnected()) {
+                listView.setAdapter((BaseExpandableListAdapter) null);
+                listView.setAdapter(adapter);
                 GetBountiesTask bounties = new GetBountiesTask();
                 mBountyInfoList.add("http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/api/getActiveBounties/" + username);
                 mBountyInfoList.add("http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/api/getReportsFromBountyID/");
@@ -211,14 +214,14 @@ public class ProfileActivity extends AppCompatActivity {
                 } else {
                     new Thread() {
                         public void run() {
-                            try {
+                            //try {
                                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                                Thread.sleep(500);
+                                //Thread.sleep(500);
                                 startActivity(i);
                                 finish();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                            //} catch (InterruptedException e) {
+                            //    e.printStackTrace();
+                            //}
                         }
                     }.start();
                 }
