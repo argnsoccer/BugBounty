@@ -1236,6 +1236,7 @@ function rssExists($dbh, $args) {
   else {
     $function_array['error'] = "1";
     $function_array['message'] = "Statement did not execute";
+    $function_array['messageDB'] = $statement->errorInfo();
   }
 
   return $function_array;
