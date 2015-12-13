@@ -39,14 +39,17 @@ $(document).ready(function () {
     }
 
     payInfo['reportID'] = reportID;
-    payInfo['message'] = "";
     payInfo['changeCode'] = "2";
 
     $.ajax({
       url: '/api/updateReport',
       type: 'POST',
       dataType: 'json',
-      data: payInfo,
+      data: {
+        reportID : reportID,
+        message : "",
+        changCode : "2"
+      },
       async: 'true',
       success: function(response) {
 
