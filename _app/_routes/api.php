@@ -623,7 +623,6 @@ function updateReport($dbh, $args, $changeCode) {
     {
       $functionArray['error'] = '0';
       $functionArray['message'] = 'success';
-      $result['paidAmount'] = $_POST['paidAmount'];
       $result['message'] = $_POST['message'];
       $functionArray['result'] = $result;
     }
@@ -646,7 +645,6 @@ function updateReport($dbh, $args, $changeCode) {
       $functionArray['error'] = '0';
       $functionArray['message'] = 'success';
       $result['paidAmount'] = $_POST['paidAmount'];
-      $result['message'] = $_POST['message'];
       $functionArray['result'] = $result;
     }
     else

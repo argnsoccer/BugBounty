@@ -36,6 +36,10 @@ function prepareHome($dbh){
 
 		$template_array["messageOfDay"] = getMessageOfDayMarshal($dbh);
 
+		$args[':username'] = $_SESSION['userLogin'];
+
+		$template_array['activeBounties'] = getActiveBounties($dbh, $args);
+
 		$template_array['subscriptions'] = getRSSSubscription($dbh);
 
 		return $template_array;

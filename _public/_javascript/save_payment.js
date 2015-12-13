@@ -29,8 +29,6 @@ $(document).ready(function () {
 
     var reportID = $(this).attr("data-ID");
 
-    alert(reportID);
-
      var payInfo = [];
 
      payInfo['paidAmount'] = $(".payAmountForm[data-ID=" + $(this).attr("data-ID")+"]").val();
@@ -51,6 +49,9 @@ $(document).ready(function () {
       data: payInfo,
       async: 'true',
       success: function(response) {
+
+        console.log(payInfo);
+        console.log(response);
 
       $.notify({
         // options
