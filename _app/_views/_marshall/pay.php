@@ -124,7 +124,7 @@
                       <div id="paypal-container"></div>
                     </form> -->
                     {% else %}
-                    <button data-id={{report.reportID}} class="btn btn-success payButton" type="button" value="Pay" title="Report already paid" disabled>Pay</button>
+                    <button data-id={{report.reportID}} class="btn btn-default payButton" type="button" value="Pay" title="Report already paid" disabled>Paid</button>
                     {% endif %}
                 </td>
               </tr>

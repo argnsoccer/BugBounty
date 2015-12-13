@@ -613,6 +613,10 @@ function createReport($dbh, $args) {
 
 function updateReport($dbh, $args, $changeCode) {
   $functionArray = array();
+
+  $functioArray['changeCode'] = $changeCode;
+  $functioArray['args'] = $args;
+
   if($changeCode == 1)
   {
     $statement = $dbh->prepare(
@@ -1773,6 +1777,7 @@ Returns
 
 $app->post('/api/updateReport', function() use ($dbh) {
 
+
   $changeCode = $_POST['changeCode'];
   if($changeCode == 1)
   {
@@ -1783,8 +1788,11 @@ $app->post('/api/updateReport', function() use ($dbh) {
   {
     $args[':paidAmount'] = $_POST['paidAmount'];
     $args[':reportID'] = $_POST['reportID'];
+    $result['gotIn'] = 1;
   }
   $result = updateReport($dbh, $args, $changeCode);
+
+  $result['post'] = $_POST;
 
   echo json_encode($result);
 });

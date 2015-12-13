@@ -57,7 +57,7 @@ if($_SESSION['userType'] == 'marshal')
 		&& $template_array['error'] === 0)
 	{
 			$app->render('_marshall/profile.php', $template_array);
-			echo print_r($template_array);
+			// echo print_r($template_array);
 	}
 	else
 	{

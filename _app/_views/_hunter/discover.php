@@ -271,9 +271,7 @@
         <div class="row">
           <div class="col-lg-12" class="bottomBox">
             <h3>How to Find Bounties</h3>
-            <p >dfsklajlkshdjkhgsflkdhgkljdfhgkjldhkjfshdakljfhksajdfhkjlasdhksadhkjfhsadkjlfhs
-              sdkjfhskldjhfkjlshadkjfhsakljdfhslkdjfhkldjsahfsklajhfkjlsadhfkjasdhfklsajdhfklj
-              sfdjklhkjlsadhlkjsadhfkjlsadhkjflhskdljahfkjlashkjlfhdsalkjhfkjlsadhkjfdsjaljfhl
+            <p >This section would describe how to find bounties better.  Was decided functionality was more improtant to implemnt then create a nice looking design here.
             </p>
           </div>
         </div>

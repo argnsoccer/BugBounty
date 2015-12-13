@@ -7,7 +7,7 @@
 
 <html>
   <head>
-    <title>BugBounty Upload Bounty</title>
+    <title>BugBounty Post Bounty</title>
     <link rel="shortcut icon" type="image/x-icon" href="../_images/_logos/bug-hunter-icon.ico" />
     <link rel="stylesheet" type="text/css" href="/../_css/header.css" />
     <link rel="stylesheet" type="text/css" href="/../_css/default.css" />
@@ -20,12 +20,12 @@
     {{include ('header_marshal.php')}}
 
       <div class="row mainRow" >
-            <h1>Upload Content</h1>
+            <h1>Post A Bounty</h1>
         <div class="col-lg-4">
            <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span><p id="requiredP">Required Field</p></strong></div>
            <div class="description">
             <p class="infoBox">
-                Use this page to post your website to BugBounty. Once posted, your website can be search by hunters for bugs.
+                Use this page to post your website to BugBounty. Once posted, your website can be searched by hunters for bugs.
             </p>
 
             <!--Implement a less janky fix if time allows.-->
@@ -52,7 +52,8 @@
                 <label for="InputEmail">Enter End Date</label>
                 <div class="input-group">
                   <span class="input-group-addon"><span class="glyphicon"></span></span>
-                  <input type="text" class="form-control" id="bountyEndDateForm" name="InputEmail" placeholder="YYYY/MM/DD">
+                  <!-- <input type="text" class="form-control" id="bountyEndDateForm" name="InputEmail" placeholder="YYYY-MM-DD"> -->
+                  <input type="date" class="form-control" id="bountyEndDateForm" name="InputEmail" placeholder="YYYY-MM-DD">
                 </div>
             </div>
             <div class="form-group">
@@ -62,7 +63,7 @@
                   <textarea  id="bountyDescriptionForm" class="form-control" rows="5" required></textarea>
                 </div>
             </div>
-            <button type="submit" id="bountyCreateSubmit" class="btn btn-primary pull-right">Submit</button>
+            <button type="submit" id="bountyCreateSubmit" class="btn btn-primary pull-right submitSomething">Submit</button>
           </form>
         </div>
       </div>

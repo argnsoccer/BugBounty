@@ -37,7 +37,7 @@
                       Submit Report
                     </button>
                     <a class="btn btn-default btn-md buttonCustom center-block" title="Link to Website" href="{{bounty.result.bountyLink}}" target="_blank">Track Bounty</a>
-                    <button class="btn btn-default btn-sm buttonCustom center-block" title="Subscrive to Company RSS">Subscribe</button>
+                    <button class="btn btn-default btn-sm buttonCustom center-block" title="Subscribe to Company RSS" id="subscribeButton">Subscribe</button>
                   </div>
                 </div>
               </div>
@@ -155,6 +155,7 @@
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
     <script type="text/javascript" src="/../_javascript/submit_report.js"></script>
     <script type="text/javascript" src="/../_javascript/display_message.js"></script>
+    <script type="text/javascript" src="/../_javascript/subscribe.js"></script>
     <script type="text/javascript" src="/../_javascript/display_report.js"></script>
     <script type="text/javascript" src="/../_javascript/logout.js"></script>
     <script type="text/javascript" src="/../_javascript/search_basic.js"></script>
