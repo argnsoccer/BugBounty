@@ -32,10 +32,17 @@
               <div class="row innerRow">
                 <div class="col-md-12">
                   <div id="bountyButtons">
+                    {% if bounty.expired == 0 %}
                     <button class="btn btn-success btn-lg buttonCustom center-block" type="button" data-toggle="modal" 
                       data-target="#submitReportModal" data-whatever="@getbootstrap">
                       Submit Report
                     </button>
+                    {% else %}
+                    <button class="btn btn-default btn-lg buttonCustom center-block" type="button" disabled>
+                      Report Expired
+                    </button>
+                    {% endif %}
+
                     <a class="btn btn-default btn-md buttonCustom center-block" title="Link to Website" href="{{bounty.result.bountyLink}}" target="_blank">Track Bounty</a>
                     <button class="btn btn-default btn-sm buttonCustom center-block" title="Subscribe to Company RSS" id="subscribeButton">Subscribe</button>
                   </div>
