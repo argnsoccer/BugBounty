@@ -1201,6 +1201,7 @@ function addRSS($dbh, $args) {
     $result['error'] = "0";
     $result['message'] = "All gucci";
     $result['path'] = $args['link'];
+    $result['rss_file'] = $rss_file;
 
   }
   else {
