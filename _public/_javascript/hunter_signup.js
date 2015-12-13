@@ -284,9 +284,10 @@ $(document).ready(function ()
       data: userInfo,
       async: 'true',
       success: function(response) {
+        console.log(response);
         if (response.error == '0')
         {
-          window.location.href = "/";
+          window.location = "/";
         }
         else if (response.error == '1')
         {
