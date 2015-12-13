@@ -1,17 +1,6 @@
-var subscriptionString = "";
-
-for (var i = 0; i < subscriptions.length; ++i) {
-  subscriptionString = subscriptionString + "|" + subscriptions[i];
-}
-
-if (subscriptionString == '') {
-  
-}
-else {
-
 (function() { var params = 
   {
-    rssmikle_url: subscriptionString,
+    rssmikle_url: myLink,
     rssmikle_frame_width: "350",
     rssmikle_frame_height: "400",
     frame_height_by_article: "0",
@@ -58,7 +47,3 @@ else {
   };
 
   feedwind_show_widget_iframe(params);})();
-
-}
-
-console.log(subscriptionString);

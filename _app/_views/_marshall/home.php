@@ -89,7 +89,6 @@
                     class="btn btn-default btn-xs newsfeed_header" onclick="onAddRSS();">
                     Add Post</button>
               </div>
-
            <!-- start feedwind code -->
           <script type="text/javascript">
             document.write(
@@ -98,9 +97,9 @@
               'feed.mikle.com/js/rssmikle.js">\x3C/script>'
             );
 
-            var subscriptions = {{ subscriptions.result|json_encode|raw }};
+            var myLink = {{rssExists.result.link|json_encode|raw }};
 
-            console.log(subscriptions);
+            console.log(myLink);
 
           </script>
 
