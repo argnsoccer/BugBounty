@@ -44,7 +44,7 @@ body {
   color: #5a5a5a;
 }
 
-h1 { 
+h1 {
   padding-top: 5px !important;
 }
 
@@ -54,7 +54,7 @@ h1 {
 
 /* Carousel base class */
 .carousel {
-  
+
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
@@ -96,7 +96,7 @@ h1 {
   background-image: url("/../_images/_random/wanted_240x308.png");
   background-size: 255px 308px;
   background-repeat: no-repeat;
-  background-position: center; 
+  background-position: center;
   height: 400px;
 }
 

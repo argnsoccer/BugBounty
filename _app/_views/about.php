@@ -93,7 +93,7 @@
                 <p>Andre Gras</p>
             </div>
             <div class="bio col-xs-9">
-                He has a dark and mysterious past...
+                Andre Gras (born Schliim Klombaq) was originally a senior member of the Andromedan High Council of Festive Hairpieces and Interstellar Gulthork Racing.  He was forced into hiding following a successful coup d'&eacute;tat led by the Kfnudarian Society of Topiary Enthusiasts, in what became known as the Day of Shears.  Klombaq managed to escape with fellow officials Ytnqu Vom and Z'Kn Nifet by stowing away on a dark matter tanker bound for the Milky Way Galaxy.  The three stole one of the tanker's escape pods and crash-landed on Earth.  There, under the name of Andre, Klombaq integrated into Terran society as an aspiring computer scientist and worked on the database development for BugBounty.
             </div>
         </div>
     </div>

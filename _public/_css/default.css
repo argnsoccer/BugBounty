@@ -1,5 +1,12 @@
+@font-face
+{
+	font-family: Raleway-Medium;
+	src: url(/../_fonts/Raleway-Medium.ttf);
+}
+
 body {
 	background-color: #FFFFFF  !important;
+	font-family: "Raleway-Medium" !important;
 }
 
 .hunterBackground {

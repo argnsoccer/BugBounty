@@ -56,6 +56,7 @@
                         <label for="message_field">Message</label>
                         <textarea id="message_field" class="form-control" rows="10"></textarea>
                     </div>
+                    <input type=submit class="btn btn-primary" />
                 </form>
             </div>
             <div class="col-xs-1">
