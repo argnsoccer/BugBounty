@@ -1098,14 +1098,7 @@ function getReportsFromMarshal($dbh,$args)
 
 function createRSS($dbh, $args) {
 
-
-  $dirs = array_filter(glob('*'), 'is_dir');
-  $result['fffff'] = $dirs;
-
-  $result['heyhey'] = scandir("/");
-
   $file_path = $args['link']."/rss_".$args['username'].".xml";
-
   $xml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n";
   $xml = $xml."<rss version=\"2.0\">\n";
   $xml = $xml."\t<channel>\n";
@@ -1129,10 +1122,7 @@ function createRSS($dbh, $args) {
   $xml = $xml."</rss>\n";
 
   try {
-
     $xmlTest = simplexml_load_string($xml);
-
-    $result['xmlLink'] = $file_path;
 
     if (!is_dir('_rss')) {
       mkdir('_rss');
@@ -1150,14 +1140,12 @@ function createRSS($dbh, $args) {
     }
     if(!file_exists($file_path))
     {
-      mkdir($file_path, 0777, true);
+      $rss_file = fopen($file_path, "w");
+      fwrite($rss_file, $xml);
+      $result['rss_file'] = $file_path;
+      fclose($rss_file);
       $result['_rss'] = 4;
     }
-
-    $rss_file = fopen($file_path, "w");
-    fwrite($rss_file, $xml);
-    $result['rss_file'] = $file_path;
-    fclose($rss_file);
 
     $mysqlArray[':userID'] = $_SESSION['userID'];
     $mysqlArray[':rssLink'] = "http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com".$file_path;
