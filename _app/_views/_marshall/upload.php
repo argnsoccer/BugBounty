@@ -25,17 +25,8 @@
            <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span><p id="requiredP">Required Field</p></strong></div>
            <div class="description">
             <p class="infoBox">
-                Once upon a time, there was a racist tree. Seriously, you are going to hate this tree. High on a hill overlooking the town, the racist tree grew where the grass was half clover. Children would visit during the sunlit hours and ask for apples, and the racist tree would shake its branches and drop the delicious red fruit that gleamed without being polished. The children ate many of the racist tree's apples and played games beneath the shade of its racist branches. One day the children brought Sam, a boy who had just moved to town, to play around the racist tree.
-"Let Sam have an apple," asked a little girl.
-"I don't think so. He's black," said the tree. This shocked the children and they spoke to the tree angrily, but it would not shake its branches to give Sam an apple, and it called him a nigger.
-"I can't believe the racist tree is such a racist," said one child. The children momentarily reflected that perhaps this kind of behavior was how the racist tree got its name.
-It was decided that if the tree was going to deny apples to Sam then nobody would take its apples. The children stopped visiting the racist tree.
-The racist tree grew quite lonely. After many solitary weeks it saw a child flying a kite across the clover field.
-"Can I offer you some apples?" asked the tree eagerly.
-"Fuck off, you goddamn Nazi," said the child.
-The racist tree was upset, because while it was very racist, it did not personally subscribe to Hitler's fascist ideology. The racist tree decided that it would have to give apples to black children, not because it was tolerant, but because otherwise it would face ostracism from white children.
-And so, social progress was made.
-</p>
+                Use this page to post your website to BugBounty. Once posted, your website can be search by hunters for bugs.
+            </p>
 
             <!--Implement a less janky fix if time allows.-->
             <p id="hidden_box" class="infoBox">BugBounty uses RSS so that hunters can follow marshals they choose.  Hunter's may want to get updates on a certain bounty or be told when a new bounty is posted from a marshal and RSS allows us to do that.  It also allows our content to be posted on a different website.</p>
