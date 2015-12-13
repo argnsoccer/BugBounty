@@ -3,20 +3,13 @@ $(document).ready(function ()
 
   $("#subscribeButton").click(function(event) {
 
-    var subscriptionInfo = [];
-
-    subscriptionInfo["marshalUsername"] = $("#subscribeButton").attr('data-username');
-
-    // console.log(subscriptionInfo);
-
-        console.log(subscriptionInfo);
-
     $.ajax({
       url: '/api/addSubscription',
       type: 'POST',
       dataType: 'json',
-      data: subscriptionInfo,
-      async: 'true',
+      data: {
+        'marshalUsername' : $("#subscribeButton").attr('data-username')
+      },
       success: function(response) {
 
         console.log(response);

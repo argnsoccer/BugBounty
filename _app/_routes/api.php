@@ -1261,13 +1261,19 @@ function rssExists($dbh) {
 function addSubscription($dbh, $args, $args2) {
   $functionArray = array();
 
+  $functionArray['args'] = $args2;
+
   $statement2 = $dbh->prepare(
   "SELECT Marshall.rssLink FROM Marshall, Account WHERE Account.username = :marshalUsername AND Account.userID = Marshall.marshallID");
+
+  $functionArray['fuck'] = $args2[':marshalUsername'];
 
   if($statement2->execute($args2))
   {
     $row = $statement2->fetch(PDO::FETCH_ASSOC);
     $args[':rssLink'] = substr($row['rssLink'], 57, strlen($row['rssLink']) - 56);
+    $functionArray['row'] = $row;
+    $functionArray['rssLink'] = $args[':rssLink'];
     if(file_exists($args[':rssLink']))
     {
       $statement = $dbh->prepare(
