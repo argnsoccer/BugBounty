@@ -1125,17 +1125,17 @@ function createRSS($dbh, $args) {
     $xmlTest = simplexml_load_string($xml);
 
     if (!is_dir('_rss')) {
-      mkdir('_rss');
+      mkdir('_rss', 0777, true);
       $result['_rss'] = 1;
     }
     if(!is_dir('_rss/_profiles'))
     {
-      mkdir('_rss/_profiles');
+      mkdir('_rss/_profiles', 0777, true);
       $result['_rss'] = 2;
     }
     if(!is_dir($args['link']))
     {
-      mkdir($args['link']);
+      mkdir($args['link'], 0777, true);
       $result['_rss'] = 3;
     }
     if(!file_exists($file_path))
