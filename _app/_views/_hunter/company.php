@@ -28,7 +28,11 @@
               <div class="row innerRow">
                 <div class="col-md-12">
                   <div id="bountyButtons">
-                    <button class="btn btn-default btn-sm center-block buttonCustom" title="Subscribe to Company RSS" text-center>Subscribe</button>
+                    <button class="btn btn-default btn-sm center-block buttonCustom" 
+                      title="Subscribe to Company RSS" id="subscribeButton" 
+                      text-center data-username={{company.result.username}}>
+                      Subscribe
+                    </button>
                   </div>
                 </div>
               </div>
@@ -116,6 +120,9 @@
     <script type="text/javascript" src="/../_javascript/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
     <script type="text/javascript" src="/../_javascript/display_message.js"></script>
     <script type="text/javascript" src="/../_javascript/display_report.js"></script>
+
+    <script type="text/javascript" src="/../_javascript/subscribe.js"></script>
+
     <script type="text/javascript" src="/../_javascript/logout.js"></script>
     <script type="text/javascript" src="/../_javascript/search_basic.js"></script>
 

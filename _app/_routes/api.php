@@ -1099,7 +1099,6 @@ function getReportsFromMarshal($dbh,$args)
 function createRSS($dbh, $args) {
 
   $file_path = $args['link']."/rss_".$args['username'].".xml";
-
   $xml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n";
   $xml = $xml."<rss version=\"2.0\">\n";
   $xml = $xml."\t<channel>\n";
@@ -1123,17 +1122,30 @@ function createRSS($dbh, $args) {
   $xml = $xml."</rss>\n";
 
   try {
-
     $xmlTest = simplexml_load_string($xml);
 
-    $result['xmlLink'] = $file_path;
-
-    if (!file_exists($args['link'])) {
-      mkdir($args['link'], 0777, true);
+    if (!is_dir('_rss')) {
+      mkdir('_rss', 0777, true);
+      $result['_rss'] = 1;
     }
-
-    $rss_file = fopen($file_path, "w");
-    fwrite($rss_file, $xml);
+    if(!is_dir('_rss/_profiles'))
+    {
+      mkdir('_rss/_profiles', 0777, true);
+      $result['_rss'] = 2;
+    }
+    if(!is_dir($args['link']))
+    {
+      mkdir($args['link'], 0777, true);
+      $result['_rss'] = 3;
+    }
+    if(!file_exists($file_path))
+    {
+      $rss_file = fopen($file_path, "w");
+      fwrite($rss_file, $xml);
+      $result['rss_file'] = $file_path;
+      fclose($rss_file);
+      $result['_rss'] = 4;
+    }
 
     $mysqlArray[':userID'] = $_SESSION['userID'];
     $mysqlArray[':rssLink'] = "http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/".$file_path;
@@ -1147,7 +1159,7 @@ function createRSS($dbh, $args) {
     {
       $args2[':userID'] = $_SESSION['userID'];
       $args2[':rssLink'] = $mysqlArray[':rssLink'];
-      addSubscription($dbh, $args2);
+      addMarshalSubscription($dbh, $args2);
       $result['error'] = '0';
       $result['message'] = 'Success';
       $result['username'] = $_SESSION['userLogin'];
@@ -1175,7 +1187,6 @@ function addRSS($dbh, $args) {
 
     $xml = simplexml_load_file($args['link']);
 
-
     $new_item = $xml->channel->addChild("item");
 
     $new_item->addChild("title", $args['title']);
@@ -1189,11 +1200,13 @@ function addRSS($dbh, $args) {
     $result['xml'] = $xml->asXML();
     $result['error'] = "0";
     $result['message'] = "All gucci";
+    $result['path'] = $args['link'];
 
   }
   else {
     $result['error'] = "1";
     $result['message'] = "RSS File does not Exist";
+    $result['path'] = $args['link'];
   }
 
   return $result;
@@ -1214,10 +1227,9 @@ function rssExists($dbh) {
   if($statement->execute($args)) {
 
     $row = $statement->fetch(PDO::FETCH_ASSOC);
-
     if($row['rssCreated']) {
       if(file_exists(substr($row['rssLink'], 57, strlen($row['rssLink']) - 56))) {
-        $function_array['result']['link'] = $row['link'];
+        $function_array['result']['link'] = $row['rssLink'];
         $function_array['result']['exists'] = "1";
         $function_array['error'] = "0";
         $function_array['message'] = "Success";
@@ -1226,12 +1238,14 @@ function rssExists($dbh) {
         $function_array['result']['exists'] = "0";
         $function_array['error'] = "1";
         $function_array['message'] = "File does not exist";
+        $function_array['result']['link'] = $row['rssLink'];
       }
     }
     else {
       $function_array['result']['exists'] = "0";
-      $function_array['error'] = "1";
+      $function_array['error'] = "2";
       $function_array['message'] = "File does not exist";
+      $function_array['result']['link'] = $row['rssLink'];
     }
 
   }
@@ -1244,13 +1258,57 @@ function rssExists($dbh) {
   return $function_array;
 }
 
-function addSubscription($dbh, $args) {
+function addSubscription($dbh, $args, $args2) {
   $functionArray = array();
+
+  $functionArray['args'] = $args2;
+
+  $statement2 = $dbh->prepare(
+  "SELECT Marshall.rssLink FROM Marshall, Account WHERE Account.username = :marshalUsername AND Account.userID = Marshall.marshallID");
+
+  $functionArray['fuck'] = $args2[':marshalUsername'];
+
+  if($statement2->execute($args2))
+  {
+    $row = $statement2->fetch(PDO::FETCH_ASSOC);
+    $args[':rssLink'] = substr($row['rssLink'], 57, strlen($row['rssLink']) - 56);
+    $functionArray['row'] = $row;
+    $functionArray['rssLink'] = $args[':rssLink'];
+    if(file_exists($args[':rssLink']))
+    {
+      $statement = $dbh->prepare(
+      "INSERT INTO Subscription (hunterID, rssLink) VALUES (:userID, :rssLink)");
+      if($statement->execute($args))
+      {
+        $functionArray['error'] = '0';
+        $functionArray['message'] = 'success';
+      }
+      else {
+        $functionArray['error'] = '1';
+        $functionArray['message'] = 'Statement did not execute';
+        $functionArray['messageDB'] = $statement->errorInfo();
+      }
+    }
+    else {
+      $functionArray['error'] = '3';
+      $functionArray['message'] = 'RSS Link does not exist';
+    }
+  }
+  else {
+    $functionArray['error'] = '2';
+    $functionArray['message'] = 'Second Statement did not execute';
+    $functionArray['messageDB'] = $statement2->errorInfo();
+  }
+  return $functionArray;
+}
+
+function addMarshalSubscription($dbh, $args) {
+  $functionArray = array();
+
   if(file_exists($args[':rssLink']))
   {
     $statement = $dbh->prepare(
-    "INSERT INTO Subscription (userID, rssLink) VALUES (:userID, :rssLink)");
-
+    "INSERT INTO Subscription (hunterID, rssLink) VALUES (:userID, :rssLink)");
     if($statement->execute($args))
     {
       $functionArray['error'] = '0';
@@ -1266,6 +1324,7 @@ function addSubscription($dbh, $args) {
     $functionArray['error'] = '2';
     $functionArray['message'] = 'RSS Link does not exist';
   }
+
   return $functionArray;
 }
 
@@ -1275,7 +1334,7 @@ function getRSSSubscription($dbh)
   $functionArray = array();
 
   $statement = $dbh->prepare(
-  "SELECT rssLink FROM Subscription WHERE userID = :userID");
+  "SELECT rssLink FROM Subscription WHERE hunterID = :userID");
 
   if($statement->execute($args))
   {
@@ -2010,8 +2069,8 @@ $app->post('/api/createRSS', function() use ($dbh) {
   $args['url'] = $_POST['url'];
 
   $args['link'] = "_rss/_profiles/_".$args['username'];
-  $args['imageURL'] = "_images/_profiles/_".$args['userLogin']."/profile.png";
-  $args['imageTitle'] = $args['user']." RSS picture for ".$args['userLogin'];
+  $args['imageURL'] = "_images/_profiles/_".$args['username']."/profile.png";
+  $args['imageTitle'] = $args['username']." RSS picture for ".$args['username'];
 
   $args['language'] = "en-us";
   $args['creationDate'] = date("Y/m/d");
@@ -2032,7 +2091,7 @@ $app->post('/api/addRSS', function() use ($dbh) {
   $args['description'] = $_POST['description'];
   $args['pubDate'] = date('Y-m-d');
 
-  $args['link'] = "_rss/_profiles/_".$args['user'].".xml";
+  $args['link'] = "_rss/_profiles/_".$args['user']."/rss_".$args['user'].".xml";
 
   echo json_encode(addRSS($dbh, $args));
 
@@ -2046,10 +2105,10 @@ $app->get('/api/rssExists', function() use ($dbh) {
 
 $app->post('/api/addSubscription', function() use ($dbh) {
 
-  $args[":userID"] = $_SESSION['userLogin'];
-  $args[':rssLink'] = $_POST['rssLink'];
+  $args[":userID"] = $_SESSION['userID'];
+  $args2[':marshalUsername'] = $_POST['marshalUsername'];
 
-  echo json_encode(addSubscription($dbh, $args), JSON_UNESCAPED_SLASHES);
+  echo json_encode(addSubscription($dbh, $args, $args2), JSON_UNESCAPED_SLASHES);
 
 });
 

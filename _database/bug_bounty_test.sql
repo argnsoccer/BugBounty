@@ -278,8 +278,8 @@ UNLOCK TABLES;
 CREATE TABLE IF NOT EXISTS `Subscription` (
   `subscriptionID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userID` int(10) UNSIGNED NOT NULL,
-  `rssLink` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`subscriptionID`),
+  `rssLink` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`userID`, `rssLink`),
   UNIQUE KEY `subscriptionID_UNIQUE` (`subscriptionID`),
   CONSTRAINT `fk_subscription_account` FOREIGN KEY (`userID`) REFERENCES `Account` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

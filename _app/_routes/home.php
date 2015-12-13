@@ -36,6 +36,8 @@ function prepareHome($dbh){
 
 		$template_array["messageOfDay"] = getMessageOfDayMarshal($dbh);
 
+		$template_array['subscriptions'] = getRSSSubscription($dbh);
+
 		return $template_array;
 	}
 	else
@@ -58,10 +60,12 @@ $app->get('/', function() use ($app, $dbh) {
 			$template_array = prepareHome($dbh);
 
 			$app->render('/_hunter/home.php', $template_array);
+
+			echo print_r($template_array);
 		}
 		else if ($_SESSION['userType'] == 'marshal'
 			|| $_SESSION['userType'] == 'sheriff'
-			|| $_SESSION['userType'] == 'marshal')
+			|| $_SESSION['userType'] == 'marshall')
 		{
 
 			$template_array = prepareHome($dbh);

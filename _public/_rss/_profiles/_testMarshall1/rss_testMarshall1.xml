@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <rss version="2.0">
 	<channel>
-		<title>Awesome Bounty</title>
-		<link>12/31/2999</link>
+		<title>title testMarshall1</title>
+		<link>www.google.com</link>
 		<image>
-			<url>_images/_profiles/_/profile.png</url>
-			<title> RSS picture for </title>
+			<url>_images/_profiles/_testMarshall1/profile.png</url>
+			<title>testMarshall1 RSS picture for testMarshall1</title>
 			<link>_rss/_profiles/_testMarshall1/rss_testMarshall1.xml</link>
 		</image>
-		<description>Dey be sum shit wrong up in dis bitch, find it yo</description>
+		<description>description of an RSS</description>
 		<language>en-us</language>
-		<category></category>
-		<copyright></copyright>
+		<category>Marshal Stufff</category>
+		<copyright>copyright</copyright>
 		<lastBuildDate></lastBuildDate>
 		<ttl>340</ttl>
 	</channel>

@@ -76,29 +76,6 @@
     <script type="text/javascript" src="/../_javascript/logout.js"></script>
     <script type="text/javascript" src="/../_javascript/rss_create.js"></script>
 
-    {% if rssExists == "1" %}
-    <script type="text/javascript">
-      function showMessage() {
-        $.notify({
-          // options
-          message: '  RSS Not Yet Created',
-          icon: 'glyphicon glyphicon-alert'
-          },{
-          // settings
-          type: 'info',
-          placement: {
-            from: "top",
-            align: "right",
-            allow_dismiss: true,
-          }
-        });
-      }
-      window.onload = function {
-        showMessage();
-      }
-    </script>
-    {% endif %}
-
     {{include ('bootstrap_footer.php')}}
   </body>
 </html>
