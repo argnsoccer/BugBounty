@@ -182,7 +182,7 @@ table
 }*/
 
 .card__back {
-  background-color: #FAFAFA;
+  background-color: #ffffff;
   -webkit-transform: rotateY(-180deg);
           transform: rotateY(-180deg);
 }

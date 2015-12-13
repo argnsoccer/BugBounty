@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    
+
 {% if username and userType == "hunter" %}
   {{ include ('header_hunter.php') }}
 {% elseif  username and userType == "marshal" %}
@@ -19,14 +19,14 @@
 {% else %}
   {{ include ('header_login.php') }}
 {% endif %}
-    
+
   <h1 id="main_header">Why Use Bug Bounty</h1>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script type="text/javascript" src="/../_javascript/basic_search.js"></script>
   <script type="text/javascript" src="/../_javascript/login.js"></script>
   <script type="text/javascript" src="/../_javascript/logout.js"></script>
-  {{include ('bootstrap_footer.php')}} 
+  {{include ('bootstrap_footer.php')}}
 
 </body>
 </html>

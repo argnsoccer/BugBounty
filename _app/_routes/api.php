@@ -1148,7 +1148,7 @@ function createRSS($dbh, $args) {
     }
 
     $mysqlArray[':userID'] = $_SESSION['userID'];
-    $mysqlArray[':rssLink'] = "http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com".$file_path;
+    $mysqlArray[':rssLink'] = "http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/".$file_path;
 
     $statement = $dbh->prepare("
     UPDATE Marshall
@@ -1227,10 +1227,9 @@ function rssExists($dbh) {
   if($statement->execute($args)) {
 
     $row = $statement->fetch(PDO::FETCH_ASSOC);
-
     if($row['rssCreated']) {
       if(file_exists(substr($row['rssLink'], 57, strlen($row['rssLink']) - 56))) {
-        $function_array['result']['link'] = $row['link'];
+        $function_array['result']['link'] = $row['rssLink'];
         $function_array['result']['exists'] = "1";
         $function_array['error'] = "0";
         $function_array['message'] = "Success";
@@ -1239,12 +1238,14 @@ function rssExists($dbh) {
         $function_array['result']['exists'] = "0";
         $function_array['error'] = "1";
         $function_array['message'] = "File does not exist";
+        $function_array['result']['link'] = $row['rssLink'];
       }
     }
     else {
       $function_array['result']['exists'] = "0";
-      $function_array['error'] = "1";
+      $function_array['error'] = "2";
       $function_array['message'] = "File does not exist";
+      $function_array['result']['link'] = $row['rssLink'];
     }
 
   }
@@ -1270,7 +1271,7 @@ function addSubscription($dbh, $args, $args2) {
     if(file_exists($args[':rssLink']))
     {
       $statement = $dbh->prepare(
-      "INSERT INTO Subscription (hunterID, rssLink) VALUES (:userID, :rssLink)");
+      "INSERT INTO Subscription (userID, rssLink) VALUES (:userID, :rssLink)");
       if($statement->execute($args))
       {
         $functionArray['error'] = '0';
@@ -1301,7 +1302,7 @@ function addMarshalSubscription($dbh, $args) {
   if(file_exists($args[':rssLink']))
   {
     $statement = $dbh->prepare(
-    "INSERT INTO Subscription (hunterID, rssLink) VALUES (:userID, :rssLink)");
+    "INSERT INTO Subscription (userID, rssLink) VALUES (:userID, :rssLink)");
     if($statement->execute($args))
     {
       $functionArray['error'] = '0';

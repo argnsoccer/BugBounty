@@ -277,17 +277,17 @@ UNLOCK TABLES;
 
 CREATE TABLE IF NOT EXISTS `Subscription` (
   `subscriptionID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `hunterID` int(10) UNSIGNED NOT NULL,
+  `userID` int(10) UNSIGNED NOT NULL,
   `rssLink` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`subscriptionID`),
+  PRIMARY KEY (`userID`, `rssLink`),
   UNIQUE KEY `subscriptionID_UNIQUE` (`subscriptionID`),
-  CONSTRAINT `fk_subscription_account` FOREIGN KEY (`hunterID`) REFERENCES `Account` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_subscription_account` FOREIGN KEY (`userID`) REFERENCES `Account` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
 CREATE TABLE IF NOT EXISTS `Transactions` (
-  `transactionID` VARCHAR(8) NOT NULL AUTO_INCREMENT,
+  `transactionID` VARCHAR(8) NOT NULL,
   `hunterUsername` VARCHAR(20) NOT NULL,
   `marshalUsername` VARCHAR(20) NOT NULL,
   `amount` int(10) NOT NULL,
