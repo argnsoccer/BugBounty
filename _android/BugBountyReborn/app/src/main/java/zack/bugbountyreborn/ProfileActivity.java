@@ -180,10 +180,6 @@ public class ProfileActivity extends AppCompatActivity {
                 mBountyInfoList.add("http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/api/getActiveBounties/" + username);
                 mBountyInfoList.add("http://ec2-52-88-178-244.us-west-2.compute.amazonaws.com/api/getReportsFromBountyID/");
                 bounties.execute(mBountyInfoList);
-                /*for (String item : mBountyIdList) {
-                    Log.d(PROFILE_TAG, "something" + item + " ");
-                }
-                Log.d(PROFILE_TAG, "shit is fucked yo");*/
             }
             else {}
         }
