@@ -1,17 +1,6 @@
-var subscriptionString = "";
-
-for (var i = 0; i < subscriptions.length; ++i) {
-  subscriptionString = subscriptionString + "|" + subscriptions[i];
-}
-
-if (subscriptionString == '') {
-  $("#rssBox").append("<p>Go to a company's page to subscrive to their webste</p>");
-}
-else {
-
 (function() { var params = 
   {
-    rssmikle_url: "http://feed.mikle.com/support/rss/|http://www.feedforall.com/sample.xml",
+    rssmikle_url: myLink,
     rssmikle_frame_width: "350",
     rssmikle_frame_height: "400",
     frame_height_by_article: "0",
@@ -56,9 +45,5 @@ else {
     keyword_inc: "",
     keyword_exc: ""
   };
-  
+
   feedwind_show_widget_iframe(params);})();
-
-}
-
-console.log(subscriptionString);

@@ -24,8 +24,8 @@ $(document).ready(function ()
       success: function(response) {
 
       if(response.error == 0) {
-        // console.log(response);
-        window.location = "/_marshal/rssadd/" + response.username;
+        console.log(response);
+        // window.location = "/_marshal/rssadd/" + response.username;
       }
 
       }
