@@ -291,11 +291,8 @@ $(document).ready(function ()
       success: function(response) {
         console.log(response);
 
-        alert("hheh");
-
         if (response.error == '0')
         {
-          alert('here');
           window.location = "/";
         }
         else if (response.error == '1')
