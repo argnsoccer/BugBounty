@@ -9,9 +9,9 @@ if (subscriptionString == '') {
 }
 else {
 
-  (function() {var params = 
+(function() { var params = 
   {
-    rssmikle_url: subscriptionString,
+    rssmikle_url: "http://feed.mikle.com/support/rss/|http://www.feedforall.com/sample.xml",
     rssmikle_frame_width: "350",
     rssmikle_frame_height: "400",
     frame_height_by_article: "0",
@@ -31,15 +31,15 @@ else {
     mcspeed: "20",
     sort: "Off",
     rssmikle_title: "on",
-    rssmikle_title_sentence: "BugBounty News",
+    rssmikle_title_sentence: "My News",
     rssmikle_title_link: "",
-    rssmikle_title_bgcolor: "#E74C3C",
+    rssmikle_title_bgcolor: "#59ABE3",
     rssmikle_title_color: "#FFFFFF",
     rssmikle_title_bgimage: "",
     rssmikle_item_bgcolor: "#FFFFFF",
     rssmikle_item_bgimage: "",
     rssmikle_item_title_length: "55",
-    rssmikle_item_title_color: "#E74C3C",
+    rssmikle_item_title_color: "#59ABE3",
     rssmikle_item_border_bottom: "on",
     rssmikle_item_description: "on",
     item_link: "off",
@@ -56,8 +56,8 @@ else {
     keyword_inc: "",
     keyword_exc: ""
   };
-  feedwind_show_widget_iframe(params)
-;})();
+  
+  feedwind_show_widget_iframe(params);})();
 
 }
 
