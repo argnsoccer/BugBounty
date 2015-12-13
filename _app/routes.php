@@ -6,6 +6,7 @@ require '_routes/about.php';
 require '_routes/why.php';
 require '_routes/signup.php';
 require '_routes/billinginfo.php';
+require '_routes/tech_overview.php';
 
 
 
