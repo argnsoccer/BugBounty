@@ -362,7 +362,7 @@ function signUpMarshal($dbh, $args, $args2) {
   $args[":imageLoc"] = "/_images/_profiles/_".$username.'/profile.png';
   if(!mkdir("_images/_profiles/_".$username, true))
   {
-    echo(die('Failed to create profile picture directory'));
+
   }
 
   copy("_images/_profiles/_default_marshal/profile.png", "_images/_profiles/_".$username."/profile.png");
