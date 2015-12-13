@@ -1328,7 +1328,7 @@ function getRSSSubscription($dbh)
   $functionArray = array();
 
   $statement = $dbh->prepare(
-  "SELECT rssLink FROM Subscription WHERE userID = :userID");
+  "SELECT rssLink FROM Subscription WHERE hunterID = :userID");
 
   if($statement->execute($args))
   {
