@@ -8,6 +8,13 @@
     <link rel="stylesheet" type="text/css" href="/../_css/pay.css">
     <link rel="stylesheet" type="text/css" href="/../_css/options_dropdown.css">
 
+    <link rel="stylesheet" type="text/css" href="/../_css/_modal/default_modal.css">
+    <link rel="stylesheet" type="text/css" href="/../_css/_modal/display_details_modal.css">
+    <link rel="stylesheet" type="text/css" href="/../_css/_modal/edit_message_modal.css">
+    <link rel="stylesheet" type="text/css" href="/../_css/_modal/message_modal.css">
+
+
+
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 
@@ -72,7 +79,7 @@
               {% for report in submittedReports.result %}
               <tr class="rowTable">
                 <td class="cell">{{report.dateSubmitted}}</td>
-                <td class="cell">{{report.bountyName}}</td>
+                <td class="cell"><a href="/_marshal/track/{{report.bountyID}}">{{report.bountyName}}</a></td>
                 <td class="cell">{{report.errorName}}</td>
                 <td class="cell">
                   <button type="button" class="displayDetailsModal detailsButton" data-toggle="modal"
