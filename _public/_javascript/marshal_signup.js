@@ -293,7 +293,7 @@ $(document).ready(function ()
 
         if (response.error == '0')
         {
-          window.location.href = "/";
+          window.location = "/";
         }
         else if (response.error == '1')
         {
