@@ -1710,14 +1710,14 @@ $app->get('/api/getUserFromEmail/:email', function($email) use ($dbh) {
 });
 
   /*
-  Andre Gras
-  createBounty
-  Creates a Bounty
-  Error Codes:
-    0 = bounty created
-    1 = statement did not execute
-    2 = user was hunter
-  Returns
+Andre Gras
+createBounty
+Creates a Bounty
+Error Codes:
+0 = bounty created
+1 = statement did not execute
+2 = user was hunter
+Returns
 
   complete
   */
@@ -1737,12 +1737,12 @@ $app->post('/api/createBounty', function() use ($dbh) {
 });
 
   /*
-  Michael Gilbert
-  createReport
-  Creates a report
-  Error Codes:
-  1: no statement executed
-  Returns
+Michael Gilbert
+createReport
+Creates a report
+Error Codes:
+1: no statement executed
+Returns
 
   complete
   */
@@ -1763,12 +1763,12 @@ $app->post('/api/createReport', function() use ($dbh) {
 });
 
   /*
-  Ryan Edson
-  updateReport
-  Updates a report with whether they are getting paid or not
-  Also adds report to PaymentTable (table which will handle paypal, not in db yet)
-  Error Codes:
-  Returns
+Ryan Edson
+updateReport
+Updates a report with whether they are getting paid or not
+Also adds report to PaymentTable (table which will handle paypal, not in db yet)
+Error Codes:
+Returns
 
   complete
   */
@@ -1792,11 +1792,11 @@ $app->post('/api/updateReport', function() use ($dbh) {
 });
 
   /*
-  Ryan Edson
-  getReportsFromUsername
-  Returns all reports a username has submitted
-  Error Codes:
-  Returns
+Ryan Edson
+getReportsFromUsername
+Returns all reports a username has submitted
+Error Codes:
+Returns
 
   complete
   */
@@ -1835,15 +1835,15 @@ $app->get('/api/getReportFromReportID/:reportID', function($reportID) use ($dbh)
 });
 
   /*
-  Andre Gras
-  getProfilePictureFromUsername
-  returns profile picture path for Marshalls (no hunter prof pic)
-  Error Codes:
-  0 - profile path returned
-  1 - logged in user is a hunter
-  2 - statement did not execute
-  Returns
-  imageLoc (image path for profile picture)
+Andre Gras
+getProfilePictureFromUsername
+returns profile picture path for Marshalls (no hunter prof pic)
+Error Codes:
+0 - profile path returned
+1 - logged in user is a hunter
+2 - statement did not execute
+Returns
+imageLoc (image path for profile picture)
 
   complete
   */
@@ -1945,11 +1945,11 @@ $app->get('/api/getNumberReportsApproved/:username', function($username) use($db
   echo json_encode(getNumberReportsApproved($dbh,$args));
 });
 /*
-  Ryan Edson
-  getReportsFromUsernameBountyID
-  returns all bounties a user has logged on a certain bounty
-  Error Codes:
-  Returns
+Ryan Edson
+getReportsFromUsernameBountyID
+returns all bounties a user has logged on a certain bounty
+Error Codes:
+Returns
 
   complete
   */
@@ -1964,13 +1964,13 @@ $app->get('/api/getReportsFromUsernameBountyID/:username/:bountyID', function($u
   });
 
   /*
-  Michael Gilbert
-  getPreferredBounties
-  gets all the reports from the preferred reports table
-  Error Codes:
-  1: no statement executed
-  Returns
-  array of preferred bounties
+Michael Gilbert
+getPreferredBounties
+gets all the reports from the preferred reports table
+Error Codes:
+1: no statement executed
+Returns
+array of preferred bounties
 
   complete
   */
