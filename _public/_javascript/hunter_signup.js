@@ -284,9 +284,11 @@ $(document).ready(function ()
       data: userInfo,
       async: 'true',
       success: function(response) {
+        alert("HEY");
         console.log(response);
         if (response.error == '0')
         {
+          alert("HEY12");
           window.location = "/";
         }
         else if (response.error == '1')
