@@ -1416,6 +1416,7 @@ $app->get('/api/phpInfo', function () use ($dbh) {
 
 /*
 Danny Rizzuto
+getLoggedInUser
 Get the logged in user from javascript
 Error Codes:
   0 = returns username
@@ -1434,6 +1435,7 @@ $app->get('/api/getLoggedInUser', function() {
 
 /*
 Danny Rizzuto
+updateSession
 Update the session information from javascript
 Error Codes:
   0 = session info updated
@@ -1451,6 +1453,7 @@ $app->get('/api/updateSession', function ($property, $value) use ($dbh) {
 
 /*
 Danny Rizzuto
+deleteSession
 Delete the current Session
 Error Codes:
   0 = session deleted
@@ -1468,6 +1471,7 @@ $app->get('/api/deleteSession', function() {
 
 /*
 Danny Rizzuto
+loginUser
 Check to see if user can login
 Error Codes:
   0 = login user
@@ -1491,6 +1495,7 @@ $app->post('/api/loginUser', function () use ($dbh) {
 });
 
 /*Danny Rizzuto
+usernameTaken
 Check to see if username is available
 Error Codes:
   1 = username taken
@@ -1534,6 +1539,7 @@ $app->get('/api/usernameTaken/:username', function($username) use ($dbh) {
 });
 
 /*Danny Rizzuto
+emailTaken
 Check to see if email is available
 Error Codes:
  1 = Email is taken
@@ -1578,6 +1584,7 @@ $app->get('/api/emailTaken/:email', function($email) use ($dbh) {
 
 /*
 Danny Rizzuto
+signUpHunter
 Sign Up a Hunter
 Error Codes:
   0 = user signed up and logged in
@@ -1605,6 +1612,7 @@ $app->post('/api/signUpHunter', function() use ($dbh) {
 
 /*
 Danny Rizzuto
+signUpMarshal
 Sign Up a Marshal
 Error Codes:
   0 = user signed up and logged in
@@ -1637,6 +1645,7 @@ $app->post('/api/signUpMarshal', function() use ($dbh) {
 
 /*
 Andre Gras
+getHunterFromUsername
 Get the basics of a Hunter from username
 Error Codes:
   0 = user returned all good
@@ -1645,7 +1654,6 @@ Returns
   username
   userType
 
-Incomplete
 */
 
 $app->get('/api/getHunterFromUsername/:username', function($username) use ($dbh) {
@@ -1659,6 +1667,7 @@ $app->get('/api/getHunterFromUsername/:username', function($username) use ($dbh)
 
 /*
 Andre Gras
+getMarshalFromUsername
 Get the basics of a Marshal from username
 Error Codes:
   0 = user returned all good
@@ -1667,7 +1676,6 @@ Returns
   username
   userType
 
-Incomplete
 */
 
 $app->get('/api/getMarshalFromUsername/:username', function($username) use ($dbh) {
@@ -1681,6 +1689,7 @@ $app->get('/api/getMarshalFromUsername/:username', function($username) use ($dbh
 
 /*
 Michael Gilbert
+getUserFromEmail
 Get the basics of a user from email
 Error Codes:
   0 = user returned all good
@@ -1703,6 +1712,7 @@ $app->get('/api/getUserFromEmail/:email', function($email) use ($dbh) {
 
   /*
   Andre Gras
+  createBounty
   Creates a Bounty
   Error Codes:
     0 = bounty created
@@ -1729,6 +1739,7 @@ $app->post('/api/createBounty', function() use ($dbh) {
 
   /*
   Michael Gilbert
+  createReport
   Creates a report
   Error Codes:
   1: no statement executed
@@ -1754,6 +1765,7 @@ $app->post('/api/createReport', function() use ($dbh) {
 
   /*
   Ryan Edson
+  updateReport
   Updates a report with whether they are getting paid or not
   Also adds report to PaymentTable (table which will handle paypal, not in db yet)
   Error Codes:
@@ -1782,6 +1794,7 @@ $app->post('/api/updateReport', function() use ($dbh) {
 
   /*
   Ryan Edson
+  getReportsFromUsername
   Returns all reports a username has submitted
   Error Codes:
   Returns
@@ -1824,6 +1837,7 @@ $app->get('/api/getReportFromReportID/:reportID', function($reportID) use ($dbh)
 
   /*
   Andre Gras
+  getProfilePictureFromUsername
   returns profile picture path for Marshalls (no hunter prof pic)
   Error Codes:
   0 - profile path returned
@@ -1843,6 +1857,7 @@ $app->get('/api/getProfilePictureFromUsername/:username', function($username) us
 
 /*
 Andre Gras
+getActiveBounties
 returns active bounties for logged in Marshall
 Error Codes:
 0 - profile path returned
@@ -1861,6 +1876,7 @@ $app->get('/api/getActiveBounties/:username', function($username) use ($dbh) {
 
 /*
 Andre Gras
+getPastBounties
 returns past bounties for logged in Marshall
 Error Codes:
 0 - profile path returned
@@ -1879,6 +1895,7 @@ $app->get('/api/getPastBounties/:username', function($username) use ($dbh) {
 
 /*
 Michael Gilbert
+getReportsFromBountyID
 returns all reports on a certain bounty
 Error Codes:
 Returns
@@ -1930,6 +1947,7 @@ $app->get('/api/getNumberReportsApproved/:username', function($username) use($db
 });
 /*
   Ryan Edson
+  getReportsFromUsernameBountyID
   returns all bounties a user has logged on a certain bounty
   Error Codes:
   Returns
@@ -1948,6 +1966,7 @@ $app->get('/api/getReportsFromUsernameBountyID/:username/:bountyID', function($u
 
   /*
   Michael Gilbert
+  getPreferredBounties
   gets all the reports from the preferred reports table
   Error Codes:
   1: no statement executed
@@ -2109,6 +2128,7 @@ $app->post('/api/addSubscription', function() use ($dbh) {
 
 /*
 Michael Gilbert
+updateUserDetailsHunter
 Updates a user's account info
 Change code specifies which info is being changed
 Codes:
@@ -2154,6 +2174,7 @@ $app->post('/api/updateUserDetailsHunter',function() use($dbh)
 });
 /*
 Michael Gilbert
+updateUserDetailsMarshal
 Updates a marshall's account info
 Change code specifies which info is being changed
 Codes:
@@ -2211,6 +2232,7 @@ $app->post('/api/updateUserDetailsMarshal',function() use($dbh)
 });
 /*
 Michael Gilbert
+getMODHunter
 Gets Message of Day For a Hunter
 Errors:
 0: success
@@ -2224,6 +2246,7 @@ $app->get('/api/getMODHunter',function() use($dbh)
 
 /*
 Michael Gilbert
+getMODMarshal
 Gets Message of Day For a Marshall
 Errors:
 0: success
@@ -2242,6 +2265,7 @@ $app->get('/api/getBountiesFromUsernameRecentReports/:username', function($usern
 
 });
 /*
+getReportsFromMarshal
 Gets all reports submitted towards bounties made by the marshal
 Errors:
 0: success
@@ -2253,6 +2277,7 @@ $app->get('/api/getReportsFromMarshal/:username', function($username) use($dbh)
   echo json_encode(getReportsFromMarshal($dbh,$args));
 });
 /*
+getBountiesFromUsername
 Inputs:
 Username: username to find results for
 Outputs: an array of all bounties which the user has submitted reports for
@@ -2268,6 +2293,7 @@ $app->get('/api/getBountiesFromUsername/:username', function($username) use($dbh
 });
 /*
 Michael Gilbert
+basicSearch
 Inputs:
 Query: A simple string search term
 Outputs: An array of up to 5 bounties whose name includes the search term
