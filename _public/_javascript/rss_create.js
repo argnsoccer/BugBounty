@@ -3,8 +3,6 @@ $(document).ready(function ()
 
   $("#rssCreateSubmit").click(function(event) {
 
-    alert('here--');
-
     $("#rssCreateSubmit").attr("disabled", true);
 
     var rssInfo = {}
@@ -25,11 +23,9 @@ $(document).ready(function ()
       async: 'true',
       success: function(response) {
 
-
-        alert("wait");
       if(response.error == 0) {
-        console.log(response);
-        // window.location = "/_marshal/rssadd/" + response.username;
+        // console.log(response);
+        window.location = "/_marshal/rssadd/" + response.username;
       }
 
       }
