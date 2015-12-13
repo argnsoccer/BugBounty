@@ -1266,7 +1266,7 @@ function addSubscription($dbh, $args, $args2) {
   {
     $row = $statement2->fetch(PDO::FETCH_ASSOC);
     $args[':rssLink'] = $row['rssLink'];
-    if(file_exists($args[':rssLink']))
+    if(file_exists(substr($row['rssLink'], 57, strlen($row['rssLink']) - 56)))
     {
       $statement = $dbh->prepare(
       "INSERT INTO Subscription (userID, rssLink) VALUES (:userID, :rssLink)");
