@@ -60,19 +60,17 @@
                         <th class="cell">Date Ending</th>
                         <th class="cell">Bounty Name</th>
                         <th class="cell">Date Created</th>
-                        <th class="cell">Report Count</th>
                       </tr>
-                      {% for bounty in currentBounties %}
+                      {% for bounty in activeBounties.result %}
                       <tr class="rowTable">
                         <td class="cell">{{bounty.dateEnding}}</td>
-                        <td class="cell"><a href="/_hunter/bounty/{{bounty.id}}">{{bounty.name}}</a></td>
+                        <td class="cell"><a href="/_marshal/track/{{bounty.poolID}}">{{bounty.bountyName}}</a></td>
                         <td class="cell">{{bounty.dateCreated}}</td>
-                        <td class="cell">{{bounty.number}}</td>
                       </tr>
                       {% endfor %}
                     </tbody>
                   </table>
-                  {% if currentBounties|length == 0 %}
+                  {% if activeBounties.result|length == 0 %}
                     <p id="noBountiesMessage">You have no bounties, click <a href="/_marshal/upload">here</a> or on Upload in the Nav Bar to make one!</p>
                   {% endif %}
               </div>
@@ -103,7 +101,7 @@
             var subscriptions = {{ subscriptions.result|json_encode|raw }};
 
             console.log(subscriptions);
-            
+
           </script>
 
           <script type="text/javascript" src="/../_javascript/rss_display_marshal.js"></script>

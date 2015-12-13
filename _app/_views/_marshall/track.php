@@ -112,7 +112,7 @@
                 <td class="cell">{{report.errorName}}</td>
                 <td class="cell">
                   <button type="button" class="displayDetailsModal detailsButton" data-toggle="modal"
-                  data-target="#detailsModal" data-whatever="@getbootstrap"
+                  data-target="#displayDetailsModal" data-whatever="@getbootstrap"
                   data-ID={{report.reportID}}>
                     View
                   </button>
@@ -168,10 +168,9 @@
 
       </div>
 
-{{include ('_modals/submitReportModal.php')}}
+{{include ('_modals/editMessageModal.php')}}
 {{include ('_modals/displayDetailsModal.php')}}
 {{include ('_modals/messageModal.php')}}
-{{include ('_modals/basicSeachModal.php')}}
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 

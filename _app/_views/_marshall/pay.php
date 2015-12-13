@@ -8,6 +8,10 @@
     <link rel="stylesheet" type="text/css" href="/../_css/pay.css">
     <link rel="stylesheet" type="text/css" href="/../_css/options_dropdown.css">
 
+    <link rel="stylesheet" type="text/css" href="/../_css/_modal/default_modal.css" />
+    <link rel="stylesheet" type="text/css" href="/../_css/_modal/display_details_modal.css" />
+    <link rel="stylesheet" type="text/css" href="/../_css/_modal/message_modal.css" />
+
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 
@@ -72,11 +76,11 @@
               {% for report in submittedReports.result %}
               <tr class="rowTable">
                 <td class="cell">{{report.dateSubmitted}}</td>
-                <td class="cell">{{report.bountyName}}</td>
+                <td class="cell"><a href="/_marshal/track/{{report.bountyID}}">{{report.bountyName}}</a></td>
                 <td class="cell">{{report.errorName}}</td>
                 <td class="cell">
                   <button type="button" class="displayDetailsModal detailsButton" data-toggle="modal"
-                  data-target="#detailsModal" data-whatever="@getbootstrap"
+                  data-target="#displayDetailsModal" data-whatever="@getbootstrap"
                   data-ID={{report.reportID}}>
                     View
                   </button>
@@ -131,12 +135,10 @@
       </div>
     </div>
 
-
-{{include ('_modals/displayDetailsModal.php')}}
 {{include ('_modals/payModal.php')}}
 {{include ('_modals/editMessageModal.php')}}
+{{include ('_modals/displayDetailsModal.php')}}
 {{include ('_modals/messageModal.php')}}
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://js.braintreegateway.com/v2/braintree.js"></script>

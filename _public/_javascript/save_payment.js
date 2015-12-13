@@ -29,8 +29,6 @@ $(document).ready(function () {
 
     var reportID = $(this).attr("data-ID");
 
-    alert(reportID);
-
      var payInfo = [];
 
      payInfo['paidAmount'] = $(".payAmountForm[data-ID=" + $(this).attr("data-ID")+"]").val();
@@ -41,16 +39,22 @@ $(document).ready(function () {
     }
 
     payInfo['reportID'] = reportID;
-    payInfo['message'] = "";
     payInfo['changeCode'] = "2";
 
     $.ajax({
       url: '/api/updateReport',
       type: 'POST',
       dataType: 'json',
-      data: payInfo,
+      data: {
+        reportID : reportID,
+        message : "",
+        changCode : "2"
+      },
       async: 'true',
       success: function(response) {
+
+        console.log(payInfo);
+        console.log(response);
 
       $.notify({
         // options

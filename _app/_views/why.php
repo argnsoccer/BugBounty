@@ -22,6 +22,8 @@
 
   <h1 id="main_header">Why Use Bug Bounty</h1>
 
+  <a class=" btn btn-info" href="https://drive.google.com/folderview?id=0B9Kvk0vZ8r1wNGRSZEJ1bllvYjg&usp=sharing">Technical Design Documents</a>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script type="text/javascript" src="/../_javascript/basic_search.js"></script>
   <script type="text/javascript" src="/../_javascript/login.js"></script>

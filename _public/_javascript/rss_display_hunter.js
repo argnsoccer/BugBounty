@@ -5,14 +5,14 @@ for (var i = 0; i < subscriptions.length; ++i) {
 }
 
 if (subscriptionString == '') {
-  $("#rssBox").append("<p>Go to a company's page to subscrive to their webste</p>");
+  
 }
 else {
 
   (function() {var params = 
   {
     rssmikle_url: subscriptionString,
-    rssmikle_frame_width: "350",
+    rssmikle_frame_width: "390",
     rssmikle_frame_height: "400",
     frame_height_by_article: "0",
     rssmikle_target: "_blank",
