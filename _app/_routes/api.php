@@ -623,7 +623,6 @@ function updateReport($dbh, $args, $changeCode) {
     {
       $functionArray['error'] = '0';
       $functionArray['message'] = 'success';
-      $result['paidAmount'] = $_POST['paidAmount'];
       $result['message'] = $_POST['message'];
       $functionArray['result'] = $result;
     }
@@ -646,7 +645,6 @@ function updateReport($dbh, $args, $changeCode) {
       $functionArray['error'] = '0';
       $functionArray['message'] = 'success';
       $result['paidAmount'] = $_POST['paidAmount'];
-      $result['message'] = $_POST['message'];
       $functionArray['result'] = $result;
     }
     else
@@ -1267,8 +1265,8 @@ function addSubscription($dbh, $args, $args2) {
   if($statement2->execute($args2))
   {
     $row = $statement2->fetch(PDO::FETCH_ASSOC);
-    $args[':rssLink'] = substr($row['rssLink'], 57, strlen($row['rssLink']) - 56);
-    if(file_exists($args[':rssLink']))
+    $args[':rssLink'] = $row['rssLink'];
+    if(file_exists(substr($row['rssLink'], 57, strlen($row['rssLink']) - 56)))
     {
       $statement = $dbh->prepare(
       "INSERT INTO Subscription (userID, rssLink) VALUES (:userID, :rssLink)");

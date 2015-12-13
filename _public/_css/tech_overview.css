@@ -1,0 +1,114 @@
+﻿@font-face
+{
+    font-family: Helvetica;
+    src:url(../_fonts/Helvetica.otf);
+}
+
+@font-face
+{
+    font-family: PT-Sans;
+    src: url(../_fonts/PT_Sans-Web-Regular.ttf);
+}
+
+/*body
+{
+    background-color: #303030;
+}*/
+
+#what_is
+{
+    border-radius: 5px;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-right: auto;
+    padding: 5px;
+    width: 730px;
+    background: #59ABE3;
+}
+
+#what_is > h1
+{
+    font-family: PT-Sans;
+    margin-top: 0;
+}
+
+#who_is
+{
+    border-radius: 5px;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-right: auto;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 730px;
+    background: #59ABE3;
+}
+
+#major_features
+{
+    border-radius: 5px;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-right: auto;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 730px;
+    background: #59ABE3;
+}
+
+#tech_features
+{
+    border-radius: 5px;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-right: auto;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 730px;
+    background: #59ABE3;
+}
+
+#api
+{
+    border-radius: 5px;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-right: auto;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 730px;
+    background: #FFFFFF;
+}
+
+#who_is > h1
+{
+    font-family: PT-Sans;
+    margin-top: 0;
+}
+
+.profile-picture
+{
+    display: block;
+    width: 130px;
+    height: 160px;
+
+    margin: 0 auto;
+}
+
+.profile-picture + p
+{
+    /*color: #FAFAFA;*/
+    font-family: Helvetica;
+    text-align: center;
+    margin-top: 0;
+}
+
+.bio
+{
+    /*color: #FAFAFA;*/
+    /*font-family: sans-serif;*/
+    /*height: 150px;*/
+    text-align: left;
+    /*padding-bottom: 30px;*/
+    /*width: 600px;*/
+}
