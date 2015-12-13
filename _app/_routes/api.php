@@ -317,7 +317,7 @@ function signUpHunter($dbh, $args) {
   $args[":imageLoc"] = "_images/_profiles/_".$username;
   if(!mkdir("_images/_profiles/_".$username, true))
   {
-    echo(die('Failed to create profile picture directory'));
+    $functionArray['message2'] = 'Failed to create profile picture directory';
   }
 
   copy("_images/_profiles/_default_hunter/profile.png", "_images/_profiles/_".$username."/profile.png");
