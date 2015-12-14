@@ -1991,7 +1991,7 @@ $app->get('/api/getBountyFromBountyID/:bountyID', function($bountyID) use ($dbh)
 
   $args[":bountyID"] = $bountyID;
   echo json_encode(getBountyFromBountyID($dbh, $args));
-
+//
 });
 
 $app->get('/api/getClientToken', function() use ($dbh){
