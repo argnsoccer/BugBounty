@@ -2008,6 +2008,8 @@ $app->post('/api/createCreditCardPayment', function () use($dbh){
 
 //Andre Gras
 $app->post('/api/payReport', function() use ($dbh){
+  $functionArray['here'] = 1;
+
   $functionArray = array();
   $nonce = $_POST['paymentMethodNonce'];
   $amount = $_POST['amount'];
