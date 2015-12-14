@@ -1995,7 +1995,8 @@ $app->get('/api/getBountyFromBountyID/:bountyID', function($bountyID) use ($dbh)
 });
 
 $app->get('/api/getClientToken', function() use ($dbh){
-  $clientToken = Braintree_ClientToken::generate();
+  echo "here-1";
+  // $clientToken = Braintree_ClientToken::generate();
   echo "here";
   echo $clientToken;
   echo "here2";
