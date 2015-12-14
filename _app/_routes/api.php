@@ -2002,7 +2002,7 @@ $app->get('/api/getClientToken', function() use ($dbh){
 });
 
 $app->post('/api/createCreditCardPayment', function () use($dbh){
-
+//hey
 });
 
 //Andre Gras
