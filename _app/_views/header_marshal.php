@@ -6,7 +6,7 @@
     </a>
     <ul class="nav navbar-nav">
       <li class="leftNav"><a href="/">Home</a></li>
-      <li class="leftNav"><a href="/_marshal/upload">Upload</a></li>
+      <li class="leftNav"><a href="/_marshal/upload">Post</a></li>
       <li class="leftNav"><a href="/_marshal/pay">Pay</a></li>
       <li class="leftNav"><a href="/why">Why Us</a></li>
       <li class="leftNav"><a href="/about">About</a></li>
