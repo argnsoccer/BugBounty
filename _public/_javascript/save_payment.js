@@ -48,7 +48,8 @@ $(document).ready(function () {
       data: {
         reportID : reportID,
         message : "",
-        changCode : "2"
+        changeCode : "2",
+        paidAmount : $(".payAmountForm[data-ID=" + $(this).attr("data-ID")+"]").val()
       },
       async: 'true',
       success: function(response) {

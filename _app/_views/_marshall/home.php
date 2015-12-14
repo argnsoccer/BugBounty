@@ -15,7 +15,7 @@
 
           <div class="col-md-7">
             <div class="box">
-              <h3>Post a bounty</h3>
+              <h3>Steps to Success</h3>
               <div class="row innerRow image-container">
                   <div class="col-xs-4 card effect__hover">
                       <div class="card__front">
@@ -89,7 +89,6 @@
                     class="btn btn-default btn-xs newsfeed_header" onclick="onAddRSS();">
                     Add Post</button>
               </div>
-
            <!-- start feedwind code -->
           <script type="text/javascript">
             document.write(
@@ -98,9 +97,9 @@
               'feed.mikle.com/js/rssmikle.js">\x3C/script>'
             );
 
-            var subscriptions = {{ subscriptions.result|json_encode|raw }};
+            var myLink = {{rssExists.result.link|json_encode|raw }};
 
-            console.log(subscriptions);
+            console.log(myLink);
 
           </script>
 
