@@ -2008,8 +2008,8 @@ $app->get('/api/getClientToken', function() use ($dbh){
   try {
     $clientToken = Braintree_ClientToken::generate();
   }
-  catch (Exception $e) {
-    $clientToken = $e->getMessage();
+  catch (Braintree_Exception_Configuration $e) {
+    $clientToken = $e;
   }
 
   echo json_encode($clientToken);
