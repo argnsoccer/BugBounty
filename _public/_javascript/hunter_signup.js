@@ -293,6 +293,25 @@ $(document).ready(function ()
         {
           alert("Please choose a different username!");
         }
+      },
+      error: function(xhr, status, error)
+      {
+      var err = eval("(" + xhr.responseText + ")");
+      console.log(err);
+      //alert("Please Try Again, we had an internal error!");
+      $.notify({
+          // options
+          message: "  " + err + " \nsomething went wrong, please try again",
+          icon: 'glyphicon glyphicon-remove-circle'
+          },{
+          // settings
+          type: 'danger',
+          placement: {
+            from: "top",
+            align: "right",
+            allow_dismiss: true,
+          }
+        });
       }
     });
 

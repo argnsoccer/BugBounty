@@ -21,6 +21,26 @@ function prepareBountyProPage($dbh, $bountyID) {
 
 	$template_array['submittedReports'] = getReportsFromUsernameBountyID($dbh, $args);
 
+	$currentDate = date("Y").date("m").date("d");
+
+	$bountyDate = $template_array['bounty']['result']['dateEnding'];
+
+	$bountyDate = substr($bountyDate, 0, 4).substr($bountyDate, 5, 2).substr($bountyDate, 8);
+
+	// echo "<br>".substr($bountyDate, 5, 7)."<br>";
+
+	// echo $bountyDate;
+
+	$idk =  $bountyDate < $currentDate;
+
+	if ($currentDate < $bountyDate) {
+		$template_array['bounty']['expired'] = 0;
+	}
+	else {
+		$template_array['bounty']['expired'] = 1;
+	}
+
+
 	
 
 	return $template_array;

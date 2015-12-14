@@ -15,7 +15,7 @@
 
           <div class="col-md-7">
             <div class="box">
-              <h3>Post a bounty</h3>
+              <h3>Steps to Success</h3>
               <div class="row innerRow image-container">
                   <div class="col-xs-4 card effect__hover">
                       <div class="card__front">

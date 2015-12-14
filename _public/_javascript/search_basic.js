@@ -17,6 +17,7 @@ function isSet(value)
         });
     return false;
   }
+  
   return true;
 }
 
